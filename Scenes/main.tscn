@@ -1,0 +1,86 @@
+[gd_scene load_steps=8 format=3 uid="uid://dn6si7yuphnq6"]
+
+[ext_resource type="Script" path="res://Scenes/main.gd" id="1_hbbjb"]
+[ext_resource type="PackedScene" uid="uid://tvjk1wf42fsi" path="res://Scenes/deck.tscn" id="1_rnv0a"]
+[ext_resource type="PackedScene" uid="uid://dylwuxmaea2pd" path="res://Scenes/energy_bar.tscn" id="2_0wu1w"]
+[ext_resource type="PackedScene" uid="uid://bkcbih88r8rv" path="res://Scenes/card.tscn" id="2_g2o58"]
+[ext_resource type="Texture2D" uid="uid://3g18axpijiuu" path="res://art/fantasy empty playboard.png" id="5_2xmo6"]
+[ext_resource type="PackedScene" uid="uid://d2xo6yskfupnw" path="res://Scenes/enemy.tscn" id="6_bcqkl"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_wtsqd"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_hbbjb")
+
+[node name="Sprite2D" parent="." instance=ExtResource("1_rnv0a")]
+position = Vector2(204, 514)
+scale = Vector2(0.199, 0.199)
+
+[node name="RTEBar" type="Node2D" parent="."]
+light_mask = 0
+visibility_layer = 0
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="EnergyContainer" type="HBoxContainer" parent="UI"]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 37.0
+offset_bottom = 63.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+alignment = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/EnergyContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+texture = SubResource("CanvasTexture_wtsqd")
+draw_center = false
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+
+[node name="EnergyBar" parent="UI/EnergyContainer/NinePatchRect" instance=ExtResource("2_0wu1w")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+fill_time = 10
+steps = Array[Color]([Color(1, 0, 0, 1), Color(1, 0.494118, 0, 1), Color(1, 1, 0, 1), Color(0, 1, 0, 1), Color(0, 1, 1, 1)])
+step_count = 3
+
+[node name="EnergyCount" type="Label" parent="UI/EnergyContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="Hand" type="CanvasLayer" parent="."]
+
+[node name="Card" parent="Hand" instance=ExtResource("2_g2o58")]
+position = Vector2(393, 475)
+scale = Vector2(0.576, 0.58)
+
+[node name="Card2" parent="Hand" instance=ExtResource("2_g2o58")]
+position = Vector2(545, 475)
+scale = Vector2(0.576, 0.58)
+cardCost = 1
+
+[node name="FantasyEmptyPlayboard" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(575.5, 325.5)
+scale = Vector2(0.599479, 0.600926)
+texture = ExtResource("5_2xmo6")
+
+[node name="Enemy" parent="." instance=ExtResource("6_bcqkl")]
+
+[connection signal="step_reached" from="UI/EnergyContainer/NinePatchRect/EnergyBar" to="." method="_on_energy_bar_step_reached"]

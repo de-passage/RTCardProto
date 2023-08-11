@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://tvjk1wf42fsi"]
+
+[ext_resource type="Texture2D" uid="uid://dcil7jaqaiw4g" path="res://art/card fantasy back.png" id="1_o0frx"]
+
+[node name="Sprite2D" type="Sprite2D"]
+position = Vector2(392, 324)
+texture = ExtResource("1_o0frx")

@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://d2xo6yskfupnw"]
+
+[ext_resource type="Texture2D" uid="uid://bkmlxlcwpfjui" path="res://art/ballBlue_10.png" id="1_3x33g"]
+[ext_resource type="Script" path="res://Scenes/enemy.gd" id="1_5aqr7"]
+[ext_resource type="Texture2D" uid="uid://kpba32u4fw60" path="res://art/fantasy heart.png" id="2_frtni"]
+[ext_resource type="PackedScene" uid="uid://dylwuxmaea2pd" path="res://Scenes/energy_bar.tscn" id="4_sry2h"]
+
+[node name="Enemy" type="Node2D"]
+script = ExtResource("1_5aqr7")
+
+[node name="EnemySprite" type="Sprite2D" parent="."]
+position = Vector2(569, 164)
+texture = ExtResource("1_3x33g")
+
+[node name="ImaBaddy" type="Label" parent="."]
+offset_left = 528.0
+offset_top = 151.0
+offset_right = 618.0
+offset_bottom = 177.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "I'm a baddy"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Health" type="Sprite2D" parent="."]
+position = Vector2(588, 204)
+scale = Vector2(0.198276, 0.182)
+texture = ExtResource("2_frtni")
+
+[node name="Label" type="Label" parent="Health"]
+offset_left = -292.521
+offset_top = -71.4285
+offset_right = -252.521
+offset_bottom = -45.4285
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "10"
+horizontal_alignment = 2
+
+[node name="EnergyBar" parent="." instance=ExtResource("4_sry2h")]
+offset_left = 523.0
+offset_top = 95.0
+offset_right = 563.0
+offset_bottom = 135.0
+scale = Vector2(2.37828, 0.245232)
+fill_time = 5
+steps = Array[Color]([Color(1, 0, 0, 1)])
+step_count = 1
+
+[connection signal="filled" from="EnergyBar" to="." method="_on_energy_bar_filled"]

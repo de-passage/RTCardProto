@@ -1,0 +1,98 @@
+[gd_scene load_steps=8 format=3 uid="uid://bkcbih88r8rv"]
+
+[ext_resource type="Texture2D" uid="uid://86eqvhxcips" path="res://art/fantasy empty card section.png" id="1_ie30h"]
+[ext_resource type="Script" path="res://Scenes/card.gd" id="1_r3t5n"]
+[ext_resource type="Texture2D" uid="uid://cqonhtyrxpgnw" path="res://art/card fantasy iron.png" id="2_g3okb"]
+[ext_resource type="FontFile" uid="uid://bsk6op0lpnbwx" path="res://font/NeverMindsemi-serif-Regular.ttf" id="3_noxvo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b0ksd"]
+size = Vector2(254.65, 355.163)
+
+[sub_resource type="Theme" id="Theme_0m0ib"]
+default_base_scale = 1.0
+default_font = ExtResource("3_noxvo")
+default_font_size = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_xb6oi"]
+font_size = 24
+
+[node name="Card" type="Node2D"]
+position = Vector2(151, 56)
+scale = Vector2(10, 9.93822)
+script = ExtResource("1_r3t5n")
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0.674999, 66.627)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_b0ksd")
+
+[node name="BackTexture" type="Sprite2D" parent="."]
+position = Vector2(0.999993, 67)
+scale = Vector2(1.00787, 1.00565)
+texture = ExtResource("1_ie30h")
+
+[node name="CardFantasyIron" type="Sprite2D" parent="."]
+position = Vector2(0.639284, 66.6819)
+scale = Vector2(0.345056, 0.34325)
+texture = ExtResource("2_g3okb")
+
+[node name="Values" type="Control" parent="."]
+texture_filter = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = -125.0
+offset_top = -109.0
+offset_right = 128.0
+offset_bottom = 243.0
+auto_translate = false
+mouse_filter = 2
+theme = SubResource("Theme_0m0ib")
+
+[node name="Description" type="Label" parent="Values"]
+custom_minimum_size = Vector2(200, 185)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.5
+offset_top = -116.0
+offset_right = 107.5
+offset_bottom = 69.0
+grow_horizontal = 2
+grow_vertical = 2
+auto_translate = false
+theme_override_font_sizes/font_size = 14
+text = "Write text here and hope for the best"
+vertical_alignment = 1
+autowrap_mode = 2
+clip_text = true
+max_lines_visible = 2
+
+[node name="Cost" type="Label" parent="Values"]
+layout_mode = 0
+offset_left = 105.0
+offset_top = 247.254
+offset_right = 145.0
+offset_bottom = 299.254
+theme_override_colors/font_color = Color(0.539063, 0.3125, 0.3125, 1)
+theme_override_font_sizes/font_size = 40
+text = "0"
+horizontal_alignment = 1
+
+[node name="Name" type="Label" parent="Values"]
+custom_minimum_size = Vector2(185, 0)
+layout_mode = 0
+offset_left = 34.4
+offset_top = 317.589
+offset_right = 74.4
+offset_bottom = 332.589
+text = "Card Name"
+label_settings = SubResource("LabelSettings_xb6oi")
+horizontal_alignment = 1
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
