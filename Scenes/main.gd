@@ -40,3 +40,13 @@ func _on_sample_defense_selected():
 
 func _on_energy_bar_step_reached(step):
 	energy = step
+
+
+func _on_health_died():
+	Global.recapMessage = "You died!"
+	get_tree().call_deferred("change_scene_to_file", "res://Scenes/recap_screen.tscn")
+
+
+func _on_enemy_died():
+	Global.recapMessage = "You won!"
+	get_tree().call_deferred("change_scene_to_file", "res://Scenes/recap_screen.tscn")

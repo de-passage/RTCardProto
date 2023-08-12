@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://dyvwxjvv83bn4"]
+
+[ext_resource type="Texture2D" uid="uid://3g18axpijiuu" path="res://art/fantasy empty playboard.png" id="1_1ghns"]
+[ext_resource type="Theme" uid="uid://dko7c3ogpxpix" path="res://Theme/theme.tres" id="1_fjfcd"]
+[ext_resource type="Script" path="res://Scenes/main_menu.gd" id="2_jdxeu"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_fjfcd")
+script = ExtResource("2_jdxeu")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_1ghns")
+
+[node name="Buttons" type="VBoxContainer" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.0
+offset_top = -90.0
+offset_right = 84.0
+offset_bottom = 86.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartButton" type="Button" parent="TextureRect/Buttons"]
+layout_mode = 2
+theme = ExtResource("1_fjfcd")
+text = "Start"
+
+[node name="QuitButton" type="Button" parent="TextureRect/Buttons"]
+layout_mode = 2
+text = "Quit
+"
+
+[connection signal="pressed" from="TextureRect/Buttons/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="TextureRect/Buttons/QuitButton" to="." method="_on_quit_button_pressed"]
