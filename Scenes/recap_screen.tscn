@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://jv22188ku53m"]
+[gd_scene load_steps=5 format=3 uid="uid://jv22188ku53m"]
 
 [ext_resource type="Theme" uid="uid://dko7c3ogpxpix" path="res://Theme/theme.tres" id="1_6kyb0"]
 [ext_resource type="Texture2D" uid="uid://3g18axpijiuu" path="res://art/fantasy empty playboard.png" id="1_yf2bf"]
 [ext_resource type="Script" path="res://Scenes/recap_screen.gd" id="2_p0j0i"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lkw6t"]
 
 [node name="RecapScreen" type="Control"]
 layout_mode = 3
@@ -41,6 +43,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="Recap" type="Label" parent="VBoxContainer"]
+material = SubResource("ShaderMaterial_lkw6t")
 layout_mode = 2
 text = "Recap Label"
 horizontal_alignment = 1

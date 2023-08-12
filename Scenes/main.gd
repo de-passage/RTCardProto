@@ -18,6 +18,8 @@ func _ready():
 
 	draw_pile.shuffle()
 	
+	player.armor_added.connect($UI/EnergyContainer/Health.add_armor)
+	
 	$Hand/SampleAttack.update(player)
 	$Hand/SampleDefense.update(player)
 

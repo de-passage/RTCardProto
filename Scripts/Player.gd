@@ -1,13 +1,13 @@
 class_name Player
 
-signal attribute_changed
+signal armor_added(value: int)
 
 @export var strength: int = 0: 
 	set(value): 
 		strength = value
-		attribute_changed.emit() 
 		
 @export var armor: int = 0:
 	set(value): 
+		var last_armor = armor
 		armor = value
-		attribute_changed.emit()
+		armor_added.emit(value - last_armor)

@@ -1,8 +1,30 @@
-[gd_scene load_steps=4 format=3 uid="uid://cldmdqaai3y06"]
+[gd_scene load_steps=11 format=3 uid="uid://cldmdqaai3y06"]
 
 [ext_resource type="Script" path="res://Scenes/health.gd" id="1_kbc0w"]
 [ext_resource type="FontFile" uid="uid://bsk6op0lpnbwx" path="res://font/NeverMindsemi-serif-Regular.ttf" id="2_ha330"]
+[ext_resource type="Shader" path="res://Scenes/metal.gdshader" id="2_y7tul"]
 [ext_resource type="Texture2D" uid="uid://kpba32u4fw60" path="res://art/fantasy heart.png" id="3_qv01o"]
+[ext_resource type="Texture2D" uid="uid://lw1chpa2p15w" path="res://art/equip armor white.png" id="3_wqp85"]
+
+[sub_resource type="Gradient" id="Gradient_hqns1"]
+offsets = PackedFloat32Array(0.0040568, 0.476673, 1)
+colors = PackedColorArray(0.517647, 0.811765, 1, 1, 0.4756, 0.6191, 0.82, 1, 0.149546, 0.314137, 0.423106, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_m1naj"]
+gradient = SubResource("Gradient_hqns1")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_81kse"]
+seed = 2
+frequency = 0.0015
+fractal_lacunarity = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_10q62"]
+noise = SubResource("FastNoiseLite_81kse")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1dvje"]
+shader = ExtResource("2_y7tul")
+shader_parameter/noise = SubResource("NoiseTexture2D_10q62")
+shader_parameter/colors = SubResource("GradientTexture1D_m1naj")
 
 [node name="Health" type="HBoxContainer"]
 layout_direction = 2
@@ -11,6 +33,24 @@ offset_bottom = 18.0
 scale = Vector2(0.96523, 1.0017)
 alignment = 1
 script = ExtResource("1_kbc0w")
+
+[node name="CurrentArmor" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_ha330")
+theme_override_font_sizes/font_size = 12
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ArmorSprite" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_1dvje")
+custom_minimum_size = Vector2(13, 12)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_wqp85")
+expand_mode = 1
 
 [node name="CurrentHealth" type="Label" parent="."]
 layout_mode = 2

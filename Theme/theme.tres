@@ -118,4 +118,5 @@ Button/styles/pressed = SubResource("StyleBoxFlat_11sx1")
 Label/colors/font_color = Color(0.808594, 0.808594, 0.808594, 1)
 Label/font_sizes/font_size = 128
 Label/fonts/font = ExtResource("1_i38ok")
+Label/styles/normal = null
 VBoxContainer/constants/separation = 64
