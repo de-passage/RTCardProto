@@ -1,7 +1,48 @@
-[gd_scene load_steps=2 format=3 uid="uid://tvjk1wf42fsi"]
+[gd_scene load_steps=6 format=3 uid="uid://tvjk1wf42fsi"]
 
 [ext_resource type="Texture2D" uid="uid://dcil7jaqaiw4g" path="res://art/card fantasy back.png" id="1_o0frx"]
+[ext_resource type="PackedScene" uid="uid://dylwuxmaea2pd" path="res://Scenes/energy_bar.tscn" id="2_kf0no"]
+[ext_resource type="Script" path="res://Scenes/deck.gd" id="2_oscgu"]
+[ext_resource type="Texture2D" uid="uid://dek2yok6r44r5" path="res://refresh_arrow.svg" id="2_ut117"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pcbt8"]
 
 [node name="Sprite2D" type="Sprite2D"]
 position = Vector2(392, 324)
 texture = ExtResource("1_o0frx")
+script = ExtResource("2_oscgu")
+
+[node name="EnergyBar" parent="." instance=ExtResource("2_kf0no")]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.079
+offset_left = -355.0
+offset_top = -590.0
+offset_right = -1059.0
+offset_bottom = -632.081
+scale = Vector2(17.6283, 1)
+fill_time = 7.0
+steps = Array[Color]([Color(0.867188, 0.636719, 0, 1)])
+step_count = 1
+
+[node name="RefreshPivot" type="Node2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="RefreshPivot"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RefreshPivot/Area2D"]
+scale = Vector2(35, 35.2071)
+shape = SubResource("CircleShape2D_pcbt8")
+
+[node name="RefreshArrow" type="Sprite2D" parent="RefreshPivot"]
+modulate = Color(0.870588, 0.639216, 0, 1)
+z_index = 1
+scale = Vector2(0.99, 0.99)
+texture = ExtResource("2_ut117")
+
+[node name="RefreshArrowOutline" type="Sprite2D" parent="RefreshPivot"]
+modulate = Color(0.847059, 0.470588, 0, 1)
+scale = Vector2(1.01, 1.01)
+texture = ExtResource("2_ut117")
+
+[connection signal="filled" from="EnergyBar" to="." method="_on_energy_bar_filled"]
+[connection signal="input_event" from="RefreshPivot/Area2D" to="." method="_on_area_2d_input_event"]

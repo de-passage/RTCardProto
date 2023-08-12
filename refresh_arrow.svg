@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+  <!-- Incomplete Circular Arrow (3/4 of the circle) -->
+  <path d="M 400 100 A 300 300 0 0 1 680 420 A 300 300 0 0 1 400 700  A 300 300 0 0 1 100 400 " fill="none" stroke="white" stroke-width="40" />
+
+  <!-- Arrowhead at the Start -->
+  <polygon points="60,410 100, 400 140,410 100,360" fill="white" />
+
+  <!-- Inner Circle -->
+  <circle cx="400" cy="400" r="50" fill="white" />
+</svg>
