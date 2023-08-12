@@ -15,11 +15,12 @@ func _ready():
 func set_health(h: int): 
 	current_health = max(min(h, max_health), 0)
 	health_changed.emit(current_health)
+	_display_health()
 	if current_health == 0: 
 		died.emit()
 
-func damage(damage: int):
-	set_health(current_health - damage)
+func damage(value: int):
+	set_health(current_health - value)
 	
 func heal(restored: int):
 	set_health(current_health + restored)

@@ -59,6 +59,16 @@ func _process(delta):
 func reset_energy():
 	set_energy_no_signal(0)
 	
+func deduct_energy(count: int): 
+	var value_range = pb.max_value - pb.min_value
+	var step_value = value_range / step_count
+	var current_step = last_step
+	set_energy_no_signal(pb.value - (count * step_value))
+	if last_step != current_step:
+		step_reached.emit(last_step)
+		if last_step == step_count:
+			filled.emit()
+	
 func set_energy_no_signal(energy: float): 
 	var expected_value = max(pb.min_value, min(pb.max_value, energy))
 	var current_filled_ratio = expected_value / (pb.max_value - pb.min_value)
@@ -66,4 +76,4 @@ func set_energy_no_signal(energy: float):
 	
 	pb.set_value_no_signal(expected_value)
 	last_step = current_step_reached
-	sb.bg_color = steps[0]
+	sb.bg_color = steps[min(last_step, steps.size() - 1)]

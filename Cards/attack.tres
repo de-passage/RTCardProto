@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CardResource" load_steps=3 format=3 uid="uid://oo1rshtduo2a"]
+
+[ext_resource type="Script" path="res://Scripts/AttackEffect.gd" id="1_feiud"]
+[ext_resource type="Script" path="res://Scripts/CardResource.gd" id="2_8sr0q"]
+
+[resource]
+script = ExtResource("2_8sr0q")
+cardName = "Attack"
+cardDescription = "Attack for %s damage"
+cost = 1
+effect = ExtResource("1_feiud")

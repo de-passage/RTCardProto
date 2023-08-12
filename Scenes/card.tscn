@@ -29,7 +29,6 @@ shape = SubResource("RectangleShape2D_b0ksd")
 
 [node name="BackTexture" type="Sprite2D" parent="."]
 position = Vector2(0.999993, 67)
-scale = Vector2(1.00787, 1.00565)
 texture = ExtResource("1_ie30h")
 
 [node name="CardFantasyIron" type="Sprite2D" parent="."]
