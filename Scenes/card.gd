@@ -58,3 +58,6 @@ func _load_card_effects(ef: Array[EffectResource]) -> Array[BaseEffect]:
 		else: 
 			printerr("Failed to import effect!")
 	return result
+
+func get_width(): 
+	return $BackTexture.texture.get_width() * scale.x

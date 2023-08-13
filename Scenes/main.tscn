@@ -1,17 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://dn6si7yuphnq6"]
+[gd_scene load_steps=10 format=3 uid="uid://dn6si7yuphnq6"]
 
 [ext_resource type="Script" path="res://Scenes/main.gd" id="1_hbbjb"]
 [ext_resource type="PackedScene" uid="uid://tvjk1wf42fsi" path="res://Scenes/deck.tscn" id="1_rnv0a"]
 [ext_resource type="PackedScene" uid="uid://dylwuxmaea2pd" path="res://Scenes/energy_bar.tscn" id="2_0wu1w"]
-[ext_resource type="PackedScene" uid="uid://bkcbih88r8rv" path="res://Scenes/card.tscn" id="2_g2o58"]
 [ext_resource type="Script" path="res://Scenes/UI.gd" id="3_obysc"]
 [ext_resource type="Theme" uid="uid://dqejunx8h0xid" path="res://Scenes/board_ui.tres" id="4_ncagd"]
 [ext_resource type="PackedScene" uid="uid://cldmdqaai3y06" path="res://Scenes/health.tscn" id="4_nid23"]
 [ext_resource type="Texture2D" uid="uid://3g18axpijiuu" path="res://art/fantasy empty playboard.png" id="5_2xmo6"]
 [ext_resource type="PackedScene" uid="uid://d2xo6yskfupnw" path="res://Scenes/enemy.tscn" id="6_bcqkl"]
 [ext_resource type="Script" path="res://Scenes/Hand.gd" id="6_pv0oh"]
-[ext_resource type="Resource" uid="uid://oo1rshtduo2a" path="res://Cards/attack.tres" id="8_856et"]
-[ext_resource type="Resource" uid="uid://d0t4mewpuui2a" path="res://Cards/defense.tres" id="9_8n7hk"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_hbbjb")
@@ -59,20 +56,7 @@ offset_bottom = 566.0
 max_health = 50
 current_health = 50
 
-[node name="Hand" type="CanvasLayer" parent="."]
-script = ExtResource("6_pv0oh")
-
-[node name="SampleAttack" parent="Hand" instance=ExtResource("2_g2o58")]
-position = Vector2(535, 779)
-scale = Vector2(1, 1)
-resource = ExtResource("8_856et")
-
-[node name="SampleDefense" parent="Hand" instance=ExtResource("2_g2o58")]
-position = Vector2(808, 779)
-scale = Vector2(1, 1)
-resource = ExtResource("9_8n7hk")
-
-[node name="FantasyEmptyPlayboard" type="Sprite2D" parent="."]
+[node name="Background" type="Sprite2D" parent="."]
 z_index = -6
 position = Vector2(960, 540)
 texture = ExtResource("5_2xmo6")
@@ -83,8 +67,15 @@ scale = Vector2(1, 0.998151)
 max_hp = 10
 attack_frequency = 5.0
 
+[node name="Hand" type="CanvasLayer" parent="."]
+layer = 4
+script = ExtResource("6_pv0oh")
+
+[node name="HandStart" type="Marker2D" parent="Hand"]
+position = Vector2(536, 780)
+
+[connection signal="refreshed" from="Deck" to="." method="_on_deck_refreshed"]
 [connection signal="step_reached" from="UI/EnergyContainer/EnergyBar" to="." method="_on_energy_bar_step_reached"]
 [connection signal="step_reached" from="UI/EnergyContainer/EnergyBar" to="UI" method="_on_energy_bar_step_reached"]
-[connection signal="selected" from="Hand/SampleAttack" to="." method="_on_sample_attack_selected"]
-[connection signal="selected" from="Hand/SampleDefense" to="." method="_on_sample_defense_selected"]
 [connection signal="attacking" from="Enemy" to="." method="_on_enemy_attacking"]
+[connection signal="card_selected" from="Hand" to="." method="_play_card"]

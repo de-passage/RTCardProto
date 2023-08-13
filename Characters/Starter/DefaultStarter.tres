@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="StarterDeck" load_steps=10 format=3 uid="uid://cdbcy6ypoa675"]
+
+[ext_resource type="Script" path="res://Scripts/Effects/Damage.gd" id="1_bmn1b"]
+[ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_x5rss"]
+[ext_resource type="Script" path="res://Scripts/CardResource.gd" id="3_nuwng"]
+[ext_resource type="Resource" uid="uid://d0t4mewpuui2a" path="res://Cards/defense.tres" id="4_7mp43"]
+[ext_resource type="Resource" uid="uid://dpje6r2peqvv7" path="res://Cards/double_strike.tres" id="5_psxl6"]
+[ext_resource type="Resource" uid="uid://bhl40o114lvmv" path="res://Cards/heal.tres" id="6_klsh3"]
+[ext_resource type="Script" path="res://Scripts/StarterDeck.gd" id="7_265mq"]
+
+[sub_resource type="Resource" id="Resource_72j6s"]
+script = ExtResource("2_x5rss")
+effectValues = Array[int]([5])
+effectScript = ExtResource("1_bmn1b")
+
+[sub_resource type="Resource" id="Resource_hbndm"]
+script = ExtResource("3_nuwng")
+cardName = "Attack"
+cost = 1
+cardEffects = Array[ExtResource("2_x5rss")]([SubResource("Resource_72j6s")])
+
+[resource]
+script = ExtResource("7_265mq")
+cards = Array[ExtResource("3_nuwng")]([SubResource("Resource_hbndm"), SubResource("Resource_hbndm"), SubResource("Resource_hbndm"), SubResource("Resource_hbndm"), ExtResource("4_7mp43"), ExtResource("4_7mp43"), ExtResource("4_7mp43"), ExtResource("4_7mp43"), ExtResource("5_psxl6"), ExtResource("6_klsh3")])

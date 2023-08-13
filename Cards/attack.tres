@@ -12,5 +12,5 @@ effectScript = ExtResource("1_07k3e")
 [resource]
 script = ExtResource("2_8sr0q")
 cardName = "Attack"
-cost = 0
+cost = 1
 cardEffects = Array[ExtResource("2_h62d3")]([SubResource("Resource_72j6s")])
