@@ -8,3 +8,10 @@ class_name CardResource
 @export var cardName: String 
 @export var cost: int
 @export var cardEffects: Array[EffectResource]
+
+
+func load_card_effects() -> Array[BaseEffect]: 
+	var result: Array[BaseEffect] = []
+	for e in cardEffects: 
+		result.append(e.load_effect())
+	return result

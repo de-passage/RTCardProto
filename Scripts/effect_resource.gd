@@ -9,3 +9,13 @@ class_name EffectResource
 
 @export var effectValues: Array[int]
 @export var effectScript: Script
+
+func load_effect():
+	var effect = effectScript.new(effectValues)
+	if effect is BaseEffect: 
+		if effect.has_method("accept_values"):
+			effect.accept_values(effectValues)
+		return effect
+	else: 
+		printerr("Failed to import effect!")
+		return null

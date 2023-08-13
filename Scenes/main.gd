@@ -18,9 +18,6 @@ func _ready():
 	
 	manager.initialize(Global.current_deck, player)
 
-func _on_enemy_attacking():
-	player.deal_damage(5)
-
 func _play_card(card: Card): 
 	if card.cardCost <= energy: 
 		$UI/EnergyContainer/EnergyBar.deduct_energy(card.cardCost)
@@ -46,3 +43,7 @@ func _on_enemy_died():
 
 func _on_deck_refreshed():
 	manager.draw_new_hand()
+
+
+func _on_enemy_effects(effect):
+	effect.call(player)

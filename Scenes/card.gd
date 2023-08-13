@@ -8,7 +8,7 @@ signal selected
 		resource = value
 		cardCost = value.cost
 		cardName = value.cardName
-		effects = _load_card_effects(resource.cardEffects)
+		effects = resource.load_card_effects()
 
 var cardDescription: String: 
 	set(value): 
@@ -46,18 +46,6 @@ func update(player: PlayableEntity):
 func apply(player: PlayableEntity, enemy: PlayableEntity): 
 	for effect in effects:
 		effect.apply_effect(player, enemy)
-
-func _load_card_effects(ef: Array[EffectResource]) -> Array[BaseEffect]: 
-	var result: Array[BaseEffect] = []
-	for e in ef: 
-		var effect = e.effectScript.new(e.effectValues)
-		if effect is BaseEffect: 
-			if effect.has_method("accept_values"):
-				effect.accept_values(e.effectValues)
-			result.append(effect)
-		else: 
-			printerr("Failed to import effect!")
-	return result
 
 func get_width(): 
 	return $BackTexture.texture.get_width() * scale.x

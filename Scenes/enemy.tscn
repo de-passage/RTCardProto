@@ -43,4 +43,13 @@ fill_time = 5.0
 steps = Array[Color]([Color(1, 0, 0, 1)])
 step_count = 1
 
+[node name="Intent" type="Label" parent="Control"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_left = -93.0
+offset_top = -113.0
+offset_right = 107.0
+offset_bottom = -90.0
+horizontal_alignment = 1
+
 [connection signal="filled" from="Control/EnergyBar" to="." method="_on_energy_bar_filled"]
