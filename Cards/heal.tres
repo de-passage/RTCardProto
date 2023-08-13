@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CardResource" load_steps=5 format=3 uid="uid://bhl40o114lvmv"]
+
+[ext_resource type="Script" path="res://Scripts/Effects/Heal.gd" id="1_hpe1n"]
+[ext_resource type="Script" path="res://Scripts/CardResource.gd" id="1_t7a8x"]
+[ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_tcwuy"]
+
+[sub_resource type="Resource" id="Resource_xa2vq"]
+script = ExtResource("2_tcwuy")
+effectValues = Array[int]([3])
+effectScript = ExtResource("1_hpe1n")
+
+[resource]
+script = ExtResource("1_t7a8x")
+cardName = "Heal"
+cost = 2
+cardEffects = Array[ExtResource("2_tcwuy")]([SubResource("Resource_xa2vq")])

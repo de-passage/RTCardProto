@@ -6,10 +6,9 @@ signal selected
 @export var resource: CardResource: 
 	set(value): 
 		resource = value
-		effect = value.effect.new() as BaseEffect
 		cardCost = value.cost
 		cardName = value.cardName
-		cardDescription = value.cardDescription
+		effects = _load_card_effects(resource.cardEffects)
 
 var cardDescription: String: 
 	set(value): 
@@ -18,15 +17,19 @@ var cardDescription: String:
 
 var cardName: String:
 	set(value):
-		cardName = value
 		$Values/Name.text = value
+	get:
+		return resource.cardName
 
 var cardCost: int:
 	set(value): 
-		cardCost = value
 		$Values/Cost.text = str(value)
-
-var effect: BaseEffect
+	get:
+		return resource.cost
+		
+var effects: Array[BaseEffect]:
+	get: 
+		return effects if effects != null else [BaseEffect.new()] 
 
 func _on_area_2d_input_event(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton \
@@ -35,7 +38,23 @@ func _on_area_2d_input_event(_viewport, event, _shape_idx):
 		selected.emit()
 
 func update(player: PlayableEntity):
-	cardDescription = effect.get_description(player)
+	var desc = ""
+	for effect in effects: 
+		desc += effect.get_description(player) + "\n"
+	cardDescription = desc
 
 func apply(player: PlayableEntity, enemy: PlayableEntity): 
-	effect.apply_effect(player, enemy)
+	for effect in effects:
+		effect.apply_effect(player, enemy)
+
+func _load_card_effects(ef: Array[EffectResource]) -> Array[BaseEffect]: 
+	var result: Array[BaseEffect] = []
+	for e in ef: 
+		var effect = e.effectScript.new(e.effectValues)
+		if effect is BaseEffect: 
+			if effect.has_method("accept_values"):
+				effect.accept_values(e.effectValues)
+			result.append(effect)
+		else: 
+			printerr("Failed to import effect!")
+	return result

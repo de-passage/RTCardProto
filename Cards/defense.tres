@@ -1,11 +1,16 @@
-[gd_resource type="Resource" script_class="CardResource" load_steps=3 format=3 uid="uid://d0t4mewpuui2a"]
+[gd_resource type="Resource" script_class="CardResource" load_steps=5 format=3 uid="uid://d0t4mewpuui2a"]
 
 [ext_resource type="Script" path="res://Scripts/CardResource.gd" id="1_dmycw"]
-[ext_resource type="Script" path="res://Scripts/Effects/DefenseEffect.gd" id="1_uxgwr"]
+[ext_resource type="Script" path="res://Scripts/Effects/AddArmor.gd" id="1_evhx6"]
+[ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_37qgp"]
+
+[sub_resource type="Resource" id="Resource_eus3n"]
+script = ExtResource("2_37qgp")
+effectValues = Array[int]([5])
+effectScript = ExtResource("1_evhx6")
 
 [resource]
 script = ExtResource("1_dmycw")
-cardName = "Defense"
-cardDescription = "Gain %s armor"
+cardName = "Defend"
 cost = 1
-effect = ExtResource("1_uxgwr")
+cardEffects = Array[ExtResource("2_37qgp")]([SubResource("Resource_eus3n")])

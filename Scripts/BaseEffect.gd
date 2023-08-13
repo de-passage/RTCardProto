@@ -1,4 +1,4 @@
-class_name BaseEffect 
+class_name BaseEffect
 
 @export var description: String = "Does nothing"
 
