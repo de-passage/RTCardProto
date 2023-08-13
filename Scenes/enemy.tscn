@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dylwuxmaea2pd" path="res://Scenes/energy_bar.tscn" id="4_sry2h"]
 
 [node name="Enemy" type="Node2D"]
+position = Vector2(180, 140)
 script = ExtResource("1_5aqr7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -18,27 +19,28 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_group_ = true
 
 [node name="Health" parent="Control" instance=ExtResource("3_ii3l6")]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -24.0
-offset_right = 24.0
+offset_left = -121.0
+offset_top = 76.0
+offset_right = 142.0
+offset_bottom = 134.0
 grow_horizontal = 2
 max_health = 10
 current_health = 10
 
 [node name="EnergyBar" parent="Control" instance=ExtResource("4_sry2h")]
-offset_left = -61.0
-offset_top = -83.0
-offset_right = -21.0
-offset_bottom = -43.0
-scale = Vector2(3.22855, 0.208935)
+offset_left = -93.0
+offset_top = -89.0
+offset_right = 107.0
+offset_bottom = -79.0
 fill_time = 5.0
 steps = Array[Color]([Color(1, 0, 0, 1)])
 step_count = 1
 
-[connection signal="died" from="Control/Health" to="." method="_on_health_died"]
 [connection signal="filled" from="Control/EnergyBar" to="." method="_on_energy_bar_filled"]

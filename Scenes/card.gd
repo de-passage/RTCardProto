@@ -34,8 +34,8 @@ func _on_area_2d_input_event(_viewport, event, _shape_idx):
 		and event.pressed: 
 		selected.emit()
 
-func update(player: Player):
-	cardDescription = effect.modify_description(cardDescription, player)
+func update(player: PlayableEntity):
+	cardDescription = effect.get_description(player)
 
-func apply(player: Player, enemy: Enemy): 
+func apply(player: PlayableEntity, enemy: PlayableEntity): 
 	effect.apply_effect(player, enemy)

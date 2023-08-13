@@ -8,13 +8,17 @@ signal attacking
 @export var max_hp: int: 
 	set(value): 
 		max_hp = value
-		$Control/Health.max_health = max_hp
-		$Control/Health.current_health = max_hp
 		
 @export var attack_frequency : float:
 	set(value):
 		$Control/EnergyBar.fill_time = value
 		attack_frequency = value
+
+var entity: PlayableEntity
+
+func _ready(): 
+	entity = PlayableEntity.new(max_hp)
+	$Control/Health.connect_playable_entity(entity)
 
 func _on_energy_bar_filled():
 	attack()
@@ -22,10 +26,3 @@ func _on_energy_bar_filled():
 
 func attack(): 
 	attacking.emit()
-	
-func damage(value: int):
-	$Control/Health.damage(value)
-
-
-func _on_health_died():
-	died.emit()

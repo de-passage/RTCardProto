@@ -5,14 +5,13 @@
 [ext_resource type="PackedScene" uid="uid://dylwuxmaea2pd" path="res://Scenes/energy_bar.tscn" id="2_0wu1w"]
 [ext_resource type="PackedScene" uid="uid://bkcbih88r8rv" path="res://Scenes/card.tscn" id="2_g2o58"]
 [ext_resource type="Script" path="res://Scenes/UI.gd" id="3_obysc"]
+[ext_resource type="Theme" uid="uid://dqejunx8h0xid" path="res://Scenes/board_ui.tres" id="4_ncagd"]
 [ext_resource type="PackedScene" uid="uid://cldmdqaai3y06" path="res://Scenes/health.tscn" id="4_nid23"]
 [ext_resource type="Texture2D" uid="uid://3g18axpijiuu" path="res://art/fantasy empty playboard.png" id="5_2xmo6"]
 [ext_resource type="PackedScene" uid="uid://d2xo6yskfupnw" path="res://Scenes/enemy.tscn" id="6_bcqkl"]
 [ext_resource type="Script" path="res://Scenes/Hand.gd" id="6_pv0oh"]
 [ext_resource type="Resource" uid="uid://oo1rshtduo2a" path="res://Cards/attack.tres" id="8_856et"]
 [ext_resource type="Resource" uid="uid://d0t4mewpuui2a" path="res://Cards/defense.tres" id="9_8n7hk"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_wtsqd"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_hbbjb")
@@ -29,42 +28,22 @@ visibility_layer = 0
 script = ExtResource("3_obysc")
 
 [node name="EnergyContainer" type="HBoxContainer" parent="UI"]
-anchors_preset = 14
+anchors_preset = 6
+anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = 37.0
-offset_bottom = 63.0
-grow_horizontal = 2
+offset_left = -1244.0
+offset_top = -76.0
+offset_right = -684.0
+offset_bottom = -28.0
+grow_horizontal = 0
 grow_vertical = 2
-size_flags_vertical = 4
-alignment = 1
+theme = ExtResource("4_ncagd")
 
-[node name="Health" parent="UI/EnergyContainer" instance=ExtResource("4_nid23")]
+[node name="EnergyBar" parent="UI/EnergyContainer" instance=ExtResource("2_0wu1w")]
 layout_mode = 2
-max_health = 50
-current_health = 50
-
-[node name="NinePatchRect" type="NinePatchRect" parent="UI/EnergyContainer"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-texture = SubResource("CanvasTexture_wtsqd")
-draw_center = false
-patch_margin_left = 1
-patch_margin_top = 1
-patch_margin_right = 1
-patch_margin_bottom = 1
-
-[node name="EnergyBar" parent="UI/EnergyContainer/NinePatchRect" instance=ExtResource("2_0wu1w")]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 0.0
-offset_bottom = 0.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 4
+size_flags_horizontal = 3
 fill_time = 10.0
 steps = Array[Color]([Color(1, 0, 0, 1), Color(1, 0.494118, 0, 1), Color(1, 1, 0, 1), Color(0, 1, 0, 1), Color(0, 1, 1, 1)])
 step_count = 3
@@ -72,6 +51,13 @@ step_count = 3
 [node name="EnergyCount" type="Label" parent="UI/EnergyContainer"]
 layout_mode = 2
 text = "0"
+
+[node name="Health" parent="UI" instance=ExtResource("4_nid23")]
+offset_top = 518.0
+offset_right = 1920.0
+offset_bottom = 566.0
+max_health = 50
+current_health = 50
 
 [node name="Hand" type="CanvasLayer" parent="."]
 script = ExtResource("6_pv0oh")
@@ -92,15 +78,13 @@ position = Vector2(960, 540)
 texture = ExtResource("5_2xmo6")
 
 [node name="Enemy" parent="." instance=ExtResource("6_bcqkl")]
-position = Vector2(950, 321)
+position = Vector2(946, 241)
 scale = Vector2(1, 0.998151)
 max_hp = 10
 attack_frequency = 5.0
 
-[connection signal="died" from="UI/EnergyContainer/Health" to="." method="_on_health_died"]
-[connection signal="step_reached" from="UI/EnergyContainer/NinePatchRect/EnergyBar" to="." method="_on_energy_bar_step_reached"]
-[connection signal="step_reached" from="UI/EnergyContainer/NinePatchRect/EnergyBar" to="UI" method="_on_energy_bar_step_reached"]
+[connection signal="step_reached" from="UI/EnergyContainer/EnergyBar" to="." method="_on_energy_bar_step_reached"]
+[connection signal="step_reached" from="UI/EnergyContainer/EnergyBar" to="UI" method="_on_energy_bar_step_reached"]
 [connection signal="selected" from="Hand/SampleAttack" to="." method="_on_sample_attack_selected"]
 [connection signal="selected" from="Hand/SampleDefense" to="." method="_on_sample_defense_selected"]
 [connection signal="attacking" from="Enemy" to="." method="_on_enemy_attacking"]
-[connection signal="died" from="Enemy" to="." method="_on_enemy_died"]

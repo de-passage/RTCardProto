@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cebv3cimxlugh"]
+
+[ext_resource type="Script" path="res://Scenes/PlayableEntity.gd" id="1_pn83o"]
+[ext_resource type="Texture2D" uid="uid://8l6w1mx8h0u8" path="res://icon.svg" id="2_f4xdj"]
+
+[node name="PlayableEntity" type="Node2D"]
+scale = Vector2(1, 0.996216)
+script = ExtResource("1_pn83o")
+height = 320
+width = 320
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_f4xdj")

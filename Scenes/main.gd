@@ -5,7 +5,7 @@ enum CardType { ATTACK, DEFENSE, HEAL, INC_STRENGTH, ATTACK_AND_DRAW }
 var draw_pile: Array[CardType] = []
 var discard_pile : Array[CardType] = []
 
-var player = Player.new()
+var player = Player.new(11)
 var energy = 0
 
 func _ready():
@@ -18,21 +18,24 @@ func _ready():
 
 	draw_pile.shuffle()
 	
-	player.armor_added.connect($UI/EnergyContainer/Health.add_armor)
+	$UI/Health.connect_playable_entity(player)
 	
 	$Hand/SampleAttack.update(player)
 	$Hand/SampleDefense.update(player)
+	
+	$Enemy.entity.died.connect(_on_enemy_died)
+	player.died.connect(_on_player_died)
 
 func draw_from_pile():
 	pass
 
 func _on_enemy_attacking():
-	$UI/EnergyContainer/Health.damage(5)
+	player.deal_damage(5)
 
 func _play_card(card: Card): 
 	if card.cardCost <= energy: 
-		$UI/EnergyContainer/NinePatchRect/EnergyBar.deduct_energy(card.cardCost)
-		card.apply(player, $Enemy)
+		$UI/EnergyContainer/EnergyBar.deduct_energy(card.cardCost)
+		card.apply(player, $Enemy.entity)
 
 func _on_sample_attack_selected():
 	_play_card($Hand/SampleAttack)
@@ -44,7 +47,7 @@ func _on_energy_bar_step_reached(step):
 	energy = step
 
 
-func _on_health_died():
+func _on_player_died():
 	Global.recapMessage = "You died!"
 	get_tree().call_deferred("change_scene_to_file", "res://Scenes/recap_screen.tscn")
 

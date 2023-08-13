@@ -1,7 +1,9 @@
 class_name BaseEffect 
 
-func apply_effect(_player: Player, _enemy: Enemy): 
+@export var description: String = "Does nothing"
+
+func apply_effect(_player: PlayableEntity, _enemy: PlayableEntity) -> void: 
 	pass
 	
-func modify_description(desc: String, _player: Player): 
-	return desc
+func get_description(_player: PlayableEntity) -> String: 
+	return description

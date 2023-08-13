@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://cldmdqaai3y06"]
 
+[ext_resource type="Theme" uid="uid://dqejunx8h0xid" path="res://Scenes/board_ui.tres" id="1_b4d3j"]
 [ext_resource type="Script" path="res://Scenes/health.gd" id="1_kbc0w"]
-[ext_resource type="FontFile" uid="uid://bsk6op0lpnbwx" path="res://font/NeverMindsemi-serif-Regular.ttf" id="2_ha330"]
 [ext_resource type="Shader" path="res://Scenes/metal.gdshader" id="2_y7tul"]
 [ext_resource type="Texture2D" uid="uid://kpba32u4fw60" path="res://art/fantasy heart.png" id="3_qv01o"]
 [ext_resource type="Texture2D" uid="uid://lw1chpa2p15w" path="res://art/equip armor white.png" id="3_wqp85"]
@@ -28,42 +28,33 @@ shader_parameter/colors = SubResource("GradientTexture1D_m1naj")
 
 [node name="Health" type="HBoxContainer"]
 layout_direction = 2
-offset_right = 48.0
-offset_bottom = 18.0
-scale = Vector2(0.96523, 1.0017)
+offset_right = 263.0
+offset_bottom = 58.0
+theme = ExtResource("1_b4d3j")
 alignment = 1
 script = ExtResource("1_kbc0w")
 
 [node name="CurrentArmor" type="Label" parent="."]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_ha330")
-theme_override_font_sizes/font_size = 12
 text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="ArmorSprite" type="TextureRect" parent="."]
 material = SubResource("ShaderMaterial_1dvje")
-custom_minimum_size = Vector2(13, 12)
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
 texture = ExtResource("3_wqp85")
-expand_mode = 1
+expand_mode = 2
 
 [node name="CurrentHealth" type="Label" parent="."]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_ha330")
-theme_override_font_sizes/font_size = 12
 text = "10/10"
 horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(14, 12)
 layout_mode = 2
-size_flags_vertical = 4
+size_flags_horizontal = 4
 texture = ExtResource("3_qv01o")
-expand_mode = 1
+expand_mode = 2
