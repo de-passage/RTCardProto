@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dek2yok6r44r5"
-path="res://.godot/imported/refresh_arrow.svg-90392dd7c081fb516efbe75c58ccbfc6.ctex"
+uid="uid://rwo8ytsp4rk6"
+path="res://.godot/imported/enemy_icon.svg-2d8da3a6ebc9c3fa4326f015bf8185ef.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://refresh_arrow.svg"
-dest_files=["res://.godot/imported/refresh_arrow.svg-90392dd7c081fb516efbe75c58ccbfc6.ctex"]
+source_file="res://art/enemy_icon.svg"
+dest_files=["res://.godot/imported/enemy_icon.svg-2d8da3a6ebc9c3fa4326f015bf8185ef.ctex"]
 
 [params]
 
