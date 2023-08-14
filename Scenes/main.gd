@@ -9,6 +9,9 @@ func _ready():
 	player.current_hp = Global.current_health
 	$UI/Health.connect_playable_entity(player)
 	
+	$Enemy.resource = Global.random_enemy()
+	print("Loaded %s" % $Enemy.resource.name)
+	
 	$Enemy.entity.died.connect(_on_enemy_died)
 	player.died.connect(_on_player_died)
 	

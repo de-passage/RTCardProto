@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="EffectResource" load_steps=3 format=3 uid="uid://ca8668j2aexl2"]
+
+[ext_resource type="Script" path="res://Scripts/Effects/Damage.gd" id="1_kyrcp"]
+[ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_e67vr"]
+
+[resource]
+script = ExtResource("2_e67vr")
+effectValues = Array[int]([5])
+effectScript = ExtResource("1_kyrcp")

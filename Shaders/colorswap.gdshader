@@ -1,0 +1,14 @@
+shader_type canvas_item;
+
+float grayscale(vec3 v) {
+	return (v.r+v.g+v.b)/3.;
+}
+
+uniform vec3 color: source_color;
+
+void fragment() {
+	vec4 t = texture(TEXTURE, UV);
+	float g = grayscale(t.rgb);
+	COLOR.rgb = vec3(g,g,g) * color;
+	COLOR.a = t.a;
+}

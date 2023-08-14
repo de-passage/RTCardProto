@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://Scenes/recap_screen.gd" id="2_p0j0i"]
 [ext_resource type="Theme" uid="uid://ce00dygj64r3p" path="res://Theme/reward_theme.tres" id="4_16662"]
 [ext_resource type="Texture2D" uid="uid://b5q3fby6x7a2b" path="res://art/coin_icon.svg" id="5_hj6a1"]
-[ext_resource type="Material" uid="uid://b1hbwrmplmn0c" path="res://Scenes/coin_material.tres" id="5_ydx47"]
+[ext_resource type="Material" uid="uid://b1hbwrmplmn0c" path="res://Shaders/coin_material.tres" id="5_j6i5s"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lkw6t"]
 
@@ -66,7 +66,7 @@ text = "Coins"
 expand_icon = true
 
 [node name="TextureRect" type="TextureRect" parent="VBox/Rewards/Buttons/CoinButton"]
-material = ExtResource("5_ydx47")
+material = ExtResource("5_j6i5s")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0

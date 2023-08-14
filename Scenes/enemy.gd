@@ -11,10 +11,31 @@ signal effects(effect: Callable)
 		
 @export var attack_frequency : float:
 	set(value):
-		$Control/EnergyBar.fill_time = value
 		attack_frequency = value
 
 @export var effectList: Array[EffectResource] = []
+
+@export var resource: EnemyResource:
+	set(value):
+		resource = value
+		effectList = value.effects
+		coin_value = value.coin_value
+		max_hp = value.health
+		attack_frequency = value.attack_frequency
+		if $Sprite2D != null:
+			$Sprite2D.texture = resource.texture
+			$Sprite2D.material = resource.shader
+		if $Control/EnergyBar != null:
+			$Control/EnergyBar.fill_time = attack_frequency
+		effectQueue = []
+		for effect in effectList:
+			effectQueue.append(effect.load_effect())
+			
+		if effectQueue.is_empty(): # Just so it doesn't crash
+			effectQueue.append(BaseEffect.new())
+			
+		if $Control/Health != null:	
+			$Control/Health.connect_playable_entity(entity)
 
 @onready var entity = PlayableEntity.new(max_hp)
 
@@ -22,13 +43,15 @@ signal effects(effect: Callable)
 var current_effect = 0
 var effectQueue: Array[BaseEffect] 
 
-func _ready(): 
+func _ready():
+	# This needs a rework. Basically depending on the situation
+	# the resource may not be ready yet...
+	if resource != null:
+		resource = resource
+	
+	if attack_frequency <= 0: 
+		attack_frequency = 5
 	$Control/Health.connect_playable_entity(entity)
-	for effect in effectList:
-		effectQueue.append(effect.load_effect())
-		
-	if effectQueue.is_empty(): # Just so it doesn't crash
-		effectQueue.append(BaseEffect.new())
 	
 	show_intent()
 

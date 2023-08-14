@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://cldmdqaai3y06"]
 
-[ext_resource type="Theme" uid="uid://dqejunx8h0xid" path="res://Scenes/board_ui.tres" id="1_b4d3j"]
+[ext_resource type="Theme" uid="uid://dqejunx8h0xid" path="res://Theme/board_ui.tres" id="1_d1dmo"]
 [ext_resource type="Script" path="res://Scenes/health.gd" id="1_kbc0w"]
 [ext_resource type="Texture2D" uid="uid://kpba32u4fw60" path="res://art/fantasy heart.png" id="3_qv01o"]
 [ext_resource type="Shader" path="res://Shaders/metal.gdshader" id="3_rde1c"]
@@ -30,7 +30,7 @@ shader_parameter/colors = SubResource("GradientTexture1D_m1naj")
 layout_direction = 2
 offset_right = 263.0
 offset_bottom = 58.0
-theme = ExtResource("1_b4d3j")
+theme = ExtResource("1_d1dmo")
 alignment = 1
 script = ExtResource("1_kbc0w")
 
