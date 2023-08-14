@@ -7,8 +7,10 @@ uniform float diffusion: hint_range(0.0, 10.0, 0.1);
 
 void fragment() {
 	vec4 screen = texture(SCREEN_TEXTURE, SCREEN_UV);
-	if (screen == vec4(1.,1.,1.,1.)) {
+	float grayScale = (screen.r + screen.g + screen.b) /3.;
+	if (grayScale > .89) {
 		float n = texture(noise, UV).r * diffusion;
+
 		COLOR.a = 1.;
 		COLOR.rgb = vec3(
 			mix(target_color.r, 1., n),

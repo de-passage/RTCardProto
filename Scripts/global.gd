@@ -16,3 +16,10 @@ func get_starter() -> StarterDeck :
 	return preload("res://Characters/Starter/DefaultStarter.tres")
 
 var current_deck: Array[CardResource] = get_starter().cards
+var current_max_health: int = 50
+var current_health: int = 50
+
+func reset_game_values(): 
+	current_max_health = 50
+	current_health = 50
+	Maze.generate_new_level()

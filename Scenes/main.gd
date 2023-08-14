@@ -1,16 +1,12 @@
 extends Node2D
-	
-enum CardType { ATTACK, DEFENSE, HEAL, INC_STRENGTH, ATTACK_AND_DRAW }
 
-var draw_pile: Array[CardType] = []
-var discard_pile : Array[CardType] = []
-
-var player = Player.new(11)
+@onready var player = Player.new(Global.current_health, Global.current_max_health)
 var energy = 0
 var deck: Array[CardResource]
 @onready var manager: HandManager = $Hand
 
-func _ready():	
+func _ready():
+	player.current_hp = Global.current_health
 	$UI/Health.connect_playable_entity(player)
 	
 	$Enemy.entity.died.connect(_on_enemy_died)
@@ -34,10 +30,12 @@ func _on_energy_bar_step_reached(step):
 
 func _on_player_died():
 	Global.recapMessage = "You died!"
+	Global.current_health = 0
 	get_tree().call_deferred("change_scene_to_file", "res://Scenes/recap_screen.tscn")
 
 func _on_enemy_died():
 	Global.recapMessage = "You won!"
+	Global.current_health = player.current_hp
 	get_tree().call_deferred("change_scene_to_file", "res://Scenes/recap_screen.tscn")
 
 

@@ -1,8 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://bd5xmpv31go8q"]
+[gd_scene load_steps=19 format=3 uid="uid://bd5xmpv31go8q"]
 
 [ext_resource type="Script" path="res://Scenes/path_selection.gd" id="1_spbf0"]
 [ext_resource type="Texture2D" uid="uid://3g18axpijiuu" path="res://art/fantasy empty playboard.png" id="2_7pd84"]
-[ext_resource type="Material" uid="uid://c26pykopjpeax" path="res://Shaders/rugged_white.tres" id="3_oucu1"]
 [ext_resource type="Texture2D" uid="uid://bb0g46gsi2gjk" path="res://art/boss_icon.svg" id="4_gaxa3"]
 [ext_resource type="Material" uid="uid://bxvrfh3c131o4" path="res://Shaders/force_white.tres" id="6_aroul"]
 [ext_resource type="Texture2D" uid="uid://rwo8ytsp4rk6" path="res://art/enemy_icon.svg" id="7_2nulm"]
@@ -13,6 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://dj4tvyu53xpfx" path="res://art/rest_icon.svg" id="12_1du42"]
 [ext_resource type="Texture2D" uid="uid://dek2yok6r44r5" path="res://art/refresh_arrow.svg" id="13_2wmpi"]
 [ext_resource type="Shader" path="res://Shaders/path_selection.gdshader" id="14_jhdly"]
+[ext_resource type="Theme" uid="uid://dqejunx8h0xid" path="res://Scenes/board_ui.tres" id="14_n4fq3"]
+[ext_resource type="Script" path="res://Scenes/Circle.gd" id="14_rv8th"]
+[ext_resource type="Texture2D" uid="uid://kpba32u4fw60" path="res://art/fantasy heart.png" id="15_vrsrt"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_d7ngw"]
 frequency = 0.0063
@@ -28,8 +30,6 @@ shader_parameter/noise = SubResource("NoiseTexture2D_wkxev")
 
 [node name="PathSelection" type="Node2D"]
 script = ExtResource("1_spbf0")
-level_floors = 8
-guaranteed_treasure_level = 4
 
 [node name="MazeStart" type="Marker2D" parent="."]
 position = Vector2(215, 551)
@@ -54,7 +54,7 @@ centered = false
 
 [node name="Boss" type="TextureButton" parent="."]
 texture_repeat = 2
-material = ExtResource("3_oucu1")
+material = ExtResource("6_aroul")
 offset_left = 1652.0
 offset_top = 444.0
 offset_right = 2452.0
@@ -85,10 +85,10 @@ texture_normal = ExtResource("8_av3td")
 [node name="Treasure" type="TextureButton" parent="."]
 visible = false
 material = ExtResource("6_aroul")
-offset_left = 916.0
-offset_top = 554.0
-offset_right = 916.0
-offset_bottom = 554.0
+offset_left = 896.0
+offset_top = 576.0
+offset_right = 1696.0
+offset_bottom = 1376.0
 scale = Vector2(0.1, 0.1)
 texture_normal = ExtResource("9_gmmuy")
 
@@ -123,6 +123,7 @@ scale = Vector2(0.1, 0.1)
 texture_normal = ExtResource("12_1du42")
 
 [node name="Button" type="Button" parent="."]
+visible = false
 offset_left = 62.0
 offset_top = 74.0
 offset_right = 925.0
@@ -143,4 +144,30 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.537255, 0.313726, 0.313726, 1)
 
+[node name="Circle" type="Node2D" parent="."]
+visible = false
+top_level = true
+position = Vector2(936, 616)
+script = ExtResource("14_rv8th")
+radius = 60.0
+
+[node name="HUD" type="HBoxContainer" parent="."]
+offset_left = 55.0
+offset_top = 51.0
+offset_right = 95.0
+offset_bottom = 91.0
+theme = ExtResource("14_n4fq3")
+
+[node name="HealthLabel" type="Label" parent="HUD"]
+layout_mode = 2
+text = "50/50"
+
+[node name="HealthIcon" type="TextureRect" parent="HUD"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("15_vrsrt")
+expand_mode = 2
+stretch_mode = 4
+
+[connection signal="pressed" from="Boss" to="." method="_on_boss_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

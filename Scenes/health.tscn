@@ -2,8 +2,8 @@
 
 [ext_resource type="Theme" uid="uid://dqejunx8h0xid" path="res://Scenes/board_ui.tres" id="1_b4d3j"]
 [ext_resource type="Script" path="res://Scenes/health.gd" id="1_kbc0w"]
-[ext_resource type="Shader" path="res://Scenes/metal.gdshader" id="2_y7tul"]
 [ext_resource type="Texture2D" uid="uid://kpba32u4fw60" path="res://art/fantasy heart.png" id="3_qv01o"]
+[ext_resource type="Shader" path="res://Shaders/metal.gdshader" id="3_rde1c"]
 [ext_resource type="Texture2D" uid="uid://lw1chpa2p15w" path="res://art/equip armor white.png" id="3_wqp85"]
 
 [sub_resource type="Gradient" id="Gradient_hqns1"]
@@ -22,7 +22,7 @@ fractal_lacunarity = 1.0
 noise = SubResource("FastNoiseLite_81kse")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1dvje"]
-shader = ExtResource("2_y7tul")
+shader = ExtResource("3_rde1c")
 shader_parameter/noise = SubResource("NoiseTexture2D_10q62")
 shader_parameter/colors = SubResource("GradientTexture1D_m1naj")
 
