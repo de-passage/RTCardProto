@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://jv22188ku53m"]
+[gd_scene load_steps=8 format=3 uid="uid://jv22188ku53m"]
 
 [ext_resource type="Theme" uid="uid://dko7c3ogpxpix" path="res://Theme/theme.tres" id="1_6kyb0"]
 [ext_resource type="Texture2D" uid="uid://3g18axpijiuu" path="res://art/fantasy empty playboard.png" id="1_yf2bf"]
 [ext_resource type="Script" path="res://Scenes/recap_screen.gd" id="2_p0j0i"]
+[ext_resource type="Theme" uid="uid://ce00dygj64r3p" path="res://Theme/reward_theme.tres" id="4_16662"]
+[ext_resource type="Texture2D" uid="uid://b5q3fby6x7a2b" path="res://art/coin_icon.svg" id="5_hj6a1"]
+[ext_resource type="Material" uid="uid://b1hbwrmplmn0c" path="res://Scenes/coin_material.tres" id="5_ydx47"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lkw6t"]
 
@@ -26,7 +29,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_yf2bf")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -42,20 +45,57 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Recap" type="Label" parent="VBoxContainer"]
+[node name="Recap" type="Label" parent="VBox"]
 material = SubResource("ShaderMaterial_lkw6t")
 layout_mode = 2
 text = "Recap Label"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="RestartButton" type="Button" parent="VBoxContainer"]
+[node name="Rewards" type="MarginContainer" parent="VBox"]
+layout_mode = 2
+theme = ExtResource("4_16662")
+
+[node name="Buttons" type="VBoxContainer" parent="VBox/Rewards"]
+layout_mode = 2
+alignment = 1
+
+[node name="CoinButton" type="Button" parent="VBox/Rewards/Buttons"]
+layout_mode = 2
+text = "Coins"
+expand_icon = true
+
+[node name="TextureRect" type="TextureRect" parent="VBox/Rewards/Buttons/CoinButton"]
+material = ExtResource("5_ydx47")
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("5_hj6a1")
+expand_mode = 4
+
+[node name="PotionButton" type="Button" parent="VBox/Rewards/Buttons"]
+layout_mode = 2
+text = "Potion"
+
+[node name="CardButton" type="Button" parent="VBox/Rewards/Buttons"]
+layout_mode = 2
+text = "Choose a card"
+
+[node name="RelicButton" type="Button" parent="VBox/Rewards/Buttons"]
+layout_mode = 2
+text = "Relic"
+
+[node name="RestartButton" type="Button" parent="VBox"]
 layout_mode = 2
 text = "Restart"
 
-[node name="MainMenuButton" type="Button" parent="VBoxContainer"]
+[node name="MainMenuButton" type="Button" parent="VBox"]
 layout_mode = 2
 text = "Quit to main menu"
 
-[connection signal="pressed" from="VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="VBox/Rewards/Buttons/CoinButton" to="." method="_on_coin_button_pressed"]
+[connection signal="pressed" from="VBox/Rewards/Buttons/PotionButton" to="." method="_on_potion_button_pressed"]
+[connection signal="pressed" from="VBox/Rewards/Buttons/CardButton" to="." method="_on_card_button_pressed"]
+[connection signal="pressed" from="VBox/Rewards/Buttons/RelicButton" to="." method="_on_relic_button_pressed"]
+[connection signal="pressed" from="VBox/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="VBox/MainMenuButton" to="." method="_on_main_menu_button_pressed"]

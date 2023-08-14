@@ -19,11 +19,6 @@ func _play_card(card: Card):
 		$UI/EnergyContainer/EnergyBar.deduct_energy(card.cardCost)
 		manager.play(card, player, $Enemy.entity)
 
-func _on_sample_attack_selected():
-	_play_card($Hand/SampleAttack)
-
-func _on_sample_defense_selected():
-	_play_card($Hand/SampleDefense)
 
 func _on_energy_bar_step_reached(step):
 	energy = step
@@ -36,6 +31,7 @@ func _on_player_died():
 func _on_enemy_died():
 	Global.recapMessage = "You won!"
 	Global.current_health = player.current_hp
+	Global.rewards = { "coins": $Enemy.coin_value }
 	get_tree().call_deferred("change_scene_to_file", "res://Scenes/recap_screen.tscn")
 
 

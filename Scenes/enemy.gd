@@ -17,6 +17,8 @@ signal effects(effect: Callable)
 @export var effectList: Array[EffectResource] = []
 
 @onready var entity = PlayableEntity.new(max_hp)
+
+@export var coin_value = 13
 var current_effect = 0
 var effectQueue: Array[BaseEffect] 
 

@@ -10,6 +10,8 @@ var added_lines = []
 
 func _ready():
 	$HUD/HealthLabel.text = "%s/%s" % [Global.current_health, Global.current_max_health]
+	$HUD/CoinLabel.text = "%s" % Global.current_money
+	
 	$Circle.visible = false
 	Maze.generate_maze()
 	display_maze()

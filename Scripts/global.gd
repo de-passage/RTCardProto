@@ -18,8 +18,13 @@ func get_starter() -> StarterDeck :
 var current_deck: Array[CardResource] = get_starter().cards
 var current_max_health: int = 50
 var current_health: int = 50
+var current_money: int = 50
+
+var rewards: Dictionary = {}
 
 func reset_game_values(): 
 	current_max_health = 50
 	current_health = 50
+	current_deck = get_starter().cards
+	current_money = 50
 	Maze.generate_new_level()
