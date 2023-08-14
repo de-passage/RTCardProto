@@ -150,15 +150,16 @@ func display_maze():
 		var current_floor_children = []
 		added_children.append(current_floor_children)
 		for room in maze_floor:
-			var sprite = instanciate_node(room, current_floor, current_node)
+			var sprite: TextureButton = instanciate_node(room, current_floor, current_node)
 			current_floor_children.append(sprite)
 			var current_y = start_y + current_node * step_y
 			current_node += 1
 			
 			sprite.position = Vector2(\
-				current_x + _random_deviation(),\
-				current_y + _random_deviation())
-	
+				current_x + _random_deviation() - _texture_dim(sprite) / 2,\
+				current_y + _random_deviation() - _texture_dim(sprite) / 2)
+			sprite.pressed.connect(_on_sprite_button_pressed.bind(current_floor, current_node))
+			
 	# Display the connections between generated nodes
 	for connection in connections: 
 		var left_point_ref = connection[0]
@@ -170,13 +171,26 @@ func display_maze():
 	# Display the connections between the last nodes and the boss
 	for room in added_children[added_children.size() - 1]: 
 		_draw_line(room, $Boss)
+		
+func _on_sprite_button_pressed(f, n): 
+	print("Pressed: (%s,%s)" % [f,n])
 
-func _draw_line(left, right):
+func _texture_dim(t: TextureButton): 
+	return t.get_rect().size.x
+
+func _texture_center(t: TextureButton): 
+	return Vector2(t.position.x + _texture_dim(t) / 2,\
+				t.position.y + _texture_dim(t) / 2)
+
+func _draw_line(left: TextureButton, right: TextureButton):
 	var newNode = Line2D.new()
-	var ldim = float(left.texture.get_width()) * left.scale.x * path_start_offset
-	var rdim = float(right.texture.get_width()) * right.scale.x * path_start_offset
-	newNode.add_point(left.position.move_toward(right.position, ldim))
-	newNode.add_point(right.position.move_toward(left.position, rdim))
+	var lpos = _texture_center(left)
+	var rpos = _texture_center(right)
+	var ldim = _texture_dim(left) * path_start_offset
+	var rdim = _texture_dim(right) * path_start_offset
+	
+	newNode.add_point(lpos.move_toward(rpos, ldim))
+	newNode.add_point(rpos.move_toward(lpos, rdim))
 	add_child(newNode)
 	newNode.antialiased = true
 	added_lines.append(newNode)
