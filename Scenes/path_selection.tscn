@@ -1,0 +1,125 @@
+[gd_scene load_steps=17 format=3 uid="uid://bd5xmpv31go8q"]
+
+[ext_resource type="Script" path="res://Scenes/path_selection.gd" id="1_spbf0"]
+[ext_resource type="Texture2D" uid="uid://3g18axpijiuu" path="res://art/fantasy empty playboard.png" id="2_7pd84"]
+[ext_resource type="Material" uid="uid://c26pykopjpeax" path="res://Shaders/rugged_white.tres" id="3_oucu1"]
+[ext_resource type="Texture2D" uid="uid://bb0g46gsi2gjk" path="res://art/boss_icon.svg" id="4_gaxa3"]
+[ext_resource type="Material" uid="uid://bxvrfh3c131o4" path="res://Shaders/force_white.tres" id="6_aroul"]
+[ext_resource type="Texture2D" uid="uid://rwo8ytsp4rk6" path="res://art/enemy_icon.svg" id="7_2nulm"]
+[ext_resource type="Texture2D" uid="uid://da2nhy1r8lp28" path="res://art/elite_icon.svg" id="8_av3td"]
+[ext_resource type="Texture2D" uid="uid://dvgimvn8mfo3c" path="res://art/treasure_icon.svg" id="9_gmmuy"]
+[ext_resource type="Texture2D" uid="uid://ew6nw3x4gc14" path="res://art/merchant_icon.svg" id="10_np4en"]
+[ext_resource type="Texture2D" uid="uid://dhwfpwyu3olg3" path="res://art/random_event_icon.svg" id="11_lwx8o"]
+[ext_resource type="Texture2D" uid="uid://dj4tvyu53xpfx" path="res://art/rest_icon.svg" id="12_1du42"]
+[ext_resource type="Texture2D" uid="uid://dek2yok6r44r5" path="res://art/refresh_arrow.svg" id="13_2wmpi"]
+[ext_resource type="Shader" path="res://Shaders/path_selection.gdshader" id="14_jhdly"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_d7ngw"]
+frequency = 0.0063
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wkxev"]
+noise = SubResource("FastNoiseLite_d7ngw")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6wila"]
+shader = ExtResource("14_jhdly")
+shader_parameter/target_color = Color(0.539063, 0.3125, 0.3125, 1)
+shader_parameter/diffusion = 1.2
+shader_parameter/noise = SubResource("NoiseTexture2D_wkxev")
+
+[node name="PathSelection" type="Node2D"]
+script = ExtResource("1_spbf0")
+level_floors = 8
+guaranteed_treasure_level = 4
+
+[node name="MazeStart" type="Marker2D" parent="."]
+position = Vector2(215, 551)
+scale = Vector2(0.3, 0.3)
+
+[node name="MazeEnd" type="Marker2D" parent="."]
+position = Vector2(1479, 553)
+scale = Vector2(0.3, 0.3)
+
+[node name="MazeTop" type="Marker2D" parent="."]
+position = Vector2(903, 202)
+scale = Vector2(0.3, 0.3)
+
+[node name="MazeBottom" type="Marker2D" parent="."]
+position = Vector2(931, 882)
+scale = Vector2(0.3, 0.3)
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(9, 3)
+texture = ExtResource("2_7pd84")
+centered = false
+
+[node name="Boss" type="Sprite2D" parent="."]
+texture_repeat = 2
+material = ExtResource("3_oucu1")
+position = Vector2(1763, 540)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_gaxa3")
+
+[node name="Enemy" type="Sprite2D" parent="."]
+visible = false
+material = ExtResource("6_aroul")
+position = Vector2(623, 569)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("7_2nulm")
+
+[node name="Elite" type="Sprite2D" parent="."]
+visible = false
+material = ExtResource("6_aroul")
+position = Vector2(738, 567)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("8_av3td")
+
+[node name="Treasure" type="Sprite2D" parent="."]
+visible = false
+material = ExtResource("6_aroul")
+position = Vector2(916, 554)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("9_gmmuy")
+
+[node name="Merchant" type="Sprite2D" parent="."]
+visible = false
+material = ExtResource("6_aroul")
+position = Vector2(911, 337)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("10_np4en")
+
+[node name="Random" type="Sprite2D" parent="."]
+visible = false
+material = ExtResource("6_aroul")
+position = Vector2(850, 729)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("11_lwx8o")
+
+[node name="Rest" type="Sprite2D" parent="."]
+visible = false
+material = ExtResource("6_aroul")
+position = Vector2(1110, 725)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("12_1du42")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 62.0
+offset_top = 74.0
+offset_right = 925.0
+offset_bottom = 882.0
+scale = Vector2(0.05, 0.05)
+text = "Reload"
+icon = ExtResource("13_2wmpi")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="WhiteShader" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_6wila")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.537255, 0.313726, 0.313726, 1)
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

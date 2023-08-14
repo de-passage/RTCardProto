@@ -17,6 +17,7 @@ func _init(v: Array[int], property: StringName, modif: Variant = null):
 	if v.size() > 0: 
 		effect_strength = v[0]
 	targetProp = property
+	modifier = modif
 
 func _total_effect(p: PlayableEntity): 
 	var total = effect_strength

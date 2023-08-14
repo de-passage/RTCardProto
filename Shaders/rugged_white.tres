@@ -1,0 +1,19 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://c26pykopjpeax"]
+
+[ext_resource type="Shader" path="res://Shaders/rugged_white.gdshader" id="1_0rka0"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_72x6y"]
+noise_type = 2
+seed = 2
+frequency = 0.0005
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_bomeo"]
+width = 2000
+height = 2000
+seamless = true
+noise = SubResource("FastNoiseLite_72x6y")
+
+[resource]
+shader = ExtResource("1_0rka0")
+shader_parameter/offset = Vector2(321, 345)
+shader_parameter/noise = SubResource("NoiseTexture2D_bomeo")
