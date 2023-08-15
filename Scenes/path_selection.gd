@@ -7,24 +7,37 @@ var path_start_offset = 0.6
 var added_children: Array[Array] = []
 var added_lines = []
 
+@onready var _maze_shader = $MainCanvas/WhiteShader
+@onready var _maze_canvas = $MainCanvas
+@onready var _selection_circle = $MainCanvas/Circle
+@onready var _maze_start = $MazeStart
+@onready var _maze_end = $MazeEnd
+@onready var _maze_top = $MazeTop
+@onready var _maze_bottom = $MazeBottom			
+@onready var _enemy = $MainCanvas/Enemy
+@onready var _elite = $MainCanvas/Elite
+@onready var _treasure = $MainCanvas/Treasure
+@onready var _merchant = $MainCanvas/Merchant
+@onready var _rest = $MainCanvas/Rest
+@onready var _random = $MainCanvas/Random
+@onready var _boss = $MainCanvas/Boss
+
 func _ready():
-	
-	$Circle.visible = false
+	_selection_circle.visible = false
 	display_maze()
-	$CanvasLayer/WhiteShader.material.get_shader_parameter("noise").noise.seed = randi()
-	
+	_maze_shader.material.get_shader_parameter("noise").noise.seed = randi()
 
 func _random_deviation(): 
 	return randi_range(-node_deviation, node_deviation)
 
 func display_maze():
 	# Calculate all the reference values
-	var start_x = $MazeStart.position.x
-	var end_x = $MazeEnd.position.x 
+	var start_x = _maze_start.position.x
+	var end_x = _maze_end.position.x 
 	var range_w = end_x - start_x
 	var step_w = range_w / (Maze.level_floors - 1)
-	var start_y = $MazeTop.position.y
-	var end_y = $MazeBottom.position.y
+	var start_y = _maze_top.position.y
+	var end_y = _maze_bottom.position.y
 	var range_h = end_y - start_y
 	
 	# Display the nodes
@@ -47,10 +60,10 @@ func display_maze():
 			sprite.pressed.connect(_on_sprite_button_pressed.bind(current_floor, current_node))
 			
 			if Maze.same_as_player(current_floor, current_node):
-				$Circle.position = \
+				_selection_circle.position = \
 					Vector2(sprite.position.x + _texture_dim(sprite) / 2, \
 							sprite.position.y + _texture_dim(sprite) / 2)
-				$Circle.visible = true
+				_selection_circle.visible = true
 			current_node += 1
 			
 		current_floor += 1
@@ -65,7 +78,7 @@ func display_maze():
 	
 	# Display the connections between the last nodes and the boss
 	for room in added_children[added_children.size() - 1]: 
-		_draw_line(room, $Boss)
+		_draw_line(room, _boss)
 
 func _texture_dim(t: TextureButton): 
 	return t.get_rect().size.x
@@ -83,7 +96,7 @@ func _draw_line(left: TextureButton, right: TextureButton):
 	
 	newNode.add_point(lpos.move_toward(rpos, ldim))
 	newNode.add_point(rpos.move_toward(lpos, rdim))
-	add_child(newNode)
+	_maze_canvas.add_child(newNode)
 	newNode.antialiased = true
 	added_lines.append(newNode)
 
@@ -91,18 +104,18 @@ func instanciate_node(node: Maze.NodeType):
 	var sprite;
 	match node:
 		Maze.NodeType.NORMAL:
-			sprite = $Enemy.duplicate()
+			sprite = _enemy.duplicate()
 		Maze.NodeType.ELITE:
-			sprite = $Elite.duplicate()
+			sprite = _elite.duplicate()
 		Maze.NodeType.TREASURE:
-			sprite = $Treasure.duplicate()
+			sprite = _treasure.duplicate()
 		Maze.NodeType.MERCHANT:
-			sprite = $Merchant.duplicate()
+			sprite = _merchant.duplicate()
 		Maze.NodeType.REST:
-			sprite = $Rest.duplicate()
+			sprite = _rest.duplicate()
 		Maze.NodeType.RANDOM:
-			sprite = $Random.duplicate()
-	add_child(sprite)
+			sprite = _random.duplicate()
+	_maze_canvas.add_child(sprite)
 	sprite.visible = true
 			
 	return sprite

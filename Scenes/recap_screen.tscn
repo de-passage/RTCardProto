@@ -144,6 +144,7 @@ text = "Close"
 
 [node name="HUD" parent="." instance=ExtResource("4_qp74j")]
 layout_mode = 1
+mouse_filter = 2
 
 [connection signal="pressed" from="VBox/Rewards/Buttons/CoinButton" to="." method="_on_coin_button_pressed"]
 [connection signal="pressed" from="VBox/Rewards/Buttons/PotionButton" to="." method="_on_potion_button_pressed"]

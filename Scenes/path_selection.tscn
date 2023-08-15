@@ -36,19 +36,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_spbf0")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = 0
-
-[node name="WhiteShader" type="ColorRect" parent="CanvasLayer"]
-material = SubResource("ShaderMaterial_6wila")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0.537255, 0.313726, 0.313726, 1)
-
 [node name="MazeStart" type="Marker2D" parent="."]
 position = Vector2(215, 551)
 scale = Vector2(0.3, 0.3)
@@ -65,15 +52,19 @@ scale = Vector2(0.3, 0.3)
 position = Vector2(931, 882)
 scale = Vector2(0.3, 0.3)
 
-[node name="Background" type="Sprite2D" parent="."]
+[node name="BackgroundCanvas" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="Background" type="Sprite2D" parent="BackgroundCanvas"]
 position = Vector2(9, 3)
 texture = ExtResource("2_7pd84")
 centered = false
 
-[node name="Boss" type="TextureButton" parent="."]
+[node name="MainCanvas" type="CanvasLayer" parent="."]
+
+[node name="Boss" type="TextureButton" parent="MainCanvas"]
 texture_repeat = 2
 material = ExtResource("6_aroul")
-layout_mode = 0
 offset_left = 1652.0
 offset_top = 444.0
 offset_right = 2452.0
@@ -81,32 +72,29 @@ offset_bottom = 1244.0
 scale = Vector2(0.3, 0.3)
 texture_normal = ExtResource("4_gaxa3")
 
-[node name="Enemy" type="TextureButton" parent="."]
+[node name="Enemy" type="TextureButton" parent="MainCanvas"]
 visible = false
 material = ExtResource("6_aroul")
-layout_mode = 0
 offset_left = 623.0
 offset_top = 569.0
-offset_right = 623.0
-offset_bottom = 569.0
+offset_right = 1423.0
+offset_bottom = 1369.0
 scale = Vector2(0.1, 0.1)
 texture_normal = ExtResource("7_2nulm")
 
-[node name="Elite" type="TextureButton" parent="."]
+[node name="Elite" type="TextureButton" parent="MainCanvas"]
 visible = false
 material = ExtResource("6_aroul")
-layout_mode = 0
 offset_left = 738.0
 offset_top = 567.0
-offset_right = 738.0
-offset_bottom = 567.0
+offset_right = 1538.0
+offset_bottom = 1367.0
 scale = Vector2(0.1, 0.1)
 texture_normal = ExtResource("8_av3td")
 
-[node name="Treasure" type="TextureButton" parent="."]
+[node name="Treasure" type="TextureButton" parent="MainCanvas"]
 visible = false
 material = ExtResource("6_aroul")
-layout_mode = 0
 offset_left = 896.0
 offset_top = 576.0
 offset_right = 1696.0
@@ -114,42 +102,38 @@ offset_bottom = 1376.0
 scale = Vector2(0.1, 0.1)
 texture_normal = ExtResource("9_gmmuy")
 
-[node name="Merchant" type="TextureButton" parent="."]
+[node name="Merchant" type="TextureButton" parent="MainCanvas"]
 visible = false
 material = ExtResource("6_aroul")
-layout_mode = 0
 offset_left = 911.0
 offset_top = 337.0
-offset_right = 911.0
-offset_bottom = 337.0
+offset_right = 1711.0
+offset_bottom = 1137.0
 scale = Vector2(0.1, 0.1)
 texture_normal = ExtResource("10_np4en")
 
-[node name="Random" type="TextureButton" parent="."]
+[node name="Random" type="TextureButton" parent="MainCanvas"]
 visible = false
 material = ExtResource("6_aroul")
-layout_mode = 0
 offset_left = 850.0
 offset_top = 729.0
-offset_right = 850.0
-offset_bottom = 729.0
+offset_right = 1650.0
+offset_bottom = 1529.0
 scale = Vector2(0.1, 0.1)
 texture_normal = ExtResource("11_lwx8o")
 
-[node name="Rest" type="TextureButton" parent="."]
+[node name="Rest" type="TextureButton" parent="MainCanvas"]
 visible = false
 material = ExtResource("6_aroul")
-layout_mode = 0
 offset_left = 1110.0
 offset_top = 725.0
-offset_right = 1110.0
-offset_bottom = 725.0
+offset_right = 1910.0
+offset_bottom = 1525.0
 scale = Vector2(0.1, 0.1)
 texture_normal = ExtResource("12_1du42")
 
-[node name="Button" type="Button" parent="."]
+[node name="Button" type="Button" parent="MainCanvas"]
 visible = false
-layout_mode = 0
 offset_left = 62.0
 offset_top = 74.0
 offset_right = 925.0
@@ -158,12 +142,23 @@ scale = Vector2(0.05, 0.05)
 text = "Reload"
 icon = ExtResource("13_2wmpi")
 
-[node name="Circle" type="Node2D" parent="."]
+[node name="Circle" type="Node2D" parent="MainCanvas"]
 visible = false
 top_level = true
 position = Vector2(936, 616)
 script = ExtResource("14_rv8th")
 radius = 60.0
+
+[node name="WhiteShader" type="ColorRect" parent="MainCanvas"]
+top_level = true
+material = SubResource("ShaderMaterial_6wila")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.537255, 0.313726, 0.313726, 1)
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 layer = 2
@@ -172,5 +167,5 @@ layer = 2
 top_level = true
 mouse_filter = 2
 
-[connection signal="pressed" from="Boss" to="." method="_on_boss_pressed"]
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="MainCanvas/Boss" to="." method="_on_boss_pressed"]
+[connection signal="pressed" from="MainCanvas/Button" to="." method="_on_button_pressed"]

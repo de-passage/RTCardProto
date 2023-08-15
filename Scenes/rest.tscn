@@ -39,6 +39,7 @@ text = "Remove a card"
 
 [node name="HUD" parent="." instance=ExtResource("3_j7jc1")]
 layout_mode = 1
+mouse_filter = 2
 
 [connection signal="pressed" from="VBoxContainer/RestButton" to="." method="_on_rest_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/RemoveButton" to="." method="_on_remove_button_pressed"]
