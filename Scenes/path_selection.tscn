@@ -24,7 +24,8 @@ noise = SubResource("FastNoiseLite_d7ngw")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6wila"]
 shader = ExtResource("14_jhdly")
 shader_parameter/target_color = Color(0.539063, 0.3125, 0.3125, 1)
-shader_parameter/diffusion = 1.2
+shader_parameter/diffusion = 1.0
+shader_parameter/min_grayscale = 0.81
 shader_parameter/noise = SubResource("NoiseTexture2D_wkxev")
 
 [node name="PathSelection" type="Control"]
@@ -151,12 +152,18 @@ radius = 60.0
 
 [node name="WhiteShader" type="ColorRect" parent="MainCanvas"]
 top_level = true
+z_index = 1
 material = SubResource("ShaderMaterial_6wila")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 49.0
+offset_top = 41.0
+offset_right = 49.0
+offset_bottom = 41.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.958553, 0.926443)
 mouse_filter = 2
 color = Color(0.537255, 0.313726, 0.313726, 1)
 
