@@ -15,6 +15,7 @@ var _player_entity = PlayableEntity.new(Global.current_max_health)
 
 func _ready():
 	
+	
 	if Global.rewards.get(Global.REWARD_COINS, 0) > 0:
 		_coin_button.text = "%s Coins" % Global.rewards.get(Global.REWARD_COINS)
 		_coin_button.visible = true

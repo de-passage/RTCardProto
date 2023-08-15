@@ -30,13 +30,6 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_yf2bf")
 
-[node name="HUD" parent="." instance=ExtResource("4_qp74j")]
-layout_mode = 1
-offset_left = 60.0
-offset_top = 60.0
-offset_right = 2796.0
-offset_bottom = 141.0
-
 [node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -61,7 +54,9 @@ horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="Rewards" type="MarginContainer" parent="VBox"]
+custom_minimum_size = Vector2(0, 420)
 layout_mode = 2
+size_flags_vertical = 3
 theme = ExtResource("4_16662")
 
 [node name="Buttons" type="VBoxContainer" parent="VBox/Rewards"]
@@ -146,6 +141,9 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Close"
+
+[node name="HUD" parent="." instance=ExtResource("4_qp74j")]
+layout_mode = 1
 
 [connection signal="pressed" from="VBox/Rewards/Buttons/CoinButton" to="." method="_on_coin_button_pressed"]
 [connection signal="pressed" from="VBox/Rewards/Buttons/PotionButton" to="." method="_on_potion_button_pressed"]

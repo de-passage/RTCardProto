@@ -27,8 +27,27 @@ shader_parameter/target_color = Color(0.539063, 0.3125, 0.3125, 1)
 shader_parameter/diffusion = 1.2
 shader_parameter/noise = SubResource("NoiseTexture2D_wkxev")
 
-[node name="PathSelection" type="Node2D"]
+[node name="PathSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_spbf0")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="WhiteShader" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_6wila")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.537255, 0.313726, 0.313726, 1)
 
 [node name="MazeStart" type="Marker2D" parent="."]
 position = Vector2(215, 551)
@@ -54,6 +73,7 @@ centered = false
 [node name="Boss" type="TextureButton" parent="."]
 texture_repeat = 2
 material = ExtResource("6_aroul")
+layout_mode = 0
 offset_left = 1652.0
 offset_top = 444.0
 offset_right = 2452.0
@@ -64,6 +84,7 @@ texture_normal = ExtResource("4_gaxa3")
 [node name="Enemy" type="TextureButton" parent="."]
 visible = false
 material = ExtResource("6_aroul")
+layout_mode = 0
 offset_left = 623.0
 offset_top = 569.0
 offset_right = 623.0
@@ -74,6 +95,7 @@ texture_normal = ExtResource("7_2nulm")
 [node name="Elite" type="TextureButton" parent="."]
 visible = false
 material = ExtResource("6_aroul")
+layout_mode = 0
 offset_left = 738.0
 offset_top = 567.0
 offset_right = 738.0
@@ -84,6 +106,7 @@ texture_normal = ExtResource("8_av3td")
 [node name="Treasure" type="TextureButton" parent="."]
 visible = false
 material = ExtResource("6_aroul")
+layout_mode = 0
 offset_left = 896.0
 offset_top = 576.0
 offset_right = 1696.0
@@ -94,6 +117,7 @@ texture_normal = ExtResource("9_gmmuy")
 [node name="Merchant" type="TextureButton" parent="."]
 visible = false
 material = ExtResource("6_aroul")
+layout_mode = 0
 offset_left = 911.0
 offset_top = 337.0
 offset_right = 911.0
@@ -104,6 +128,7 @@ texture_normal = ExtResource("10_np4en")
 [node name="Random" type="TextureButton" parent="."]
 visible = false
 material = ExtResource("6_aroul")
+layout_mode = 0
 offset_left = 850.0
 offset_top = 729.0
 offset_right = 850.0
@@ -114,6 +139,7 @@ texture_normal = ExtResource("11_lwx8o")
 [node name="Rest" type="TextureButton" parent="."]
 visible = false
 material = ExtResource("6_aroul")
+layout_mode = 0
 offset_left = 1110.0
 offset_top = 725.0
 offset_right = 1110.0
@@ -123,6 +149,7 @@ texture_normal = ExtResource("12_1du42")
 
 [node name="Button" type="Button" parent="."]
 visible = false
+layout_mode = 0
 offset_left = 62.0
 offset_top = 74.0
 offset_right = 925.0
@@ -131,18 +158,6 @@ scale = Vector2(0.05, 0.05)
 text = "Reload"
 icon = ExtResource("13_2wmpi")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="WhiteShader" type="ColorRect" parent="CanvasLayer"]
-material = SubResource("ShaderMaterial_6wila")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0.537255, 0.313726, 0.313726, 1)
-
 [node name="Circle" type="Node2D" parent="."]
 visible = false
 top_level = true
@@ -150,12 +165,12 @@ position = Vector2(936, 616)
 script = ExtResource("14_rv8th")
 radius = 60.0
 
-[node name="HUD" parent="." instance=ExtResource("14_q33nv")]
-offset_left = 60.0
-offset_top = 60.0
-offset_right = 798.0
-offset_bottom = 141.0
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="HUD" parent="CanvasLayer2" instance=ExtResource("14_q33nv")]
+top_level = true
+mouse_filter = 2
 
 [connection signal="pressed" from="Boss" to="." method="_on_boss_pressed"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
-[connection signal="please_exit" from="HUD" to="." method="_on_hud_please_exit"]

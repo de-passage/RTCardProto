@@ -50,7 +50,7 @@ var current_max_health: int = 50:
 		current_max_health = value
 		health_changed.emit()
 
-var _current_health		
+var _current_health	= current_max_health
 var current_health: int = 50:
 	set(value):
 		_current_health = clampi(value, 0, current_max_health)

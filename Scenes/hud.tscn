@@ -1,57 +1,125 @@
-[gd_scene load_steps=6 format=3 uid="uid://bpuhuedmv2tgx"]
+[gd_scene load_steps=7 format=3 uid="uid://bpuhuedmv2tgx"]
 
 [ext_resource type="Theme" uid="uid://yty6gw6q8r7v" path="res://Theme/hud_theme.tres" id="1_6ftgh"]
+[ext_resource type="Theme" uid="uid://ce00dygj64r3p" path="res://Theme/reward_theme.tres" id="1_jdj0o"]
 [ext_resource type="Script" path="res://Scenes/hud.gd" id="2_bhj1u"]
 [ext_resource type="Texture2D" uid="uid://kpba32u4fw60" path="res://art/fantasy heart.png" id="2_oy50g"]
 [ext_resource type="Material" uid="uid://b1hbwrmplmn0c" path="res://Shaders/coin_material.tres" id="3_2kx3j"]
 [ext_resource type="Texture2D" uid="uid://b5q3fby6x7a2b" path="res://art/coin_icon.svg" id="4_lowam"]
 
-[node name="HUD" type="HBoxContainer"]
-offset_left = 57.0
-offset_top = 51.0
-offset_right = 795.0
-offset_bottom = 132.0
-theme = ExtResource("1_6ftgh")
+[node name="MarginContainer" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 60
 script = ExtResource("2_bhj1u")
 
-[node name="HealthLabel" type="Label" parent="."]
+[node name="HUD" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 0
+theme = ExtResource("1_6ftgh")
+
+[node name="HealthLabel" type="Label" parent="HUD"]
 layout_mode = 2
 text = "50/50"
 
-[node name="HealthIcon" type="TextureRect" parent="."]
+[node name="HealthIcon" type="TextureRect" parent="HUD"]
 layout_mode = 2
 size_flags_horizontal = 4
 texture = ExtResource("2_oy50g")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="VSeparator" type="VSeparator" parent="."]
+[node name="VSeparator" type="VSeparator" parent="HUD"]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(29, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_stretch_ratio = 0.0
 
-[node name="CoinLabel" type="Label" parent="."]
+[node name="CoinLabel" type="Label" parent="HUD"]
 layout_mode = 2
 text = "0"
 
-[node name="CoinIcon" type="TextureRect" parent="."]
+[node name="CoinIcon" type="TextureRect" parent="HUD"]
 material = ExtResource("3_2kx3j")
 layout_mode = 2
 texture = ExtResource("4_lowam")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="VSeparator2" type="VSeparator" parent="."]
+[node name="VSeparator2" type="VSeparator" parent="HUD"]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(29, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_stretch_ratio = 0.0
 
-[node name="QuitButton" type="Button" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="DeckButton" type="Button" parent="HUD/HBoxContainer"]
+layout_mode = 2
+text = "Deck"
+
+[node name="VSeparator2" type="VSeparator" parent="HUD/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(29, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_stretch_ratio = 0.0
+
+[node name="QuitButton" type="Button" parent="HUD/HBoxContainer"]
 layout_mode = 2
 text = "Quit"
 
-[connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]
+[node name="DeckPanelContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 80
+
+[node name="PanelContainer" type="PanelContainer" parent="DeckPanelContainer"]
+layout_mode = 2
+theme = ExtResource("1_jdj0o")
+
+[node name="MarginContainer" type="MarginContainer" parent="DeckPanelContainer/PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="CloseButton" type="Button" parent="DeckPanelContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Close"
+
+[node name="DeckMarginContainer" type="MarginContainer" parent="DeckPanelContainer/PanelContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 70
+
+[node name="ScrollContainer" type="ScrollContainer" parent="DeckPanelContainer/PanelContainer/DeckMarginContainer"]
+layout_mode = 2
+
+[node name="Deck" type="HFlowContainer" parent="DeckPanelContainer/PanelContainer/DeckMarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 30
+theme_override_constants/v_separation = 20
+
+[connection signal="pressed" from="HUD/HBoxContainer/DeckButton" to="." method="_on_deck_button_pressed"]
+[connection signal="pressed" from="HUD/HBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="DeckPanelContainer/PanelContainer/MarginContainer/CloseButton" to="." method="_on_close_button_pressed"]

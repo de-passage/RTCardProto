@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 ## Random deviation applied to the nodes from their normal position
 @export var node_deviation = 32
