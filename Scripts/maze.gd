@@ -24,7 +24,7 @@ extends Node
 @export var min_easy_nodes: int = 2
 
 ## Array of Array of NodeType. This corresponds to the floors with the rooms inside
-var maze: Array[Array] = []
+var maze: Array[Array]
 
 ## Array of pairs (2-element array) of node positions (also pairs).
 var connections = []
@@ -32,14 +32,14 @@ var connections = []
 ## Current position in the maze (floor, node)
 var current_position = Vector2i(-1,-1)
 
-enum NodeType { NORMAL, ELITE, MERCHANT, TREASURE, RANDOM, REST }
+enum NodeType { NORMAL, ELITE, MERCHANT, TREASURE, RANDOM, REST, ERROR }
 
-func at(x, y): 
+func at(x, y) -> NodeType: 
 	if x < 0 or y < 0 or x > maze.size(): 
-		return null
+		return NodeType.ERROR
 	var fl = maze[x]
 	if y > fl.size():
-		return null
+		return NodeType.ERROR
 	return fl[y]
 
 func generate_maze():
@@ -81,7 +81,12 @@ func generate_floor(weights: Array[Array]) -> Array[NodeType]:
 		nodes.append(current_choice)
 	
 	return nodes
-	
+
+func get_maze():
+	if maze == null or maze.is_empty(): 
+		generate_maze()
+	return maze 
+
 ## Create the full connection array between the floors 
 func connect_all_floors():
 	connections = []

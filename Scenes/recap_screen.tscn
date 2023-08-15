@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://jv22188ku53m"]
+[gd_scene load_steps=9 format=3 uid="uid://jv22188ku53m"]
 
 [ext_resource type="Theme" uid="uid://dko7c3ogpxpix" path="res://Theme/theme.tres" id="1_6kyb0"]
 [ext_resource type="Texture2D" uid="uid://3g18axpijiuu" path="res://art/fantasy empty playboard.png" id="1_yf2bf"]
 [ext_resource type="Script" path="res://Scenes/recap_screen.gd" id="2_p0j0i"]
 [ext_resource type="Theme" uid="uid://ce00dygj64r3p" path="res://Theme/reward_theme.tres" id="4_16662"]
+[ext_resource type="PackedScene" uid="uid://bpuhuedmv2tgx" path="res://Scenes/hud.tscn" id="4_qp74j"]
 [ext_resource type="Texture2D" uid="uid://b5q3fby6x7a2b" path="res://art/coin_icon.svg" id="5_hj6a1"]
 [ext_resource type="Material" uid="uid://b1hbwrmplmn0c" path="res://Shaders/coin_material.tres" id="5_j6i5s"]
 
@@ -28,6 +29,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_yf2bf")
+
+[node name="HUD" parent="." instance=ExtResource("4_qp74j")]
+layout_mode = 1
+offset_left = 60.0
+offset_top = 60.0
+offset_right = 2796.0
+offset_bottom = 141.0
 
 [node name="VBox" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -90,6 +98,7 @@ layout_mode = 2
 text = "Restart"
 
 [node name="MainMenuButton" type="Button" parent="VBox"]
+visible = false
 layout_mode = 2
 text = "Quit to main menu"
 

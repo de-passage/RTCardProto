@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://c0fhod6et1usi"]
+
+[ext_resource type="Texture2D" uid="uid://3g18axpijiuu" path="res://art/fantasy empty playboard.png" id="1_4m0am"]
+[ext_resource type="Theme" uid="uid://dko7c3ogpxpix" path="res://Theme/theme.tres" id="1_31w7i"]
+[ext_resource type="Script" path="res://Scenes/rest.gd" id="3_cstc8"]
+[ext_resource type="PackedScene" uid="uid://bpuhuedmv2tgx" path="res://Scenes/hud.tscn" id="3_j7jc1"]
+
+[node name="Control" type="TextureRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_31w7i")
+texture = ExtResource("1_4m0am")
+script = ExtResource("3_cstc8")
+
+[node name="HUD" parent="." instance=ExtResource("3_j7jc1")]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 60.0
+offset_right = 798.0
+offset_bottom = 141.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RestButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Rest for %s of your health"
+
+[node name="RemoveButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Remove a card"
+
+[connection signal="pressed" from="VBoxContainer/RestButton" to="." method="_on_rest_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/RemoveButton" to="." method="_on_remove_button_pressed"]

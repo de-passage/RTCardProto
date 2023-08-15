@@ -19,6 +19,8 @@ var player: PlayableEntity
 
 const HAND_SIZE = 4
 
+@onready var _hand_container = $HandContainer
+
 # Build a new hand
 func _show_hand(): 
 	for card_resource in hand:
@@ -26,7 +28,7 @@ func _show_hand():
 		card.initialize(card_resource, player)
 		card.scale = Vector2(1.,1.)
 		card.selected.connect(_emit_selected.bind(card))
-		$HandContainer.add_child(card)
+		_hand_container.add_child(card)
 		shownCards.append(card)
 
 func _emit_selected(cardScene: Card):
@@ -60,12 +62,17 @@ func play(card: Card, player_: PlayableEntity, enemy: PlayableEntity):
 	else:
 		printerr("Invalid card played!")
 	
+	# Update card text
+	for child in _hand_container.get_children():
+		if child is Card:
+			child.update_description(player_)
+	
 
 ## Discard the hand then draw a new hand, taking the new cards in 
 ## priority from the draw pile, then shuffling the discard pile when \
 ## the draw pile is empty
 func draw_new_hand():
-	for child in $HandContainer.get_children():
+	for child in _hand_container.get_children():
 		if child is Card:
 			child.queue_free()
 	

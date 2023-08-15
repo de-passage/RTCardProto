@@ -1,5 +1,9 @@
 extends Node
 
+signal deck_changed
+signal money_changed
+signal health_changed
+
 var recapMessage: String = ""
 
 var cards: Array[CardResource] = []
@@ -36,10 +40,28 @@ func load_cards():
 func get_starter() -> StarterDeck :
 	return preload("res://Characters/Starter/DefaultStarter.tres")
 
-var current_deck: Array[CardResource] = get_starter().cards
-var current_max_health: int = 50
-var current_health: int = 50
-var current_money: int = 50
+var current_deck: Array[CardResource] = get_starter().cards:
+	set(value):
+		current_deck = value
+		deck_changed.emit()
+		
+var current_max_health: int = 50:
+	set(value):
+		current_max_health = value
+		health_changed.emit()
+
+var _current_health		
+var current_health: int = 50:
+	set(value):
+		_current_health = clampi(value, 0, current_max_health)
+		health_changed.emit()
+	get: return _current_health
+		
+var current_money: int = 50:
+	set(value):
+		current_money = value
+		money_changed.emit()
+		
 var _current_enemy: EnemyResource
 var current_level: LevelPool = LevelPool.DEFAULT
 

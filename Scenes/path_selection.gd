@@ -8,8 +8,6 @@ var added_children: Array[Array] = []
 var added_lines = []
 
 func _ready():
-	$HUD/HealthLabel.text = "%s/%s" % [Global.current_health, Global.current_max_health]
-	$HUD/CoinLabel.text = "%s" % Global.current_money
 	
 	$Circle.visible = false
 	display_maze()
@@ -31,7 +29,7 @@ func display_maze():
 	
 	# Display the nodes
 	var current_floor = 0
-	for maze_floor in Maze.maze:
+	for maze_floor in Maze.get_maze():
 		var step_y = range_h / (maze_floor.size() - 1)
 		var current_x = start_x + step_w * current_floor
 		
@@ -129,10 +127,26 @@ func _on_boss_pressed():
 func _on_sprite_button_pressed(f, n): 
 	if Maze.move_player(f, n):
 		print("Moving to node %s,%s" % [f,n])
-		var combat_type = Global.EnemyPool.ELITE if Maze.at(f,n) == Maze.NodeType.ELITE else Global.EnemyPool.NORMAL
-		start_combat(combat_type)
+		var chosen_cell: Maze.NodeType = Maze.at(f,n)
+		match chosen_cell:
+			Maze.NodeType.ELITE:
+				start_combat(Global.EnemyPool.ELITE)
+			Maze.NodeType.NORMAL:
+				start_combat(Global.EnemyPool.NORMAL)
+			Maze.NodeType.RANDOM:
+				start_combat(Global.EnemyPool.NORMAL)
+			Maze.NodeType.MERCHANT: 
+				start_combat(Global.EnemyPool.NORMAL)
+			Maze.NodeType.TREASURE:
+				start_combat(Global.EnemyPool.NORMAL)
+			Maze.NodeType.REST:
+				get_tree().change_scene_to_file("res://Scenes/rest.tscn")
 
 func start_combat(enemy_type: Global.EnemyPool):
 	print("combat started")
 	Global.setup_random_enemy(Global.current_level, enemy_type)
 	get_tree().change_scene_to_file("res://Scenes/main.tscn")
+
+
+func _on_hud_please_exit():
+	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
