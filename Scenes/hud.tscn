@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://bpuhuedmv2tgx"]
 
 [ext_resource type="Theme" uid="uid://yty6gw6q8r7v" path="res://Theme/hud_theme.tres" id="1_6ftgh"]
-[ext_resource type="Theme" uid="uid://ce00dygj64r3p" path="res://Theme/reward_theme.tres" id="1_jdj0o"]
 [ext_resource type="Script" path="res://Scenes/hud.gd" id="2_bhj1u"]
 [ext_resource type="Texture2D" uid="uid://kpba32u4fw60" path="res://art/fantasy heart.png" id="2_oy50g"]
 [ext_resource type="Material" uid="uid://b1hbwrmplmn0c" path="res://Shaders/coin_material.tres" id="3_2kx3j"]
 [ext_resource type="Texture2D" uid="uid://b5q3fby6x7a2b" path="res://art/coin_icon.svg" id="4_lowam"]
+[ext_resource type="PackedScene" uid="uid://dckb3jxv0ug8l" path="res://Scenes/deck_panel.tscn" id="6_e3ckb"]
 
 [node name="MarginContainer" type="MarginContainer"]
 anchors_preset = 15
@@ -80,47 +80,9 @@ size_flags_stretch_ratio = 0.0
 layout_mode = 2
 text = "Quit"
 
-[node name="DeckPanelContainer" type="MarginContainer" parent="."]
-visible = false
+[node name="DeckPanelContainer" parent="." instance=ExtResource("6_e3ckb")]
 layout_mode = 2
-theme_override_constants/margin_left = 80
-theme_override_constants/margin_top = 80
-theme_override_constants/margin_right = 80
-theme_override_constants/margin_bottom = 80
-
-[node name="PanelContainer" type="PanelContainer" parent="DeckPanelContainer"]
-layout_mode = 2
-theme = ExtResource("1_jdj0o")
-
-[node name="MarginContainer" type="MarginContainer" parent="DeckPanelContainer/PanelContainer"]
-layout_mode = 2
-size_flags_vertical = 8
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="CloseButton" type="Button" parent="DeckPanelContainer/PanelContainer/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Close"
-
-[node name="DeckMarginContainer" type="MarginContainer" parent="DeckPanelContainer/PanelContainer"]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 100
-theme_override_constants/margin_top = 100
-theme_override_constants/margin_right = 100
-theme_override_constants/margin_bottom = 70
-
-[node name="ScrollContainer" type="ScrollContainer" parent="DeckPanelContainer/PanelContainer/DeckMarginContainer"]
-layout_mode = 2
-
-[node name="Deck" type="HFlowContainer" parent="DeckPanelContainer/PanelContainer/DeckMarginContainer/ScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/h_separation = 30
-theme_override_constants/v_separation = 20
 
 [connection signal="pressed" from="HUD/HBoxContainer/DeckButton" to="." method="_on_deck_button_pressed"]
 [connection signal="pressed" from="HUD/HBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="pressed" from="DeckPanelContainer/PanelContainer/MarginContainer/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="deck_panel_closed" from="DeckPanelContainer" to="." method="_on_deck_panel_container_deck_panel_closed"]

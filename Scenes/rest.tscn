@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://c0fhod6et1usi"]
+[gd_scene load_steps=6 format=3 uid="uid://c0fhod6et1usi"]
 
 [ext_resource type="Texture2D" uid="uid://3g18axpijiuu" path="res://art/fantasy empty playboard.png" id="1_4m0am"]
 [ext_resource type="Theme" uid="uid://dko7c3ogpxpix" path="res://Theme/theme.tres" id="1_31w7i"]
 [ext_resource type="Script" path="res://Scenes/rest.gd" id="3_cstc8"]
 [ext_resource type="PackedScene" uid="uid://bpuhuedmv2tgx" path="res://Scenes/hud.tscn" id="3_j7jc1"]
+[ext_resource type="PackedScene" uid="uid://dckb3jxv0ug8l" path="res://Scenes/deck_panel.tscn" id="4_6okjd"]
 
 [node name="Control" type="TextureRect"]
 anchors_preset = 15
@@ -41,5 +42,24 @@ text = "Remove a card"
 layout_mode = 1
 mouse_filter = 2
 
+[node name="MarginContainer" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 60
+
+[node name="DeckPanelContainer" parent="MarginContainer" instance=ExtResource("4_6okjd")]
+visible = true
+layout_mode = 2
+
 [connection signal="pressed" from="VBoxContainer/RestButton" to="." method="_on_rest_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/RemoveButton" to="." method="_on_remove_button_pressed"]
+[connection signal="card_selected" from="MarginContainer/DeckPanelContainer" to="." method="_on_deck_panel_card_removed"]
+[connection signal="deck_panel_closed" from="MarginContainer/DeckPanelContainer" to="." method="_on_deck_panel_closed"]

@@ -2,6 +2,7 @@ extends TextureRect
 
 var _heal_value: int = 0
 @onready var _rest_button = $VBoxContainer/RestButton
+@onready var _card_removal = $MarginContainer
 
 func _ready():
 	var player = Global.get_player()
@@ -14,4 +15,10 @@ func _on_rest_button_pressed():
 	get_tree().change_scene_to_file("res://Scenes/path_selection.tscn")
 
 func _on_remove_button_pressed():
-	get_tree().change_scene_to_file("res://Scenes/path_selection.tscn")
+	_card_removal.visible = true
+
+func _on_deck_panel_card_removed(card: CardResource):
+	Global.remove_from_deck(card)
+
+func _on_deck_panel_closed():
+	_card_removal.visible = false

@@ -113,3 +113,9 @@ func get_current_deck() -> Array[CardResource]:
 	if current_deck == null or current_deck.size() == 0: 
 		current_deck = get_starter().cards
 	return current_deck
+
+func remove_from_deck(card: CardResource):
+	var idx = current_deck.find(card)
+	if idx >= 0: 
+		current_deck.remove_at(idx)
+		deck_changed.emit()
