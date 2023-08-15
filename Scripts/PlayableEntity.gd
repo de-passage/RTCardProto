@@ -50,9 +50,9 @@ var resistance: int = 0:
 		resistance = value
 		resistance_changed.emit(value)
 
-func _init(max_health: int):
+func _init(max_health: int, current_health: int = -1):
 	max_hp = max_health
-	current_hp = max_health
+	current_hp = current_health if current_health > 0 else max_health
 
 ## Deal damage to the entity, reducing armor then HP. 
 ## Manipulate current_hp directly to ignore armor

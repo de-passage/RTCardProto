@@ -1,51 +1,34 @@
-extends Node2D
+extends TextureButton
 class_name Card 
 
 signal selected
 
-@export var resource: CardResource: 
-	set(value): 
-		resource = value
-		cardCost = value.cost
-		cardName = value.cardName
-		effects = resource.load_card_effects()
+var _resource: CardResource
+var _effects: Array[BaseEffect]
 
-var cardDescription: String: 
-	set(value): 
-		cardDescription = value
-		$Values/Description.text = value
-
-var cardName: String:
-	set(value):
-		$Values/Name.text = value
-	get:
-		return resource.cardName
-
-var cardCost: int:
-	set(value): 
-		$Values/Cost.text = str(value)
-	get:
-		return resource.cost
+func card_cost(): 
+	return _resource.cost if _resource != null else 0  
 		
-var effects: Array[BaseEffect]:
-	get: 
-		return effects if effects != null else [BaseEffect.new()] 
+func get_effects(): 
+	return _effects if _effects != null else [BaseEffect.new()] 
+		
+func initialize(resource: CardResource, player: PlayableEntity):
+	_resource = resource
+	$Values/Cost.text = str(resource.cost)
+	$Values/Name.text = resource.cardName
+	_effects = resource.load_card_effects()
+	update_description(player)
 
-func _on_area_2d_input_event(_viewport, event, _shape_idx):
-	if event is InputEventMouseButton \
-		and event.button_index == MOUSE_BUTTON_LEFT \
-		and event.pressed: 
-		selected.emit()
-
-func update(player: PlayableEntity):
+func update_description(player: PlayableEntity):
 	var desc = ""
-	for effect in effects: 
+	for effect in _effects: 
 		desc += effect.get_description(player) + "\n"
-	cardDescription = desc
+	$Values/Description.text = desc
 
 func apply(player: PlayableEntity, enemy: PlayableEntity): 
-	for effect in effects:
+	for effect in _effects:
 		effect.apply_effect(player, enemy)
 
-func get_width(): 
-	return $BackTexture.texture.get_width() * scale.x
+func _on_pressed():
+	print("Selected: %s" % (_resource.cardName if _resource != null else $Values/Name.text) )
+	selected.emit()

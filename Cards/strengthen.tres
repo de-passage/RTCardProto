@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CardResource" load_steps=5 format=3 uid="uid://b6w1ad817c5f3"]
+
+[ext_resource type="Script" path="res://Scripts/CardResource.gd" id="1_ajbv2"]
+[ext_resource type="Script" path="res://Scripts/Effects/AddAttackPower.gd" id="1_sgig6"]
+[ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_a2i8c"]
+
+[sub_resource type="Resource" id="Resource_3ekpo"]
+script = ExtResource("2_a2i8c")
+effectValues = Array[int]([1])
+effectScript = ExtResource("1_sgig6")
+
+[resource]
+script = ExtResource("1_ajbv2")
+cardName = "Strengthen"
+cost = 1
+cardEffects = Array[ExtResource("2_a2i8c")]([SubResource("Resource_3ekpo")])

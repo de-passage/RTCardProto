@@ -3,72 +3,69 @@ class_name HandManager
 
 signal card_selected(card: CardResource)
 
+# Visual constant
 const SEPARATION = 35
 
+# Resource management
 var shownCards: Array[Card] = []
+var _card_scene: PackedScene = preload("res://Scenes/card.tscn")
 
-func _offset_card(card: Card, pos_offset: int): 
-	card.position = $HandStart.position + \
-		Vector2((card.get_width() + SEPARATION) * pos_offset, 0)
-
-func _draw_hand(): 
-	var offset_count = 0
-	for card in hand:
-		var cardScene = load("res://Scenes/card.tscn").instantiate()
-		cardScene.resource = card
-		cardScene.update(player)
-		cardScene.scale = Vector2(1.,1.)
-		cardScene.selected.connect(_emit_selected.bind(cardScene))
-		_offset_card(cardScene, offset_count)
-		add_child(cardScene)
-		shownCards.append(cardScene)
-		offset_count+=1
-
-func _emit_selected(cardScene: Node2D):
-	card_selected.emit(cardScene)
-
+# Game Logic
 var draw_pile: Array[CardResource]
 var discard_pile: Array[CardResource]
 var hand: Array[CardResource]
 var exhaust_pile: Array[CardResource]
+var player: PlayableEntity
 
 const HAND_SIZE = 4
 
-var player: PlayableEntity
+# Build a new hand
+func _show_hand(): 
+	for card_resource in hand:
+		var card: Card = _card_scene.instantiate()
+		card.initialize(card_resource, player)
+		card.scale = Vector2(1.,1.)
+		card.selected.connect(_emit_selected.bind(card))
+		$HandContainer.add_child(card)
+		shownCards.append(card)
+
+func _emit_selected(cardScene: Card):
+	card_selected.emit(cardScene)
 
 func initialize(deck: Array[CardResource], player_ref:PlayableEntity):
 	draw_pile = deck.duplicate();
 	fill_hand()
 	player = player_ref
 
+## Shuffle the draw pile then draw until the hand is full
+## Redraw the hand afterwards 
 func fill_hand(): 
 	draw_pile.shuffle()
 	var need_to_draw = HAND_SIZE - hand.size()
 	var idx_in_draw_pile = draw_pile.size() - need_to_draw
 	hand.append_array(draw_pile.slice(idx_in_draw_pile))
 	draw_pile = draw_pile.slice(0, idx_in_draw_pile)
-	_draw_hand()
+	_show_hand()
 	
-
+## Play the given card on the enemy. This should probably use 
+## the local player variable directly.
 func play(card: Card, player_: PlayableEntity, enemy: PlayableEntity):
-	for effect in card.effects:
+	for effect in card.get_effects():
 		effect.apply_effect(player_, enemy)
 
-	var idx = hand.find(card.resource)
+	var idx = hand.find(card._resource)
 	if idx >= 0: 
 		discard_pile.append(hand.pop_at(idx))
 		card.queue_free()
 	else:
 		printerr("Invalid card played!")
 	
-	var offsetCount = 0
-	for child in get_children(): 
-		if child is Card and not child.is_queued_for_deletion():
-			_offset_card(child, offsetCount)
-			offsetCount += 1
-	
+
+## Discard the hand then draw a new hand, taking the new cards in 
+## priority from the draw pile, then shuffling the discard pile when \
+## the draw pile is empty
 func draw_new_hand():
-	for child in get_children():
+	for child in $HandContainer.get_children():
 		if child is Card:
 			child.queue_free()
 	

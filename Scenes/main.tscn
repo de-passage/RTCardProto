@@ -69,8 +69,11 @@ scale = Vector2(1, 0.998151)
 layer = 4
 script = ExtResource("6_pv0oh")
 
-[node name="HandStart" type="Marker2D" parent="Hand"]
-position = Vector2(536, 780)
+[node name="HandContainer" type="HBoxContainer" parent="Hand"]
+offset_left = 357.0
+offset_top = 654.0
+offset_right = 1594.0
+offset_bottom = 1022.0
 
 [node name="WinButton" type="Button" parent="."]
 offset_left = 59.0

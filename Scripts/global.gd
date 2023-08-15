@@ -5,15 +5,19 @@ var recapMessage: String = ""
 var cards: Array[CardResource] = []
 var enemies = [] # Expect this to be an array of arrays of enemies. First layer is the level, second is the pool
 enum EnemyPool { NORMAL, ELITE, BOSS }
-enum LevelPool { DEFAULT } # extend form multiple levels
+enum LevelPool { DEFAULT } # extend for multiple levels
 
 const CARDS_PATH = "res://Cards"
 const ENEMIES_PATH = "res://Characters/Enemies"
 
 func load_resources(path: String, process: Callable):	
 	var files = DirAccess.get_files_at(path)
-	for file in files: 
-		var res = load("%s/%s" % [path, file])
+	for file_name in files:
+		# Some files get .remap extensions once exported. However, 
+		# trying to load a remap extension fails... 
+		if '.tres.remap' in file_name:
+			file_name = file_name.trim_suffix('.remap')
+		var res = load("%s/%s" % [path, file_name])
 		process.call(res)
 
 func load_enemies():
@@ -45,6 +49,12 @@ const REWARD_POTION = "potion"
 const REWARD_RELIC = "relic"
 var rewards: Dictionary = {}
 
+func get_player() -> Player: 
+	return Player.new(current_health, current_max_health)
+
+func update_player(player: Player):
+	current_health = player.current_hp
+
 func reset_game_values(): 
 	current_max_health = 50
 	current_health = 50
@@ -67,3 +77,17 @@ func current_enemy() -> EnemyResource:
 
 func setup_random_enemy(level: LevelPool, pool: EnemyPool):
 	_current_enemy = _random_enemy(level, pool)
+
+func get_card_sample() -> Array[CardResource]: 
+	var max_reward = cards.size()
+	if max_reward == 0: 
+		load_cards()
+		max_reward = cards.size()
+		
+	cards.shuffle()
+	return cards.slice(0, min(max_reward, 3))
+
+func get_current_deck() -> Array[CardResource]: 
+	if current_deck == null or current_deck.size() == 0: 
+		current_deck = get_starter().cards
+	return current_deck

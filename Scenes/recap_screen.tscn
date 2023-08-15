@@ -93,9 +93,55 @@ text = "Restart"
 layout_mode = 2
 text = "Quit to main menu"
 
+[node name="CardSelection" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_16662")
+
+[node name="CenterContainer" type="CenterContainer" parent="CardSelection"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 56.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CardSelection/CenterContainer"]
+custom_minimum_size = Vector2(1400, 600)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CardSelection/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 20
+
+[node name="CenterContainer" type="CenterContainer" parent="CardSelection/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CardSelection/CenterContainer/PanelContainer/MarginContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CardSelection/CenterContainer/PanelContainer/MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="CardSelection/CenterContainer/PanelContainer/MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Close"
+
 [connection signal="pressed" from="VBox/Rewards/Buttons/CoinButton" to="." method="_on_coin_button_pressed"]
 [connection signal="pressed" from="VBox/Rewards/Buttons/PotionButton" to="." method="_on_potion_button_pressed"]
 [connection signal="pressed" from="VBox/Rewards/Buttons/CardButton" to="." method="_on_card_button_pressed"]
 [connection signal="pressed" from="VBox/Rewards/Buttons/RelicButton" to="." method="_on_relic_button_pressed"]
 [connection signal="pressed" from="VBox/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="VBox/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="CardSelection/CenterContainer/PanelContainer/MarginContainer/CenterContainer/VBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

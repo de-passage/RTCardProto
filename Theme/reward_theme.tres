@@ -1,5 +1,6 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://ce00dygj64r3p"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://ce00dygj64r3p"]
 
+[ext_resource type="StyleBox" uid="uid://d3nmr7b5maq5y" path="res://Theme/card_selection_style_box_flat.tres" id="1_boaeb"]
 [ext_resource type="FontFile" uid="uid://bsk6op0lpnbwx" path="res://font/NeverMindsemi-serif-Regular.ttf" id="1_picm3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdenx"]
@@ -14,51 +15,7 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_detji"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.478431, 0.270588, 0.270588, 1)
-skew = Vector2(0.01, 0.01)
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
-border_color = Color(0.463147, 0.262099, 0.262371, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-corner_detail = 5
-expand_margin_left = 50.0
-expand_margin_top = 25.0
-expand_margin_right = 50.0
-expand_margin_bottom = 25.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jyvsc"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.513726, 0.294118, 0.294118, 1)
-skew = Vector2(0.01, 0.01)
-border_width_left = 10
-border_width_top = 10
-border_width_right = 10
-border_width_bottom = 10
-border_color = Color(0.463147, 0.262099, 0.262371, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-corner_detail = 5
-expand_margin_left = 50.0
-expand_margin_top = 25.0
-expand_margin_right = 50.0
-expand_margin_bottom = 25.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ydxj1"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_627nc"]
 content_margin_left = 4.0
 content_margin_top = 4.0
 content_margin_right = 4.0
@@ -89,6 +46,36 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_adu7l"]
+bg_color = Color(0.539063, 0.3125, 0.3125, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.460938, 0.261719, 0.261719, 1)
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+shadow_color = Color(0.462745, 0.262745, 0.262745, 0.745098)
+shadow_size = 15
+shadow_offset = Vector2(10, 10)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r5qs6"]
+bg_color = Color(0.539063, 0.3125, 0.3125, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.460938, 0.261719, 0.261719, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0.460938, 0.261719, 0.261719, 1)
+shadow_size = 10
+shadow_offset = Vector2(10, 10)
+
 [resource]
 default_font = ExtResource("1_picm3")
 default_font_size = 32
@@ -109,14 +96,17 @@ Button/constants/h_separation = -1
 Button/constants/icon_max_width = 0
 Button/constants/outline_size = 1
 Button/styles/disabled = SubResource("StyleBoxFlat_sdenx")
-Button/styles/focus = SubResource("StyleBoxFlat_detji")
-Button/styles/hover = SubResource("StyleBoxFlat_jyvsc")
-Button/styles/normal = SubResource("StyleBoxFlat_ydxj1")
+Button/styles/focus = SubResource("StyleBoxFlat_627nc")
+Button/styles/hover = ExtResource("1_boaeb")
+Button/styles/normal = ExtResource("1_boaeb")
 Button/styles/pressed = SubResource("StyleBoxFlat_11sx1")
+HBoxContainer/constants/separation = 37
 Label/colors/font_color = Color(0.808594, 0.808594, 0.808594, 1)
 Label/font_sizes/font_size = 64
 Label/fonts/font = ExtResource("1_picm3")
 Label/styles/normal = null
 MarginContainer/constants/margin_left = 250
 MarginContainer/constants/margin_right = 250
+Panel/styles/panel = SubResource("StyleBoxFlat_adu7l")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_r5qs6")
 VBoxContainer/constants/separation = 27

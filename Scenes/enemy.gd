@@ -27,6 +27,7 @@ func initialize(entityResource: EnemyResource):
 	$Sprite2D.material = _resource.shader
 	$Control/EnergyBar.fill_time = _resource.attack_frequency
 	$Control/Health.connect_playable_entity(_entity)
+	$Label.text = _resource.name
 		
 
 	show_intent()

@@ -1,52 +1,52 @@
 extends Control
 
-enum { CONTINUE, RESTART }
+@onready var _coin_button = $VBox/Rewards/Buttons/CoinButton
+@onready var _potion_button = $VBox/Rewards/Buttons/PotionButton
+@onready var _card_button = $VBox/Rewards/Buttons/CardButton
+@onready var _relic_button = $VBox/Rewards/Buttons/RelicButton
+@onready var _card_container = $CardSelection/CenterContainer/PanelContainer/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer
+@onready var _label = $VBox/Recap
+@onready var _next_button = $VBox/RestartButton
+@onready var _card_selection_panel = $CardSelection
 
-var whatNext
-@onready var coin_button = $VBox/Rewards/Buttons/CoinButton
+var _card_scene = preload("res://Scenes/card.tscn")
 
-@onready var potion_button = $VBox/Rewards/Buttons/PotionButton
-
-@onready var card_button = $VBox/Rewards/Buttons/CardButton
-
-@onready var relic_button = $VBox/Rewards/Buttons/RelicButton
+var _player_entity = PlayableEntity.new(Global.current_max_health)
 
 func _ready():
-	var label = $VBox/Recap
-	var next_button = $VBox/RestartButton
+	Global.rewards = { Global.REWARD_CARD: true }
 	
 	if Global.rewards.get(Global.REWARD_COINS, 0) > 0:
-		coin_button.text = "%s Coins" % Global.rewards.get(Global.REWARD_COINS)
-		coin_button.visible = true
+		_coin_button.text = "%s Coins" % Global.rewards.get(Global.REWARD_COINS)
+		_coin_button.visible = true
 	else:
-		coin_button.visible = false	
+		_coin_button.visible = false	
 		
 	if Global.rewards.get(Global.REWARD_POTION) != null:
-		potion_button.text = Global.rewards.get(Global.REWARD_POTION)
-		potion_button.visible = true
+		_potion_button.text = Global.rewards.get(Global.REWARD_POTION)
+		_potion_button.visible = true
 	else:
-		potion_button.visible = false
+		_potion_button.visible = false
 		
 	if Global.rewards.get(Global.REWARD_RELIC) != null:
-		relic_button.text = Global.rewards.get(Global.REWARD_RELIC)
-		relic_button.visible = true
+		_relic_button.text = Global.rewards.get(Global.REWARD_RELIC)
+		_relic_button.visible = true
 	else:
-		relic_button.visible = false
+		_relic_button.visible = false
 
-	if Global.rewards.get(Global.REWARD_COINS) != null:
-		card_button.visible = true
+	if Global.rewards.get(Global.REWARD_CARD) != null:
+		_generate_rewards()
+		_card_button.visible = true
 	else:
-		card_button.visible = false
+		_card_button.visible = false
 		
 	if Global.current_health == 0: 
-		label.text = "Defeat..."
-		next_button.text = "Try again!"
-		whatNext = RESTART
+		_label.text = "Defeat..."
+		_next_button.text = "Try again!"
 		Global.reset_game_values()
 	else:
-		label.text = "Victory!"
-		next_button.text = "Onward!"
-		whatNext = CONTINUE
+		_label.text = "Victory!"
+		_next_button.text = "Onward!"
 
 func _on_restart_button_pressed():
 	Global.rewards = {}
@@ -57,13 +57,28 @@ func _on_main_menu_button_pressed():
 
 func _on_coin_button_pressed():
 	Global.current_money += Global.rewards.get("coins", 0)
-	coin_button.visible = false
+	_coin_button.visible = false
 
 func _on_potion_button_pressed():
 	pass # Replace with function body.
 
 func _on_card_button_pressed():
-	pass # Replace with function body.
+	_card_selection_panel.visible = true
 
 func _on_relic_button_pressed():
 	pass # Replace with function body.
+
+func _generate_rewards(): 
+	for card_resource in Global.get_card_sample():
+		var card: Card = _card_scene.instantiate()
+		card.initialize(card_resource, _player_entity)
+		card.selected.connect(_on_card_selected.bind(card_resource))
+		_card_container.add_child(card)
+
+func _on_card_selected(card: CardResource):
+	Global.current_deck.append(card)
+	_card_button.visible = false
+	_card_selection_panel.visible = false
+
+func _on_close_button_pressed():
+	_card_selection_panel.visible = false
