@@ -7,11 +7,11 @@ const SEPARATION = 35
 
 var shownCards: Array[Card] = []
 
-func _offset_card(card: Card, offset: int): 
+func _offset_card(card: Card, pos_offset: int): 
 	card.position = $HandStart.position + \
-		Vector2((card.get_width() + SEPARATION) * offset, 0)
+		Vector2((card.get_width() + SEPARATION) * pos_offset, 0)
 
-func _draw_hand(player: PlayableEntity): 
+func _draw_hand(): 
 	var offset_count = 0
 	for card in hand:
 		var cardScene = load("res://Scenes/card.tscn").instantiate()
@@ -34,7 +34,7 @@ var exhaust_pile: Array[CardResource]
 
 const HAND_SIZE = 4
 
-var player
+var player: PlayableEntity
 
 func initialize(deck: Array[CardResource], player_ref:PlayableEntity):
 	draw_pile = deck.duplicate();
@@ -47,12 +47,12 @@ func fill_hand():
 	var idx_in_draw_pile = draw_pile.size() - need_to_draw
 	hand.append_array(draw_pile.slice(idx_in_draw_pile))
 	draw_pile = draw_pile.slice(0, idx_in_draw_pile)
-	_draw_hand(player)
+	_draw_hand()
 	
 
-func play(card: Card, player: PlayableEntity, enemy: PlayableEntity):
+func play(card: Card, player_: PlayableEntity, enemy: PlayableEntity):
 	for effect in card.effects:
-		effect.apply_effect(player, enemy)
+		effect.apply_effect(player_, enemy)
 
 	var idx = hand.find(card.resource)
 	if idx >= 0: 

@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=9 format=3 uid="uid://lsqot3lwy30g"]
+
+[ext_resource type="Script" path="res://Scripts/EnemyResource.gd" id="1_adu67"]
+[ext_resource type="Script" path="res://Scripts/Effects/AddAttackPower.gd" id="1_dc4cp"]
+[ext_resource type="Material" uid="uid://dertivoeelffg" path="res://Shaders/brutal_goo.tres" id="2_j1fr1"]
+[ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_ljsoa"]
+[ext_resource type="Texture2D" uid="uid://bkmlxlcwpfjui" path="res://art/ballBlue_10.png" id="3_56xh7"]
+[ext_resource type="Script" path="res://Scripts/Effects/Damage.gd" id="3_v72op"]
+
+[sub_resource type="Resource" id="Resource_5hy7g"]
+script = ExtResource("2_ljsoa")
+effectValues = Array[int]([2])
+effectScript = ExtResource("1_dc4cp")
+
+[sub_resource type="Resource" id="Resource_q7k0j"]
+script = ExtResource("2_ljsoa")
+effectValues = Array[int]([0, 0, 0, 0, 0, 0])
+effectScript = ExtResource("3_v72op")
+
+[resource]
+script = ExtResource("1_adu67")
+name = "Brutal Goo"
+health = 25
+effects = Array[ExtResource("2_ljsoa")]([SubResource("Resource_5hy7g"), SubResource("Resource_q7k0j")])
+coin_value = 22
+texture = ExtResource("3_56xh7")
+shader = ExtResource("2_j1fr1")
+attack_frequency = 4.0
+card_reward = true
+type = 1

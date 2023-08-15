@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dertivoeelffg"]
+
+[ext_resource type="Shader" path="res://Shaders/flashing.gdshader" id="1_vfoli"]
+
+[resource]
+shader = ExtResource("1_vfoli")
+shader_parameter/flashFrequency = 0.7
+shader_parameter/color = Color(0.509804, 0.117647, 0.00392157, 1)
+shader_parameter/flashIntensity = 0.25
+shader_parameter/flashOffset = 0.3

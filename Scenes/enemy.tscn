@@ -1,15 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2xo6yskfupnw"]
+[gd_scene load_steps=5 format=3 uid="uid://d2xo6yskfupnw"]
 
 [ext_resource type="Texture2D" uid="uid://bkmlxlcwpfjui" path="res://art/ballBlue_10.png" id="1_3x33g"]
 [ext_resource type="Script" path="res://Scenes/enemy.gd" id="1_5aqr7"]
-[ext_resource type="Resource" uid="uid://pq5gfi4uwv4o" path="res://Characters/Enemies/nasty_goo.tres" id="2_rgosk"]
 [ext_resource type="PackedScene" uid="uid://cldmdqaai3y06" path="res://Scenes/health.tscn" id="3_ii3l6"]
 [ext_resource type="PackedScene" uid="uid://dylwuxmaea2pd" path="res://Scenes/energy_bar.tscn" id="4_sry2h"]
 
 [node name="Enemy" type="Node2D"]
 position = Vector2(180, 140)
 script = ExtResource("1_5aqr7")
-resource = ExtResource("2_rgosk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_3x33g")

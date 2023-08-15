@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://cldmdqaai3y06"]
+[gd_scene load_steps=12 format=3 uid="uid://cldmdqaai3y06"]
 
 [ext_resource type="Theme" uid="uid://dqejunx8h0xid" path="res://Theme/board_ui.tres" id="1_d1dmo"]
 [ext_resource type="Script" path="res://Scenes/health.gd" id="1_kbc0w"]
+[ext_resource type="Texture2D" uid="uid://dy7h4gwy1u5od" path="res://art/strength_icon.svg" id="3_mjbtn"]
 [ext_resource type="Texture2D" uid="uid://kpba32u4fw60" path="res://art/fantasy heart.png" id="3_qv01o"]
 [ext_resource type="Shader" path="res://Shaders/metal.gdshader" id="3_rde1c"]
 [ext_resource type="Texture2D" uid="uid://lw1chpa2p15w" path="res://art/equip armor white.png" id="3_wqp85"]
@@ -34,6 +35,15 @@ theme = ExtResource("1_d1dmo")
 alignment = 1
 script = ExtResource("1_kbc0w")
 
+[node name="CurrentStrength" type="Label" parent="."]
+layout_mode = 2
+text = "0"
+
+[node name="StrengthSprite" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("3_mjbtn")
+expand_mode = 2
+
 [node name="CurrentArmor" type="Label" parent="."]
 layout_mode = 2
 text = "0"
@@ -53,7 +63,7 @@ text = "10/10"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="HealthSprite" type="TextureRect" parent="."]
 layout_mode = 2
 size_flags_horizontal = 4
 texture = ExtResource("3_qv01o")

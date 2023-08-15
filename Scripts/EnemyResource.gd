@@ -9,3 +9,7 @@ class_name EnemyResource
 @export var texture: Texture2D
 @export var shader: ShaderMaterial
 @export var attack_frequency: float = 5
+@export var card_reward = true
+
+@export var type: Global.EnemyPool = Global.EnemyPool.NORMAL
+@export var level: Global.LevelPool = Global.LevelPool.DEFAULT

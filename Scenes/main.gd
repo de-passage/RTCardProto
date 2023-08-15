@@ -9,10 +9,12 @@ func _ready():
 	player.current_hp = Global.current_health
 	$UI/Health.connect_playable_entity(player)
 	
-	$Enemy.resource = Global.random_enemy()
-	print("Loaded %s" % $Enemy.resource.name)
+	$Enemy.initialize(Global.current_enemy())
+	$Enemy.died.connect(_on_enemy_died)
 	
-	$Enemy.entity.died.connect(_on_enemy_died)
+	# TODO: Remove this in prod
+	print("Loaded %s" % $Enemy._resource.name)
+	
 	player.died.connect(_on_player_died)
 	
 	manager.initialize(Global.current_deck, player)
@@ -20,8 +22,7 @@ func _ready():
 func _play_card(card: Card): 
 	if card.cardCost <= energy: 
 		$UI/EnergyContainer/EnergyBar.deduct_energy(card.cardCost)
-		manager.play(card, player, $Enemy.entity)
-
+		manager.play(card, player, $Enemy.get_entity())
 
 func _on_energy_bar_step_reached(step):
 	energy = step
@@ -31,10 +32,10 @@ func _on_player_died():
 	Global.current_health = 0
 	get_tree().call_deferred("change_scene_to_file", "res://Scenes/recap_screen.tscn")
 
-func _on_enemy_died():
+func _on_enemy_died(rewards: Dictionary):
 	Global.recapMessage = "You won!"
 	Global.current_health = player.current_hp
-	Global.rewards = { "coins": $Enemy.coin_value }
+	Global.rewards = rewards
 	get_tree().call_deferred("change_scene_to_file", "res://Scenes/recap_screen.tscn")
 
 
@@ -44,3 +45,7 @@ func _on_deck_refreshed():
 
 func _on_enemy_effects(effect):
 	effect.call(player)
+
+
+func _on_win_button_pressed():
+	$Enemy._entity.current_hp = 0

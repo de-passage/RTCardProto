@@ -4,7 +4,6 @@ extends Node2D
 @export var node_deviation = 32
 
 var path_start_offset = 0.6
-
 var added_children: Array[Array] = []
 var added_lines = []
 
@@ -13,7 +12,6 @@ func _ready():
 	$HUD/CoinLabel.text = "%s" % Global.current_money
 	
 	$Circle.visible = false
-	Maze.generate_maze()
 	display_maze()
 	$CanvasLayer/WhiteShader.material.get_shader_parameter("noise").noise.seed = randi()
 	
@@ -126,13 +124,15 @@ func _on_button_pressed():
 
 func _on_boss_pressed():
 	if Maze.move_to_boss():
-		start_combat()
+		start_combat(Global.EnemyPool.BOSS)
 
 func _on_sprite_button_pressed(f, n): 
 	if Maze.move_player(f, n):
 		print("Moving to node %s,%s" % [f,n])
-		start_combat()
+		var combat_type = Global.EnemyPool.ELITE if Maze.at(f,n) == Maze.NodeType.ELITE else Global.EnemyPool.NORMAL
+		start_combat(combat_type)
 
-func start_combat():
+func start_combat(enemy_type: Global.EnemyPool):
 	print("combat started")
+	Global.setup_random_enemy(Global.current_level, enemy_type)
 	get_tree().change_scene_to_file("res://Scenes/main.tscn")

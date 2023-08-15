@@ -15,25 +15,25 @@ func _ready():
 	var label = $VBox/Recap
 	var next_button = $VBox/RestartButton
 	
-	if Global.rewards.get("coins", 0) > 0:
-		coin_button.text = "%s Coins" % Global.rewards.get("coins")
+	if Global.rewards.get(Global.REWARD_COINS, 0) > 0:
+		coin_button.text = "%s Coins" % Global.rewards.get(Global.REWARD_COINS)
 		coin_button.visible = true
 	else:
 		coin_button.visible = false	
 		
-	if Global.rewards.get("potion") != null:
-		potion_button.text = Global.rewards.get("potion")
+	if Global.rewards.get(Global.REWARD_POTION) != null:
+		potion_button.text = Global.rewards.get(Global.REWARD_POTION)
 		potion_button.visible = true
 	else:
 		potion_button.visible = false
 		
-	if Global.rewards.get("relic") != null:
-		relic_button.text = Global.rewards.get("relic")
+	if Global.rewards.get(Global.REWARD_RELIC) != null:
+		relic_button.text = Global.rewards.get(Global.REWARD_RELIC)
 		relic_button.visible = true
 	else:
 		relic_button.visible = false
 
-	if Global.rewards.get("card") != null:
+	if Global.rewards.get(Global.REWARD_COINS) != null:
 		card_button.visible = true
 	else:
 		card_button.visible = false

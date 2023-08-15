@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dn6si7yuphnq6"]
+[gd_scene load_steps=10 format=3 uid="uid://dn6si7yuphnq6"]
 
 [ext_resource type="Script" path="res://Scenes/main.gd" id="1_hbbjb"]
 [ext_resource type="PackedScene" uid="uid://tvjk1wf42fsi" path="res://Scenes/deck.tscn" id="1_rnv0a"]
@@ -9,30 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://3g18axpijiuu" path="res://art/fantasy empty playboard.png" id="5_2xmo6"]
 [ext_resource type="PackedScene" uid="uid://d2xo6yskfupnw" path="res://Scenes/enemy.tscn" id="6_bcqkl"]
 [ext_resource type="Script" path="res://Scenes/Hand.gd" id="6_pv0oh"]
-[ext_resource type="Script" path="res://Scripts/Effects/Damage.gd" id="9_nh2wd"]
-[ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="10_fcr8p"]
-[ext_resource type="Script" path="res://Scripts/Effects/AddArmor.gd" id="11_tfdx7"]
-[ext_resource type="Script" path="res://Scripts/Effects/Heal.gd" id="12_ohewy"]
-
-[sub_resource type="Resource" id="Resource_skrcs"]
-script = ExtResource("10_fcr8p")
-effectValues = Array[int]([5])
-effectScript = ExtResource("9_nh2wd")
-
-[sub_resource type="Resource" id="Resource_hod8h"]
-script = ExtResource("10_fcr8p")
-effectValues = Array[int]([6])
-effectScript = ExtResource("11_tfdx7")
-
-[sub_resource type="Resource" id="Resource_rphtd"]
-script = ExtResource("10_fcr8p")
-effectValues = Array[int]([5])
-effectScript = ExtResource("9_nh2wd")
-
-[sub_resource type="Resource" id="Resource_loigv"]
-script = ExtResource("10_fcr8p")
-effectValues = Array[int]([5])
-effectScript = ExtResource("12_ohewy")
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_hbbjb")
@@ -88,9 +64,6 @@ texture = ExtResource("5_2xmo6")
 [node name="Enemy" parent="." instance=ExtResource("6_bcqkl")]
 position = Vector2(946, 241)
 scale = Vector2(1, 0.998151)
-max_hp = 10
-attack_frequency = 5.0
-effectList = Array[ExtResource("10_fcr8p")]([SubResource("Resource_skrcs"), SubResource("Resource_hod8h"), SubResource("Resource_rphtd"), SubResource("Resource_loigv")])
 
 [node name="Hand" type="CanvasLayer" parent="."]
 layer = 4
@@ -99,8 +72,16 @@ script = ExtResource("6_pv0oh")
 [node name="HandStart" type="Marker2D" parent="Hand"]
 position = Vector2(536, 780)
 
+[node name="WinButton" type="Button" parent="."]
+offset_left = 59.0
+offset_top = 66.0
+offset_right = 102.0
+offset_bottom = 97.0
+text = "Win!"
+
 [connection signal="refreshed" from="Deck" to="." method="_on_deck_refreshed"]
 [connection signal="step_reached" from="UI/EnergyContainer/EnergyBar" to="." method="_on_energy_bar_step_reached"]
 [connection signal="step_reached" from="UI/EnergyContainer/EnergyBar" to="UI" method="_on_energy_bar_step_reached"]
 [connection signal="effects" from="Enemy" to="." method="_on_enemy_effects"]
 [connection signal="card_selected" from="Hand" to="." method="_play_card"]
+[connection signal="pressed" from="WinButton" to="." method="_on_win_button_pressed"]
