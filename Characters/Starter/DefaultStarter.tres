@@ -18,6 +18,8 @@ script = ExtResource("3_nuwng")
 cardName = "Attack"
 cost = 1
 cardEffects = Array[ExtResource("2_x5rss")]([SubResource("Resource_72j6s")])
+monetaryValue = 50
+rarity = 0
 
 [resource]
 script = ExtResource("7_265mq")

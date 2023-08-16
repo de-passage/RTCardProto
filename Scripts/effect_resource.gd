@@ -7,7 +7,7 @@ extends Resource
 ## have to be careful
 class_name EffectResource
 
-@export var effectValues: Array[int]
+@export var effectValues: Dictionary
 @export var effectScript: Script
 
 func load_effect():

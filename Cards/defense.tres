@@ -14,3 +14,5 @@ script = ExtResource("1_dmycw")
 cardName = "Defend"
 cost = 1
 cardEffects = Array[ExtResource("2_37qgp")]([SubResource("Resource_eus3n")])
+monetaryValue = 50
+rarity = 0

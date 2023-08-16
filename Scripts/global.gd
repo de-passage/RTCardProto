@@ -6,44 +6,22 @@ signal health_changed
 
 var recapMessage: String = ""
 
-var cards: Array[CardResource] = []
-var enemies = [] # Expect this to be an array of arrays of enemies. First layer is the level, second is the pool
 enum EnemyPool { NORMAL, ELITE, BOSS }
 enum LevelPool { DEFAULT } # extend for multiple levels
 
-const CARDS_PATH = "res://Cards"
-const ENEMIES_PATH = "res://Characters/Enemies"
 
-func load_resources(path: String, process: Callable):	
-	var files = DirAccess.get_files_at(path)
-	for file_name in files:
-		# Some files get .remap extensions once exported. However, 
-		# trying to load a remap extension fails... 
-		if '.tres.remap' in file_name:
-			file_name = file_name.trim_suffix('.remap')
-		var res = load("%s/%s" % [path, file_name])
-		process.call(res)
+var _cards # Array[CardResource] | null
+var _enemies # Expect this to be an array of arrays of enemies. First layer is the level, second is the pool
 
-func load_enemies():
-	enemies = []
-	for level in range(LevelPool.size()):
-		var level_array = []
-		enemies.append(level_array)
-		for pool in range(EnemyPool.size()):
-			level_array.append([])
-	load_resources(ENEMIES_PATH, func(r): if r is EnemyResource: enemies[r.level][r.type].append(r))
-	
-
-func load_cards():
-	load_resources(CARDS_PATH, func(r): if r is CardResource: cards.append(r))
-
-func get_starter() -> StarterDeck :
-	return preload("res://Characters/Starter/DefaultStarter.tres")
-
-var current_deck: Array[CardResource] = get_starter().cards:
+var current_deck: Array[CardResource]:
 	set(value):
 		current_deck = value
 		deck_changed.emit()
+	get:
+		if current_deck == null: 
+			return _get_starter().cards
+		else:
+			return current_deck
 		
 var current_max_health: int = 50:
 	set(value):
@@ -80,15 +58,14 @@ func update_player(player: Player):
 func reset_game_values(): 
 	current_max_health = 50
 	current_health = 50
-	current_deck = get_starter().cards
+	current_deck = _get_starter().cards
 	current_money = 50
 	Maze.generate_new_level()
 
 func _random_enemy(level: LevelPool, pool: EnemyPool) -> EnemyResource:
-	if enemies.is_empty():
-		load_enemies()
+	_load_enemies()
 		
-	var selected_pool = enemies[level][pool]
+	var selected_pool = _enemies[level][pool]
 	var r = randi_range(0, selected_pool.size() - 1)
 	return selected_pool[r]
 
@@ -100,18 +77,15 @@ func current_enemy() -> EnemyResource:
 func setup_random_enemy(level: LevelPool, pool: EnemyPool):
 	_current_enemy = _random_enemy(level, pool)
 
-func get_card_sample() -> Array[CardResource]: 
-	var max_reward = cards.size()
-	if max_reward == 0: 
-		load_cards()
-		max_reward = cards.size()
-		
-	cards.shuffle()
-	return cards.slice(0, min(max_reward, 3))
+func get_card_sample(sample_size: int = 3): 
+	_load_cards()
+	var max_reward = _cards.size()
+	_cards.shuffle()
+	return _cards.slice(0, clamp(sample_size,  0, max_reward))
 
 func get_current_deck() -> Array[CardResource]: 
 	if current_deck == null or current_deck.size() == 0: 
-		current_deck = get_starter().cards
+		current_deck = _get_starter().cards
 	return current_deck
 
 func remove_from_deck(card: CardResource):
@@ -119,3 +93,26 @@ func remove_from_deck(card: CardResource):
 	if idx >= 0: 
 		current_deck.remove_at(idx)
 		deck_changed.emit()
+
+func add_to_current_deck(card: CardResource):
+	current_deck.append(card)
+
+func _load_enemies():
+	if _enemies != null: return
+	
+	var resources = CGResourceManager.load_enemies()
+	_enemies = []
+	for level in range(Global.LevelPool.size()):
+		var level_array = []
+		_enemies.append(level_array)
+		for pool in range(Global.EnemyPool.size()):
+			level_array.append([])
+	for r in resources: 
+		_enemies[r.level][r.type].append(r)
+
+func _load_cards():
+	if _cards == null:
+		_cards = CGResourceManager.load_cards() as Array[CardResource]
+
+func _get_starter() -> StarterDeck :
+	return preload("res://Characters/Starter/DefaultStarter.tres")

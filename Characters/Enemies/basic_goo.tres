@@ -5,16 +5,19 @@
 [ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_y07r3"]
 [ext_resource type="Texture2D" uid="uid://bkmlxlcwpfjui" path="res://art/ballBlue_10.png" id="4_nvsek"]
 
-[sub_resource type="Resource" id="Resource_5xya7"]
+[sub_resource type="Resource" id="Resource_1grwr"]
 script = ExtResource("2_y07r3")
-effectValues = Array[int]([5])
+effectValues = {}
 effectScript = ExtResource("1_bqkud")
 
 [resource]
 script = ExtResource("1_hcupe")
 name = "Basic Goo"
 health = 10
-effects = Array[ExtResource("2_y07r3")]([SubResource("Resource_5xya7")])
+effects = Array[ExtResource("2_y07r3")]([SubResource("Resource_1grwr")])
 coin_value = 10
 texture = ExtResource("4_nvsek")
 attack_frequency = 5.0
+card_reward = true
+type = 0
+level = 0

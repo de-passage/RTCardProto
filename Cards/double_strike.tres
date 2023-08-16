@@ -19,3 +19,5 @@ script = ExtResource("3_4ireg")
 cardName = "Double Strike"
 cost = 1
 cardEffects = Array[ExtResource("2_0qave")]([SubResource("Resource_nxxc6"), SubResource("Resource_nvaqb")])
+monetaryValue = 50
+rarity = 0

@@ -1,16 +1,28 @@
-[gd_resource type="Resource" script_class="CardResource" load_steps=5 format=3 uid="uid://bhl40o114lvmv"]
+[gd_resource type="Resource" script_class="CardResource" load_steps=7 format=3 uid="uid://bhl40o114lvmv"]
 
 [ext_resource type="Script" path="res://Scripts/Effects/Heal.gd" id="1_hpe1n"]
 [ext_resource type="Script" path="res://Scripts/CardResource.gd" id="1_t7a8x"]
 [ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_tcwuy"]
+[ext_resource type="Script" path="res://Scripts/Effects/Damage.gd" id="3_auvyb"]
 
-[sub_resource type="Resource" id="Resource_xa2vq"]
+[sub_resource type="Resource" id="Resource_sg3gv"]
 script = ExtResource("2_tcwuy")
-effectValues = Array[int]([3])
+effectValues = {
+"Amount": 1
+}
 effectScript = ExtResource("1_hpe1n")
+
+[sub_resource type="Resource" id="Resource_sqwt5"]
+script = ExtResource("2_tcwuy")
+effectValues = {
+"Amount": 1
+}
+effectScript = ExtResource("3_auvyb")
 
 [resource]
 script = ExtResource("1_t7a8x")
 cardName = "Heal"
 cost = 2
-cardEffects = Array[ExtResource("2_tcwuy")]([SubResource("Resource_xa2vq")])
+cardEffects = Array[ExtResource("2_tcwuy")]([SubResource("Resource_sg3gv"), SubResource("Resource_sqwt5")])
+monetaryValue = 0
+rarity = 0

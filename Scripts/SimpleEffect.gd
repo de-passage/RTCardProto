@@ -13,9 +13,9 @@ var targetProp = null
 ##
 ## For example, a heal effect would give in first property name "current_hp" 
 ## and in second "heal_power"
-func _init(v: Array[int], property: StringName, modif: Variant = null):
+func _init(v: Dictionary, property: StringName, modif: Variant = null):
 	if v.size() > 0: 
-		effect_strength = v[0]
+		effect_strength = v.get("Amount")
 	targetProp = property
 	modifier = modif
 
