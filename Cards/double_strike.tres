@@ -4,20 +4,24 @@
 [ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_0qave"]
 [ext_resource type="Script" path="res://Scripts/CardResource.gd" id="3_4ireg"]
 
-[sub_resource type="Resource" id="Resource_nxxc6"]
+[sub_resource type="Resource" id="Resource_6cy86"]
 script = ExtResource("2_0qave")
-effectValues = Array[int]([3])
+effectValues = {
+"Amount": 3.0
+}
 effectScript = ExtResource("1_o24go")
 
-[sub_resource type="Resource" id="Resource_nvaqb"]
+[sub_resource type="Resource" id="Resource_3ug3u"]
 script = ExtResource("2_0qave")
-effectValues = Array[int]([3])
+effectValues = {
+"Amount": 3.0
+}
 effectScript = ExtResource("1_o24go")
 
 [resource]
 script = ExtResource("3_4ireg")
 cardName = "Double Strike"
 cost = 1
-cardEffects = Array[ExtResource("2_0qave")]([SubResource("Resource_nxxc6"), SubResource("Resource_nvaqb")])
-monetaryValue = 50
-rarity = 0
+cardEffects = Array[ExtResource("2_0qave")]([SubResource("Resource_6cy86"), SubResource("Resource_3ug3u")])
+monetaryValue = 67
+rarity = 67

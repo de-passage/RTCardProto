@@ -1,0 +1,132 @@
+[gd_scene load_steps=3 format=3 uid="uid://4b3q7kq84kuh"]
+
+[ext_resource type="Script" path="res://addons/card_editor/card_editor.gd" id="1_m4cus"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4ep76"]
+font_color = Color(0.976471, 0, 0, 1)
+
+[node name="CardEditor" type="ScrollContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_m4cus")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="ResetButton" type="Button" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Reset all fields"
+
+[node name="Control2" type="Control" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="LoadCardButton" type="MenuButton" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+text = "Load"
+flat = false
+
+[node name="FileDialog" type="FileDialog" parent="VBoxContainer/GridContainer/LoadCardButton"]
+title = "Open a File"
+ok_button_text = "Open"
+file_mode = 0
+root_subfolder = "Cards"
+filters = PackedStringArray("*.tres")
+
+[node name="SavePath" type="TextEdit" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+placeholder_text = "File name"
+
+[node name="CardNameLabel" type="Label" parent="VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Card name"
+
+[node name="CardNameEdit" type="LineEdit" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Card name required!"
+
+[node name="CardCostLabel" type="Label" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Card Energy Cost"
+
+[node name="CardCostEdit" type="SpinBox" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+value = 1.0
+rounded = true
+custom_arrow_step = 1.0
+
+[node name="CardCostLabel2" type="Label" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Card Money Cost"
+
+[node name="CardCostEdit2" type="SpinBox" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+max_value = 9.22337e+18
+value = 50.0
+rounded = true
+custom_arrow_step = 1.0
+
+[node name="CardRarityLabel" type="Label" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Card rarity"
+
+[node name="CardRarityEdit" type="SpinBox" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+max_value = 9.22337e+18
+rounded = true
+custom_arrow_step = 1.0
+
+[node name="CardEffects" type="Label" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Card Effects"
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+item_count = 3
+popup/item_0/text = "f1"
+popup/item_0/id = 0
+popup/item_1/text = "f2"
+popup/item_1/id = 1
+popup/item_2/text = "f3"
+popup/item_2/id = 2
+
+[node name="Control" type="Control" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="EffectVBox" type="VBoxContainer" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Errors" type="Label" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+label_settings = SubResource("LabelSettings_4ep76")
+
+[node name="SaveButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Create"
+
+[node name="Feedback" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+
+[connection signal="pressed" from="VBoxContainer/GridContainer/ResetButton" to="." method="_on_reset_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/GridContainer/LoadCardButton" to="." method="_on_load_card_button_pressed"]
+[connection signal="file_selected" from="VBoxContainer/GridContainer/LoadCardButton/FileDialog" to="." method="_on_file_dialog_file_selected"]
+[connection signal="text_changed" from="VBoxContainer/GridContainer/CardNameEdit" to="." method="_on_card_name_edit_text_submitted"]
+[connection signal="text_submitted" from="VBoxContainer/GridContainer/CardNameEdit" to="." method="_on_card_name_edit_text_submitted"]
+[connection signal="item_selected" from="VBoxContainer/GridContainer/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="VBoxContainer/SaveButton" to="." method="_on_button_pressed"]

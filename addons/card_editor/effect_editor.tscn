@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://b40hs45te1g7c"]
+
+[ext_resource type="Script" path="res://addons/card_editor/effect_editor.gd" id="1_oyy23"]
+[ext_resource type="Texture2D" uid="uid://d0rsvvtyovv44" path="res://art/trash_icon.svg" id="2_mhevg"]
+
+[node name="EffectEditor" type="GridContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 2
+script = ExtResource("1_oyy23")
+
+[node name="BoxContainer" type="BoxContainer" parent="."]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+vertical = true
+
+[node name="MarginContainer" type="MarginContainer" parent="BoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 30
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="EffectName" type="Label" parent="BoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(190, 0)
+layout_mode = 2
+text = "Effect Name Here"
+
+[node name="TextureButton" type="TextureButton" parent="BoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(43, 0)
+layout_mode = 2
+texture_normal = ExtResource("2_mhevg")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 3
+
+[connection signal="pressed" from="BoxContainer/MarginContainer/HBoxContainer/TextureButton" to="." method="_on_texture_button_pressed"]
