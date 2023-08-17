@@ -13,6 +13,7 @@ const EFFECT_GROUP = ".EFFECT_GROUP"
 @onready var _save_button = $VBoxContainer/SaveButton as Button
 @onready var _save_path_edit = $VBoxContainer/GridContainer/SavePath
 @onready var _feedback = $VBoxContainer/Feedback
+@onready var _options_button = $VBoxContainer/GridContainer/OptionButton as OptionButton
 
 var _effect_editor_scene = preload("res://addons/card_editor/effect_editor.tscn")
 
@@ -33,8 +34,8 @@ var _overwrite: bool = false:
 		_overwrite = v
 		$VBoxContainer/SaveButton.text = "Create" if not _overwrite else "Save"
 		
-var _file_name_regex = RegEx.create_from_string(".*/([^/]+)\\.tres$")
-var _file_name_sanitizer =  RegEx.create_from_string("[^a-zA-Z0-9 _-]")
+var _file_name_regex = RegEx.create_from_string("res://Cards/(.*)\\.tres$")
+var _file_name_sanitizer =  RegEx.create_from_string("[^a-zA-Z0-9_/-]")
 
 func _get_metadata(e):
 	if e is GDScript:
@@ -137,6 +138,7 @@ func _on_option_button_item_selected(index):
 	
 	var selected_effect = _effects[index-1];
 	_add_effect_to_effect_list(selected_effect)
+	_options_button.selected = 0
 
 func _add_effect_to_effect_list(selected_effect: Dictionary):
 	var effect_name = selected_effect.get("name", "<Unnamed effect>");
