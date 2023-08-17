@@ -1,26 +1,13 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=8 format=3 uid="uid://bm36c6nsdx675"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=3 format=3 uid="uid://bm36c6nsdx675"]
 
 [ext_resource type="Script" path="res://Scripts/EnemyResource.gd" id="1_4daix"]
-[ext_resource type="Script" path="res://Scripts/Effects/Damage.gd" id="1_rb70l"]
-[ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_3p0yo"]
-[ext_resource type="Script" path="res://Scripts/Effects/AddAttackPower.gd" id="3_e3i1y"]
 [ext_resource type="Texture2D" uid="uid://bkmlxlcwpfjui" path="res://art/ballBlue_10.png" id="5_pyc5s"]
-
-[sub_resource type="Resource" id="Resource_jokyw"]
-script = ExtResource("2_3p0yo")
-effectValues = Array[int]([1])
-effectScript = ExtResource("1_rb70l")
-
-[sub_resource type="Resource" id="Resource_sohbl"]
-script = ExtResource("2_3p0yo")
-effectValues = Array[int]([5])
-effectScript = ExtResource("3_e3i1y")
 
 [resource]
 script = ExtResource("1_4daix")
 name = "King Goo"
 health = 200
-effects = Array[ExtResource("2_3p0yo")]([SubResource("Resource_jokyw"), SubResource("Resource_sohbl")])
+effects = Array[Resource("res://Scripts/CardResource.gd")]([])
 coin_value = 1000
 texture = ExtResource("5_pyc5s")
 attack_frequency = 5.0

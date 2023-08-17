@@ -1,0 +1,3 @@
+extends EditorInspector
+
+class_name MonsterInspector

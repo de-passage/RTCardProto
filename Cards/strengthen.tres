@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CardResource" load_steps=5 format=3]
+[gd_resource type="Resource" script_class="CardResource" load_steps=5 format=3 uid="uid://dirja0xuu01rt"]
 
 [ext_resource type="Script" path="res://Scripts/CardResource.gd" id="1_ajbv2"]
 [ext_resource type="Script" path="res://Scripts/Effects/AddAttackPower.gd" id="1_sgig6"]

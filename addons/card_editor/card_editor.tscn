@@ -96,13 +96,18 @@ text = "Card Effects"
 
 [node name="OptionButton" type="OptionButton" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
-item_count = 3
-popup/item_0/text = "f1"
+item_count = 5
+selected = 0
+popup/item_0/text = "<add effect>"
 popup/item_0/id = 0
-popup/item_1/text = "f2"
+popup/item_1/text = "Add Armor"
 popup/item_1/id = 1
-popup/item_2/text = "f3"
+popup/item_2/text = "Add Strength"
 popup/item_2/id = 2
+popup/item_3/text = "Deal damage"
+popup/item_3/id = 3
+popup/item_4/text = "Heal"
+popup/item_4/id = 4
 
 [node name="Control" type="Control" parent="VBoxContainer/GridContainer"]
 layout_mode = 2

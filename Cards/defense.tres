@@ -4,15 +4,17 @@
 [ext_resource type="Script" path="res://Scripts/Effects/AddArmor.gd" id="1_evhx6"]
 [ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_37qgp"]
 
-[sub_resource type="Resource" id="Resource_eus3n"]
+[sub_resource type="Resource" id="Resource_hhl1r"]
 script = ExtResource("2_37qgp")
-effectValues = Array[int]([5])
+effectValues = {
+"Amount": 5.0
+}
 effectScript = ExtResource("1_evhx6")
 
 [resource]
 script = ExtResource("1_dmycw")
 cardName = "Defend"
 cost = 1
-cardEffects = Array[ExtResource("2_37qgp")]([SubResource("Resource_eus3n")])
-monetaryValue = 50
+cardEffects = Array[ExtResource("2_37qgp")]([SubResource("Resource_hhl1r")])
+monetaryValue = 0
 rarity = 0

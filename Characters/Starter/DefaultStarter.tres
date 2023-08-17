@@ -10,7 +10,7 @@
 
 [sub_resource type="Resource" id="Resource_72j6s"]
 script = ExtResource("2_x5rss")
-effectValues = Array[int]([5])
+effectValues = {}
 effectScript = ExtResource("1_bmn1b")
 
 [sub_resource type="Resource" id="Resource_hbndm"]

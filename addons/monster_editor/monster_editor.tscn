@@ -1,0 +1,120 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnvw6xyexq6rq"]
+
+[ext_resource type="Script" path="res://addons/monster_editor/monster_editor.gd" id="1_u0m87"]
+
+[node name="MonsterEditor" type="ScrollContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u0m87")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 2
+
+[node name="LoadButton" type="Button" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Load"
+
+[node name="FileDialog" type="FileDialog" parent="GridContainer/LoadButton"]
+title = "Open a File"
+initial_position = 2
+ok_button_text = "Open"
+file_mode = 0
+root_subfolder = "Characters/Enemies"
+filters = PackedStringArray("*.tres")
+
+[node name="ControlBox" type="HBoxContainer" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NameLabel" type="Label" parent="GridContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Monster name"
+
+[node name="NameEdit" type="LineEdit" parent="GridContainer"]
+layout_mode = 2
+placeholder_text = "<Name Required>"
+
+[node name="HealhLabel" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Max Health"
+
+[node name="HealthEdit" type="SpinBox" parent="GridContainer"]
+layout_mode = 2
+min_value = 1.0
+max_value = 9.22337e+18
+value = 10.0
+rounded = true
+allow_greater = true
+
+[node name="CoinLabel" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Money Reward"
+
+[node name="CoinEdit" type="SpinBox" parent="GridContainer"]
+layout_mode = 2
+max_value = 9.22337e+18
+value = 10.0
+rounded = true
+allow_greater = true
+
+[node name="AttackFrequencyLabel" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Attack Frequency"
+
+[node name="AttackFrequencyEdit" type="SpinBox" parent="GridContainer"]
+layout_mode = 2
+min_value = 0.01
+step = 0.1
+value = 1.01
+
+[node name="CardRewardLabel" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Card Reward"
+
+[node name="CardRewardEdit" type="CheckBox" parent="GridContainer"]
+layout_mode = 2
+button_pressed = true
+
+[node name="TypeLabel" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Type"
+
+[node name="TypeEdit" type="OptionButton" parent="GridContainer"]
+layout_mode = 2
+item_count = 3
+selected = 0
+popup/item_0/text = "Normal"
+popup/item_0/id = 0
+popup/item_1/text = "Elite"
+popup/item_1/id = 1
+popup/item_2/text = "Boss"
+popup/item_2/id = 2
+
+[node name="LevelLabel" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Levels"
+
+[node name="LevelEdit" type="OptionButton" parent="GridContainer"]
+layout_mode = 2
+item_count = 1
+selected = 0
+popup/item_0/text = "Default"
+popup/item_0/id = 0
+
+[node name="CardLabel" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Cards"
+
+[node name="CardListEdit" type="ItemList" parent="GridContainer"]
+layout_mode = 2
+
+[connection signal="pressed" from="GridContainer/LoadButton" to="." method="_on_load_button_pressed"]
+[connection signal="file_selected" from="GridContainer/LoadButton/FileDialog" to="." method="_on_file_dialog_file_selected"]

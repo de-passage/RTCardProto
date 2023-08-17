@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=2 format=3 uid="uid://bs2bk16deiiv3"]
+
+[ext_resource type="Script" path="res://Scripts/EnemyResource.gd" id="1_ceuk0"]
+
+[resource]
+script = ExtResource("1_ceuk0")
+name = ""
+health = 10
+effects = Array[Resource("res://Scripts/CardResource.gd")]([])
+coin_value = 10
+attack_frequency = 5.0
+card_reward = true
+type = 0
+level = 0
