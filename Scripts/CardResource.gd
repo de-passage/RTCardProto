@@ -13,6 +13,8 @@ class_name CardResource
 
 func load_card_effects() -> Array[BaseEffect]: 
 	var result: Array[BaseEffect] = []
-	for e in cardEffects: 
-		result.append(e.load_effect())
+	for e in cardEffects:
+		var loaded = e.load_effect()
+		if loaded != null: 
+			result.append(loaded)
 	return result

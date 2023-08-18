@@ -11,6 +11,10 @@ class_name EffectResource
 @export var effectScript: Script
 
 func load_effect():
+	if effectScript == null: 
+		printerr("Effect Resource has no script attached!")
+		return null
+		
 	var effect = effectScript.new(effectValues)
 	if effect is BaseEffect: 
 		if effect.has_method("accept_values"):

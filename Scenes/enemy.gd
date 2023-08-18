@@ -9,7 +9,7 @@ var _resource: EnemyResource
 var _entity: PlayableEntity
 
 var current_effect = 0
-var effectQueue: Array[BaseEffect] = [BaseEffect.new()]
+var _card_list: Array[CardResource] = []
 
 func initialize(entityResource: EnemyResource):
 	_resource = entityResource
@@ -17,18 +17,15 @@ func initialize(entityResource: EnemyResource):
 	_entity = PlayableEntity.new(_resource.health)
 	_entity.died.connect(_on_entity_died)
 	
-	effectQueue = []
+	_card_list.clear()
 	for effect in _resource.effects:
-		effectQueue.append(effect.load_effect())
-	if effectQueue.is_empty(): # Just so it doesn't crash with inert enemy
-		effectQueue.append(BaseEffect.new())
+		_card_list.append(effect)
 	
 	$Sprite2D.texture = _resource.texture
 	$Sprite2D.material = _resource.shader
 	$Control/EnergyBar.fill_time = _resource.attack_frequency
 	$Control/Health.connect_playable_entity(_entity)
 	$Label.text = _resource.name
-		
 
 	show_intent()
 
@@ -37,13 +34,30 @@ func _on_energy_bar_filled():
 	$Control/EnergyBar.reset_energy()
 
 func cast_effect():
-	var effect: BaseEffect = effectQueue[current_effect];
-	effects.emit(func(player): effect.apply_effect(_entity, player))
-	current_effect = (current_effect + 1) % effectQueue.size()
+	if _card_list.size() <= current_effect: return
+	
+	var card: CardResource = _card_list[current_effect];
+	effects.emit(func(player): _apply_card(player, card))
+	current_effect = (current_effect + 1) % _card_list.size()
 	show_intent()
 
-func show_intent(): 
-	$Control/Intent.text = effectQueue[current_effect].get_description(_entity)
+func _apply_card(player: Player, card: CardResource):
+	for effect in card.cardEffects:
+		effect.apply_effect(_entity, player)
+
+func show_intent():
+	var text = ""
+	
+	if current_effect >= _card_list.size() or \
+		_card_list[current_effect].cardEffects.size() == 0:
+		text = "Lazying around"
+	else:
+		for effect in _card_list[current_effect].load_card_effects():
+			print(effect)
+			print(_card_list[current_effect])
+			text += effect.get_description(_entity)
+	
+	$Control/Intent.text = text 
 
 func get_entity() -> PlayableEntity:
 	return _entity
