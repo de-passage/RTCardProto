@@ -19,20 +19,20 @@ custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 vertical = true
 
-[node name="MarginContainer" type="MarginContainer" parent="BoxContainer"]
+[node name="Margin" type="MarginContainer" parent="BoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_right = 30
 
-[node name="HBoxContainer" type="HBoxContainer" parent="BoxContainer/MarginContainer"]
+[node name="Control" type="HBoxContainer" parent="BoxContainer/Margin"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="EffectName" type="Label" parent="BoxContainer/MarginContainer/HBoxContainer"]
+[node name="EffectName" type="Label" parent="BoxContainer/Margin/Control"]
 custom_minimum_size = Vector2(190, 0)
 layout_mode = 2
 text = "Effect Name Here"
 
-[node name="TextureButton" type="TextureButton" parent="BoxContainer/MarginContainer/HBoxContainer"]
+[node name="DeleteButton" type="TextureButton" parent="BoxContainer/Margin/Control"]
 custom_minimum_size = Vector2(43, 0)
 layout_mode = 2
 texture_normal = ExtResource("2_mhevg")
@@ -45,4 +45,4 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 3
 
-[connection signal="pressed" from="BoxContainer/MarginContainer/HBoxContainer/TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="BoxContainer/Margin/Control/DeleteButton" to="." method="_on_texture_button_pressed"]

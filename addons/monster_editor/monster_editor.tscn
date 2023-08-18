@@ -10,18 +10,21 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_u0m87")
 
-[node name="GridContainer" type="GridContainer" parent="."]
+[node name="Attr" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="Attr"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 2
 
-[node name="LoadButton" type="Button" parent="GridContainer"]
+[node name="LoadButton" type="Button" parent="Attr/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Load"
 
-[node name="FileDialog" type="FileDialog" parent="GridContainer/LoadButton"]
+[node name="FileDialog" type="FileDialog" parent="Attr/GridContainer/LoadButton"]
 title = "Open a File"
 initial_position = 2
 ok_button_text = "Open"
@@ -29,24 +32,24 @@ file_mode = 0
 root_subfolder = "Characters/Enemies"
 filters = PackedStringArray("*.tres")
 
-[node name="ControlBox" type="HBoxContainer" parent="GridContainer"]
+[node name="ControlBox" type="HBoxContainer" parent="Attr/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="NameLabel" type="Label" parent="GridContainer"]
+[node name="NameLabel" type="Label" parent="Attr/GridContainer"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 text = "Monster name"
 
-[node name="NameEdit" type="LineEdit" parent="GridContainer"]
+[node name="NameEdit" type="LineEdit" parent="Attr/GridContainer"]
 layout_mode = 2
 placeholder_text = "<Name Required>"
 
-[node name="HealhLabel" type="Label" parent="GridContainer"]
+[node name="HealhLabel" type="Label" parent="Attr/GridContainer"]
 layout_mode = 2
 text = "Max Health"
 
-[node name="HealthEdit" type="SpinBox" parent="GridContainer"]
+[node name="HealthEdit" type="SpinBox" parent="Attr/GridContainer"]
 layout_mode = 2
 min_value = 1.0
 max_value = 9.22337e+18
@@ -54,40 +57,40 @@ value = 10.0
 rounded = true
 allow_greater = true
 
-[node name="CoinLabel" type="Label" parent="GridContainer"]
+[node name="CoinLabel" type="Label" parent="Attr/GridContainer"]
 layout_mode = 2
 text = "Money Reward"
 
-[node name="CoinEdit" type="SpinBox" parent="GridContainer"]
+[node name="CoinEdit" type="SpinBox" parent="Attr/GridContainer"]
 layout_mode = 2
 max_value = 9.22337e+18
 value = 10.0
 rounded = true
 allow_greater = true
 
-[node name="AttackFrequencyLabel" type="Label" parent="GridContainer"]
+[node name="AttackFrequencyLabel" type="Label" parent="Attr/GridContainer"]
 layout_mode = 2
 text = "Attack Frequency"
 
-[node name="AttackFrequencyEdit" type="SpinBox" parent="GridContainer"]
+[node name="AttackFrequencyEdit" type="SpinBox" parent="Attr/GridContainer"]
 layout_mode = 2
 min_value = 0.01
 step = 0.1
 value = 1.01
 
-[node name="CardRewardLabel" type="Label" parent="GridContainer"]
+[node name="CardRewardLabel" type="Label" parent="Attr/GridContainer"]
 layout_mode = 2
 text = "Card Reward"
 
-[node name="CardRewardEdit" type="CheckBox" parent="GridContainer"]
+[node name="CardRewardEdit" type="CheckBox" parent="Attr/GridContainer"]
 layout_mode = 2
 button_pressed = true
 
-[node name="TypeLabel" type="Label" parent="GridContainer"]
+[node name="TypeLabel" type="Label" parent="Attr/GridContainer"]
 layout_mode = 2
 text = "Type"
 
-[node name="TypeEdit" type="OptionButton" parent="GridContainer"]
+[node name="TypeEdit" type="OptionButton" parent="Attr/GridContainer"]
 layout_mode = 2
 item_count = 3
 selected = 0
@@ -98,23 +101,44 @@ popup/item_1/id = 1
 popup/item_2/text = "Boss"
 popup/item_2/id = 2
 
-[node name="LevelLabel" type="Label" parent="GridContainer"]
+[node name="LevelLabel" type="Label" parent="Attr/GridContainer"]
 layout_mode = 2
 text = "Levels"
 
-[node name="LevelEdit" type="OptionButton" parent="GridContainer"]
+[node name="LevelEdit" type="OptionButton" parent="Attr/GridContainer"]
 layout_mode = 2
 item_count = 1
 selected = 0
 popup/item_0/text = "Default"
 popup/item_0/id = 0
 
-[node name="CardLabel" type="Label" parent="GridContainer"]
+[node name="CardLabel" type="Label" parent="Attr/GridContainer"]
 layout_mode = 2
 text = "Cards"
 
-[node name="CardListEdit" type="ItemList" parent="GridContainer"]
+[node name="CardListEdit" type="OptionButton" parent="Attr/GridContainer"]
+layout_mode = 2
+item_count = 6
+selected = 0
+allow_reselect = true
+popup/item_0/text = ""
+popup/item_0/id = 0
+popup/item_1/text = ""
+popup/item_1/id = 1
+popup/item_2/text = ""
+popup/item_2/id = 2
+popup/item_3/text = ""
+popup/item_3/id = 3
+popup/item_4/text = ""
+popup/item_4/id = 4
+popup/item_5/text = ""
+popup/item_5/id = 5
+
+[node name="Control" type="Control" parent="Attr/GridContainer"]
 layout_mode = 2
 
-[connection signal="pressed" from="GridContainer/LoadButton" to="." method="_on_load_button_pressed"]
-[connection signal="file_selected" from="GridContainer/LoadButton/FileDialog" to="." method="_on_file_dialog_file_selected"]
+[node name="CardVBox" type="VBoxContainer" parent="Attr/GridContainer"]
+layout_mode = 2
+
+[connection signal="pressed" from="Attr/GridContainer/LoadButton" to="." method="_on_load_button_pressed"]
+[connection signal="file_selected" from="Attr/GridContainer/LoadButton/FileDialog" to="." method="_on_file_dialog_file_selected"]

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=5 format=3 uid="uid://5722wqj1o1yp"]
+
+[ext_resource type="Script" path="res://Scripts/EnemyResource.gd" id="1_4d0es"]
+[ext_resource type="Shader" uid="uid://vulfjm5l2hf6" path="res://Shaders/neon_shader.tres" id="2_7gpyv"]
+[ext_resource type="Texture2D" uid="uid://bkmlxlcwpfjui" path="res://art/ballBlue_10.png" id="3_j35r6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_epc27"]
+shader = ExtResource("2_7gpyv")
+
+[resource]
+script = ExtResource("1_4d0es")
+name = ""
+health = 10
+effects = Array[Resource("res://Scripts/CardResource.gd")]([])
+coin_value = 10
+texture = ExtResource("3_j35r6")
+shader = SubResource("ShaderMaterial_epc27")
+attack_frequency = 5.0
+card_reward = true
+type = 0
+level = 0

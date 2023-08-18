@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7l00x0i37qjh"]
+
+[ext_resource type="Script" path="res://addons/monster_editor/simplified_card_editor.gd" id="1_j4efe"]
+
+[node name="SimplifiedCardEditor" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_j4efe")
+
+[node name="Attr" type="GridContainer" parent="."]
+layout_mode = 2
+columns = 2
+
+[node name="NameLabel" type="Label" parent="Attr"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_vertical = 1
+text = "Name"
+
+[node name="NameEdit" type="LineEdit" parent="Attr"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "<Optional Name>"
+
+[node name="CostLabel" type="Label" parent="Attr"]
+layout_mode = 2
+text = "Energy Cost"
+
+[node name="CostEdit" type="SpinBox" parent="Attr"]
+layout_mode = 2
+min_value = 1.0
+value = 1.0
+
+[node name="Label" type="Label" parent="Attr"]
+layout_mode = 2
+text = "Effects"
+
+[node name="EffectEdit" type="OptionButton" parent="Attr"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="Attr"]
+layout_mode = 2
+
+[node name="EffectVBox" type="VBoxContainer" parent="Attr"]
+layout_mode = 2

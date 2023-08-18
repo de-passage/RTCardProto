@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CardResource" load_steps=5 format=3 uid="uid://dknyebjqmw0w3"]
+
+[ext_resource type="Script" path="res://Scripts/Effects/Damage.gd" id="1_b2hdd"]
+[ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_16oio"]
+[ext_resource type="Script" path="res://Scripts/CardResource.gd" id="3_hwq40"]
+
+[sub_resource type="Resource" id="Resource_ufmbv"]
+script = ExtResource("2_16oio")
+effectValues = {
+"Amount": 4.0
+}
+effectScript = ExtResource("1_b2hdd")
+
+[resource]
+script = ExtResource("3_hwq40")
+cardName = "WeakAttack"
+cost = 1
+cardEffects = Array[ExtResource("2_16oio")]([SubResource("Resource_ufmbv")])
+monetaryValue = 50
+rarity = 50

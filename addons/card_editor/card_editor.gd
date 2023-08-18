@@ -75,7 +75,6 @@ func _on_reset_button_pressed():
 	get_tree().call_group(EFFECT_GROUP, "queue_free")
 	_overwrite = false
 	
-	
 
 func _on_button_pressed():
 	var name = _name.text
@@ -185,7 +184,6 @@ func _on_file_dialog_file_selected(path: String):
 				var name = eff.get("name")
 				if name != null and values.has(name): 
 					eff.default = values.get(name)
-				
 
 			_add_effect_to_effect_list(effect_metadata)
 

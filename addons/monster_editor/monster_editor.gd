@@ -1,15 +1,16 @@
 @tool
 extends Control
 
-@onready var _name_edit = $GridContainer/NameEdit as LineEdit
-@onready var _health_edit = $GridContainer/HealthEdit as SpinBox
-@onready var _coin_edit = $GridContainer/CoinEdit as SpinBox
-@onready var _attack_frequency_edit = $GridContainer/AttackFrequencyEdit as SpinBox
-@onready var _card_reward_edit = $GridContainer/CardRewardEdit as CheckBox
-@onready var _type_edit = $GridContainer/TypeEdit as OptionButton
-@onready var _level_edit = $GridContainer/LevelEdit as OptionButton
-@onready var _card_list_edit = $GridContainer/CardListEdit as ItemList
-@onready var _file_dialog = $GridContainer/LoadButton/FileDialog as FileDialog
+@onready var _name_edit = $GridContainer/Attr/NameEdit as LineEdit
+@onready var _health_edit = $GridContainer/Attr/HealthEdit as SpinBox
+@onready var _coin_edit = $GridContainer/Attr/CoinEdit as SpinBox
+@onready var _attack_frequency_edit = $GridContainer/Attr/AttackFrequencyEdit as SpinBox
+@onready var _card_reward_edit = $GridContainer/Attr/CardRewardEdit as CheckBox
+@onready var _type_edit = $GridContainer/Attr/TypeEdit as OptionButton
+@onready var _level_edit = $GridContainer/Attr/LevelEdit as OptionButton
+@onready var _card_list_edit = $GridContainer/Attr/CardListEdit as ItemList
+@onready var _file_dialog = $GridContainer/Attr/LoadButton/FileDialog as FileDialog
+@onready var _card_box = $Attr/GridContainer/CardVBox as HBoxContainer
 
 var _displayed_cards = []
 
@@ -32,7 +33,6 @@ func _load_monster(path):
 	_attack_frequency_edit.value = monster.attack_frequency
 	_type_edit.selected = monster.type
 	_level_edit.selected = monster.level
-	
 
 
 func _on_load_button_pressed():
