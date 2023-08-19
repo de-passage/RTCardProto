@@ -43,7 +43,7 @@ func cast_effect():
 
 func _apply_card(player: Player, card: CardResource):
 	for effect in card.cardEffects:
-		effect.apply_effect(_entity, player)
+		effect.load_effect().apply_effect(_entity, player)
 
 func show_intent():
 	var text = ""

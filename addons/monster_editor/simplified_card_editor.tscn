@@ -24,6 +24,7 @@ text = "Name"
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "<Optional Name>"
+editable = false
 
 [node name="CostLabel" type="Label" parent="Attr"]
 layout_mode = 2

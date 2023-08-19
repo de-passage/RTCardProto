@@ -1,4 +1,6 @@
-extends HBoxContainer
+extends VBoxContainer
+
+class_name SimplifiedCardEditor
 
 @onready var _name_edit = $Attr/NameEdit as LineEdit
 @onready var _cost_edit = $Attr/CostEdit as SpinBox
@@ -6,7 +8,7 @@ extends HBoxContainer
 @onready var _effect_vbox = $Attr/EffectVBox as EffectEditor
 
 var _cardResource : CardResource
-var _effects : Array[EffectResource]
+var _effects : Array = []
 static var _effect_editor_scene = preload("res://addons/card_editor/effect_editor.tscn")
 const EFFECT_GROUP = ".EFFECT_GROUP"
 
@@ -14,7 +16,7 @@ const EFFECT_GROUP = ".EFFECT_GROUP"
 var anonymous: bool:
 	set(value):
 		anonymous = value
-		_name_edit.editable = anonymous
+		_name_edit.visible = !anonymous
 		_cost_edit.editable = anonymous
 		_effect_list.disabled = !anonymous
 	get:
@@ -39,13 +41,14 @@ func initialize_from_card(card: CardResource):
 	anonymous = false
 	_initialize(card)
 
-func _initialize(card: CardResource)
+func _initialize(card: CardResource):
 	_name_edit.text = card.cardName
 	_cost_edit.value = card.cost
 	for effect in card.cardEffects:
 		var script = effect.effectScript
 		var values = effect.effectValues
 		
+		if script == null: continue
 		var effect_metadata = script.get_metadata()
 		effect_metadata["script"] = script
 		
@@ -66,6 +69,7 @@ func _get_metadata(e):
 		if x != null:
 			x["script"] = e
 			_effects.append(x)
+
 		else: 
 			printerr("no metadata in %s" % e.get_class()) 
 

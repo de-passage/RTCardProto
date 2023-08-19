@@ -1,20 +1,22 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=9 format=3 uid="uid://lsqot3lwy30g"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=10 format=3 uid="uid://lsqot3lwy30g"]
 
 [ext_resource type="Script" path="res://Scripts/EnemyResource.gd" id="1_adu67"]
+[ext_resource type="Script" path="res://Scripts/Effects/Damage.gd" id="1_byc6u"]
 [ext_resource type="Script" path="res://Scripts/CardResource.gd" id="2_fi58l"]
 [ext_resource type="Material" uid="uid://dertivoeelffg" path="res://Shaders/brutal_goo.tres" id="2_j1fr1"]
 [ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_ljsoa"]
 [ext_resource type="Texture2D" uid="uid://bkmlxlcwpfjui" path="res://art/ballBlue_10.png" id="3_56xh7"]
-[ext_resource type="Resource" path="res://Cards/strengthen.tres" id="3_amlwk"]
+[ext_resource type="Resource" uid="uid://dirja0xuu01rt" path="res://Cards/strengthen.tres" id="3_amlwk"]
 
 [sub_resource type="Resource" id="Resource_ocynw"]
 script = ExtResource("2_ljsoa")
 effectValues = {}
+effectScript = ExtResource("1_byc6u")
 
 [sub_resource type="Resource" id="Resource_fuiiq"]
 script = ExtResource("2_fi58l")
 cardName = ""
-cost = 0
+cost = 1
 cardEffects = Array[ExtResource("2_ljsoa")]([SubResource("Resource_ocynw")])
 monetaryValue = 50
 rarity = 0

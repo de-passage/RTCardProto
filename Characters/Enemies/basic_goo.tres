@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=7 format=3 uid="uid://dc04mmlcyuwh7"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=8 format=3 uid="uid://dc04mmlcyuwh7"]
 
 [ext_resource type="Script" path="res://Scripts/CardResource.gd" id="1_7yqrv"]
 [ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="1_21ygj"]
+[ext_resource type="Script" path="res://Scripts/Effects/Damage.gd" id="1_f7q62"]
 [ext_resource type="Script" path="res://Scripts/EnemyResource.gd" id="1_hcupe"]
 [ext_resource type="Texture2D" uid="uid://bkmlxlcwpfjui" path="res://art/ballBlue_10.png" id="4_nvsek"]
 
 [sub_resource type="Resource" id="Resource_o2nwf"]
 script = ExtResource("1_21ygj")
 effectValues = {}
+effectScript = ExtResource("1_f7q62")
 
 [sub_resource type="Resource" id="Resource_h4242"]
 script = ExtResource("1_7yqrv")
