@@ -1,21 +1,78 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=5 format=3 uid="uid://5722wqj1o1yp"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=17 format=3 uid="uid://5722wqj1o1yp"]
 
 [ext_resource type="Script" path="res://Scripts/EnemyResource.gd" id="1_4d0es"]
+[ext_resource type="Script" path="res://Scripts/Effects/Damage.gd" id="1_8ubht"]
 [ext_resource type="Shader" uid="uid://vulfjm5l2hf6" path="res://Shaders/neon_shader.tres" id="2_7gpyv"]
+[ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_aulry"]
 [ext_resource type="Texture2D" uid="uid://bkmlxlcwpfjui" path="res://art/ballBlue_10.png" id="3_j35r6"]
+[ext_resource type="Script" path="res://Scripts/CardResource.gd" id="3_uc2tm"]
+[ext_resource type="Script" path="res://Scripts/Effects/AddArmor.gd" id="4_xb7wb"]
+[ext_resource type="Script" path="res://Scripts/Effects/AddAttackPower.gd" id="5_e31r8"]
+
+[sub_resource type="Resource" id="Resource_ta28n"]
+script = ExtResource("2_aulry")
+effectValues = {
+"Amount": 1.0
+}
+effectScript = ExtResource("1_8ubht")
+
+[sub_resource type="Resource" id="Resource_6um53"]
+script = ExtResource("2_aulry")
+effectValues = {
+"Amount": 1.0
+}
+effectScript = ExtResource("1_8ubht")
+
+[sub_resource type="Resource" id="Resource_4b71h"]
+script = ExtResource("3_uc2tm")
+cardName = "Double Strike"
+cost = 1
+cardEffects = Array[ExtResource("2_aulry")]([SubResource("Resource_ta28n"), SubResource("Resource_6um53")])
+monetaryValue = 67
+rarity = 67
+
+[sub_resource type="Resource" id="Resource_mm413"]
+script = ExtResource("2_aulry")
+effectValues = {
+"Amount": 5.0
+}
+effectScript = ExtResource("4_xb7wb")
+
+[sub_resource type="Resource" id="Resource_34vb2"]
+script = ExtResource("3_uc2tm")
+cardName = "Defend"
+cost = 1
+cardEffects = Array[ExtResource("2_aulry")]([SubResource("Resource_mm413")])
+monetaryValue = 0
+rarity = 0
+
+[sub_resource type="Resource" id="Resource_eirig"]
+script = ExtResource("2_aulry")
+effectValues = {
+"Amount": 1
+}
+effectScript = ExtResource("5_e31r8")
+
+[sub_resource type="Resource" id="Resource_ern54"]
+script = ExtResource("3_uc2tm")
+cardName = "Strengthen"
+cost = 1
+cardEffects = Array[ExtResource("2_aulry")]([SubResource("Resource_eirig")])
+monetaryValue = 78
+rarity = 78
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_epc27"]
 shader = ExtResource("2_7gpyv")
 
 [resource]
 script = ExtResource("1_4d0es")
-name = ""
-health = 10
-effects = Array[Resource("res://Scripts/CardResource.gd")]([])
-coin_value = 10
+name = "Neon Goo"
+health = 18.0
+effects = Array[ExtResource("3_uc2tm")]([SubResource("Resource_4b71h"), SubResource("Resource_34vb2"), SubResource("Resource_ern54")])
+coin_value = 16.0
 texture = ExtResource("3_j35r6")
 shader = SubResource("ShaderMaterial_epc27")
-attack_frequency = 5.0
+attack_frequency = 5.01
 card_reward = true
 type = 0
 level = 0

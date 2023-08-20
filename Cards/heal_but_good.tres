@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="CardResource" load_steps=7 format=3 uid="uid://b700epg30lxde"]
+
+[ext_resource type="Script" path="res://Scripts/Effects/Heal.gd" id="1_s40u1"]
+[ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_y4g4n"]
+[ext_resource type="Script" path="res://Scripts/Effects/AddArmor.gd" id="3_xabh4"]
+[ext_resource type="Script" path="res://Scripts/CardResource.gd" id="4_cl6pu"]
+
+[sub_resource type="Resource" id="Resource_i2iix"]
+script = ExtResource("2_y4g4n")
+effectValues = {
+"Amount": 3.0
+}
+effectScript = ExtResource("1_s40u1")
+
+[sub_resource type="Resource" id="Resource_4rmgi"]
+script = ExtResource("2_y4g4n")
+effectValues = {
+"Amount": 4.0
+}
+effectScript = ExtResource("3_xabh4")
+
+[resource]
+script = ExtResource("4_cl6pu")
+cardName = "Heal but good"
+cost = 1
+cardEffects = Array[ExtResource("2_y4g4n")]([SubResource("Resource_i2iix"), SubResource("Resource_4rmgi")])
+monetaryValue = 134
+rarity = 134
