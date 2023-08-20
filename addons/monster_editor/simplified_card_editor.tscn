@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c7l00x0i37qjh"]
+[gd_scene load_steps=3 format=3 uid="uid://c7l00x0i37qjh"]
 
 [ext_resource type="Script" path="res://addons/monster_editor/simplified_card_editor.gd" id="1_j4efe"]
+[ext_resource type="Texture2D" uid="uid://d0rsvvtyovv44" path="res://art/trash_icon.svg" id="2_183vh"]
 
 [node name="SimplifiedCardEditor" type="VBoxContainer"]
 anchors_preset = 15
@@ -14,13 +15,31 @@ script = ExtResource("1_j4efe")
 layout_mode = 2
 columns = 2
 
+[node name="HeaderLabel" type="Label" parent="Attr"]
+layout_mode = 2
+text = "Card: "
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Attr"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DeleteButton" type="TextureButton" parent="Attr/HBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(28, 24)
+layout_mode = 2
+texture_normal = ExtResource("2_183vh")
+ignore_texture_size = true
+stretch_mode = 5
+
 [node name="NameLabel" type="Label" parent="Attr"]
+visible = false
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_vertical = 1
 text = "Name"
 
 [node name="NameEdit" type="LineEdit" parent="Attr"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "<Optional Name>"
@@ -47,3 +66,6 @@ layout_mode = 2
 
 [node name="EffectVBox" type="VBoxContainer" parent="Attr"]
 layout_mode = 2
+
+[connection signal="pressed" from="Attr/HBoxContainer/DeleteButton" to="." method="_on_delete_button_pressed"]
+[connection signal="item_selected" from="Attr/EffectEdit" to="." method="_on_effect_edit_item_selected"]

@@ -26,7 +26,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Load"
 
-[node name="FileDialog" type="FileDialog" parent="Attr/GridContainer/LoadButton"]
+[node name="LoadFileDialog" type="FileDialog" parent="Attr/GridContainer/LoadButton"]
 title = "Open a File"
 initial_position = 2
 ok_button_text = "Open"
@@ -42,9 +42,14 @@ size_flags_horizontal = 3
 layout_mode = 2
 text = "Save"
 
-[node name="FileDialog" type="FileDialog" parent="Attr/GridContainer/ControlBox/Save"]
+[node name="SaveFileDialog" type="FileDialog" parent="Attr/GridContainer/ControlBox/Save"]
+size = Vector2i(392, 162)
 root_subfolder = "Characters/Enemies"
 filters = PackedStringArray("*.tres")
+
+[node name="ResetButton" type="Button" parent="Attr/GridContainer/ControlBox"]
+layout_mode = 2
+text = "Reset"
 
 [node name="NameLabel" type="Label" parent="Attr/GridContainer"]
 custom_minimum_size = Vector2(150, 0)
@@ -129,21 +134,29 @@ text = "Cards"
 
 [node name="CardListEdit" type="OptionButton" parent="Attr/GridContainer"]
 layout_mode = 2
-item_count = 6
+item_count = 10
 selected = 0
 allow_reselect = true
-popup/item_0/text = ""
+popup/item_0/text = "<Add card>"
 popup/item_0/id = 0
-popup/item_1/text = ""
+popup/item_1/text = "[New anonymous card]"
 popup/item_1/id = 1
-popup/item_2/text = ""
+popup/item_2/text = "Attack"
 popup/item_2/id = 2
-popup/item_3/text = ""
+popup/item_3/text = "Attack Harder!"
 popup/item_3/id = 3
-popup/item_4/text = ""
+popup/item_4/text = "Bad Defense"
 popup/item_4/id = 4
-popup/item_5/text = ""
+popup/item_5/text = "Defend"
 popup/item_5/id = 5
+popup/item_6/text = "Double Strike"
+popup/item_6/id = 6
+popup/item_7/text = "Heal"
+popup/item_7/id = 7
+popup/item_8/text = "Heal but good"
+popup/item_8/id = 8
+popup/item_9/text = "Strengthen"
+popup/item_9/id = 9
 
 [node name="Control" type="Control" parent="Attr/GridContainer"]
 layout_mode = 2
@@ -152,6 +165,9 @@ layout_mode = 2
 layout_mode = 2
 
 [connection signal="pressed" from="Attr/GridContainer/LoadButton" to="." method="_on_load_button_pressed"]
-[connection signal="file_selected" from="Attr/GridContainer/LoadButton/FileDialog" to="." method="_on_file_dialog_file_selected"]
+[connection signal="file_selected" from="Attr/GridContainer/LoadButton/LoadFileDialog" to="." method="_on_file_dialog_file_selected"]
 [connection signal="pressed" from="Attr/GridContainer/ControlBox/Save" to="." method="_on_save_pressed"]
+[connection signal="file_selected" from="Attr/GridContainer/ControlBox/Save/SaveFileDialog" to="." method="_on_save_file_dialog_file_selected"]
+[connection signal="pressed" from="Attr/GridContainer/ControlBox/ResetButton" to="." method="_on_reset_button_pressed"]
+[connection signal="text_submitted" from="Attr/GridContainer/NameEdit" to="." method="_on_name_edit_text_submitted"]
 [connection signal="item_selected" from="Attr/GridContainer/CardListEdit" to="." method="_on_card_list_edit_item_selected"]

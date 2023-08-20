@@ -1,32 +1,75 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=8 format=3 uid="uid://pq5gfi4uwv4o"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=16 format=3 uid="uid://pq5gfi4uwv4o"]
 
+[ext_resource type="Script" path="res://Scripts/Effects/Damage.gd" id="1_bi6yt"]
 [ext_resource type="Script" path="res://Scripts/EnemyResource.gd" id="1_fery1"]
 [ext_resource type="Script" path="res://Scripts/CardResource.gd" id="2_4vlvj"]
 [ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="3_qolkw"]
+[ext_resource type="Script" path="res://Scripts/Effects/AddArmor.gd" id="4_dlssr"]
+[ext_resource type="Script" path="res://Scripts/Effects/AddAttackPower.gd" id="5_pa6tb"]
 [ext_resource type="Material" uid="uid://bsxe3a87ymrs8" path="res://Shaders/nasty_goo.tres" id="6_uvnyj"]
 [ext_resource type="Texture2D" uid="uid://bkmlxlcwpfjui" path="res://art/ballBlue_10.png" id="7_88gjf"]
 
-[sub_resource type="Resource" id="Resource_onqgv"]
+[sub_resource type="Resource" id="Resource_tjjns"]
 script = ExtResource("3_qolkw")
-effectValues = {}
+effectValues = {
+"Amount": 3.0
+}
+effectScript = ExtResource("1_bi6yt")
 
 [sub_resource type="Resource" id="Resource_b3aw5"]
 script = ExtResource("2_4vlvj")
 cardName = ""
 cost = 0
-cardEffects = Array[ExtResource("3_qolkw")]([SubResource("Resource_onqgv")])
+cardEffects = Array[ExtResource("3_qolkw")]([SubResource("Resource_tjjns")])
 monetaryValue = 50
 rarity = 0
+
+[sub_resource type="Resource" id="Resource_hvg4x"]
+script = ExtResource("3_qolkw")
+effectValues = {
+"Amount": 5.0
+}
+effectScript = ExtResource("4_dlssr")
+
+[sub_resource type="Resource" id="Resource_rstcc"]
+script = ExtResource("2_4vlvj")
+cardName = "Defend"
+cost = 1
+cardEffects = Array[ExtResource("3_qolkw")]([SubResource("Resource_hvg4x")])
+monetaryValue = 0
+rarity = 0
+
+[sub_resource type="Resource" id="Resource_qua2e"]
+script = ExtResource("3_qolkw")
+effectValues = {
+"Amount": 6.0
+}
+effectScript = ExtResource("1_bi6yt")
+
+[sub_resource type="Resource" id="Resource_2obsq"]
+script = ExtResource("3_qolkw")
+effectValues = {
+"Amount": 1
+}
+effectScript = ExtResource("5_pa6tb")
+
+[sub_resource type="Resource" id="Resource_rkmoh"]
+script = ExtResource("2_4vlvj")
+cardName = "Attack Harder!"
+cost = 2
+cardEffects = Array[ExtResource("3_qolkw")]([SubResource("Resource_qua2e"), SubResource("Resource_2obsq")])
+monetaryValue = 69
+rarity = 69
 
 [resource]
 script = ExtResource("1_fery1")
 name = "Nasty Goo"
 health = 11
-effects = Array[ExtResource("2_4vlvj")]([SubResource("Resource_b3aw5"), null])
+effects = Array[ExtResource("2_4vlvj")]([SubResource("Resource_b3aw5"), SubResource("Resource_rstcc"), SubResource("Resource_rkmoh")])
 coin_value = 14
 texture = ExtResource("7_88gjf")
 shader = ExtResource("6_uvnyj")
-attack_frequency = 5.0
+attack_frequency = 5.01
 card_reward = true
 type = 0
 level = 0

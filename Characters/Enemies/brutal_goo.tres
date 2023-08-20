@@ -1,35 +1,52 @@
-[gd_resource type="Resource" script_class="EnemyResource" load_steps=10 format=3 uid="uid://lsqot3lwy30g"]
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=12 format=3]
 
 [ext_resource type="Script" path="res://Scripts/EnemyResource.gd" id="1_adu67"]
 [ext_resource type="Script" path="res://Scripts/Effects/Damage.gd" id="1_byc6u"]
 [ext_resource type="Script" path="res://Scripts/CardResource.gd" id="2_fi58l"]
-[ext_resource type="Material" uid="uid://dertivoeelffg" path="res://Shaders/brutal_goo.tres" id="2_j1fr1"]
+[ext_resource type="Material" path="res://Shaders/brutal_goo.tres" id="2_j1fr1"]
 [ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_ljsoa"]
-[ext_resource type="Texture2D" uid="uid://bkmlxlcwpfjui" path="res://art/ballBlue_10.png" id="3_56xh7"]
-[ext_resource type="Resource" uid="uid://dirja0xuu01rt" path="res://Cards/strengthen.tres" id="3_amlwk"]
+[ext_resource type="Texture2D" path="res://art/ballBlue_10.png" id="3_56xh7"]
+[ext_resource type="Script" path="res://Scripts/Effects/AddAttackPower.gd" id="4_6g3dw"]
 
-[sub_resource type="Resource" id="Resource_ocynw"]
+[sub_resource type="Resource" id="Resource_d7a5j"]
 script = ExtResource("2_ljsoa")
-effectValues = {}
+effectValues = {
+"Amount": 1
+}
 effectScript = ExtResource("1_byc6u")
 
 [sub_resource type="Resource" id="Resource_fuiiq"]
 script = ExtResource("2_fi58l")
 cardName = ""
 cost = 1
-cardEffects = Array[ExtResource("2_ljsoa")]([SubResource("Resource_ocynw")])
+cardEffects = Array[ExtResource("2_ljsoa")]([SubResource("Resource_d7a5j")])
 monetaryValue = 50
 rarity = 0
+
+[sub_resource type="Resource" id="Resource_wbnvx"]
+script = ExtResource("2_ljsoa")
+effectValues = {
+"Amount": 1
+}
+effectScript = ExtResource("4_6g3dw")
+
+[sub_resource type="Resource" id="Resource_qsntk"]
+script = ExtResource("2_fi58l")
+cardName = "Strengthen"
+cost = 1
+cardEffects = Array[ExtResource("2_ljsoa")]([SubResource("Resource_wbnvx")])
+monetaryValue = 78
+rarity = 78
 
 [resource]
 script = ExtResource("1_adu67")
 name = "Brutal Goo"
 health = 25
-effects = Array[ExtResource("2_fi58l")]([SubResource("Resource_fuiiq"), ExtResource("3_amlwk")])
+effects = Array[ExtResource("2_fi58l")]([SubResource("Resource_fuiiq"), SubResource("Resource_qsntk")])
 coin_value = 22
 texture = ExtResource("3_56xh7")
 shader = ExtResource("2_j1fr1")
-attack_frequency = 4.0
+attack_frequency = 4.01
 card_reward = true
 type = 1
 level = 0

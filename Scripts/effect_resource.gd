@@ -12,8 +12,7 @@ class_name EffectResource
 
 func load_effect():
 	if effectScript == null: 
-		printerr("Effect Resource has no script attached!")
-		return null
+		return DebugEffect.new("Effect Resource has no script attached!")
 		
 	var effect = effectScript.new(effectValues)
 	if effect is BaseEffect: 
@@ -22,4 +21,4 @@ func load_effect():
 		return effect
 	else: 
 		printerr("Failed to import effect!")
-		return null
+		return DebugEffect.new("Attached script is not an effect")

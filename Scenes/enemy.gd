@@ -19,7 +19,8 @@ func initialize(entityResource: EnemyResource):
 	
 	_card_list.clear()
 	for effect in _resource.effects:
-		_card_list.append(effect)
+		if effect != null:
+			_card_list.append(effect)
 	
 	$Sprite2D.texture = _resource.texture
 	$Sprite2D.material = _resource.shader
@@ -53,8 +54,6 @@ func show_intent():
 		text = "Lazying around"
 	else:
 		for effect in _card_list[current_effect].load_card_effects():
-			print(effect)
-			print(_card_list[current_effect])
 			text += effect.get_description(_entity)
 	
 	$Control/Intent.text = text 
