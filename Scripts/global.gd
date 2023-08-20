@@ -18,7 +18,7 @@ var current_deck: Array[CardResource]:
 		current_deck = value
 		deck_changed.emit()
 	get:
-		if current_deck == null: 
+		if current_deck == null or current_deck.size() == 0: 
 			return _get_starter().cards
 		else:
 			return current_deck

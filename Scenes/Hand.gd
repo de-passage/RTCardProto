@@ -2,6 +2,7 @@ extends CanvasLayer
 class_name HandManager
 
 signal card_selected(card: CardResource)
+signal draw_pile_changed(size: int)
 
 # Visual constant
 const SEPARATION = 35
@@ -21,8 +22,18 @@ const HAND_SIZE = 4
 
 @onready var _hand_container = $HandContainer
 
+# Creates the hand and so on
+func initialize(deck: Array[CardResource], player_ref:PlayableEntity):
+	draw_pile = deck.duplicate();
+	fill_hand()
+	player = player_ref
+
 # Build a new hand
-func _show_hand(): 
+func _show_hand():
+	for child in _hand_container.get_children():
+		if child is Card:
+			child.queue_free()
+
 	for card_resource in hand:
 		var card: Card = _card_scene.instantiate()
 		card.initialize(card_resource, player)
@@ -34,57 +45,70 @@ func _show_hand():
 func _emit_selected(cardScene: Card):
 	card_selected.emit(cardScene)
 
-func initialize(deck: Array[CardResource], player_ref:PlayableEntity):
-	draw_pile = deck.duplicate();
-	fill_hand()
-	player = player_ref
-
 ## Shuffle the draw pile then draw until the hand is full
-## Redraw the hand afterwards 
-func fill_hand(): 
+## Redraw the hand afterwards
+func fill_hand():
 	draw_pile.shuffle()
 	var need_to_draw = HAND_SIZE - hand.size()
 	var idx_in_draw_pile = draw_pile.size() - need_to_draw
 	hand.append_array(draw_pile.slice(idx_in_draw_pile))
 	draw_pile = draw_pile.slice(0, idx_in_draw_pile)
 	_show_hand()
-	
-## Play the given card on the enemy. This should probably use 
+
+## Play the given card on the enemy. This should probably use
 ## the local player variable directly.
 func play(card: Card, player_: PlayableEntity, enemy: PlayableEntity):
 	for effect in card.get_effects():
 		effect.apply_effect(player_, enemy)
 
 	var idx = hand.find(card._resource)
-	if idx >= 0: 
+	if idx >= 0:
 		discard_pile.append(hand.pop_at(idx))
 		card.queue_free()
 	else:
 		printerr("Invalid card played!")
-	
+
 	# Update card text
 	for child in _hand_container.get_children():
 		if child is Card:
 			child.update_description(player_)
-	
 
-## Discard the hand then draw a new hand, taking the new cards in 
+
+## Discard the hand then draw a new hand, taking the new cards in
 ## priority from the draw pile, then shuffling the discard pile when \
 ## the draw pile is empty
 func draw_new_hand():
 	for child in _hand_container.get_children():
 		if child is Card:
 			child.queue_free()
-	
+
 	discard_pile.append_array(hand)
 	hand.clear()
-	
-	if draw_pile.size() <= HAND_SIZE: 
+
+	if draw_pile.size() <= HAND_SIZE:
 		hand.append_array(draw_pile)
 		draw_pile.clear()
-	
+
 	if draw_pile.size() == 0:
 		draw_pile.append_array(discard_pile)
-	
+
 	fill_hand()
+
+## Draw one new card. If the draw pile is empty, shuffle the discard
+## in the draw pile then draw. Fails if max hand size is reached
+func draw_one_card() -> bool:
+	if hand.size() >= HAND_SIZE:
+		return false
+
+	if draw_pile.size() == 0:
+		draw_pile.append_array(discard_pile)
+		discard_pile.clear()
+
+	if draw_pile.size() == 0:
+		return false
+
+	hand.append(draw_pile.pop_back())
 	
+	_show_hand()
+	return true
+
