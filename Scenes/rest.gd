@@ -19,6 +19,8 @@ func _on_remove_button_pressed():
 
 func _on_deck_panel_card_removed(card: CardResource):
 	Global.remove_from_deck(card)
+	_card_removal.visible = false 
+	get_tree().change_scene_to_file("res://Scenes/path_selection.tscn")
 
 func _on_deck_panel_closed():
 	_card_removal.visible = false
