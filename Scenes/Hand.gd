@@ -2,8 +2,9 @@ extends CanvasLayer
 class_name HandManager
 
 signal card_selected(card: CardResource)
-signal draw_pile_changed(size: int)
+signal draw_pile_changed(new_size: int)
 signal discard_changed(new_size: int)
+signal exhaust_changed(new_size: int)
 
 # Visual constant
 const SEPARATION = 35
@@ -62,10 +63,14 @@ func play(card: Card, player_: PlayableEntity, enemy: PlayableEntity):
 	for effect in card.get_effects():
 		if effect is BaseEffect:
 			effect.apply_effect(context)
-
+		
 	var idx = _hand.find(card._resource)
 	if idx >= 0:
-		_discard_pile.append(_hand.pop_at(idx))
+	
+		if context.exhaust_required():
+			_exhaust_pile.append(_hand.pop_at(idx))
+		else:
+			_discard_pile.append(_hand.pop_at(idx))
 		card.queue_free()
 		discard_changed.emit(_discard_pile.size())
 	else:

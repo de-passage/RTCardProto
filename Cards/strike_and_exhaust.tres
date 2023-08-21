@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="CardResource" load_steps=7 format=3 uid="uid://ba8hjhbnqmhjx"]
+
+[ext_resource type="Script" path="res://Scripts/Effects/Damage.gd" id="1_nbbcr"]
+[ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_b56lw"]
+[ext_resource type="Script" path="res://Scripts/Effects/Exhaust.gd" id="3_2rwgu"]
+[ext_resource type="Script" path="res://Scripts/CardResource.gd" id="4_lqjtn"]
+
+[sub_resource type="Resource" id="Resource_s5g6b"]
+script = ExtResource("2_b56lw")
+effectValues = {
+"Amount": 14.0
+}
+effectScript = ExtResource("1_nbbcr")
+
+[sub_resource type="Resource" id="Resource_0yv8d"]
+script = ExtResource("2_b56lw")
+effectValues = {}
+effectScript = ExtResource("3_2rwgu")
+
+[resource]
+script = ExtResource("4_lqjtn")
+cardName = "Strike and exhaust"
+cost = 1
+cardEffects = Array[ExtResource("2_b56lw")]([SubResource("Resource_s5g6b"), SubResource("Resource_0yv8d")])
+monetaryValue = 78
+rarity = 78
