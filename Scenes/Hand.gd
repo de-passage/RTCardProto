@@ -69,10 +69,11 @@ func play(card: Card, player_: PlayableEntity, enemy: PlayableEntity):
 	
 		if context.exhaust_required():
 			_exhaust_pile.append(_hand.pop_at(idx))
+			exhaust_changed.emit(_exhaust_pile.size())
 		else:
 			_discard_pile.append(_hand.pop_at(idx))
+			discard_changed.emit(_discard_pile.size())
 		card.queue_free()
-		discard_changed.emit(_discard_pile.size())
 	else:
 		printerr("Invalid card played!")
 

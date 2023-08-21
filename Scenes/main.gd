@@ -10,6 +10,8 @@ var deck: Array[CardResource]
 @onready var _enemy_scene = $Enemy
 @onready var _discard_label = $DiscardPile/DiscardLabel
 @onready var _deck = $Deck
+@onready var _exhaust_pile = $ExhaustTexture
+@onready var _exhaust_label = $ExhaustTexture/ExhaustLabel
 
 @export var DRAW_COST = 1
 
@@ -65,3 +67,8 @@ func _on_hand_discard_changed(new_size):
 
 func _on_hand_draw_pile_changed(new_size):
 	_deck.change_card_count(new_size)
+
+
+func _on_hand_exhaust_changed(new_size):
+	_exhaust_pile.visible = new_size > 0
+	_exhaust_label.text = str(new_size)
