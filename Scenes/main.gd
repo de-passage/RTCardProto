@@ -17,7 +17,7 @@ func _ready():
 	player.current_hp = Global.current_health
 	_health_manager.connect_playable_entity(player)
 
-	_enemy_scene.initialize(Global.current_enemy())
+	_enemy_scene.initialize(Global.current_enemy(), player)
 	_enemy_scene.died.connect(_on_enemy_died)
 
 	player.died.connect(_on_player_died)

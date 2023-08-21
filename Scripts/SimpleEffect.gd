@@ -2,7 +2,7 @@ extends BaseEffect
 
 ## Base class for simple effects modifying a characteristic based on 
 ## the base value of the effect added to a modifier
-class_name SimpleEffect 
+class_name SimpleEffect
 
 var effect_strength = 5
 var modifier = null 
@@ -25,8 +25,8 @@ func _total_effect(p: PlayableEntity):
 		total += p.get(modifier)
 	return total
 
-func apply_effect(player: PlayableEntity, _enemy: PlayableEntity): 
-	player.set(targetProp, _total_effect(player) + player.get(targetProp))
+func apply_effect(context: Context):
+	context.source.set(targetProp, _total_effect(context.source) + context.source.get(targetProp))
 	
-func get_description(player: PlayableEntity): 
-	return description % _total_effect(player)
+func get_description(context: Context): 
+	return description % _total_effect(context.source)

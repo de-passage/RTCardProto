@@ -6,8 +6,8 @@ var _message;
 func _init(msg: String):
 	_message = msg
 
-func apply_effect(_player: PlayableEntity, _enemy: PlayableEntity) -> void: 
+func apply_effect(_context: Context) -> void: 
 	pass
 	
-func get_description(_player: PlayableEntity) -> String: 
+func get_description(_context: Context) -> String: 
 	return "Error: %s" % _message

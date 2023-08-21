@@ -58,8 +58,10 @@ func fill_hand():
 ## Play the given card on the enemy. This should probably use
 ## the local _player variable directly.
 func play(card: Card, player_: PlayableEntity, enemy: PlayableEntity):
+	var context = Context.new(card._resource, player_, enemy)
 	for effect in card.get_effects():
-		effect.apply_effect(player_, enemy)
+		if effect is BaseEffect:
+			effect.apply_effect(context)
 
 	var idx = _hand.find(card._resource)
 	if idx >= 0:
@@ -72,7 +74,7 @@ func play(card: Card, player_: PlayableEntity, enemy: PlayableEntity):
 	# Update card text
 	for child in _hand_container.get_children():
 		if child is Card:
-			child.update_description(player_)
+			child.update_description(context)
 
 
 ## Discard the hand then draw a new hand, taking the new cards in
