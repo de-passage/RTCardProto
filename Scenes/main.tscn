@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dn6si7yuphnq6"]
+[gd_scene load_steps=17 format=3 uid="uid://dn6si7yuphnq6"]
 
 [ext_resource type="Script" path="res://Scenes/main.gd" id="1_hbbjb"]
 [ext_resource type="PackedScene" uid="uid://tvjk1wf42fsi" path="res://Scenes/deck.tscn" id="1_rnv0a"]
@@ -21,6 +21,10 @@ font_size = 420
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6w4e5"]
 shader = ExtResource("12_7r6q2")
+shader_parameter/color = Color(0.168627, 0, 0.172549, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2kkvr"]
+font_size = 80
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_hbbjb")
@@ -120,11 +124,11 @@ vertical_alignment = 1
 [node name="ExhaustTexture" type="ColorRect" parent="."]
 visible = false
 material = SubResource("ShaderMaterial_6w4e5")
-offset_left = 1691.0
-offset_top = 621.0
-offset_right = 1731.0
-offset_bottom = 661.0
-scale = Vector2(3.07833, 3)
+offset_left = 1674.0
+offset_top = 599.0
+offset_right = 1834.0
+offset_bottom = 759.0
+scale = Vector2(1, 0.975)
 
 [node name="ExhaustLabel" type="Label" parent="ExhaustTexture"]
 layout_mode = 1
@@ -141,6 +145,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "0
 "
+label_settings = SubResource("LabelSettings_2kkvr")
 horizontal_alignment = 1
 vertical_alignment = 1
 
