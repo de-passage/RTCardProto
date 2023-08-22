@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bkcbih88r8rv"]
+[gd_scene load_steps=8 format=3 uid="uid://bkcbih88r8rv"]
 
 [ext_resource type="Texture2D" uid="uid://86eqvhxcips" path="res://art/fantasy empty card section.png" id="1_ie30h"]
 [ext_resource type="Script" path="res://Scenes/card.gd" id="1_r3t5n"]
@@ -12,6 +12,10 @@ default_font_size = 12
 
 [sub_resource type="LabelSettings" id="LabelSettings_xb6oi"]
 font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_at42m"]
+font = ExtResource("3_noxvo")
+font_size = 12
 
 [node name="Card" type="TextureButton"]
 offset_right = 254.0
@@ -87,5 +91,16 @@ grow_vertical = 0
 text = "Card Name"
 label_settings = SubResource("LabelSettings_xb6oi")
 horizontal_alignment = 1
+
+[node name="Tags" type="Label" parent="Values"]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 47.0
+offset_right = 225.0
+offset_bottom = 70.0
+text = "Tag1, Tag2"
+label_settings = SubResource("LabelSettings_at42m")
+horizontal_alignment = 1
+text_overrun_behavior = 3
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]

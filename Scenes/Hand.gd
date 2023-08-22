@@ -19,7 +19,7 @@ var _hand: Array[CardResource]
 var _exhaust_pile: Array[CardResource]
 var _player: PlayableEntity
 
-const HAND_SIZE = 4
+const HAND_SIZE = 5
 
 @onready var _hand_container = $HandContainer
 
@@ -37,10 +37,10 @@ func _show_hand():
 
 	for card_resource in _hand:
 		var card: Card = _card_scene.instantiate()
+		_hand_container.add_child(card)
 		card.initialize(card_resource, _player)
 		card.scale = Vector2(1.,1.)
 		card.selected.connect(_emit_selected.bind(card))
-		_hand_container.add_child(card)
 
 func _emit_selected(cardScene: Card):
 	card_selected.emit(cardScene)

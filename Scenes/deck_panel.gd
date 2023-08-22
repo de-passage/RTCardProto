@@ -18,9 +18,9 @@ func _display_deck():
 	var deck = Global.get_current_deck()
 	for card_resource in deck:
 		var card: Card = _card_scene.instantiate()
+		_deck_container.add_child(card)
 		card.initialize(card_resource, Global.get_player())
 		card.selected.connect(_on_card_selected.bind(card_resource))
-		_deck_container.add_child(card)
 
 func _on_close_button_pressed():
 	deck_panel_closed.emit()

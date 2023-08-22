@@ -10,6 +10,7 @@ class_name CardResource
 @export var cardEffects: Array[EffectResource]
 @export var monetaryValue: int = 50
 @export var rarity: int = 0
+@export var tags: Array[StringName] = []
 
 func load_card_effects() -> Array[BaseEffect]: 
 	var result: Array[BaseEffect] = []

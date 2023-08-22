@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scripts/CardResource.gd" id="2_8sr0q"]
 [ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_h62d3"]
 
-[sub_resource type="Resource" id="Resource_x4i5g"]
+[sub_resource type="Resource" id="Resource_43y4h"]
 script = ExtResource("2_h62d3")
 effectValues = {
 "Amount": 5.0
@@ -15,6 +15,7 @@ effectScript = ExtResource("1_07k3e")
 script = ExtResource("2_8sr0q")
 cardName = "Attack"
 cost = 1
-cardEffects = Array[ExtResource("2_h62d3")]([SubResource("Resource_x4i5g")])
+cardEffects = Array[ExtResource("2_h62d3")]([SubResource("Resource_43y4h")])
 monetaryValue = 50
 rarity = 50
+tags = Array[StringName]([&"Attack", &"Base"])

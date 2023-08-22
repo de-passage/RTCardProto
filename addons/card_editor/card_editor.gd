@@ -14,6 +14,8 @@ const EFFECT_GROUP = ".EFFECT_GROUP"
 @onready var _save_path_edit = $VBoxContainer/GridContainer/SavePath
 @onready var _feedback = $VBoxContainer/Feedback
 @onready var _options_button = $VBoxContainer/GridContainer/OptionButton as OptionButton
+@onready var _tag_edit = $VBoxContainer/GridContainer/TagAddContainer/TagEdit
+@onready var _tag_list = $VBoxContainer/GridContainer/TagList
 
 var _effect_editor_scene = preload("res://addons/card_editor/effect_editor.tscn")
 
@@ -108,6 +110,10 @@ func _on_button_pressed():
 		if child is EffectEditor: 
 			resource.cardEffects.append(child.get_parameters())
 	
+	for tag in _tag_list.get_children():
+		if tag is Button:
+			resource.tags.append(tag.text)
+	
 	var final_save_path = _get_file_path(_save_path_edit.text)
 	if not _overwrite and FileAccess.file_exists(final_save_path):
 		errors.append("File %s already exist!" % final_save_path)
@@ -187,9 +193,28 @@ func _on_file_dialog_file_selected(path: String):
 
 			_add_effect_to_effect_list(effect_metadata)
 
+		for tag in card_resource.tags:
+			_add_tag_delete_button(tag)
 
 func _on_card_name_edit_text_submitted(new_text):
 	_save_path = new_text
 
 func _on_load_card_button_pressed():
 	_file_explorer.popup_centered_ratio()
+
+
+func _on_add_tag_button_pressed():
+	var value = _tag_edit.text
+	_add_tag_delete_button(value)
+
+func _add_tag_delete_button(value: StringName):
+	var button = Button.new()
+	_tag_list.add_child(button)
+	button.pressed.connect(func(): button.queue_free())
+	button.text = value
+	button.add_to_group(EFFECT_GROUP)
+	_tag_edit.text = ''
+
+
+func _on_tag_edit_text_submitted(new_text):
+	_add_tag_delete_button(new_text)	

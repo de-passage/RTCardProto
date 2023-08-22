@@ -1,6 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://4b3q7kq84kuh"]
+[gd_scene load_steps=6 format=3 uid="uid://4b3q7kq84kuh"]
 
 [ext_resource type="Script" path="res://addons/card_editor/card_editor.gd" id="1_m4cus"]
+[ext_resource type="Shader" path="res://Shaders/make_white.gdshader" id="2_3xmtf"]
+[ext_resource type="Texture2D" uid="uid://cda5gd7uu0kka" path="res://art/add_icon.svg" id="3_re3uu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qto8b"]
+shader = ExtResource("2_3xmtf")
 
 [sub_resource type="LabelSettings" id="LabelSettings_4ep76"]
 font_color = Color(0.976471, 0, 0, 1)
@@ -93,7 +98,7 @@ text = "Card Effects"
 
 [node name="OptionButton" type="OptionButton" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
-item_count = 5
+item_count = 6
 selected = 0
 popup/item_0/text = "<add effect>"
 popup/item_0/id = 0
@@ -103,13 +108,40 @@ popup/item_2/text = "Add Strength"
 popup/item_2/id = 2
 popup/item_3/text = "Deal damage"
 popup/item_3/id = 3
-popup/item_4/text = "Heal"
+popup/item_4/text = "Exhaust"
 popup/item_4/id = 4
+popup/item_5/text = "Heal"
+popup/item_5/id = 5
 
 [node name="Control" type="Control" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
 
 [node name="EffectVBox" type="VBoxContainer" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="TagLabel" type="Label" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Tags"
+
+[node name="TagAddContainer" type="HBoxContainer" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="AddTagButton" type="TextureButton" parent="VBoxContainer/GridContainer/TagAddContainer"]
+material = SubResource("ShaderMaterial_qto8b")
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+texture_normal = ExtResource("3_re3uu")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="TagEdit" type="LineEdit" parent="VBoxContainer/GridContainer/TagAddContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Spacer" type="Control" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="TagList" type="HBoxContainer" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
 
 [node name="Errors" type="Label" parent="VBoxContainer"]
@@ -131,4 +163,6 @@ layout_mode = 2
 [connection signal="text_changed" from="VBoxContainer/GridContainer/CardNameEdit" to="." method="_on_card_name_edit_text_submitted"]
 [connection signal="text_submitted" from="VBoxContainer/GridContainer/CardNameEdit" to="." method="_on_card_name_edit_text_submitted"]
 [connection signal="item_selected" from="VBoxContainer/GridContainer/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="VBoxContainer/GridContainer/TagAddContainer/AddTagButton" to="." method="_on_add_tag_button_pressed"]
+[connection signal="text_submitted" from="VBoxContainer/GridContainer/TagAddContainer/TagEdit" to="." method="_on_tag_edit_text_submitted"]
 [connection signal="pressed" from="VBoxContainer/SaveButton" to="." method="_on_button_pressed"]
