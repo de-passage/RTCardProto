@@ -21,8 +21,11 @@ effectScript = ExtResource("3_ap1j6")
 
 [resource]
 script = ExtResource("4_8al8b")
-cardName = "Attack Harder!"
+card_name = "Attack Harder!"
 cost = 2
-cardEffects = Array[ExtResource("2_ku0j0")]([SubResource("Resource_2b1u0"), SubResource("Resource_lcok4")])
-monetaryValue = 69
+on_play_card_effects = Array[ExtResource("2_ku0j0")]([SubResource("Resource_2b1u0"), SubResource("Resource_lcok4")])
+on_draw_card_effects = Array[ExtResource("2_ku0j0")]([])
+on_discard_card_effects = Array[ExtResource("2_ku0j0")]([])
+monetary_value = 69
 rarity = 69
+tags = Array[StringName]([])

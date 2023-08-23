@@ -13,8 +13,11 @@ effectScript = ExtResource("1_hpe1n")
 
 [resource]
 script = ExtResource("1_t7a8x")
-cardName = "Heal"
+card_name = "Heal"
 cost = 2
-cardEffects = Array[ExtResource("2_tcwuy")]([SubResource("Resource_mpn0r")])
-monetaryValue = 100
+on_play_card_effects = Array[ExtResource("2_tcwuy")]([SubResource("Resource_mpn0r")])
+on_draw_card_effects = Array[ExtResource("2_tcwuy")]([])
+on_discard_card_effects = Array[ExtResource("2_tcwuy")]([])
+monetary_value = 100
 rarity = 100
+tags = Array[StringName]([])

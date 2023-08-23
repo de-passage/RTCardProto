@@ -48,10 +48,10 @@ func initialize_from_card(card: CardResource):
 	_initialize(card)
 
 func _initialize(card: CardResource):
-	_name_edit.text = card.cardName
+	_name_edit.text = card.card_name
 	_cost_edit.value = card.cost
 	_card_resource = card
-	for effect in card.cardEffects:
+	for effect in card.on_play_card_effects:
 		var script = effect.effectScript
 		var values = effect.effectValues
 		
@@ -103,10 +103,10 @@ func _on_effect_edit_item_selected(index):
 	_effect_list.select(0)
 
 func get_card_resource() -> CardResource:
-	_card_resource.cardEffects = []
+	_card_resource.on_play_card_effects = []
 	for ef in _effect_vbox.get_children():
 		if ef is EffectEditor:
-			_card_resource.cardEffects.append(ef.get_parameters())
+			_card_resource.on_play_card_effects.append(ef.get_parameters())
 	return _card_resource
 
 

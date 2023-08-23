@@ -25,10 +25,10 @@ effectScript = ExtResource("1_8ubht")
 
 [sub_resource type="Resource" id="Resource_4b71h"]
 script = ExtResource("3_uc2tm")
-cardName = "Double Strike"
+card_name = "Double Strike"
 cost = 1
-cardEffects = Array[ExtResource("2_aulry")]([SubResource("Resource_ta28n"), SubResource("Resource_6um53")])
-monetaryValue = 67
+on_play_card_effects = Array[ExtResource("2_aulry")]([SubResource("Resource_ta28n"), SubResource("Resource_6um53")])
+monetary_value = 67
 rarity = 67
 
 [sub_resource type="Resource" id="Resource_mm413"]
@@ -40,10 +40,10 @@ effectScript = ExtResource("4_xb7wb")
 
 [sub_resource type="Resource" id="Resource_34vb2"]
 script = ExtResource("3_uc2tm")
-cardName = "Defend"
+card_name = "Defend"
 cost = 1
-cardEffects = Array[ExtResource("2_aulry")]([SubResource("Resource_mm413")])
-monetaryValue = 0
+on_play_card_effects = Array[ExtResource("2_aulry")]([SubResource("Resource_mm413")])
+monetary_value = 0
 rarity = 0
 
 [sub_resource type="Resource" id="Resource_eirig"]
@@ -55,10 +55,10 @@ effectScript = ExtResource("5_e31r8")
 
 [sub_resource type="Resource" id="Resource_ern54"]
 script = ExtResource("3_uc2tm")
-cardName = "Strengthen"
+card_name = "Strengthen"
 cost = 1
-cardEffects = Array[ExtResource("2_aulry")]([SubResource("Resource_eirig")])
-monetaryValue = 78
+on_play_card_effects = Array[ExtResource("2_aulry")]([SubResource("Resource_eirig")])
+monetary_value = 78
 rarity = 78
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_epc27"]

@@ -7,8 +7,8 @@ const EFFECT_GROUP = ".EFFECT_GROUP"
 @onready var _mcost = $VBoxContainer/GridContainer/CardCostEdit2 as SpinBox
 @onready var _rarity = $VBoxContainer/GridContainer/CardCostEdit2 as SpinBox
 @onready var _errors = $VBoxContainer/Errors as Label
-@onready var _effect_list = $VBoxContainer/GridContainer/OptionButton as OptionButton
-@onready var _effect_vbox = $VBoxContainer/GridContainer/EffectVBox as VBoxContainer
+@onready var _effect_list = $VBoxContainer/GridContainer/PlayOptionButton as OptionButton
+@onready var _effect_vbox = $VBoxContainer/GridContainer/PlayEffectVBox as VBoxContainer
 @onready var _file_explorer = $VBoxContainer/GridContainer/LoadCardButton/FileDialog as FileDialog
 @onready var _save_button = $VBoxContainer/SaveButton as Button
 @onready var _save_path_edit = $VBoxContainer/GridContainer/SavePath
@@ -90,7 +90,7 @@ func _on_button_pressed():
 	if name.strip_edges() == "":
 		errors.append("Name must not be empty") 
 	
-	resource.cardName = name
+	resource.card_name = name
 	
 	if cost < 0: 
 		errors.append("Energy cost must not be negative")
@@ -100,15 +100,15 @@ func _on_button_pressed():
 	if mcost < 0: 
 		errors.append("Money cost must not be negative")
 	
-	resource.monetaryValue = mcost 
+	resource.monetary_value = mcost 
 	
 	resource.rarity = rarity
 	
-	resource.cardEffects.clear()
+	resource.on_play_card_effects.clear()
 
 	for child in _effect_vbox.get_children(): 
 		if child is EffectEditor: 
-			resource.cardEffects.append(child.get_parameters())
+			resource.on_play_card_effects.append(child.get_parameters())
 	
 	for tag in _tag_list.get_children():
 		if tag is Button:
@@ -172,14 +172,14 @@ func _on_file_dialog_file_selected(path: String):
 			_overwrite = false
 			_save_path = path
 		
-		_name.text = card_resource.cardName
+		_name.text = card_resource.card_name
 		_cost.value = card_resource.cost
-		_mcost.value = card_resource.monetaryValue
+		_mcost.value = card_resource.monetary_value
 		_rarity.value = card_resource.rarity
 		
 		get_tree().call_group(EFFECT_GROUP, "queue_free")
 		
-		for effect in card_resource.cardEffects: 
+		for effect in card_resource.on_play_card_effects: 
 			var script = effect.effectScript
 			var values = effect.effectValues
 			
@@ -217,4 +217,16 @@ func _add_tag_delete_button(value: StringName):
 
 
 func _on_tag_edit_text_submitted(new_text):
-	_add_tag_delete_button(new_text)	
+	_add_tag_delete_button(new_text)
+
+
+func _on_on_play_check_box_toggled(button_pressed):
+	get_tree().call_group("on_play", "set_visible", button_pressed)
+
+
+func _on_on_draw_check_box_toggled(button_pressed):
+	get_tree().call_group("on_draw", "set_visible", button_pressed)
+
+
+func _on_on_discard_check_box_toggled(button_pressed):
+	get_tree().call_group("on_discard", "set_visible", button_pressed)

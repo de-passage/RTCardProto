@@ -51,14 +51,14 @@ func cast_effect():
 
 func _apply_card(player: Player, card: CardResource):
 	var context = Context.new(card, _entity, player)
-	for effect in card.cardEffects:
+	for effect in card.on_play_card_effects:
 		effect.load_effect().apply_effect(context)
 
 func show_intent(player: PlayableEntity):
 	var text = ""
 	
 	if current_effect >= _card_list.size() or \
-		_card_list[current_effect].cardEffects.size() == 0:
+		_card_list[current_effect].on_play_card_effects.size() == 0:
 		text = "Lazying around"
 	else:
 		var card: CardResource = _card_list[current_effect]

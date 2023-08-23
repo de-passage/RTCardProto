@@ -19,8 +19,11 @@ effectScript = ExtResource("3_2rwgu")
 
 [resource]
 script = ExtResource("4_lqjtn")
-cardName = "Strike and exhaust"
+card_name = "Strike and exhaust"
 cost = 1
-cardEffects = Array[ExtResource("2_b56lw")]([SubResource("Resource_s5g6b"), SubResource("Resource_0yv8d")])
-monetaryValue = 78
+on_play_card_effects = Array[ExtResource("2_b56lw")]([SubResource("Resource_s5g6b"), SubResource("Resource_0yv8d")])
+on_draw_card_effects = Array[ExtResource("2_b56lw")]([])
+on_discard_card_effects = Array[ExtResource("2_b56lw")]([])
+monetary_value = 78
 rarity = 78
+tags = Array[StringName]([])

@@ -13,8 +13,11 @@ effectScript = ExtResource("1_evhx6")
 
 [resource]
 script = ExtResource("1_dmycw")
-cardName = "Defend"
+card_name = "Defend"
 cost = 1
-cardEffects = Array[ExtResource("2_37qgp")]([SubResource("Resource_hhl1r")])
-monetaryValue = 0
+on_play_card_effects = Array[ExtResource("2_37qgp")]([SubResource("Resource_hhl1r")])
+on_draw_card_effects = Array[ExtResource("2_37qgp")]([])
+on_discard_card_effects = Array[ExtResource("2_37qgp")]([])
+monetary_value = 0
 rarity = 0
+tags = Array[StringName]([])

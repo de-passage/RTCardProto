@@ -69,9 +69,9 @@ func _on_relic_button_pressed():
 func _generate_rewards(): 
 	for card_resource in Global.get_card_sample():
 		var card: Card = _card_scene.instantiate()
+		_card_container.add_child(card)
 		card.initialize(card_resource, _player_entity)
 		card.selected.connect(_on_card_selected.bind(card_resource))
-		_card_container.add_child(card)
 
 func _on_card_selected(card: CardResource):
 	Global.current_deck.append(card)

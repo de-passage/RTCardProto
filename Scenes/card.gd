@@ -20,7 +20,7 @@ func get_effects() -> Array[BaseEffect]:
 func initialize(resource: CardResource, player: PlayableEntity):
 	_resource = resource
 	_cost.text = str(resource.cost)
-	_name.text = resource.cardName
+	_name.text = resource.card_name
 	_tags.text = ','.join(resource.tags)
 	_effects = resource.load_card_effects()
 	update_description(Context.source_only(player))
@@ -36,5 +36,5 @@ func apply(context: Context):
 		effect.apply_effect(context)
 
 func _on_pressed():
-	# print("Selected: %s" % (_resource.cardName if _resource != null else $Values/Name.text) )
+	# print("Selected: %s" % (_resource.card_name if _resource != null else $Values/Name.text) )
 	selected.emit()

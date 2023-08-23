@@ -13,8 +13,11 @@ effectScript = ExtResource("1_sgig6")
 
 [resource]
 script = ExtResource("1_ajbv2")
-cardName = "Strengthen"
+card_name = "Strengthen"
 cost = 1
-cardEffects = Array[ExtResource("2_a2i8c")]([SubResource("Resource_3kr5w")])
-monetaryValue = 78
+on_play_card_effects = Array[ExtResource("2_a2i8c")]([SubResource("Resource_3kr5w")])
+on_draw_card_effects = Array[ExtResource("2_a2i8c")]([])
+on_discard_card_effects = Array[ExtResource("2_a2i8c")]([])
+monetary_value = 78
 rarity = 78
+tags = Array[StringName]([])

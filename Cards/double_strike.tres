@@ -20,8 +20,11 @@ effectScript = ExtResource("1_o24go")
 
 [resource]
 script = ExtResource("3_4ireg")
-cardName = "Double Strike"
+card_name = "Double Strike"
 cost = 1
-cardEffects = Array[ExtResource("2_0qave")]([SubResource("Resource_6cy86"), SubResource("Resource_3ug3u")])
-monetaryValue = 67
+on_play_card_effects = Array[ExtResource("2_0qave")]([SubResource("Resource_6cy86"), SubResource("Resource_3ug3u")])
+on_draw_card_effects = Array[ExtResource("2_0qave")]([])
+on_discard_card_effects = Array[ExtResource("2_0qave")]([])
+monetary_value = 67
 rarity = 67
+tags = Array[StringName]([])

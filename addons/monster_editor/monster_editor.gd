@@ -30,7 +30,7 @@ func _load_available_cards():
 	_card_list_edit.add_item("<Add card>");
 	_card_list_edit.add_item("[New anonymous card]");
 	for card in CGResourceManager.load_cards():
-		var name = card.cardName
+		var name = card.card_name
 		_card_list_edit.add_item(name)
 		_available_cards.append(card)
 

@@ -15,11 +15,14 @@ effectScript = ExtResource("1_bmn1b")
 
 [sub_resource type="Resource" id="Resource_hbndm"]
 script = ExtResource("3_nuwng")
-cardName = "Attack"
+card_name = "Attack"
 cost = 1
-cardEffects = Array[ExtResource("2_x5rss")]([SubResource("Resource_72j6s")])
-monetaryValue = 50
+on_play_card_effects = Array[ExtResource("2_x5rss")]([SubResource("Resource_72j6s")])
+on_draw_card_effects = Array[ExtResource("2_x5rss")]([])
+on_discard_card_effects = Array[ExtResource("2_x5rss")]([])
+monetary_value = 50
 rarity = 0
+tags = Array[StringName]([])
 
 [resource]
 script = ExtResource("7_265mq")

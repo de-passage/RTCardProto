@@ -13,8 +13,8 @@ effectScript = ExtResource("1_b2hdd")
 
 [resource]
 script = ExtResource("3_hwq40")
-cardName = "WeakAttack"
+card_name = "WeakAttack"
 cost = 1
-cardEffects = Array[ExtResource("2_16oio")]([SubResource("Resource_ufmbv")])
-monetaryValue = 50
+on_play_card_effects = Array[ExtResource("2_16oio")]([SubResource("Resource_ufmbv")])
+monetary_value = 50
 rarity = 50

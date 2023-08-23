@@ -21,8 +21,11 @@ effectScript = ExtResource("3_xabh4")
 
 [resource]
 script = ExtResource("4_cl6pu")
-cardName = "Heal but good"
+card_name = "Heal but good"
 cost = 1
-cardEffects = Array[ExtResource("2_y4g4n")]([SubResource("Resource_i2iix"), SubResource("Resource_4rmgi")])
-monetaryValue = 134
+on_play_card_effects = Array[ExtResource("2_y4g4n")]([SubResource("Resource_i2iix"), SubResource("Resource_4rmgi")])
+on_draw_card_effects = Array[ExtResource("2_y4g4n")]([])
+on_discard_card_effects = Array[ExtResource("2_y4g4n")]([])
+monetary_value = 134
 rarity = 134
+tags = Array[StringName]([])

@@ -15,10 +15,10 @@ effectScript = ExtResource("1_f7q62")
 
 [sub_resource type="Resource" id="Resource_h4242"]
 script = ExtResource("1_7yqrv")
-cardName = ""
+card_name = ""
 cost = 1
-cardEffects = Array[ExtResource("1_21ygj")]([SubResource("Resource_epca2")])
-monetaryValue = 50
+on_play_card_effects = Array[ExtResource("1_21ygj")]([SubResource("Resource_epca2")])
+monetary_value = 50
 rarity = 0
 
 [resource]
