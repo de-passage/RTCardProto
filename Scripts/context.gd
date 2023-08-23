@@ -10,7 +10,7 @@ var _card_effect: int = NO_EFFECT
 const NO_EFFECT = 0
 const EXHAUST_CARD = 1 # Send to exhaust pile
 const DESTROY_CARD = 2 # Remove from meta deck
-
+const FORCE_DISCARD = 4 # Send the card to the discard
 
 func _init(card_: CardResource, source_: PlayableEntity, target_: PlayableEntity):
 	source = source_
@@ -22,6 +22,15 @@ static func source_only(source_: PlayableEntity) -> Context:
 
 func add_card_effect(e: int): 
 	_card_effect |= e
+
+func _effect_flag_set(e: int) -> bool:
+	return (_card_effect & e) > 0
 	
 func exhaust_required() -> bool:
-	return (_card_effect & EXHAUST_CARD) > 0
+	return _effect_flag_set(EXHAUST_CARD)
+
+func discard_required() -> bool:
+	return _effect_flag_set(FORCE_DISCARD)
+	
+func purge_required() -> bool:
+	return _effect_flag_set(DESTROY_CARD)

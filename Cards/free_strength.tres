@@ -1,18 +1,18 @@
-[gd_resource type="Resource" script_class="CardResource" load_steps=7 format=3]
+[gd_resource type="Resource" script_class="CardResource" load_steps=7 format=3 uid="uid://bcvw4trg73vam"]
 
 [ext_resource type="Script" path="res://Scripts/Effects/AddAttackPower.gd" id="1_xxpn7"]
 [ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_nkt6n"]
 [ext_resource type="Script" path="res://Scripts/Effects/Exhaust.gd" id="3_qntk8"]
 [ext_resource type="Script" path="res://Scripts/CardResource.gd" id="4_y85wg"]
 
-[sub_resource type="Resource" id="Resource_6uny2"]
+[sub_resource type="Resource" id="Resource_0ibm6"]
 script = ExtResource("2_nkt6n")
 effectValues = {
 "Amount": 1
 }
 effectScript = ExtResource("1_xxpn7")
 
-[sub_resource type="Resource" id="Resource_ypmak"]
+[sub_resource type="Resource" id="Resource_1vqg2"]
 script = ExtResource("2_nkt6n")
 effectValues = {}
 effectScript = ExtResource("3_qntk8")
@@ -22,8 +22,8 @@ script = ExtResource("4_y85wg")
 card_name = "Free Strength"
 cost = 1
 on_play_card_effects = Array[ExtResource("2_nkt6n")]([])
-on_draw_card_effects = Array[ExtResource("2_nkt6n")]([])
-on_discard_card_effects = Array[ExtResource("2_nkt6n")]([SubResource("Resource_6uny2"), SubResource("Resource_ypmak")])
+on_draw_card_effects = Array[ExtResource("2_nkt6n")]([SubResource("Resource_0ibm6"), SubResource("Resource_1vqg2")])
+on_discard_card_effects = Array[ExtResource("2_nkt6n")]([])
 monetary_value = 50
 rarity = 50
 tags = Array[StringName]([&"Skill", &"OP"])

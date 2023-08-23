@@ -115,4 +115,4 @@ func _load_cards():
 		_cards = CGResourceManager.load_cards() as Array[CardResource]
 
 func _get_starter() -> StarterDeck :
-	return preload("res://Characters/Starter/DefaultStarter.tres")
+	return preload("res://Characters/Starter/deleteme.tres")
