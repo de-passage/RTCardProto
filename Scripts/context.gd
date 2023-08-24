@@ -5,23 +5,40 @@ class_name Context
 var source: PlayableEntity
 var target: PlayableEntity
 var card: CardResource
-var _card_effect: int = NO_EFFECT
+var _card_effect: int = FORCE_DISCARD
 
 const NO_EFFECT = 0
-const EXHAUST_CARD = 1 # Send to exhaust pile
-const DESTROY_CARD = 2 # Remove from meta deck
-const FORCE_DISCARD = 4 # Send the card to the discard
 
-func _init(card_: CardResource, source_: PlayableEntity, target_: PlayableEntity):
-	source = source_
-	card = card_
-	target = target_
+# What to do with the card after playing
+const EXHAUST_CARD = 1 # Send to exhaust pile
+const DESTROY_CARD = 1 << 1 # Remove from meta deck
+const FORCE_DISCARD = 1 << 2 # Send the card to the discard
+
+const TRASH_HAND = 1
+const TRASH_DISCARD = 1 << 1
+const TRASH_DRAW = 1 << 2
+const CURSE = 1 << 3
+
+static func create(card_: CardResource, source_: PlayableEntity, target_: PlayableEntity):
+	var ctx: Context = Context.new()
+	ctx.source = source_
+	ctx.card = card_
+	ctx.target = target_
+	return ctx
 
 static func source_only(source_: PlayableEntity) -> Context: 
-	return Context.new(null, source_, null)
+	return Context.create(null, source_, null)
+	
+static func on_draw_context(source_: PlayableEntity) -> Context:
+	var c = Context.source_only(source_)
+	c.remove_card_effect(FORCE_DISCARD)
+	return c
 
 func add_card_effect(e: int): 
 	_card_effect |= e
+	
+func remove_card_effect(e: int):
+	_card_effect &= ~e
 
 func _effect_flag_set(e: int) -> bool:
 	return (_card_effect & e) > 0
@@ -34,3 +51,9 @@ func discard_required() -> bool:
 	
 func purge_required() -> bool:
 	return _effect_flag_set(DESTROY_CARD)
+
+func trash(what: CardResource, where: int = TRASH_DISCARD) -> void: 
+	pass
+	
+	
+	

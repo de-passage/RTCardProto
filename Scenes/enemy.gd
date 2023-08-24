@@ -50,7 +50,7 @@ func cast_effect():
 		show_intent(player))
 
 func _apply_card(player: Player, card: CardResource):
-	var context = Context.new(card, _entity, player)
+	var context = Context.create(card, _entity, player)
 	for effect in card.on_play_card_effects:
 		effect.load_effect().apply_effect(context)
 
@@ -63,7 +63,7 @@ func show_intent(player: PlayableEntity):
 	else:
 		var card: CardResource = _card_list[current_effect]
 		for effect in card.load_card_effects():
-			text += effect.get_description(Context.new(card, _entity, player))
+			text += effect.get_description(Context.create(card, _entity, player))
 	
 	_intent.text = text 
 

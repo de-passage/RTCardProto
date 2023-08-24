@@ -29,7 +29,7 @@ func _ready():
 func _play_card(card: Card):
 	if card.card_cost() <= energy:
 		_energy_manager.deduct_energy(card.card_cost())
-		_manager.play(card, player, _enemy_scene.get_entity())
+		_manager.play(card, _enemy_scene.get_entity())
 
 func _on_energy_bar_step_reached(step):
 	energy = step
@@ -49,8 +49,8 @@ func _goto_recap_screen():
 
 func _on_deck_refreshed():
 	if energy >= DRAW_COST:
-		_manager.draw_one_card()
-		_energy_manager.deduct_energy(DRAW_COST)
+		if _manager.draw_one_card():
+			_energy_manager.deduct_energy(DRAW_COST)
 
 
 func _on_enemy_effects(effect):
