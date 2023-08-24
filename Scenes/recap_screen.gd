@@ -14,6 +14,11 @@ var _card_scene = preload("res://Scenes/card.tscn")
 var _player_entity = PlayableEntity.new(Global.current_max_health)
 
 func _ready():
+	var t = Timer.new()
+	t.one_shot = true
+	t.timeout.connect(func(): _next_button.disabled = false)
+	add_child(t)
+	t.start(1.5)
 	if Global.rewards.get(Global.REWARD_COINS, 0) > 0:
 		_coin_button.text = "%s Coins" % Global.rewards.get(Global.REWARD_COINS)
 		_coin_button.visible = true

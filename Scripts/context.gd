@@ -40,6 +40,9 @@ func add_card_effect(e: int):
 func remove_card_effect(e: int):
 	_card_effect &= ~e
 
+func set_card_effect(e: int):
+	_card_effect = e
+
 func _effect_flag_set(e: int) -> bool:
 	return (_card_effect & e) > 0
 	
@@ -55,5 +58,7 @@ func purge_required() -> bool:
 func trash(what: CardResource, where: int = TRASH_DISCARD) -> void: 
 	pass
 	
+func get_hand() -> Array[CardResource]:
+	return []
 	
-	
+

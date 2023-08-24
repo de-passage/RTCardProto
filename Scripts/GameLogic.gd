@@ -16,11 +16,12 @@ var _player: Player
 
 const HAND_SIZE = 5
 
-
 func initialize(pl: Player, draw: Array[CardResource]):
 	_player = pl
+	source = pl 
 	_draw_pile = draw
 	_fill_hand()
+	
 
 ## Shuffle the draw pile then draw until the hand is full
 ## Redraw the _hand afterwards
@@ -35,20 +36,7 @@ func _fill_hand():
 	for card in drawn_cards:
 		var effs = card.load_on_draw_card_effects()
 		if effs.size() > 0:
-			var ctx = Context.source_only(_player)
-			for e in effs:
-				e.apply_effect(ctx)
-			if ctx.purge_required():
-				pass
-			elif ctx.exhaust_required():
-				_exhaust_pile.append(card)
-				exhaust_changed.emit(_exhaust_pile.size())
-			elif ctx.discard_required():
-				_discard_pile.append(card)
-				discard_changed.emit(_discard_pile.size())
-			else:
-				_hand.append(card)
-				hand_changed.emit(_hand.size())
+			_handle_played_card(card, effs)
 		else:
 			_hand.append(card)
 			hand_changed.emit(_hand.size())
@@ -56,15 +44,14 @@ func _fill_hand():
 ## Play the given card on the enemy. This should probably use
 ## the local _player variable directly.
 func play(card: Card, enemy: PlayableEntity):
-	var context = Context.create(card._resource, _player, enemy)
-	for effect in card.get_effects():
-		if effect is BaseEffect:
-			effect.apply_effect(context)
+	self.card = card._resource
+	self.target = enemy
+	self.set_card_effect(Context.FORCE_DISCARD)
 		
 	var idx = _hand.find(card._resource)
 	if idx >= 0:
 		var card_from_hand = _hand.pop_at(idx)
-		_handle_played_card(card_from_hand, context)
+		_handle_played_card(card_from_hand, card_from_hand.load_card_effects())
 		card.queue_free()
 	else:
 		printerr("Invalid card played!")
@@ -88,22 +75,28 @@ func draw_one_card() -> bool:
 	var ctx = Context.source_only(_player)
 	var effs = drawn_card.load_on_draw_card_effects()
 	if effs.size() > 0: 
-		for effect in effs:
-			effect.apply_effect(ctx)
-		_handle_played_card(drawn_card, ctx)
+		self.set_card_effect(Context.NO_EFFECT)
+		_handle_played_card(drawn_card, effs)
 	else:
 		_hand.append(drawn_card)
 		hand_changed.emit(_hand.size())
 	draw_pile_changed.emit(_draw_pile.size())
 	return true
 
-func _handle_played_card(card: CardResource, ctx: Context):
-	if ctx.exhaust_required():
+func _handle_played_card(card: CardResource, effs: Array[BaseEffect]):
+	for e in effs:
+		e.apply_effect(self)
+	if purge_required():
+		pass
+	elif exhaust_required():
 		_exhaust_pile.append(card)
 		exhaust_changed.emit(_exhaust_pile.size())
-	else:
+	elif discard_required():
 		_discard_pile.append(card)
 		discard_changed.emit(_discard_pile.size())
+	else:
+		_hand.append(card)
+		hand_changed.emit(_hand.size())
 
 func hand() -> Array[CardResource]: 
 	return _hand

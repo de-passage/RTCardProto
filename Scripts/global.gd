@@ -59,6 +59,7 @@ func reset_game_values():
 	current_max_health = 50
 	current_health = 50
 	current_deck = _get_starter().cards
+	deck_changed.emit()
 	current_money = 50
 	Maze.generate_new_level()
 
@@ -115,4 +116,4 @@ func _load_cards():
 		_cards = CGResourceManager.load_cards() as Array[CardResource]
 
 func _get_starter() -> StarterDeck :
-	return preload("res://Characters/Starter/deleteme.tres")
+	return preload("res://Characters/Starter/DefaultStarter.tres")
