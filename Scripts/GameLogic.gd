@@ -43,16 +43,16 @@ func _fill_hand():
 
 ## Play the given card on the enemy. This should probably use
 ## the local _player variable directly.
-func play(card: Card, enemy: PlayableEntity):
-	self.card = card._resource
+func play(played_card: Card, enemy: PlayableEntity):
+	self.current_card = played_card._resource
 	self.target = enemy
 	self.set_card_effect(Context.FORCE_DISCARD)
 		
-	var idx = _hand.find(card._resource)
+	var idx = _hand.find(played_card._resource)
 	if idx >= 0:
 		var card_from_hand = _hand.pop_at(idx)
 		_handle_played_card(card_from_hand, card_from_hand.load_card_effects())
-		card.queue_free()
+		played_card.queue_free()
 	else:
 		printerr("Invalid card played!")
 
@@ -72,7 +72,6 @@ func draw_one_card() -> bool:
 		return false
 
 	var drawn_card: CardResource = _draw_pile.pop_back()
-	var ctx = Context.source_only(_player)
 	var effs = drawn_card.load_on_draw_card_effects()
 	if effs.size() > 0: 
 		self.set_card_effect(Context.NO_EFFECT)
@@ -83,19 +82,19 @@ func draw_one_card() -> bool:
 	draw_pile_changed.emit(_draw_pile.size())
 	return true
 
-func _handle_played_card(card: CardResource, effs: Array[BaseEffect]):
+func _handle_played_card(played: CardResource, effs: Array[BaseEffect]):
 	for e in effs:
 		e.apply_effect(self)
 	if purge_required():
 		pass
 	elif exhaust_required():
-		_exhaust_pile.append(card)
+		_exhaust_pile.append(played)
 		exhaust_changed.emit(_exhaust_pile.size())
 	elif discard_required():
-		_discard_pile.append(card)
+		_discard_pile.append(played)
 		discard_changed.emit(_discard_pile.size())
 	else:
-		_hand.append(card)
+		_hand.append(played)
 		hand_changed.emit(_hand.size())
 
 func hand() -> Array[CardResource]: 

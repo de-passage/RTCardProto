@@ -15,13 +15,13 @@ class_name CardResource
 @export var tags: Array[StringName] = []
 
 func load_card_effects() -> Array[BaseEffect]:
-	return _load_effects(on_play_card_effects)
+	return CardResource._load_effects(on_play_card_effects)
 	
 func load_on_draw_card_effects() -> Array[BaseEffect]:
-	return _load_effects(on_draw_card_effects)
+	return CardResource._load_effects(on_draw_card_effects)
 	
 func load_on_discard_card_effects() -> Array[BaseEffect]:
-	return _load_effects(on_discard_card_effects)
+	return CardResource._load_effects(on_discard_card_effects)
 
 static func _load_effects(array: Array[EffectResource]) -> Array[BaseEffect]: 
 	var result: Array[BaseEffect] = []

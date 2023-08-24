@@ -4,7 +4,7 @@ class_name Context
 
 var source: PlayableEntity
 var target: PlayableEntity
-var card: CardResource
+var current_card: CardResource
 var _card_effect: int = FORCE_DISCARD
 
 const NO_EFFECT = 0
@@ -22,7 +22,7 @@ const CURSE = 1 << 3
 static func create(card_: CardResource, source_: PlayableEntity, target_: PlayableEntity):
 	var ctx: Context = Context.new()
 	ctx.source = source_
-	ctx.card = card_
+	ctx.current_card = card_
 	ctx.target = target_
 	return ctx
 
@@ -55,7 +55,7 @@ func discard_required() -> bool:
 func purge_required() -> bool:
 	return _effect_flag_set(DESTROY_CARD)
 
-func trash(what: CardResource, where: int = TRASH_DISCARD) -> void: 
+func trash(_what: CardResource, _where: int = TRASH_DISCARD) -> void: 
 	pass
 	
 func get_hand() -> Array[CardResource]:
