@@ -12,6 +12,7 @@ var deck: Array[CardResource]
 @onready var _deck = $Deck
 @onready var _exhaust_pile = $ExhaustTexture
 @onready var _exhaust_label = $ExhaustTexture/ExhaustLabel
+@onready var _mana_label = $ManaLabel
 
 @export var DRAW_COST = 1
 
@@ -23,6 +24,7 @@ func _ready():
 	_enemy_scene.died.connect(_on_enemy_died)
 
 	player.died.connect(_on_player_died)
+	player.mana_changed.connect(_update_mana_label)
 
 	_manager.initialize(Global.current_deck, player)
 
@@ -72,3 +74,6 @@ func _on_hand_draw_pile_changed(new_size):
 func _on_hand_exhaust_changed(new_size):
 	_exhaust_pile.visible = new_size > 0
 	_exhaust_label.text = str(new_size)
+
+func _update_mana_label(mana: int):
+	_mana_label.text = "Mana: %s" % mana

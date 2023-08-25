@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dn6si7yuphnq6"]
+[gd_scene load_steps=19 format=3 uid="uid://dn6si7yuphnq6"]
 
 [ext_resource type="Script" path="res://Scenes/main.gd" id="1_hbbjb"]
 [ext_resource type="PackedScene" uid="uid://tvjk1wf42fsi" path="res://Scenes/deck.tscn" id="1_rnv0a"]
@@ -12,6 +12,7 @@
 [ext_resource type="Shader" path="res://Scenes/discard_pile.gdshader" id="10_eyx3f"]
 [ext_resource type="Texture2D" uid="uid://dcil7jaqaiw4g" path="res://art/card fantasy back.png" id="11_kd8rg"]
 [ext_resource type="Shader" path="res://Scenes/exhaust_pile.gdshader" id="12_7r6q2"]
+[ext_resource type="FontFile" uid="uid://bsk6op0lpnbwx" path="res://font/NeverMindsemi-serif-Regular.ttf" id="13_xluq7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pygco"]
 shader = ExtResource("10_eyx3f")
@@ -25,6 +26,10 @@ shader_parameter/color = Color(0.168627, 0, 0.172549, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_2kkvr"]
 font_size = 80
+
+[sub_resource type="LabelSettings" id="LabelSettings_s6173"]
+font = ExtResource("13_xluq7")
+font_size = 32
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_hbbjb")
@@ -148,6 +153,14 @@ text = "0
 label_settings = SubResource("LabelSettings_2kkvr")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ManaLabel" type="Label" parent="."]
+offset_left = 1252.0
+offset_top = 467.0
+offset_right = 1380.0
+offset_bottom = 509.0
+text = "Mana: 0"
+label_settings = SubResource("LabelSettings_s6173")
 
 [connection signal="refreshed" from="Deck" to="." method="_on_deck_refreshed"]
 [connection signal="step_reached" from="UI/EnergyContainer/EnergyBar" to="." method="_on_energy_bar_step_reached"]

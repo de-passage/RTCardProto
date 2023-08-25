@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="CardResource" load_steps=7 format=3 uid="uid://bqjehbwy8m64t"]
+
+[ext_resource type="Script" path="res://Scripts/Effects/Heal.gd" id="1_nh2cd"]
+[ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_te6pe"]
+[ext_resource type="Script" path="res://Scripts/Effects/purge.gd" id="3_c445u"]
+[ext_resource type="Script" path="res://Scripts/CardResource.gd" id="4_r8c1s"]
+
+[sub_resource type="Resource" id="Resource_gt084"]
+script = ExtResource("2_te6pe")
+effectValues = {
+"Amount": 15.0
+}
+effectScript = ExtResource("1_nh2cd")
+
+[sub_resource type="Resource" id="Resource_girc6"]
+script = ExtResource("2_te6pe")
+effectValues = {}
+effectScript = ExtResource("3_c445u")
+
+[resource]
+script = ExtResource("4_r8c1s")
+card_name = "Health Potion"
+cost = 1
+on_play_card_effects = Array[ExtResource("2_te6pe")]([SubResource("Resource_gt084"), SubResource("Resource_girc6")])
+on_draw_card_effects = Array[ExtResource("2_te6pe")]([])
+on_discard_card_effects = Array[ExtResource("2_te6pe")]([])
+monetary_value = 100
+rarity = 100
+tags = Array[StringName]([&"Skill", &"Consumable"])

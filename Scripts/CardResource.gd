@@ -10,9 +10,11 @@ class_name CardResource
 @export var on_play_card_effects: Array[EffectResource]
 @export var on_draw_card_effects: Array[EffectResource]
 @export var on_discard_card_effects: Array[EffectResource]
+@export var on_exhaust_card_effects: Array[EffectResource]
 @export var monetary_value: int = 50
 @export var rarity: int = 0
 @export var tags: Array[StringName] = []
+@export var playable: bool = true
 
 func load_card_effects() -> Array[BaseEffect]:
 	return CardResource._load_effects(on_play_card_effects)
@@ -22,6 +24,9 @@ func load_on_draw_card_effects() -> Array[BaseEffect]:
 	
 func load_on_discard_card_effects() -> Array[BaseEffect]:
 	return CardResource._load_effects(on_discard_card_effects)
+	
+func load_on_exhaust_card_effects() -> Array[BaseEffect]:
+	return CardResource._load_effects(on_exhaust_card_effects)
 
 static func _load_effects(array: Array[EffectResource]) -> Array[BaseEffect]: 
 	var result: Array[BaseEffect] = []

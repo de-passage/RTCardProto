@@ -9,6 +9,7 @@ signal armor_changed
 signal strength_changed
 signal heal_power_changed
 signal resistance_changed
+signal mana_changed
 
 ## Maximum amount of HP an entity may have
 var max_hp: int = 1:
@@ -49,6 +50,11 @@ var resistance: int = 0:
 	set(value):
 		resistance = value
 		resistance_changed.emit(value)
+
+var mana: int = 0: 
+	set(value):
+		mana = value
+		mana_changed.emit(value)
 
 func _init(max_health: int, current_health: int = -1):
 	max_hp = max_health

@@ -103,4 +103,4 @@ label_settings = SubResource("LabelSettings_at42m")
 horizontal_alignment = 1
 text_overrun_behavior = 3
 
-[connection signal="pressed" from="." to="." method="_on_pressed"]
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

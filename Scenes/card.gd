@@ -2,6 +2,7 @@ extends TextureButton
 class_name Card 
 
 signal selected
+signal discarded
 
 @onready var _cost = $Values/Cost
 @onready var _name = $Values/Name
@@ -35,6 +36,9 @@ func initialize(resource: CardResource, player: PlayableEntity):
 
 func update_description(context: Context):
 	var desc = ""
+	if not _resource.playable:
+		desc = "Unplayable\n"
+		
 	for effect in _effects: 
 		desc += effect.get_description(context) + "\n"
 		
@@ -54,6 +58,11 @@ func apply(context: Context):
 	for effect in _effects:
 		effect.apply_effect(context)
 
-func _on_pressed():
-	# print("Selected: %s" % (_resource.card_name if _resource != null else $Values/Name.text) )
-	selected.emit()
+func _on_gui_input(event):
+	if event is InputEventMouseButton and event.pressed:
+		match event.button_index:
+			MOUSE_BUTTON_LEFT:
+				selected.emit()
+			MOUSE_BUTTON_RIGHT:
+				discarded.emit() 
+		
