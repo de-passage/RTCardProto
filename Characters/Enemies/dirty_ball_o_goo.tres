@@ -1,0 +1,47 @@
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=10 format=3 uid="uid://6syrvefa03k7"]
+
+[ext_resource type="Script" path="res://Scripts/Effects/cursed_strike.gd" id="1_2e8n4"]
+[ext_resource type="Script" path="res://Scripts/EnemyResource.gd" id="1_ta8mq"]
+[ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_tg8h7"]
+[ext_resource type="Script" path="res://Scripts/CardResource.gd" id="3_im436"]
+[ext_resource type="Shader" uid="uid://dtsr5xql7lx84" path="res://Shaders/colorswap.tres" id="5_257me"]
+[ext_resource type="Texture2D" uid="uid://cngirsy3rcmjw" path="res://art/Enemies/ballBlue_10.png" id="6_dvpxw"]
+
+[sub_resource type="Resource" id="Resource_t3jek"]
+script = ExtResource("2_tg8h7")
+effectValues = {
+"Damage": 4.0,
+"Trash": "res://Cards/curse_.tres",
+"Trash Amount": 1
+}
+effectScript = ExtResource("1_2e8n4")
+
+[sub_resource type="Resource" id="Resource_lwrjn"]
+script = ExtResource("3_im436")
+card_name = ""
+cost = 0
+on_play_card_effects = Array[ExtResource("2_tg8h7")]([SubResource("Resource_t3jek")])
+on_draw_card_effects = Array[ExtResource("2_tg8h7")]([])
+on_discard_card_effects = Array[ExtResource("2_tg8h7")]([])
+on_exhaust_card_effects = Array[ExtResource("2_tg8h7")]([])
+monetary_value = 50
+rarity = 0
+tags = Array[StringName]([])
+playable = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_glr7o"]
+shader = ExtResource("5_257me")
+shader_parameter/color = Color(0.12549, 0.0588235, 0, 1)
+
+[resource]
+script = ExtResource("1_ta8mq")
+name = "Dirty Ball O'Goo"
+health = 35
+effects = Array[ExtResource("3_im436")]([SubResource("Resource_lwrjn")])
+coin_value = 28
+texture = ExtResource("6_dvpxw")
+shader = SubResource("ShaderMaterial_glr7o")
+attack_frequency = 10.01
+card_reward = true
+type = 0
+level = 0

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CardResource" load_steps=2 format=3 uid="uid://dep33in2qm061"]
+
+[ext_resource type="Script" path="res://Scripts/CardResource.gd" id="1_xgbau"]
+
+[resource]
+script = ExtResource("1_xgbau")
+card_name = "Curse!"
+cost = 0
+on_play_card_effects = Array[Resource("res://Scripts/effect_resource.gd")]([])
+on_draw_card_effects = Array[Resource("res://Scripts/effect_resource.gd")]([])
+on_discard_card_effects = Array[Resource("res://Scripts/effect_resource.gd")]([])
+on_exhaust_card_effects = Array[Resource("res://Scripts/effect_resource.gd")]([])
+monetary_value = 50
+rarity = 50
+tags = Array[StringName]([])
+playable = false

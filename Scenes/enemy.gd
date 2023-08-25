@@ -16,9 +16,11 @@ var _entity: PlayableEntity
 
 var current_effect = 0
 var _card_list: Array[CardResource] = []
+var _game_logic: Context
 
-func initialize(entityResource: EnemyResource, player: PlayableEntity):
+func initialize(entityResource: EnemyResource, player: PlayableEntity, game: Context):
 	_resource = entityResource
+	_game_logic = game
 	
 	_entity = PlayableEntity.new(_resource.health)
 	_entity.died.connect(_on_entity_died)
@@ -50,9 +52,11 @@ func cast_effect():
 		show_intent(player))
 
 func _apply_card(player: Player, card: CardResource):
-	var context = Context.create(card, _entity, player)
+	_game_logic.source = _entity
+	_game_logic.current_card = card
+	_game_logic.target = player
 	for effect in card.on_play_card_effects:
-		effect.load_effect().apply_effect(context)
+		effect.load_effect().apply_effect(_game_logic)
 
 func show_intent(player: PlayableEntity):
 	var text = ""
@@ -63,7 +67,10 @@ func show_intent(player: PlayableEntity):
 	else:
 		var card: CardResource = _card_list[current_effect]
 		for effect in card.load_card_effects():
-			text += effect.get_description(Context.create(card, _entity, player))
+			_game_logic.source = _entity
+			_game_logic.current_card = card
+			_game_logic.target = player
+			text += effect.get_description(_game_logic)
 	
 	_intent.text = text 
 

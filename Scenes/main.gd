@@ -20,16 +20,16 @@ func _ready():
 	player.current_hp = Global.current_health
 	_health_manager.connect_playable_entity(player)
 
-	_enemy_scene.initialize(Global.current_enemy(), player)
-	_enemy_scene.died.connect(_on_enemy_died)
-
 	player.died.connect(_on_player_died)
 	player.mana_changed.connect(_update_mana_label)
 
 	_manager.initialize(Global.current_deck, player)
 
+	_enemy_scene.initialize(Global.current_enemy(), player, _manager._game_logic)
+	_enemy_scene.died.connect(_on_enemy_died)
+
 func _play_card(card: Card):
-	if card.card_cost() <= energy:
+	if card.card_cost() <= energy and card._resource.playable:
 		_energy_manager.deduct_energy(card.card_cost())
 		_manager.play(card, _enemy_scene.get_entity())
 

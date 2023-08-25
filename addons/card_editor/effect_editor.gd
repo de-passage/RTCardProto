@@ -17,12 +17,12 @@ var modifiable: bool = true:
 
 var _values = []
 var _delete_icon = preload("res://art/trash_icon.svg")
-var _id = 0
 var _script
 
 func initialize(name: String, parameters: Array, script: GDScript):
 	_effect_name.text = name 
 	_script = script
+	var id: int = 0
 	for param in parameters: 
 		var label = Label.new()
 		var value_name = param.get("name", "<unnamed value>")
@@ -41,10 +41,20 @@ func initialize(name: String, parameters: Array, script: GDScript):
 			value_input.value = default
 			_values.append({ "value": default, "name": value_name})
 			value_input.value_changed.connect(func(value):
-				_values[_id].value = value
+				_values[id].value = value
 			)
+		elif type == "card":
+			var value_input = OptionButton.new()
+			_grid.add_child(value_input)
+			for card in CGResourceManager.cards:
+				value_input.add_item(card.card_name)
+			_values.append({ "value": null, "name": value_name })
+			value_input.item_selected.connect(func(idx):
+				_values[id].value = CGResourceManager.cards[idx].resource_path
+			)
+		
+		id += 1
 			
-
 func get_parameters() -> EffectResource:
 	var resource = EffectResource.new()
 	resource.effectScript = _script

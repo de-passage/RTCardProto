@@ -42,8 +42,9 @@ func _emit_selected(card_scene: Card):
 	card_selected.emit(card_scene)
 
 func _emit_discarded(card_scene: Card):
-	_game_logic.discard(card_scene._resource)
-	card_scene.queue_free()
+	if (card_scene._resource.playable):
+		_game_logic.discard(card_scene._resource)
+		card_scene.queue_free()
 
 func play(card: Card, enemy: PlayableEntity):
 	_game_logic.play(card._resource, enemy)

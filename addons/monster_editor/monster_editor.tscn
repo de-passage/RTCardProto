@@ -134,7 +134,7 @@ text = "Cards"
 
 [node name="CardListEdit" type="OptionButton" parent="Attr/GridContainer"]
 layout_mode = 2
-item_count = 9
+item_count = 13
 selected = 0
 allow_reselect = true
 popup/item_0/text = "<Add card>"
@@ -145,16 +145,24 @@ popup/item_2/text = "Attack"
 popup/item_2/id = 2
 popup/item_3/text = "Attack Harder!"
 popup/item_3/id = 3
-popup/item_4/text = "Defend"
+popup/item_4/text = "Curse!"
 popup/item_4/id = 4
-popup/item_5/text = "Double Strike"
+popup/item_5/text = "Defend"
 popup/item_5/id = 5
-popup/item_6/text = "Heal"
+popup/item_6/text = "Double Strike"
 popup/item_6/id = 6
-popup/item_7/text = "Heal but good"
+popup/item_7/text = "Free Strength"
 popup/item_7/id = 7
-popup/item_8/text = "Strengthen"
+popup/item_8/text = "Heal"
 popup/item_8/id = 8
+popup/item_9/text = "Heal but good"
+popup/item_9/id = 9
+popup/item_10/text = "Health Potion"
+popup/item_10/id = 10
+popup/item_11/text = "Strengthen"
+popup/item_11/id = 11
+popup/item_12/text = "Strike and exhaust"
+popup/item_12/id = 12
 
 [node name="Control" type="Control" parent="Attr/GridContainer"]
 layout_mode = 2

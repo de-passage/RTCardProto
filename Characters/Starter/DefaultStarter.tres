@@ -20,9 +20,11 @@ cost = 1
 on_play_card_effects = Array[ExtResource("2_x5rss")]([SubResource("Resource_72j6s")])
 on_draw_card_effects = Array[ExtResource("2_x5rss")]([])
 on_discard_card_effects = Array[ExtResource("2_x5rss")]([])
+on_exhaust_card_effects = Array[ExtResource("2_x5rss")]([])
 monetary_value = 50
 rarity = 0
 tags = Array[StringName]([])
+playable = true
 
 [resource]
 script = ExtResource("7_265mq")

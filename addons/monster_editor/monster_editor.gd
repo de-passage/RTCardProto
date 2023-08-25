@@ -16,7 +16,7 @@ extends Control
 var _displayed_cards = []
 var _available_cards: Array[CardResource] = []
 static var _simplified_card_editor_scene = preload("res://addons/monster_editor/simplified_card_editor.tscn")
-var _current_enemy_resource: EnemyResource
+var _current_enemy_resource: EnemyResource = EnemyResource.new()
 
 const MONSTER_PATH = CGResourceManager.ENEMIES_PATH
 const CARD_GROUP = ".CARD_GROUP"

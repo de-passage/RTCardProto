@@ -17,13 +17,19 @@ static func load_resources(path: String, process: Callable):
 const CARDS_PATH = "res://Cards"
 const ENEMIES_PATH = "res://Characters/Enemies"
 
-static func load_enemies():
-	var enemies = []
+static func load_enemies() -> Array[EnemyResource]:
+	var enemies: Array[EnemyResource] = []
 	CGResourceManager.load_resources(ENEMIES_PATH, func(r): if r is EnemyResource: enemies.append(r))
 	return enemies
 
-static func load_cards():
-	var cards = []
+static func load_cards() -> Array[CardResource]:
+	var cards: Array[CardResource] = []
 	CGResourceManager.load_resources(CARDS_PATH, func(r): if r is CardResource: cards.append(r))
 	return cards
 
+static var cards: Array[CardResource]:
+	get:
+		if cards == null or cards.size() == 0:
+			cards = load_cards()
+		return cards
+	
