@@ -12,5 +12,6 @@ on_discard_card_effects = Array[Resource("res://Scripts/effect_resource.gd")]([]
 on_exhaust_card_effects = Array[Resource("res://Scripts/effect_resource.gd")]([])
 monetary_value = 50
 rarity = 50
-tags = Array[StringName]([])
+pools = Array[StringName]([&"Curses"])
+tags = Array[StringName]([&"Curse"])
 playable = false

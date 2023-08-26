@@ -48,6 +48,7 @@ const REWARD_CARD = "card"
 const REWARD_POTION = "potion"
 const REWARD_RELIC = "relic"
 var rewards: Dictionary = {}
+var _possible_card_pool: Array[CardResource] = []
 
 func get_player() -> Player: 
 	return Player.new(current_health, current_max_health)
@@ -79,10 +80,22 @@ func setup_random_enemy(level: LevelPool, pool: EnemyPool):
 	_current_enemy = _random_enemy(level, pool)
 
 func get_card_sample(sample_size: int = 3): 
-	_load_cards()
-	var max_reward = _cards.size()
-	_cards.shuffle()
-	return _cards.slice(0, clamp(sample_size,  0, max_reward))
+	_load_card_pool()
+	var max_reward = _possible_card_pool.size()
+	_possible_card_pool.shuffle()
+	return _possible_card_pool.slice(0, clamp(sample_size,  0, max_reward))
+	
+func _load_card_pool():
+	if _possible_card_pool.size() == 0:
+		_load_cards()
+		for card in _cards:
+			var is_in_pool: bool = true
+			for label in card.pools:
+				if label == &'Starter' or label == &'Curses':
+					is_in_pool = false
+					break
+			if is_in_pool:
+				_possible_card_pool.append(card)
 
 func get_current_deck() -> Array[CardResource]: 
 	if current_deck == null or current_deck.size() == 0: 

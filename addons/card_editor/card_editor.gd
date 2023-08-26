@@ -11,8 +11,16 @@ const EFFECT_GROUP = ".EFFECT_GROUP"
 @onready var _save_button = $VBoxContainer/SaveButton as Button
 @onready var _save_path_edit = $VBoxContainer/GridContainer/SavePath
 @onready var _feedback = $VBoxContainer/Feedback
+@onready var _playable_checkbox = $VBoxContainer/GridContainer/EffectsBoxList/PlayableCheckbox as CheckBox
+
+# Tags
 @onready var _tag_edit = $VBoxContainer/GridContainer/TagAddContainer/TagEdit
-@onready var _tag_list = $VBoxContainer/GridContainer/TagList
+@onready var _tag_list = $VBoxContainer/GridContainer/TagList as HBoxContainer
+
+# Pools
+@onready var _pool_edit = $VBoxContainer/GridContainer/PoolsAddContainer/PoolEdit
+@onready var _pool_list = $VBoxContainer/GridContainer/PoolList as HBoxContainer
+
 
 # On play effects 
 @onready var _play_effect_list = $VBoxContainer/GridContainer/PlayOptionButton as OptionButton
@@ -98,7 +106,9 @@ func _on_reset_button_pressed():
 	get_tree().call_group("on_draw", "set_visible", false)
 	get_tree().call_group("on_discard", "set_visible", false)
 	
-
+##################################
+#   SAVE LOGIC 
+##################################
 func _on_button_pressed():
 	var name = _name.text
 	var cost = _cost.value
@@ -126,6 +136,7 @@ func _on_button_pressed():
 	resource.rarity = rarity
 	
 	resource.on_play_card_effects.clear()
+	resource.playable = _playable_checkbox.button_pressed
 	
 	if _play_checkbox.button_pressed: 
 		for child in _play_effect_vbox.get_children(): 
@@ -145,6 +156,9 @@ func _on_button_pressed():
 	for tag in _tag_list.get_children():
 		if tag is Button:
 			resource.tags.append(tag.text)
+	for pool in _pool_list.get_children():
+		if pool is Button:
+			resource.pools.append(pool.text)
 	
 	var final_save_path = _get_file_path(_save_path_edit.text)
 	if not _overwrite and FileAccess.file_exists(final_save_path):
@@ -181,6 +195,9 @@ static func _add_effect_to_effect_list(selected_effect: Dictionary, effect_box: 
 	effect_box.add_spacer(false)
 
 
+####################
+# LOAD LOGIC 
+####################
 func _on_file_dialog_file_selected(path: String):
 	var card_resource = load(path)
 	if card_resource is CardResource:
@@ -199,6 +216,7 @@ func _on_file_dialog_file_selected(path: String):
 		_cost.value = card_resource.cost
 		_mcost.value = card_resource.monetary_value
 		_rarity.value = card_resource.rarity
+		_playable_checkbox.button_pressed = card_resource.playable
 		
 		get_tree().call_group(EFFECT_GROUP, "queue_free")
 
@@ -208,6 +226,8 @@ func _on_file_dialog_file_selected(path: String):
 		
 		for tag in card_resource.tags:
 			_add_tag_delete_button(tag)
+		for pool in card_resource.pools: 
+			_add_pool_delete_button(pool)
 
 func _build_effect_editor_from_resources(array: Array[EffectResource], box: VBoxContainer, checkbox: CheckBox, group: StringName):		
 	if array == null: 
@@ -233,12 +253,19 @@ func _build_effect_editor_from_resources(array: Array[EffectResource], box: VBox
 	
 
 func _add_tag_delete_button(value: StringName):
+	_add_button_to_list(value, _tag_list)
+	_tag_edit.text = ''
+	
+func _add_button_to_list(value: StringName, list: BoxContainer):
 	var button = Button.new()
-	_tag_list.add_child(button)
+	list.add_child(button)
 	button.pressed.connect(func(): button.queue_free())
 	button.text = value
 	button.add_to_group(EFFECT_GROUP)
-	_tag_edit.text = ''
+
+func _add_pool_delete_button(value: StringName):
+	_add_button_to_list(value, _pool_list)
+	_pool_edit.text = ''
 
 # #################################
 # SIGNALS
@@ -290,3 +317,10 @@ static func _add_selected_button_item_to_box(index: int, list: OptionButton, box
 	list.selected = 0
 	
 
+func _on_add_pool_button_pressed():
+	var value = _pool_edit.text
+	_add_pool_delete_button(value)
+
+
+func _on_pool_edit_text_submitted(new_text):
+	_add_pool_delete_button(new_text)

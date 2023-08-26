@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scripts/CardResource.gd" id="2_8sr0q"]
 [ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_h62d3"]
 
-[sub_resource type="Resource" id="Resource_43y4h"]
+[sub_resource type="Resource" id="Resource_d1js7"]
 script = ExtResource("2_h62d3")
 effectValues = {
 "Amount": 5.0
@@ -15,11 +15,12 @@ effectScript = ExtResource("1_07k3e")
 script = ExtResource("2_8sr0q")
 card_name = "Attack"
 cost = 1
-on_play_card_effects = Array[ExtResource("2_h62d3")]([SubResource("Resource_43y4h")])
+on_play_card_effects = Array[ExtResource("2_h62d3")]([SubResource("Resource_d1js7")])
 on_draw_card_effects = Array[ExtResource("2_h62d3")]([])
 on_discard_card_effects = Array[ExtResource("2_h62d3")]([])
 on_exhaust_card_effects = Array[ExtResource("2_h62d3")]([])
 monetary_value = 50
 rarity = 50
+pools = Array[StringName]([&"Starter"])
 tags = Array[StringName]([&"Attack", &"Base"])
 playable = true

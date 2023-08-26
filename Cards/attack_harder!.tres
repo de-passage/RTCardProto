@@ -29,5 +29,6 @@ on_discard_card_effects = Array[ExtResource("2_ku0j0")]([])
 on_exhaust_card_effects = Array[ExtResource("2_ku0j0")]([])
 monetary_value = 69
 rarity = 69
+pools = Array[StringName]([])
 tags = Array[StringName]([])
 playable = true

@@ -13,6 +13,7 @@ class_name CardResource
 @export var on_exhaust_card_effects: Array[EffectResource]
 @export var monetary_value: int = 50
 @export var rarity: int = 0
+@export var pools: Array[StringName] = []
 @export var tags: Array[StringName] = []
 @export var playable: bool = true
 

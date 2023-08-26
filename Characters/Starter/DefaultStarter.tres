@@ -23,6 +23,7 @@ on_discard_card_effects = Array[ExtResource("2_x5rss")]([])
 on_exhaust_card_effects = Array[ExtResource("2_x5rss")]([])
 monetary_value = 50
 rarity = 0
+pools = Array[StringName]([])
 tags = Array[StringName]([])
 playable = true
 
