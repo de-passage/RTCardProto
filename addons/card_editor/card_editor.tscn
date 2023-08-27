@@ -71,6 +71,15 @@ value = 1.0
 rounded = true
 custom_arrow_step = 1.0
 
+[node name="CardManaCostLabel" type="Label" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Card Mana Cost"
+
+[node name="CardManaCostEdit" type="SpinBox" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+rounded = true
+custom_arrow_step = 1.0
+
 [node name="CardCostLabel2" type="Label" parent="VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "Card Money Cost"

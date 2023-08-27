@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bkcbih88r8rv"]
+[gd_scene load_steps=12 format=3 uid="uid://bkcbih88r8rv"]
 
 [ext_resource type="Texture2D" uid="uid://86eqvhxcips" path="res://art/fantasy empty card section.png" id="1_ie30h"]
 [ext_resource type="Script" path="res://Scenes/card.gd" id="1_r3t5n"]
 [ext_resource type="Texture2D" uid="uid://cqonhtyrxpgnw" path="res://art/card fantasy iron.png" id="2_g3okb"]
 [ext_resource type="FontFile" uid="uid://bsk6op0lpnbwx" path="res://font/NeverMindsemi-serif-Regular.ttf" id="3_noxvo"]
+[ext_resource type="Shader" path="res://Scenes/mana.gdshader" id="5_f7r6e"]
 
 [sub_resource type="Theme" id="Theme_0m0ib"]
 default_base_scale = 1.0
@@ -16,6 +17,16 @@ font_size = 24
 [sub_resource type="LabelSettings" id="LabelSettings_at42m"]
 font = ExtResource("3_noxvo")
 font_size = 12
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ynesy"]
+shader = ExtResource("5_f7r6e")
+shader_parameter/color = Color(0, 0, 1, 1)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_codud"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2uhjn"]
+font = ExtResource("3_noxvo")
+font_size = 24
 
 [node name="Card" type="TextureButton"]
 offset_right = 254.0
@@ -102,5 +113,26 @@ text = "Tag1, Tag2"
 label_settings = SubResource("LabelSettings_at42m")
 horizontal_alignment = 1
 text_overrun_behavior = 3
+
+[node name="ManaContainer" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_ynesy")
+layout_mode = 0
+offset_left = 10.6
+offset_top = 9.35781
+offset_right = 50.6
+offset_bottom = 49.3578
+texture = SubResource("CanvasTexture_codud")
+
+[node name="ManaCost" type="Label" parent="ManaContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "0"
+label_settings = SubResource("LabelSettings_2uhjn")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

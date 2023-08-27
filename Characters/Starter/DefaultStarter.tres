@@ -17,6 +17,7 @@ effectScript = ExtResource("1_bmn1b")
 script = ExtResource("3_nuwng")
 card_name = "Attack"
 cost = 1
+mana_cost = 0
 on_play_card_effects = Array[ExtResource("2_x5rss")]([SubResource("Resource_72j6s")])
 on_draw_card_effects = Array[ExtResource("2_x5rss")]([])
 on_discard_card_effects = Array[ExtResource("2_x5rss")]([])

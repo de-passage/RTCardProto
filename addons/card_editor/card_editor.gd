@@ -4,8 +4,9 @@ extends ScrollContainer
 const EFFECT_GROUP = ".EFFECT_GROUP"
 @onready var _name = $VBoxContainer/GridContainer/CardNameEdit as LineEdit
 @onready var _cost = $VBoxContainer/GridContainer/CardCostEdit as SpinBox
+@onready var _mana_cost_edit = $VBoxContainer/GridContainer/CardManaCostEdit as SpinBox
 @onready var _mcost = $VBoxContainer/GridContainer/CardCostEdit2 as SpinBox
-@onready var _rarity = $VBoxContainer/GridContainer/CardCostEdit2 as SpinBox
+@onready var _rarity = $VBoxContainer/GridContainer/CardRarityEdit as SpinBox
 @onready var _errors = $VBoxContainer/Errors as Label
 @onready var _file_explorer = $VBoxContainer/GridContainer/LoadCardButton/FileDialog as FileDialog
 @onready var _save_button = $VBoxContainer/SaveButton as Button
@@ -126,7 +127,8 @@ func _on_button_pressed():
 	if cost < 0: 
 		errors.append("Energy cost must not be negative")
 	
-	resource.cost = cost 
+	resource.cost = cost
+	resource.mana_cost = _mana_cost_edit.value 
 	
 	if mcost < 0: 
 		errors.append("Money cost must not be negative")
@@ -217,6 +219,7 @@ func _on_file_dialog_file_selected(path: String):
 		_mcost.value = card_resource.monetary_value
 		_rarity.value = card_resource.rarity
 		_playable_checkbox.button_pressed = card_resource.playable
+		_mana_cost_edit.value = card_resource.mana_cost
 		
 		get_tree().call_group(EFFECT_GROUP, "queue_free")
 

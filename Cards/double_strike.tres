@@ -22,6 +22,7 @@ effectScript = ExtResource("1_o24go")
 script = ExtResource("3_4ireg")
 card_name = "Double Strike"
 cost = 1
+mana_cost = 0
 on_play_card_effects = Array[ExtResource("2_0qave")]([SubResource("Resource_6cy86"), SubResource("Resource_3ug3u")])
 on_draw_card_effects = Array[ExtResource("2_0qave")]([])
 on_discard_card_effects = Array[ExtResource("2_0qave")]([])

@@ -15,6 +15,7 @@ effectScript = ExtResource("1_hpe1n")
 script = ExtResource("1_t7a8x")
 card_name = "Heal"
 cost = 2
+mana_cost = 0
 on_play_card_effects = Array[ExtResource("2_tcwuy")]([SubResource("Resource_mpn0r")])
 on_draw_card_effects = Array[ExtResource("2_tcwuy")]([])
 on_discard_card_effects = Array[ExtResource("2_tcwuy")]([])

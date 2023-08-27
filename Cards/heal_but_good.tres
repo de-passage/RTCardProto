@@ -23,6 +23,7 @@ effectScript = ExtResource("3_xabh4")
 script = ExtResource("4_cl6pu")
 card_name = "Heal but good"
 cost = 1
+mana_cost = 0
 on_play_card_effects = Array[ExtResource("2_y4g4n")]([SubResource("Resource_i2iix"), SubResource("Resource_4rmgi")])
 on_draw_card_effects = Array[ExtResource("2_y4g4n")]([])
 on_discard_card_effects = Array[ExtResource("2_y4g4n")]([])

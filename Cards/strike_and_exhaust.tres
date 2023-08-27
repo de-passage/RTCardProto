@@ -5,14 +5,14 @@
 [ext_resource type="Script" path="res://Scripts/Effects/Exhaust.gd" id="3_2rwgu"]
 [ext_resource type="Script" path="res://Scripts/CardResource.gd" id="4_lqjtn"]
 
-[sub_resource type="Resource" id="Resource_s5g6b"]
+[sub_resource type="Resource" id="Resource_ibx44"]
 script = ExtResource("2_b56lw")
 effectValues = {
 "Amount": 14.0
 }
 effectScript = ExtResource("1_nbbcr")
 
-[sub_resource type="Resource" id="Resource_0yv8d"]
+[sub_resource type="Resource" id="Resource_m3t0h"]
 script = ExtResource("2_b56lw")
 effectValues = {}
 effectScript = ExtResource("3_2rwgu")
@@ -21,7 +21,8 @@ effectScript = ExtResource("3_2rwgu")
 script = ExtResource("4_lqjtn")
 card_name = "Strike and exhaust"
 cost = 1
-on_play_card_effects = Array[ExtResource("2_b56lw")]([SubResource("Resource_s5g6b"), SubResource("Resource_0yv8d")])
+mana_cost = 1
+on_play_card_effects = Array[ExtResource("2_b56lw")]([SubResource("Resource_ibx44"), SubResource("Resource_m3t0h")])
 on_draw_card_effects = Array[ExtResource("2_b56lw")]([])
 on_discard_card_effects = Array[ExtResource("2_b56lw")]([])
 on_exhaust_card_effects = Array[ExtResource("2_b56lw")]([])

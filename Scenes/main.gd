@@ -29,9 +29,13 @@ func _ready():
 	_enemy_scene.died.connect(_on_enemy_died)
 
 func _play_card(card: Card):
-	if card.card_cost() <= energy and card._resource.playable:
+	if card.card_cost() <= energy \
+		and card._resource.playable\
+		and player.mana >= card.mana_cost():
 		_energy_manager.deduct_energy(card.card_cost())
 		_manager.play(card, _enemy_scene.get_entity())
+		player.mana -= card.mana_cost()
+		_update_mana_label(player.mana)
 
 func _on_energy_bar_step_reached(step):
 	energy = step

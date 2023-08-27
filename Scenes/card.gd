@@ -8,6 +8,7 @@ signal discarded
 @onready var _name = $Values/Name
 @onready var _tags = $Values/Tags
 @onready var _description = $Values/Description
+@onready var _mana_cost = $ManaContainer/ManaCost
 
 var _resource: CardResource
 var _effects: Array[BaseEffect]
@@ -16,6 +17,8 @@ var _on_draw: Array[BaseEffect]
 
 func card_cost() -> int: 
 	return _resource.cost if _resource != null else 0  
+func mana_cost() -> int: 
+	return _resource.mana_cost if _resource != null else 0
 		
 func get_effects() -> Array[BaseEffect]: 
 	return _effects if _effects != null else [BaseEffect.new()] 
@@ -27,6 +30,7 @@ func get_on_discard_effects() -> Array[BaseEffect]:
 func initialize(resource: CardResource, player: PlayableEntity):
 	_resource = resource
 	_cost.text = str(resource.cost)
+	_mana_cost.text = str(resource.mana_cost)
 	_name.text = resource.card_name
 	_tags.text = ','.join(resource.tags)
 	_effects = resource.load_card_effects()

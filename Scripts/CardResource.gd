@@ -7,6 +7,7 @@ class_name CardResource
 @export_category("Values")
 @export var card_name: String 
 @export var cost: int = 0
+@export var mana_cost: int = 0
 @export var on_play_card_effects: Array[EffectResource]
 @export var on_draw_card_effects: Array[EffectResource]
 @export var on_discard_card_effects: Array[EffectResource]

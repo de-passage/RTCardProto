@@ -23,9 +23,10 @@ static func load_enemies() -> Array[EnemyResource]:
 	return enemies
 
 static func load_cards() -> Array[CardResource]:
-	var cards: Array[CardResource] = []
-	CGResourceManager.load_resources(CARDS_PATH, func(r): if r is CardResource: cards.append(r))
-	return cards
+	var card_array: Array[CardResource] = []
+	CGResourceManager.load_resources(CARDS_PATH, func(r): 
+		if r is CardResource: card_array.append(r))
+	return card_array
 
 static var cards: Array[CardResource]:
 	get:
