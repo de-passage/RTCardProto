@@ -10,56 +10,48 @@ signal discarded
 @onready var _description = $Values/Description
 @onready var _mana_cost = $ManaContainer/ManaCost
 
-var _resource: CardResource
-var _effects: Array[BaseEffect]
-var _on_discard: Array[BaseEffect]
-var _on_draw: Array[BaseEffect]
+var _resource: CardDeckInstance
 
-func card_cost() -> int: 
-	return _resource.cost if _resource != null else 0  
-func mana_cost() -> int: 
-	return _resource.mana_cost if _resource != null else 0
-		
 func get_effects() -> Array[BaseEffect]: 
-	return _effects if _effects != null else [BaseEffect.new()] 
+	return _resource.on_play()
 func get_on_draw_effects() -> Array[BaseEffect]: 
-	return _on_draw if _on_draw != null else [BaseEffect.new()] 
+	return _resource.on_draw()
 func get_on_discard_effects() -> Array[BaseEffect]: 
-	return _on_discard if _on_discard != null else [BaseEffect.new()] 
+	return _resource.on_discard()
+
+func energy_cost() -> int: 
+	return _resource.energy_cost() if _resource != null else 0
 		
-func initialize(resource: CardResource, player: PlayableEntity):
+func initialize(resource: CardDeckInstance, player: PlayableEntity):
 	_resource = resource
-	_cost.text = str(resource.cost)
-	_mana_cost.text = str(resource.mana_cost)
-	_name.text = resource.card_name
-	_tags.text = ','.join(resource.tags)
-	_effects = resource.load_card_effects()
-	_on_draw = resource.load_on_draw_card_effects()
-	_on_discard = resource.load_on_discard_card_effects()
+	_cost.text = str(resource.energy_cost())
+	_mana_cost.text = str(resource.mana_cost())
+	_name.text = resource.card_name()
+	_tags.text = ','.join(resource.tags())
 	update_description(Context.source_only(player))
 
 func update_description(context: Context):
 	var desc = ""
-	if not _resource.playable:
+	if not _resource.playable():
 		desc = "Unplayable\n"
 		
-	for effect in _effects: 
+	for effect in get_effects(): 
 		desc += effect.get_description(context) + "\n"
 		
-	if _on_discard.size() > 0:
+	if get_on_discard_effects().size() > 0:
 		desc+="On discard: "
-		for e in _on_discard:
+		for e in get_on_discard_effects():
 			desc+=e.get_description(context) + '\n'
 			
-	if _on_draw.size() > 0:
+	if get_on_draw_effects().size() > 0:
 		desc+="On draw: "
-		for e in _on_draw:
+		for e in get_on_draw_effects():
 			desc+=e.get_description(context) + '\n' 
 			
 	_description.text = desc
 
 func apply(context: Context): 
-	for effect in _effects:
+	for effect in get_effects():
 		effect.apply_effect(context)
 
 func _on_gui_input(event):

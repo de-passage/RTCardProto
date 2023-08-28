@@ -14,7 +14,7 @@ var _game_logic: GameLogic
 @onready var _hand_container = $HandContainer
 
 # Creates the hand and so on
-func initialize(deck: Array[CardResource], player_ref:PlayableEntity):
+func initialize(deck: Array[CardDeckInstance], player_ref:PlayableEntity):
 	_game_logic = GameLogic.new()
 	_game_logic.discard_changed.connect(func(x): discard_changed.emit(x))
 	_game_logic.draw_pile_changed.connect(func(x): draw_pile_changed.emit(x))

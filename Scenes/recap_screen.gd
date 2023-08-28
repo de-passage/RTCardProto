@@ -18,7 +18,7 @@ func _ready():
 	t.one_shot = true
 	t.timeout.connect(func(): _next_button.disabled = false)
 	add_child(t)
-	t.start(1.5)
+	t.start(1)
 	if Global.rewards.get(Global.REWARD_COINS, 0) > 0:
 		_coin_button.text = "%s Coins" % Global.rewards.get(Global.REWARD_COINS)
 		_coin_button.visible = true
@@ -78,8 +78,8 @@ func _generate_rewards():
 		card.initialize(card_resource, _player_entity)
 		card.selected.connect(_on_card_selected.bind(card_resource))
 
-func _on_card_selected(card: CardResource):
-	Global.current_deck.append(card)
+func _on_card_selected(card: CardDeckInstance):
+	Global.add_to_current_deck(card)
 	_card_button.visible = false
 	_card_selection_panel.visible = false
 

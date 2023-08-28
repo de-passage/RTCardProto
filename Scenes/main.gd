@@ -2,7 +2,6 @@ extends Node2D
 
 @onready var player = Player.new(Global.current_health, Global.current_max_health)
 var energy = 0
-var deck: Array[CardResource]
 
 @onready var _manager = $Hand
 @onready var _health_manager = $UI/Health
@@ -23,18 +22,18 @@ func _ready():
 	player.died.connect(_on_player_died)
 	player.mana_changed.connect(_update_mana_label)
 
-	_manager.initialize(Global.current_deck, player)
+	_manager.initialize(Global.get_current_deck(), player)
 
 	_enemy_scene.initialize(Global.current_enemy(), player, _manager._game_logic)
 	_enemy_scene.died.connect(_on_enemy_died)
 
 func _play_card(card: Card):
-	if card.card_cost() <= energy \
+	if card.energy_cost() <= energy \
 		and card._resource.playable\
-		and player.mana >= card.mana_cost():
-		_energy_manager.deduct_energy(card.card_cost())
+		and player.mana >= card._resource.mana_cost():
+		_energy_manager.deduct_energy(card.energy_cost())
 		_manager.play(card, _enemy_scene.get_entity())
-		player.mana -= card.mana_cost()
+		player.mana -= card._resource.mana_cost()
 		_update_mana_label(player.mana)
 
 func _on_energy_bar_step_reached(step):

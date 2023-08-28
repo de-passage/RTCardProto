@@ -13,15 +13,7 @@ enum LevelPool { DEFAULT } # extend for multiple levels
 var _cards # Array[CardResource] | null
 var _enemies # Expect this to be an array of arrays of enemies. First layer is the level, second is the pool
 
-var current_deck: Array[CardResource]:
-	set(value):
-		current_deck = value
-		deck_changed.emit()
-	get:
-		if current_deck == null or current_deck.size() == 0: 
-			return _get_starter().cards
-		else:
-			return current_deck
+var _current_deck: Array[CardDeckInstance] = []
 		
 var current_max_health: int = 50:
 	set(value):
@@ -48,7 +40,7 @@ const REWARD_CARD = "card"
 const REWARD_POTION = "potion"
 const REWARD_RELIC = "relic"
 var rewards: Dictionary = {}
-var _possible_card_pool: Array[CardResource] = []
+var _possible_card_pool: Array[CardDeckInstance] = []
 
 func get_player() -> Player: 
 	return Player.new(current_health, current_max_health)
@@ -59,7 +51,7 @@ func update_player(player: Player):
 func reset_game_values(): 
 	current_max_health = 50
 	current_health = 50
-	current_deck = _get_starter().cards
+	_current_deck = []
 	deck_changed.emit()
 	current_money = 50
 	Maze.generate_new_level()
@@ -79,7 +71,7 @@ func current_enemy() -> EnemyResource:
 func setup_random_enemy(level: LevelPool, pool: EnemyPool):
 	_current_enemy = _random_enemy(level, pool)
 
-func get_card_sample(sample_size: int = 3): 
+func get_card_sample(sample_size: int = 3) -> Array[CardDeckInstance]: 
 	_load_card_pool()
 	var max_reward = _possible_card_pool.size()
 	_possible_card_pool.shuffle()
@@ -95,21 +87,24 @@ func _load_card_pool():
 					is_in_pool = false
 					break
 			if is_in_pool:
-				_possible_card_pool.append(card)
+				_possible_card_pool.append(CardDeckInstance.new(card))
 
-func get_current_deck() -> Array[CardResource]: 
-	if current_deck == null or current_deck.size() == 0: 
-		current_deck = _get_starter().cards
-	return current_deck
+func get_current_deck() -> Array[CardDeckInstance]:
+	if _current_deck == null or _current_deck.size() == 0: 
+		_current_deck = []
+		for card_resource in _get_starter().cards:
+			_current_deck.append(CardDeckInstance.new(card_resource))
+	return _current_deck
 
-func remove_from_deck(card: CardResource):
-	var idx = current_deck.find(card)
+func remove_from_deck(card: CardDeckInstance):
+	var idx = _current_deck.find(card)
 	if idx >= 0: 
-		current_deck.remove_at(idx)
+		_current_deck.remove_at(idx)
 		deck_changed.emit()
 
-func add_to_current_deck(card: CardResource):
-	current_deck.append(card)
+func add_to_current_deck(card: CardDeckInstance):
+	_current_deck.append(card)
+	deck_changed.emit()
 
 func _load_enemies():
 	if _enemies != null: return

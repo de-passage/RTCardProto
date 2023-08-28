@@ -4,7 +4,7 @@ class_name Context
 
 var source: PlayableEntity
 var target: PlayableEntity
-var current_card: CardResource
+var current_card: CardGameInstance
 var _card_effect: int = FORCE_DISCARD
 
 const NO_EFFECT = 0
@@ -19,7 +19,7 @@ const TRASH_DISCARD = 1 << 1
 const TRASH_DRAW = 1 << 2
 const CURSE = 1 << 3
 
-static func create(card_: CardResource, source_: PlayableEntity, target_: PlayableEntity):
+static func create(card_: CardGameInstance, source_: PlayableEntity, target_: PlayableEntity):
 	var ctx: Context = Context.new()
 	ctx.source = source_
 	ctx.current_card = card_

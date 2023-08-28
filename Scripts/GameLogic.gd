@@ -5,22 +5,24 @@ signal hand_changed(new_size: int)
 signal discard_changed(new_size: int)
 signal draw_pile_changed(new_size: int)
 signal exhaust_changed(new_size: int)
-signal card_played(card: CardResource)
+signal card_played(card: CardGameInstance)
 
 
 # Game Logic
-var _draw_pile: Array[CardResource]
-var _discard_pile: Array[CardResource]
-var _hand: Array[CardResource]
-var _exhaust_pile: Array[CardResource]
+var _draw_pile: Array[CardGameInstance]
+var _discard_pile: Array[CardGameInstance]
+var _hand: Array[CardGameInstance]
+var _exhaust_pile: Array[CardGameInstance]
 var _player: Player
 
 const HAND_SIZE = 5
 
-func initialize(pl: Player, draw: Array[CardResource]):
+func initialize(pl: Player, draw: Array[CardDeckInstance]):
 	_player = pl
 	source = pl 
-	_draw_pile = draw
+	_draw_pile = []
+	for card in draw: 
+		_draw_pile.append(CardGameInstance.new(card))
 	_fill_hand()
 	
 
@@ -30,12 +32,12 @@ func _fill_hand():
 	_draw_pile.shuffle()
 	var need_to_draw = HAND_SIZE - _hand.size()
 	var idx_in_draw_pile = _draw_pile.size() - need_to_draw
-	var drawn_cards: Array[CardResource] = _draw_pile.slice(idx_in_draw_pile)
+	var drawn_cards: Array[CardGameInstance] = _draw_pile.slice(idx_in_draw_pile)
 	_draw_pile = _draw_pile.slice(0, idx_in_draw_pile)
 	draw_pile_changed.emit(_draw_pile.size())
 	
 	for card in drawn_cards:
-		var effs = card.load_on_draw_card_effects()
+		var effs = card.on_draw()
 		if effs.size() > 0:
 			_handle_played_card(card, effs)
 		else:
@@ -43,24 +45,24 @@ func _fill_hand():
 
 ## Play the given card on the enemy. This should probably use
 ## the local _player variable directly.
-func play(played_card: CardResource, enemy: PlayableEntity):
+func play(played_card: CardGameInstance, enemy: PlayableEntity):
 	
 	var idx = _hand.find(played_card)
 	if idx >= 0:
 		var card_from_hand = _hand.pop_at(idx)
 		self.target = enemy
 		self.set_card_effect(Context.FORCE_DISCARD)
-		_handle_played_card(card_from_hand, card_from_hand.load_card_effects())
+		_handle_played_card(card_from_hand, card_from_hand.on_play())
 	else:
 		printerr("Invalid card played!")
 
-func discard(discarded_card: CardResource):
+func discard(discarded_card: CardDeckInstance):
 	var idx = _hand.find(discarded_card)
 	if idx >= 0:
 		var card_from_hand = _hand.pop_at(idx)
-		self._player.mana += card_from_hand.cost
+		self._player.mana += card_from_hand.energy_cost()
 		self.set_card_effect(Context.FORCE_DISCARD)
-		_handle_played_card(card_from_hand, card_from_hand.load_on_discard_card_effects())
+		_handle_played_card(card_from_hand, card_from_hand.on_discard())
 	else:
 		printerr("Invalid card discarded!")
 
@@ -78,8 +80,8 @@ func draw_one_card() -> bool:
 	if _draw_pile.size() == 0:
 		return false
 
-	var drawn_card: CardResource = _draw_pile.pop_back()
-	var effs = drawn_card.load_on_draw_card_effects()
+	var drawn_card: CardGameInstance = _draw_pile.pop_back()
+	var effs = drawn_card.on_draw()
 	if effs.size() > 0: 
 		self.set_card_effect(Context.NO_EFFECT)
 		self.target = null
@@ -89,13 +91,13 @@ func draw_one_card() -> bool:
 	_draw_pile_changed()
 	return true
 
-func _handle_played_card(played: CardResource, effs: Array[BaseEffect]):
+func _handle_played_card(played: CardGameInstance, effs: Array[BaseEffect]):
 	self.current_card = played
 	self.source = _player
 	for e in effs:
 		e.apply_effect(self)
 	if purge_required():
-		Global.remove_from_deck(played)
+		Global.remove_from_deck(played.source_instance())
 	elif exhaust_required():
 		_add_to_exhaust(played)
 	elif discard_required():
@@ -104,45 +106,47 @@ func _handle_played_card(played: CardResource, effs: Array[BaseEffect]):
 		_add_to_hand(played)
 	card_played.emit(played)
 
-func hand() -> Array[CardResource]: 
+func hand() -> Array[CardGameInstance]: 
 	return _hand
 
 func player() -> Player:
 	return _player
 
 func trash(what: CardResource, where: int = TRASH_DISCARD) -> void:
+	var deck_card = CardDeckInstance.new(what)
+	var new_card = CardGameInstance.new(deck_card)
 	if (where & TRASH_DISCARD) > 0:
-		_add_to_discard(what)
+		_add_to_discard(new_card)
 	if (where & TRASH_DRAW) > 0: 
-		_add_to_draw_pile_randomly(what)
+		_add_to_draw_pile_randomly(new_card)
 	if (where & TRASH_HAND) > 0: 
 		if _hand.size() < HAND_SIZE:
-			_add_to_hand(what)
+			_add_to_hand(new_card)
 		else:
-			_add_to_draw_pile(what)
+			_add_to_draw_pile(new_card)
 	if (where & CURSE) > 0:
-		Global.add_to_current_deck(what)
+		Global.add_to_current_deck(deck_card)
 
-func get_hand() -> Array[CardResource]:
+func get_hand() -> Array[CardGameInstance]:
 	return _hand
 
-func _add_to_draw_pile(card: CardResource):
+func _add_to_draw_pile(card: CardGameInstance):
 	_draw_pile.append(card)
 	_draw_pile_changed()
 	
-func _add_to_draw_pile_randomly(card: CardResource):
+func _add_to_draw_pile_randomly(card: CardGameInstance):
 	_draw_pile.insert(randi_range(0, _draw_pile.size()), card)
 	_draw_pile_changed()
 
-func _add_to_hand(card: CardResource):
+func _add_to_hand(card: CardGameInstance):
 	_hand.append(card)
 	_hand_changed()
 
-func _add_to_exhaust(card: CardResource):
+func _add_to_exhaust(card: CardGameInstance):
 	_exhaust_pile.append(card)
 	_exhaust_pile_changed()
 
-func _add_to_discard(card: CardResource):
+func _add_to_discard(card: CardGameInstance):
 	_discard_pile.append(card)
 	_discard_pile_changed()
 
