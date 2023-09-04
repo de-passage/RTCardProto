@@ -18,7 +18,7 @@ func apply_effect(context: Context):
 	context.target.armor -= armor_removed
 	if effect > 0:
 		if _trash_card != null:
-			context.trash(_trash_card, Context.TRASH_DISCARD | Context.CURSE)
+			context.trash(CardGameInstance.from_resource(_trash_card), Context.TRASH_DISCARD | Context.CURSE)
 		else:
 			printerr("null trash card in effect!")
 

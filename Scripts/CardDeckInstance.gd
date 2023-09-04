@@ -9,6 +9,7 @@ var _on_play: Array[BaseEffect]
 var _on_exhaust: Array[BaseEffect]
 var _on_discard: Array[BaseEffect]
 var _on_draw: Array[BaseEffect]
+var _statuses: Array[BaseStatus]
 var _energy_cost: int
 var _mana_cost: int
 
@@ -51,3 +52,6 @@ func playable() -> bool:
 
 func get_resource() -> CardResource: 
 	return _base_card
+
+func add_status(value: BaseStatus):
+	_statuses.append(value)

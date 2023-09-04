@@ -19,6 +19,7 @@ const HAND_SIZE = 5
 
 func initialize(pl: Player, draw: Array[CardDeckInstance]):
 	_player = pl
+	_player._ctx = self
 	source = pl 
 	_draw_pile = []
 	for card in draw: 
@@ -60,7 +61,7 @@ func discard(discarded_card: CardDeckInstance):
 	var idx = _hand.find(discarded_card)
 	if idx >= 0:
 		var card_from_hand = _hand.pop_at(idx)
-		self._player.mana += card_from_hand.energy_cost()
+		self._player.mana += 2
 		self.set_card_effect(Context.FORCE_DISCARD)
 		_handle_played_card(card_from_hand, card_from_hand.on_discard())
 	else:
@@ -112,20 +113,18 @@ func hand() -> Array[CardGameInstance]:
 func player() -> Player:
 	return _player
 
-func trash(what: CardResource, where: int = TRASH_DISCARD) -> void:
-	var deck_card = CardDeckInstance.new(what)
-	var new_card = CardGameInstance.new(deck_card)
+func trash(what: CardGameInstance, where: int = TRASH_DISCARD) -> void:
 	if (where & TRASH_DISCARD) > 0:
-		_add_to_discard(new_card)
+		_add_to_discard(what)
 	if (where & TRASH_DRAW) > 0: 
-		_add_to_draw_pile_randomly(new_card)
+		_add_to_draw_pile_randomly(what)
 	if (where & TRASH_HAND) > 0: 
 		if _hand.size() < HAND_SIZE:
-			_add_to_hand(new_card)
+			_add_to_hand(what)
 		else:
-			_add_to_draw_pile(new_card)
+			_add_to_draw_pile(what)
 	if (where & CURSE) > 0:
-		Global.add_to_current_deck(deck_card)
+		Global.add_to_current_deck(what.source_instance())
 
 func get_hand() -> Array[CardGameInstance]:
 	return _hand

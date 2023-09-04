@@ -41,9 +41,10 @@ const REWARD_POTION = "potion"
 const REWARD_RELIC = "relic"
 var rewards: Dictionary = {}
 var _possible_card_pool: Array[CardDeckInstance] = []
+var _default_context: Context = Context.new()
 
 func get_player() -> Player: 
-	return Player.new(current_health, current_max_health)
+	return Player.new(current_health, current_max_health, _default_context)
 
 func update_player(player: Player):
 	current_health = player.current_hp

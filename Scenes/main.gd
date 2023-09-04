@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var player = Player.new(Global.current_health, Global.current_max_health)
+@onready var player = Global.get_player()
 var energy = 0
 
 @onready var _manager = $Hand

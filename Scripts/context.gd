@@ -55,7 +55,7 @@ func discard_required() -> bool:
 func purge_required() -> bool:
 	return _effect_flag_set(DESTROY_CARD)
 
-func trash(_what: CardResource, _where: int = TRASH_DISCARD) -> void: 
+func trash(_what: CardGameInstance, _where: int = TRASH_DISCARD) -> void: 
 	pass
 	
 func get_hand() -> Array[CardResource]:
