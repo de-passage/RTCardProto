@@ -1,8 +1,8 @@
 extends TextureButton
 class_name Card 
 
-signal selected
-signal discarded
+signal selected(card: CardDeckInstance)
+signal discarded(card: CardDeckInstance)
 
 @onready var _cost = $Values/Cost
 @onready var _name = $Values/Name
@@ -58,7 +58,10 @@ func _on_gui_input(event):
 	if event is InputEventMouseButton and event.pressed:
 		match event.button_index:
 			MOUSE_BUTTON_LEFT:
-				selected.emit()
+				selected.emit(_resource)
 			MOUSE_BUTTON_RIGHT:
-				discarded.emit() 
+				discarded.emit(_resource) 
 		
+
+func is_resource(card: CardDeckInstance):
+	return card == _resource

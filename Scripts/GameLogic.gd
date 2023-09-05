@@ -5,8 +5,18 @@ signal hand_changed(new_size: int)
 signal discard_changed(new_size: int)
 signal draw_pile_changed(new_size: int)
 signal exhaust_changed(new_size: int)
-signal card_played(card: CardGameInstance)
 
+signal card_played(card: CardGameInstance)
+signal not_enough_energy(card: CardGameInstance, player_energy: int)
+signal not_enough_mana(card : CardGameInstance, player_mana: int)
+
+signal discard_failed(card: CardDeckInstance)
+signal card_discarded(card: CardGameInstance)
+
+signal card_exhausted(card: CardGameInstance)
+signal card_added_to_hand(card: CardGameInstance)
+signal card_added_to_draw(card: CardGameInstance)
+signal card_added_to_discard(card: CardGameInstance)
 
 # Game Logic
 var _draw_pile: Array[CardGameInstance]
@@ -58,6 +68,9 @@ func play(played_card: CardGameInstance, enemy: PlayableEntity):
 		printerr("Invalid card played!")
 
 func discard(discarded_card: CardDeckInstance):
+	if not discarded_card.playable():
+		discard_failed.emit(discarded_card)
+	
 	var idx = _hand.find(discarded_card)
 	if idx >= 0:
 		var card_from_hand = _hand.pop_at(idx)
@@ -131,22 +144,27 @@ func get_hand() -> Array[CardGameInstance]:
 
 func _add_to_draw_pile(card: CardGameInstance):
 	_draw_pile.append(card)
+	card_added_to_draw.emit(card)
 	_draw_pile_changed()
 	
 func _add_to_draw_pile_randomly(card: CardGameInstance):
 	_draw_pile.insert(randi_range(0, _draw_pile.size()), card)
+	card_added_to_draw.emit(card)
 	_draw_pile_changed()
 
 func _add_to_hand(card: CardGameInstance):
 	_hand.append(card)
+	card_added_to_hand.emit(card)
 	_hand_changed()
 
 func _add_to_exhaust(card: CardGameInstance):
 	_exhaust_pile.append(card)
+	card_exhausted.emit(card)
 	_exhaust_pile_changed()
 
 func _add_to_discard(card: CardGameInstance):
 	_discard_pile.append(card)
+	card_discarded.emit(card)
 	_discard_pile_changed()
 
 func _draw_pile_changed():

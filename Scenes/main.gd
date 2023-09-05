@@ -1,9 +1,9 @@
 extends Node2D
 
-@onready var player = Global.get_player()
+@onready var player: Player = Global.get_player()
 var energy = 0
 
-@onready var _manager = $Hand
+@onready var _manager = $Hand as HandManager
 @onready var _health_manager = $UI/Health
 @onready var _energy_manager = $UI/EnergyContainer/EnergyBar
 @onready var _enemy_scene = $Enemy
@@ -27,13 +27,15 @@ func _ready():
 	_enemy_scene.initialize(Global.current_enemy(), player, _manager._game_logic)
 	_enemy_scene.died.connect(_on_enemy_died)
 
-func _play_card(card: Card):
+func _play_card(card: CardDeckInstance):
 	if card.energy_cost() <= energy \
-		and card._resource.playable\
-		and player.mana >= card._resource.mana_cost():
+		and card.playable() \
+		and player.mana >= card.mana_cost():
+		if card is CardGameInstance: 
+			print("This is expected")
 		_energy_manager.deduct_energy(card.energy_cost())
 		_manager.play(card, _enemy_scene.get_entity())
-		player.mana -= card._resource.mana_cost()
+		player.mana -= card.mana_cost()
 		_update_mana_label(player.mana)
 
 func _on_energy_bar_step_reached(step):

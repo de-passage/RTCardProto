@@ -76,7 +76,7 @@ func _generate_rewards():
 		var card: Card = _card_scene.instantiate()
 		_card_container.add_child(card)
 		card.initialize(card_resource, _player_entity)
-		card.selected.connect(_on_card_selected.bind(card_resource))
+		card.selected.connect(_on_card_selected)
 
 func _on_card_selected(card: CardDeckInstance):
 	Global.add_to_current_deck(card)
