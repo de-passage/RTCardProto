@@ -1,5 +1,7 @@
 extends Control
 
+class_name EnergyBar
+
 # This signal is sent every time we exceed a step threshold
 signal step_reached(step: int)
 
@@ -27,6 +29,10 @@ func _ready():
 
 var shouldprint = false
 
+var _range: int: 
+	get:
+		return pb.max_value - pb.min_value
+
 # Every time it is called, increase the bar toward the maximum
 # if it exceeds a step, send a signal
 func _process(delta):
@@ -48,7 +54,7 @@ func _process(delta):
 	# When crossing a new step, send the signal
 	if current_step_reached != last_step_before_update: 
 		step_reached.emit(current_step_reached)
-		sb.bg_color = steps[min(current_step_reached, steps.size() - 1)]
+		_update_color(current_step_reached)
 	
 	# When completely filled, send the signal
 	if new_filled_ratio >= 1: 
@@ -76,4 +82,16 @@ func set_energy_no_signal(energy: float):
 	
 	pb.set_value_no_signal(expected_value)
 	last_step = current_step_reached
-	sb.bg_color = steps[min(last_step, steps.size() - 1)]
+	_update_color(current_step_reached)
+
+func force_to_step(step: int): 
+	var current_step = min(floori(pb.ratio * step_count), step_count)
+	var step_value = _range / step_count
+	var fract = pb.value - (current_step * step_value)
+	var new_value = (step * step_value) + fract
+	pb.set_value_no_signal(new_value)
+	last_step = current_step
+	_update_color(current_step)
+
+func _update_color(step: int):
+	sb.bg_color = steps[min(step, steps.size() - 1)]

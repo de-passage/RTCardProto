@@ -1,9 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://dn6si7yuphnq6"]
+[gd_scene load_steps=18 format=3 uid="uid://dn6si7yuphnq6"]
 
 [ext_resource type="Script" path="res://Scenes/main.gd" id="1_hbbjb"]
 [ext_resource type="PackedScene" uid="uid://tvjk1wf42fsi" path="res://Scenes/deck.tscn" id="1_rnv0a"]
 [ext_resource type="PackedScene" uid="uid://dylwuxmaea2pd" path="res://Scenes/energy_bar.tscn" id="2_0wu1w"]
-[ext_resource type="Script" path="res://Scenes/UI.gd" id="3_obysc"]
 [ext_resource type="Theme" uid="uid://dqejunx8h0xid" path="res://Theme/board_ui.tres" id="4_413qq"]
 [ext_resource type="PackedScene" uid="uid://cldmdqaai3y06" path="res://Scenes/health.tscn" id="4_nid23"]
 [ext_resource type="Texture2D" uid="uid://3g18axpijiuu" path="res://art/fantasy empty playboard.png" id="5_2xmo6"]
@@ -43,7 +42,6 @@ light_mask = 0
 visibility_layer = 0
 
 [node name="UI" type="CanvasLayer" parent="."]
-script = ExtResource("3_obysc")
 
 [node name="EnergyContainer" type="HBoxContainer" parent="UI"]
 anchors_preset = 6
@@ -164,7 +162,6 @@ label_settings = SubResource("LabelSettings_s6173")
 
 [connection signal="refreshed" from="Deck" to="." method="_on_deck_refreshed"]
 [connection signal="step_reached" from="UI/EnergyContainer/EnergyBar" to="." method="_on_energy_bar_step_reached"]
-[connection signal="step_reached" from="UI/EnergyContainer/EnergyBar" to="UI" method="_on_energy_bar_step_reached"]
 [connection signal="effects" from="Enemy" to="." method="_on_enemy_effects"]
 [connection signal="card_selected" from="Hand" to="." method="_play_card"]
 [connection signal="discard_changed" from="Hand" to="." method="_on_hand_discard_changed"]

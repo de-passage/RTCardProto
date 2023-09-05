@@ -59,4 +59,4 @@ func _on_card_played(card: CardGameInstance):
 				child.queue_free()
 				
 func draw_one_card() -> bool:
-	return _game_logic.draw_one_card()
+	return _game_logic.draw_requested()

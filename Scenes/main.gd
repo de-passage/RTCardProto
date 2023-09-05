@@ -1,11 +1,11 @@
 extends Node2D
 
 @onready var player: Player = Global.get_player()
-var energy = 0
 
 @onready var _manager = $Hand as HandManager
 @onready var _health_manager = $UI/Health
-@onready var _energy_manager = $UI/EnergyContainer/EnergyBar
+@onready var _energy_manager = $UI/EnergyContainer/EnergyBar as EnergyBar
+@onready var _energy_label = $UI/EnergyContainer/EnergyCount as Label
 @onready var _enemy_scene = $Enemy
 @onready var _discard_label = $DiscardPile/DiscardLabel
 @onready var _deck = $Deck
@@ -21,6 +21,7 @@ func _ready():
 
 	player.died.connect(_on_player_died)
 	player.mana_changed.connect(_update_mana_label)
+	player.energy_changed.connect(_update_energy)
 
 	_manager.initialize(Global.get_current_deck(), player)
 
@@ -28,7 +29,7 @@ func _ready():
 	_enemy_scene.died.connect(_on_enemy_died)
 
 func _play_card(card: CardDeckInstance):
-	if card.energy_cost() <= energy \
+	if card.energy_cost() <= player.energy \
 		and card.playable() \
 		and player.mana >= card.mana_cost():
 		if card is CardGameInstance: 
@@ -39,7 +40,7 @@ func _play_card(card: CardDeckInstance):
 		_update_mana_label(player.mana)
 
 func _on_energy_bar_step_reached(step):
-	energy = step
+	player.energy = step
 
 func _on_player_died():
 	Global.recapMessage = "You died!"
@@ -55,9 +56,7 @@ func _goto_recap_screen():
 	get_tree().call_deferred("change_scene_to_file", "res://Scenes/recap_screen.tscn")
 
 func _on_deck_refreshed():
-	if energy >= DRAW_COST:
-		if _manager.draw_one_card():
-			_energy_manager.deduct_energy(DRAW_COST)
+	_manager.draw_one_card() 
 
 
 func _on_enemy_effects(effect):
@@ -82,3 +81,8 @@ func _on_hand_exhaust_changed(new_size):
 
 func _update_mana_label(mana: int):
 	_mana_label.text = "Mana: %s" % mana
+
+func _update_energy(energy: int): 
+	_energy_manager.force_to_step(energy)
+	_energy_label.text = str(energy)
+	

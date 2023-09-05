@@ -3,13 +3,14 @@ extends Object
 class_name PlayableEntity
 
 signal died
-signal max_hp_changed
-signal current_hp_changed
-signal armor_changed
-signal strength_changed
-signal heal_power_changed
-signal resistance_changed
-signal mana_changed
+signal max_hp_changed(new_value: int)
+signal current_hp_changed(new_value: int)
+signal armor_changed(new_value: int)
+signal strength_changed(new_value: int)
+signal heal_power_changed(new_value: int)
+signal resistance_changed(new_value: int)
+signal mana_changed(new_value: int)
+signal energy_changed(new_value: int)
 
 ## Maximum amount of HP an entity may have
 var max_hp: int = 1:
@@ -51,10 +52,17 @@ var resistance: int = 0:
 		resistance = value
 		resistance_changed.emit(value)
 
+## Available mana
 var mana: int = 0: 
 	set(value):
 		mana = value
 		mana_changed.emit(value)
+
+## Available energy
+var energy: int = 0:
+	set(value):
+		energy = value
+		energy_changed.emit(value)
 
 func _init(max_health: int, current_health: int = -1):
 	max_hp = max_health

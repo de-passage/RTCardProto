@@ -1,6 +1,8 @@
 extends Context
 class_name GameLogic
 
+const DRAW_COST = 1
+
 signal hand_changed(new_size: int)
 signal discard_changed(new_size: int)
 signal draw_pile_changed(new_size: int)
@@ -105,6 +107,13 @@ func draw_one_card() -> bool:
 	_draw_pile_changed()
 	return true
 
+## Draw from the deck iff the player has enough energy 
+func draw_requested() -> bool:
+	if _player.energy >= DRAW_COST and draw_one_card():
+		_player.energy -= DRAW_COST
+		return true
+	return false
+	
 func _handle_played_card(played: CardGameInstance, effs: Array[BaseEffect]):
 	self.current_card = played
 	self.source = _player
@@ -120,12 +129,10 @@ func _handle_played_card(played: CardGameInstance, effs: Array[BaseEffect]):
 		_add_to_hand(played)
 	card_played.emit(played)
 
-func hand() -> Array[CardGameInstance]: 
-	return _hand
-
 func player() -> Player:
 	return _player
 
+## Add a new card to the given positions
 func trash(what: CardGameInstance, where: int = TRASH_DISCARD) -> void:
 	if (where & TRASH_DISCARD) > 0:
 		_add_to_discard(what)
@@ -139,39 +146,56 @@ func trash(what: CardGameInstance, where: int = TRASH_DISCARD) -> void:
 	if (where & CURSE) > 0:
 		Global.add_to_current_deck(what.source_instance())
 
+
+func hand() -> Array[CardGameInstance]:
+	return _hand
+	
+## Return the current hand
 func get_hand() -> Array[CardGameInstance]:
 	return _hand
 
+## Add card to top of draw pile and send the relevant events
 func _add_to_draw_pile(card: CardGameInstance):
 	_draw_pile.append(card)
 	card_added_to_draw.emit(card)
 	_draw_pile_changed()
 	
+## Add card to random position in draw pile and send the relevant events
 func _add_to_draw_pile_randomly(card: CardGameInstance):
 	_draw_pile.insert(randi_range(0, _draw_pile.size()), card)
 	card_added_to_draw.emit(card)
 	_draw_pile_changed()
 
+## Add card to hand and send the relevant events
 func _add_to_hand(card: CardGameInstance):
 	_hand.append(card)
 	card_added_to_hand.emit(card)
 	_hand_changed()
 
+## Add card to exhaust pile and send the relevant events
 func _add_to_exhaust(card: CardGameInstance):
 	_exhaust_pile.append(card)
 	card_exhausted.emit(card)
 	_exhaust_pile_changed()
 
+## Add card to discard pile and send the relevant events
 func _add_to_discard(card: CardGameInstance):
 	_discard_pile.append(card)
 	card_discarded.emit(card)
 	_discard_pile_changed()
 
+## Emit the new draw size
 func _draw_pile_changed():
 	draw_pile_changed.emit(_draw_pile.size())
+
+## Emit the new hand size
 func _hand_changed():
 	hand_changed.emit(_hand.size())
+
+## Emit the new discard size
 func _discard_pile_changed():
 	discard_changed.emit(_discard_pile.size())
+
+## Emit the new exhaust size
 func _exhaust_pile_changed():
 	exhaust_changed.emit(_exhaust_pile.size())
