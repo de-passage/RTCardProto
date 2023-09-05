@@ -7,3 +7,6 @@ func get_name() -> StringName:
 
 func get_value() -> int:
 	return 0
+
+func accept(_card: Card, _ctx: Context): 
+	pass

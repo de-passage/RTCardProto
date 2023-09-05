@@ -58,20 +58,22 @@ func _fill_hand():
 
 ## Play the given card on the enemy. This should probably use
 ## the local _player variable directly.
-func play(played_card: CardGameInstance, enemy: PlayableEntity):
-	
+func play(played_card: CardGameInstance, enemy: PlayableEntity) -> bool:
 	var idx = _hand.find(played_card)
 	if idx >= 0:
 		var card_from_hand = _hand.pop_at(idx)
 		self.target = enemy
 		self.set_card_effect(Context.FORCE_DISCARD)
 		_handle_played_card(card_from_hand, card_from_hand.on_play())
+		return true
 	else:
 		printerr("Invalid card played!")
+		return false
 
-func discard(discarded_card: CardDeckInstance):
+func discard(discarded_card: CardDeckInstance) -> bool:
 	if not discarded_card.playable():
 		discard_failed.emit(discarded_card)
+		return false
 	
 	var idx = _hand.find(discarded_card)
 	if idx >= 0:
@@ -81,7 +83,8 @@ func discard(discarded_card: CardDeckInstance):
 		_handle_played_card(card_from_hand, card_from_hand.on_discard())
 	else:
 		printerr("Invalid card discarded!")
-
+		return false
+	return true
 ## Draw one new card. If the draw pile is empty, shuffle the discard
 ## in the draw pile then draw. Fails if max hand size is reached
 func draw_one_card() -> bool:
@@ -169,6 +172,16 @@ func _add_to_draw_pile_randomly(card: CardGameInstance):
 ## Add card to hand and send the relevant events
 func _add_to_hand(card: CardGameInstance):
 	_hand.append(card)
+	if _hand.size() == HAND_SIZE:
+		var dead = true
+		for c in _hand: 
+			if c.playable():
+				dead = false
+				break
+		if dead:
+			_player.current_hp = 0
+			return
+		
 	card_added_to_hand.emit(card)
 	_hand_changed()
 

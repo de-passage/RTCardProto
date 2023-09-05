@@ -7,5 +7,5 @@ void fragment() {
 	circle = 1. - step(1., circle);
 	
 	COLOR.rgb = vec3(circle) * color;
-	COLOR.a = circle;
+	COLOR.a = 1. - smoothstep(0.8, 1., length(UV - .5) * 2.);
 }

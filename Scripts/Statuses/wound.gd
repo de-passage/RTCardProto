@@ -12,3 +12,7 @@ func get_name() -> StringName:
 
 func get_value() -> int:
 	return _value
+
+func accept(card: Card, _ctx: Context): 
+	card.change_cost(_value)
+	card.add_description("Wound %s" % _value)

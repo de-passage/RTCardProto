@@ -17,7 +17,7 @@ signal filled
 	set(value):
 		step_count = min(steps.size(), value)
 		
-@onready var pb = $ProgressBar
+@onready var pb = $ProgressBar as ProgressBar
 var sb = StyleBoxFlat.new()
 
 var last_step:int= 0

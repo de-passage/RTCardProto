@@ -25,6 +25,7 @@ shader_parameter/color = Color(0, 0, 1, 1)
 [sub_resource type="CanvasTexture" id="CanvasTexture_codud"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_2uhjn"]
+line_spacing = 0.0
 font = ExtResource("3_noxvo")
 font_size = 24
 
@@ -114,16 +115,28 @@ label_settings = SubResource("LabelSettings_at42m")
 horizontal_alignment = 1
 text_overrun_behavior = 3
 
-[node name="ManaContainer" type="TextureRect" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 60.0
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="IconContainer" type="VBoxContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+
+[node name="ManaContainer" type="TextureRect" parent="MarginContainer/IconContainer"]
 material = SubResource("ShaderMaterial_ynesy")
-layout_mode = 0
-offset_left = 10.6
-offset_top = 9.35781
-offset_right = 50.6
-offset_bottom = 49.3578
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
 texture = SubResource("CanvasTexture_codud")
 
-[node name="ManaCost" type="Label" parent="ManaContainer"]
+[node name="ManaCost" type="Label" parent="MarginContainer/IconContainer/ManaContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

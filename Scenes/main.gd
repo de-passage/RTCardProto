@@ -43,11 +43,9 @@ func _on_energy_bar_step_reached(step):
 	player.energy = step
 
 func _on_player_died():
-	Global.recapMessage = "You died!"
 	_goto_recap_screen()
 
 func _on_enemy_died(rewards: Dictionary):
-	Global.recapMessage = "You won!"
 	Global.rewards = rewards
 	_goto_recap_screen()
 
