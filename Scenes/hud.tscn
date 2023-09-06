@@ -2,8 +2,8 @@
 
 [ext_resource type="Theme" uid="uid://yty6gw6q8r7v" path="res://Theme/hud_theme.tres" id="1_6ftgh"]
 [ext_resource type="Script" path="res://Scenes/hud.gd" id="2_bhj1u"]
-[ext_resource type="Texture2D" uid="uid://kpba32u4fw60" path="res://art/fantasy heart.png" id="2_oy50g"]
 [ext_resource type="Material" uid="uid://b1hbwrmplmn0c" path="res://Shaders/coin_material.tres" id="3_2kx3j"]
+[ext_resource type="PackedScene" uid="uid://kxospeshwxp3" path="res://Scenes/Icons/health_icon.tscn" id="3_qgg4n"]
 [ext_resource type="Texture2D" uid="uid://b5q3fby6x7a2b" path="res://art/coin_icon.svg" id="4_lowam"]
 [ext_resource type="PackedScene" uid="uid://dckb3jxv0ug8l" path="res://Scenes/deck_panel.tscn" id="6_e3ckb"]
 
@@ -25,15 +25,12 @@ size_flags_vertical = 0
 theme = ExtResource("1_6ftgh")
 
 [node name="HealthLabel" type="Label" parent="HUD"]
+visible = false
 layout_mode = 2
-text = "50/50"
+text = "0"
 
-[node name="HealthIcon" type="TextureRect" parent="HUD"]
+[node name="HealthIcon" parent="HUD" instance=ExtResource("3_qgg4n")]
 layout_mode = 2
-size_flags_horizontal = 4
-texture = ExtResource("2_oy50g")
-expand_mode = 2
-stretch_mode = 4
 
 [node name="VSeparator" type="VSeparator" parent="HUD"]
 modulate = Color(1, 1, 1, 0)

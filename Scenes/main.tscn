@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://tvjk1wf42fsi" path="res://Scenes/deck.tscn" id="1_rnv0a"]
 [ext_resource type="PackedScene" uid="uid://dylwuxmaea2pd" path="res://Scenes/energy_bar.tscn" id="2_0wu1w"]
 [ext_resource type="Theme" uid="uid://dqejunx8h0xid" path="res://Theme/board_ui.tres" id="4_413qq"]
-[ext_resource type="PackedScene" uid="uid://cldmdqaai3y06" path="res://Scenes/health.tscn" id="4_nid23"]
 [ext_resource type="Texture2D" uid="uid://3g18axpijiuu" path="res://art/fantasy empty playboard.png" id="5_2xmo6"]
+[ext_resource type="PackedScene" uid="uid://b21xx8fwnpvn6" path="res://Scenes/player_health.tscn" id="5_um1r1"]
 [ext_resource type="PackedScene" uid="uid://d2xo6yskfupnw" path="res://Scenes/enemy.tscn" id="6_bcqkl"]
 [ext_resource type="Script" path="res://Scenes/Hand.gd" id="6_pv0oh"]
 [ext_resource type="Shader" path="res://Scenes/discard_pile.gdshader" id="10_eyx3f"]
@@ -68,12 +68,11 @@ step_count = 3
 layout_mode = 2
 text = "0"
 
-[node name="Health" parent="UI" instance=ExtResource("4_nid23")]
+[node name="Health" parent="UI" instance=ExtResource("5_um1r1")]
+offset_left = 832.0
 offset_top = 518.0
-offset_right = 1920.0
-offset_bottom = 566.0
-max_health = 50
-current_health = 50
+offset_right = 1095.0
+offset_bottom = 576.0
 
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -6

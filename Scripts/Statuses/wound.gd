@@ -8,7 +8,7 @@ func _init(value: int):
 	_value = value
 
 func get_name() -> StringName: 
-	return "Wound"
+	return Statuses.WOUND
 
 func get_value() -> int:
 	return _value

@@ -1,5 +1,7 @@
 extends Node
 
+const WOUND: StringName = "Wound"
+
 #var _statuses: Dictionary
 #const STATUSES_PATH = 'res://Scripts/Statuses'
 #

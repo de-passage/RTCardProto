@@ -11,7 +11,7 @@ func _init(v: Dictionary):
 
 func apply_effect(context: Context):
 	if _trash_card:
-		context.trash(_trash_card, Context.TRASH_DISCARD & Context.CURSE)
+		context.trash(CardGameInstance.from_resource(_trash_card), Context.TRASH_DISCARD | Context.CURSE)
 	
 func get_description(context: Context): 
 	return description

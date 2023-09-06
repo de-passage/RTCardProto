@@ -1,0 +1,68 @@
+[gd_scene load_steps=12 format=3 uid="uid://b21xx8fwnpvn6"]
+
+[ext_resource type="Theme" uid="uid://dqejunx8h0xid" path="res://Theme/board_ui.tres" id="1_2nki2"]
+[ext_resource type="Script" path="res://Scenes/player_health.gd" id="2_gp0kt"]
+[ext_resource type="Texture2D" uid="uid://dy7h4gwy1u5od" path="res://art/strength_icon.svg" id="3_p5175"]
+[ext_resource type="Shader" path="res://Shaders/metal.gdshader" id="4_6r0tv"]
+[ext_resource type="Texture2D" uid="uid://lw1chpa2p15w" path="res://art/equip armor white.png" id="5_2iaux"]
+[ext_resource type="PackedScene" uid="uid://kxospeshwxp3" path="res://Scenes/Icons/health_icon.tscn" id="6_tjt71"]
+
+[sub_resource type="Gradient" id="Gradient_hqns1"]
+offsets = PackedFloat32Array(0.0040568, 0.476673, 1)
+colors = PackedColorArray(0.517647, 0.811765, 1, 1, 0.4756, 0.6191, 0.82, 1, 0.149546, 0.314137, 0.423106, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_m1naj"]
+gradient = SubResource("Gradient_hqns1")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_81kse"]
+seed = 2
+frequency = 0.0015
+fractal_lacunarity = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_10q62"]
+noise = SubResource("FastNoiseLite_81kse")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1dvje"]
+shader = ExtResource("4_6r0tv")
+shader_parameter/noise = SubResource("NoiseTexture2D_10q62")
+shader_parameter/colors = SubResource("GradientTexture1D_m1naj")
+
+[node name="PlayerHealth" type="HBoxContainer"]
+layout_direction = 2
+offset_right = 263.0
+offset_bottom = 58.0
+theme = ExtResource("1_2nki2")
+alignment = 1
+script = ExtResource("2_gp0kt")
+
+[node name="CurrentStrength" type="Label" parent="."]
+layout_mode = 2
+text = "0"
+
+[node name="StrengthSprite" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("3_p5175")
+expand_mode = 2
+
+[node name="CurrentArmor" type="Label" parent="."]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ArmorSprite" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_1dvje")
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("5_2iaux")
+expand_mode = 2
+
+[node name="CurrentHealth" type="Label" parent="."]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="HealthSprite" parent="." instance=ExtResource("6_tjt71")]
+visible = true
+layout_mode = 2

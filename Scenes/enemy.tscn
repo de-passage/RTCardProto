@@ -31,8 +31,6 @@ offset_top = 76.0
 offset_right = 142.0
 offset_bottom = 134.0
 grow_horizontal = 2
-max_health = 10
-current_health = 10
 
 [node name="EnergyBar" parent="Control" instance=ExtResource("4_sry2h")]
 offset_left = -93.0
