@@ -152,10 +152,15 @@ func trash(what: CardGameInstance, where: int = TRASH_DISCARD) -> void:
 
 func hand() -> Array[CardGameInstance]:
 	return _hand
+
+func draw_pile() -> Array[CardGameInstance]:
+	return _draw_pile
 	
-## Return the current hand
-func get_hand() -> Array[CardGameInstance]:
-	return _hand
+func discard_pile() -> Array[CardGameInstance]:
+	return _discard_pile
+
+func exhaust_pile() -> Array[CardGameInstance]:
+	return _exhaust_pile
 
 ## Add card to top of draw pile and send the relevant events
 func _add_to_draw_pile(card: CardGameInstance):

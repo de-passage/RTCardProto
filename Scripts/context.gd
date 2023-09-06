@@ -58,7 +58,16 @@ func purge_required() -> bool:
 func trash(_what: CardGameInstance, _where: int = TRASH_DISCARD) -> void: 
 	pass
 	
-func get_hand() -> Array[CardResource]:
+func hand() -> Array[CardResource]:
+	return []
+		
+func draw_pile() -> Array[CardResource]:
 	return []
 	
+func exhaust_pile() -> Array[CardResource]:
+	return []
+	
+func discard_pile() -> Array[CardResource]:
+	return []
+
 

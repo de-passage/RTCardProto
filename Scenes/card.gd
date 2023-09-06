@@ -86,7 +86,7 @@ func _on_gui_input(event):
 func is_resource(card: CardDeckInstance):
 	return card == _resource
 
-func add_icon(something):
+func add_icon(_something):
 	var label = Label.new()
 	label.label_settings = LabelSettings.new()
 	label.label_settings.font = preload("res://font/NeverMindsemi-serif-Regular.ttf")

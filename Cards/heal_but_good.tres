@@ -30,6 +30,6 @@ on_discard_card_effects = Array[ExtResource("2_y4g4n")]([])
 on_exhaust_card_effects = Array[ExtResource("2_y4g4n")]([])
 monetary_value = 134
 rarity = 134
-pools = Array[StringName]([])
+pools = Array[StringName]([&"OldHeal"])
 tags = Array[StringName]([])
 playable = true

@@ -57,6 +57,20 @@ func _on_card_played(card: CardGameInstance):
 			child.update_description(Context.source_only(_game_logic.player()))
 			if child.is_resource(card):
 				child.queue_free()
-				
+
 func draw_one_card() -> bool:
 	return _game_logic.draw_requested()
+
+func wounds_in_draw() -> int: 
+	return _count_wounds_in(_game_logic.draw_pile())
+	
+func wounds_in_discard() -> int:
+	return _count_wounds_in(_game_logic.discard_pile())
+
+func _count_wounds_in(pile: Array[CardGameInstance]):
+	var c = 0
+	for card in pile: 
+		for s in card.statuses():
+			if s.get_name() == Statuses.WOUND:
+				c += 1
+	return c

@@ -12,6 +12,8 @@ extends Node2D
 @onready var _exhaust_pile = $ExhaustTexture
 @onready var _exhaust_label = $ExhaustTexture/ExhaustLabel
 @onready var _mana_label = $ManaLabel
+@onready var _discard_wound_container = $DiscardPile/DiscardWoundContainer as HBoxContainer
+@onready var _discard_wound_label = $DiscardPile/DiscardWoundContainer/WoundsInDiscard as Label
 
 @export var DRAW_COST = 1
 
@@ -27,13 +29,15 @@ func _ready():
 
 	_enemy_scene.initialize(Global.current_enemy(), player, _manager._game_logic)
 	_enemy_scene.died.connect(_on_enemy_died)
+	
+	_show_wounds_in_discard()
+	_show_wounds_in_draw()
 
 func _play_card(card: CardDeckInstance):
 	if card.energy_cost() <= player.energy \
 		and card.playable() \
 		and player.mana >= card.mana_cost():
-		if card is CardGameInstance: 
-			print("This is expected")
+
 		_energy_manager.deduct_energy(card.energy_cost())
 		_manager.play(card, _enemy_scene.get_entity())
 		player.mana -= card.mana_cost()
@@ -56,22 +60,27 @@ func _goto_recap_screen():
 func _on_deck_refreshed():
 	_manager.draw_one_card() 
 
-
 func _on_enemy_effects(effect):
 	effect.call(player)
-
 
 func _on_win_button_pressed():
 	_enemy_scene._entity.current_hp = 0
 
-
 func _on_hand_discard_changed(new_size):
 	_discard_label.text = str(new_size)
-
+	_show_wounds_in_discard()
+	
+func _show_wounds_in_discard():
+	var wounds = _manager.wounds_in_discard()
+	_discard_wound_container.visible = wounds > 0
+	_discard_wound_label.text = str(wounds)
 
 func _on_hand_draw_pile_changed(new_size):
 	_deck.change_card_count(new_size)
+	_show_wounds_in_draw()
 
+func _show_wounds_in_draw():
+	_deck.set_wound_count(_manager.wounds_in_draw())
 
 func _on_hand_exhaust_changed(new_size):
 	_exhaust_pile.visible = new_size > 0

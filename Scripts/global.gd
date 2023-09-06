@@ -84,7 +84,8 @@ func _load_card_pool():
 		for card in _cards:
 			var is_in_pool: bool = true
 			for label in card.pools:
-				if label == &'Starter' or label == &'Curses':
+				if label == &'Starter' or label == &'Curses' \
+					or label == &'OldHeal':
 					is_in_pool = false
 					break
 			if is_in_pool:
