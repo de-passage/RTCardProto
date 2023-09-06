@@ -35,8 +35,20 @@ func initialize(pl: Player, draw: Array[CardDeckInstance]):
 	source = pl 
 	_draw_pile = []
 	for card in draw: 
-		_draw_pile.append(CardGameInstance.new(card))
+		var goes_to_discard = false
+		for s in card.statuses():
+			if s.get_name() == Statuses.WOUND: 
+				goes_to_discard = true
+		
+		var game_instance = CardGameInstance.new(card)
+		if goes_to_discard:
+			_discard_pile.append(game_instance)
+		else:
+			_draw_pile.append(game_instance)
 	_fill_hand()
+	
+	if _discard_pile.size() > 0: 
+		_discard_pile_changed()
 	
 
 ## Shuffle the draw pile then draw until the hand is full
@@ -85,6 +97,7 @@ func discard(discarded_card: CardDeckInstance) -> bool:
 		printerr("Invalid card discarded!")
 		return false
 	return true
+	
 ## Draw one new card. If the draw pile is empty, shuffle the discard
 ## in the draw pile then draw. Fails if max hand size is reached
 func draw_one_card() -> bool:
@@ -93,6 +106,7 @@ func draw_one_card() -> bool:
 
 	if _draw_pile.size() == 0:
 		_draw_pile.append_array(_discard_pile)
+		_draw_pile.shuffle()
 		_discard_pile.clear()
 		discard_changed.emit(_discard_pile.size())
 
