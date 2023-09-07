@@ -32,11 +32,18 @@ grow_vertical = 2
 
 [node name="RestButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "Rest for %s of your health"
+focus_mode = 0
+disabled = true
+text = "Remove a wound"
 
 [node name="RemoveButton" type="Button" parent="VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Remove a card"
+
+[node name="IgnoreButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Keep going"
 
 [node name="HUD" parent="." instance=ExtResource("3_j7jc1")]
 layout_mode = 1
@@ -61,5 +68,6 @@ layout_mode = 2
 
 [connection signal="pressed" from="VBoxContainer/RestButton" to="." method="_on_rest_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/RemoveButton" to="." method="_on_remove_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/IgnoreButton" to="." method="_on_ignore_button_pressed"]
 [connection signal="card_selected" from="MarginContainer/DeckPanelContainer" to="." method="_on_deck_panel_card_removed"]
 [connection signal="deck_panel_closed" from="MarginContainer/DeckPanelContainer" to="." method="_on_deck_panel_closed"]
