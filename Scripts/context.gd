@@ -70,4 +70,6 @@ func exhaust_pile() -> Array[CardResource]:
 func discard_pile() -> Array[CardResource]:
 	return []
 
+func history() -> History: 
+	return History.new()
 

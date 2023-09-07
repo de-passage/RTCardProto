@@ -58,3 +58,22 @@ func add_status(value: BaseStatus):
 
 func statuses() -> Array[BaseStatus]:
 	return _statuses
+	
+func copy() -> CardDeckInstance:
+	var r = CardDeckInstance.new(_base_card)
+	r._name = card_name()
+	r._on_play = on_play().duplicate()
+	r._on_exhaust = on_exhaust().duplicate()
+	r._on_discard = on_discard().duplicate()
+	r._on_draw = on_draw().duplicate()
+	r._energy_cost = energy_cost()
+	r._mana_cost = mana_cost()
+	r._statuses = statuses().duplicate()
+	return r
+
+func has_tag(s: StringName) -> bool:
+	for tag in get_resource().tags:
+		if s == tag: 
+			return true
+			
+	return false

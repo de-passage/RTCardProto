@@ -26,13 +26,14 @@ var _discard_pile: Array[CardGameInstance]
 var _hand: Array[CardGameInstance]
 var _exhaust_pile: Array[CardGameInstance]
 var _player: Player
+var _history: History = History.new()
 
 const HAND_SIZE = 5
 
 func initialize(pl: Player, draw: Array[CardDeckInstance]):
 	_player = pl
 	_player._ctx = self
-	source = pl 
+	source = pl
 	_draw_pile = []
 	for card in draw: 
 		var goes_to_discard = false
@@ -49,7 +50,7 @@ func initialize(pl: Player, draw: Array[CardDeckInstance]):
 	
 	if _discard_pile.size() > 0: 
 		_discard_pile_changed()
-	
+
 
 ## Shuffle the draw pile then draw until the hand is full
 ## Redraw the _hand afterwards
@@ -62,6 +63,7 @@ func _fill_hand():
 	draw_pile_changed.emit(_draw_pile.size())
 	
 	for card in drawn_cards:
+		_history.card_drawn(card)
 		var effs = card.on_draw()
 		if effs.size() > 0:
 			_handle_played_card(card, effs)
@@ -90,6 +92,7 @@ func discard(discarded_card: CardDeckInstance) -> bool:
 	var idx = _hand.find(discarded_card)
 	if idx >= 0:
 		var card_from_hand = _hand.pop_at(idx)
+		_history.card_discarded(card_from_hand)
 		self._player.mana += 2
 		self.set_card_effect(Context.FORCE_DISCARD)
 		_handle_played_card(card_from_hand, card_from_hand.on_discard())
@@ -114,6 +117,7 @@ func draw_one_card() -> bool:
 		return false
 
 	var drawn_card: CardGameInstance = _draw_pile.pop_back()
+	_history.card_drawn(drawn_card)
 	var effs = drawn_card.on_draw()
 	if effs.size() > 0: 
 		self.set_card_effect(Context.NO_EFFECT)
@@ -136,6 +140,8 @@ func _handle_played_card(played: CardGameInstance, effs: Array[BaseEffect]):
 	self.source = _player
 	for e in effs:
 		e.apply_effect(self)
+		
+	_history.card_played(played)
 	if purge_required():
 		Global.remove_from_deck(played.source_instance())
 	elif exhaust_required():
@@ -207,12 +213,14 @@ func _add_to_hand(card: CardGameInstance):
 ## Add card to exhaust pile and send the relevant events
 func _add_to_exhaust(card: CardGameInstance):
 	_exhaust_pile.append(card)
+	_history.card_exhausted(card)
 	card_exhausted.emit(card)
 	_exhaust_pile_changed()
 
 ## Add card to discard pile and send the relevant events
 func _add_to_discard(card: CardGameInstance):
 	_discard_pile.append(card)
+	_history.card_discarded(card)
 	card_discarded.emit(card)
 	_discard_pile_changed()
 
@@ -231,3 +239,6 @@ func _discard_pile_changed():
 ## Emit the new exhaust size
 func _exhaust_pile_changed():
 	exhaust_changed.emit(_exhaust_pile.size())
+
+func history() -> History:
+	return _history

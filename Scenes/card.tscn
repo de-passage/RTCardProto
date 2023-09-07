@@ -61,18 +61,19 @@ theme = SubResource("Theme_0m0ib")
 
 [node name="Description" type="Label" parent="Values"]
 custom_minimum_size = Vector2(200, 185)
-layout_mode = 0
+layout_mode = 2
 offset_left = 28.9
 offset_top = 47.2922
 offset_right = 228.9
 offset_bottom = 232.292
+scale = Vector2(1, 1.00651)
 auto_translate = false
-theme_override_font_sizes/font_size = 18
-text = "Write text here and hope for the best"
+text = "Write text here and hope for the best
+and
+some
+more"
 vertical_alignment = 1
-autowrap_mode = 2
-clip_text = true
-max_lines_visible = 2
+autowrap_mode = 1
 
 [node name="Cost" type="Label" parent="Values"]
 layout_mode = 1
