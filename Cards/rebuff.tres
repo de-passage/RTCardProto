@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="CardResource" load_steps=7 format=3 uid="uid://bs5wgyacr4lc7"]
+
+[ext_resource type="Script" path="res://Scripts/Effects/AddArmor.gd" id="1_maowa"]
+[ext_resource type="Script" path="res://Scripts/CardResource.gd" id="1_tlfsd"]
+[ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_ijqey"]
+[ext_resource type="Script" path="res://Scripts/Effects/OffBalance.gd" id="3_3yir7"]
+
+[sub_resource type="Resource" id="Resource_0dic3"]
+script = ExtResource("2_ijqey")
+effectValues = {
+"Amount": 6
+}
+effectScript = ExtResource("1_maowa")
+
+[sub_resource type="Resource" id="Resource_kpoje"]
+script = ExtResource("2_ijqey")
+effectValues = {
+"Amount": 1
+}
+effectScript = ExtResource("3_3yir7")
+
+[resource]
+script = ExtResource("1_tlfsd")
+card_name = "Rebuf"
+cost = 2
+mana_cost = 1
+on_play_card_effects = Array[ExtResource("2_ijqey")]([SubResource("Resource_0dic3"), SubResource("Resource_kpoje")])
+on_draw_card_effects = Array[ExtResource("2_ijqey")]([])
+on_discard_card_effects = Array[ExtResource("2_ijqey")]([])
+on_exhaust_card_effects = Array[ExtResource("2_ijqey")]([])
+monetary_value = 50
+rarity = 1
+pools = Array[StringName]([&"WeaponMaster"])
+tags = Array[StringName]([&"Defense", &"Spear"])
+playable = true

@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="CardResource" load_steps=8 format=3 uid="uid://dngsa8eoedt0k"]
+
+[ext_resource type="Script" path="res://Scripts/CardResource.gd" id="1_6ol5b"]
+[ext_resource type="Script" path="res://Scripts/Effects/Damage.gd" id="1_yr7hf"]
+[ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_sb450"]
+[ext_resource type="Script" path="res://Scripts/Effects/LastPlayed.gd" id="3_2q3i2"]
+
+[sub_resource type="Resource" id="Resource_b7ahb"]
+script = ExtResource("2_sb450")
+effectValues = {
+"Amount": 2
+}
+effectScript = ExtResource("1_yr7hf")
+
+[sub_resource type="Resource" id="Resource_wb5mr"]
+script = ExtResource("2_sb450")
+effectValues = {
+"Amount": 3
+}
+effectScript = ExtResource("1_yr7hf")
+
+[sub_resource type="Resource" id="Resource_1euh4"]
+script = ExtResource("2_sb450")
+effectValues = {
+"Effect": SubResource("Resource_wb5mr"),
+"Tag": "Spear"
+}
+effectScript = ExtResource("3_2q3i2")
+
+[resource]
+script = ExtResource("1_6ol5b")
+card_name = "Thrust"
+cost = 0
+mana_cost = 0
+on_play_card_effects = Array[ExtResource("2_sb450")]([SubResource("Resource_b7ahb"), SubResource("Resource_1euh4")])
+on_draw_card_effects = Array[ExtResource("2_sb450")]([])
+on_discard_card_effects = Array[ExtResource("2_sb450")]([])
+on_exhaust_card_effects = Array[ExtResource("2_sb450")]([])
+monetary_value = 50
+rarity = 0
+pools = Array[StringName]([&"WeaponMaster"])
+tags = Array[StringName]([&"Attack", &"Spear"])
+playable = true

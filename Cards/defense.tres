@@ -22,6 +22,6 @@ on_discard_card_effects = Array[ExtResource("2_37qgp")]([])
 on_exhaust_card_effects = Array[ExtResource("2_37qgp")]([])
 monetary_value = 0
 rarity = 0
-pools = Array[StringName]([&"Starter"])
+pools = Array[StringName]([&"Starter", &"Unused"])
 tags = Array[StringName]([&"Defense", &"Skill"])
 playable = true

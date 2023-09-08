@@ -47,3 +47,6 @@ func get_resource() -> CardResource:
 
 func statuses() -> Array[BaseStatus]:
 	return _source_instance._statuses
+
+func has_tag(t: StringName):
+	return _source_instance.has_tag(t)

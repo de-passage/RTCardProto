@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="CardResource" load_steps=5 format=3 uid="uid://cy8can8yr7dhl"]
+
+[ext_resource type="Script" path="res://Scripts/CardResource.gd" id="1_ck6ql"]
+[ext_resource type="Script" path="res://Scripts/Effects/ShieldBash.gd" id="1_vhfpw"]
+[ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_tvmnm"]
+
+[sub_resource type="Resource" id="Resource_7f6dq"]
+script = ExtResource("2_tvmnm")
+effectValues = {}
+effectScript = ExtResource("1_vhfpw")
+
+[resource]
+script = ExtResource("1_ck6ql")
+card_name = "Vanguard Charge"
+cost = 2
+mana_cost = 0
+on_play_card_effects = Array[ExtResource("2_tvmnm")]([SubResource("Resource_7f6dq")])
+on_draw_card_effects = Array[ExtResource("2_tvmnm")]([])
+on_discard_card_effects = Array[ExtResource("2_tvmnm")]([])
+on_exhaust_card_effects = Array[ExtResource("2_tvmnm")]([])
+monetary_value = 50
+rarity = 2
+pools = Array[StringName]([&"WeaponMaster"])
+tags = Array[StringName]([&"Attack", &"Spear"])
+playable = true

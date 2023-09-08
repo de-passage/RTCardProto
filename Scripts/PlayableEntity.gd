@@ -11,6 +11,8 @@ signal heal_power_changed(new_value: int)
 signal resistance_changed(new_value: int)
 signal mana_changed(new_value: int)
 signal energy_changed(new_value: int)
+signal steady_changed(new_value: int)
+signal off_balance_changed(new_value: int)
 
 ## Maximum amount of HP an entity may have
 var max_hp: int = 1:
@@ -64,9 +66,20 @@ var energy: int = 0:
 		energy = value
 		energy_changed.emit(value)
 
+var steady: int = 0:
+	set(value):
+		steady = value
+		steady_changed.emit(steady)
+
+var off_balance: int = 0:
+	set(value):
+		off_balance = 0
+		off_balance_changed.emit(off_balance)
+
 func _init(max_health: int, current_health: int = -1):
 	max_hp = max_health
 	current_hp = current_health if current_health > 0 else max_health
+
 
 ## Deal damage to the entity, reducing armor then HP. 
 ## Manipulate current_hp directly to ignore armor
@@ -78,4 +91,5 @@ func deal_damage(damage: int):
 	elif after_armor < 0:
 		armor = 0
 		current_hp += after_armor
+		steady = 0
 

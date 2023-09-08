@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="CardResource" load_steps=5 format=3 uid="uid://j1oghb4b3rqg"]
+
+[ext_resource type="Script" path="res://Scripts/Effects/AddSteady.gd" id="1_n27a3"]
+[ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_j60bm"]
+[ext_resource type="Script" path="res://Scripts/CardResource.gd" id="3_cdtfd"]
+
+[sub_resource type="Resource" id="Resource_v3x2a"]
+script = ExtResource("2_j60bm")
+effectValues = {
+"Amount": 3
+}
+effectScript = ExtResource("1_n27a3")
+
+[resource]
+script = ExtResource("3_cdtfd")
+card_name = "Looking for openings"
+cost = 1
+mana_cost = 1
+on_play_card_effects = Array[ExtResource("2_j60bm")]([SubResource("Resource_v3x2a")])
+on_draw_card_effects = Array[ExtResource("2_j60bm")]([])
+on_discard_card_effects = Array[ExtResource("2_j60bm")]([])
+on_exhaust_card_effects = Array[ExtResource("2_j60bm")]([])
+monetary_value = 50
+rarity = 1
+pools = Array[StringName]([&"WeaponMaster"])
+tags = Array[StringName]([&"Skill", &"Sword"])
+playable = true

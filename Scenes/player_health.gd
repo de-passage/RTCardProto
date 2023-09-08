@@ -1,9 +1,12 @@
 extends HBoxContainer
 
-@onready var _health = $CurrentHealth
-@onready var _health_icon = $HealthSprite
-@onready var _armor = $CurrentArmor
-@onready var _strength = $CurrentStrength
+@onready var _health = $CurrentHealth as Label
+@onready var _health_icon = $HealthSprite as TextureRect
+@onready var _armor = $CurrentArmor as Label
+@onready var _armor_sprite = $ArmorSprite as TextureRect
+@onready var _strength = $CurrentStrength as Label
+@onready var _strength_sprite = $StrengthSprite as TextureRect
+@onready var _steady = $SteadyDisplay as ValueDisplay
 
 var current_armor = 0
 
@@ -19,12 +22,12 @@ func _display_health():
 
 func _display_armor(): 
 	if current_armor > 0: 
-		$CurrentArmor.text = str(current_armor)
-		$CurrentArmor.show()
-		$ArmorSprite.show()
+		_armor.text = str(current_armor)
+		_armor.show()
+		_armor_sprite.show()
 	else:
-		$CurrentArmor.hide()
-		$ArmorSprite.hide()
+		_armor_sprite.hide()
+		_armor.hide()
 
 func _display_if_positive(value: int, sprite: TextureRect, label: Label): 
 	if value > 0: 
@@ -40,7 +43,7 @@ func armor_changed(a: int):
 	_display_armor()
 	
 func strength_changed(a: int):
-	_display_if_positive(a, $StrengthSprite, $CurrentStrength)
+	_display_if_positive(a, _strength_sprite, _strength)
 
 func _redraw():
 	_display_health() 
@@ -57,6 +60,7 @@ func connect_playable_entity(entity: PlayableEntity):
 		entity.armor_changed.connect(armor_changed)
 		Global.deck_changed.connect(_display_health)
 		entity.strength_changed.connect(strength_changed)
+		entity.steady_changed.connect(_steady.set_value)
 	
 	_redraw()
 

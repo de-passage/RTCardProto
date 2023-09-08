@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="CardResource" load_steps=7 format=3 uid="uid://cq6edkqk5b886"]
+
+[ext_resource type="Script" path="res://Scripts/Effects/Damage.gd" id="1_bx8eh"]
+[ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_n4svl"]
+[ext_resource type="Script" path="res://Scripts/Effects/AddSteady.gd" id="3_801le"]
+[ext_resource type="Script" path="res://Scripts/CardResource.gd" id="4_xskne"]
+
+[sub_resource type="Resource" id="Resource_7118o"]
+script = ExtResource("2_n4svl")
+effectValues = {
+"Amount": 3
+}
+effectScript = ExtResource("1_bx8eh")
+
+[sub_resource type="Resource" id="Resource_1c37v"]
+script = ExtResource("2_n4svl")
+effectValues = {
+"Amount": 1
+}
+effectScript = ExtResource("3_801le")
+
+[resource]
+script = ExtResource("4_xskne")
+card_name = "Swift Strikes"
+cost = 1
+mana_cost = 0
+on_play_card_effects = Array[ExtResource("2_n4svl")]([SubResource("Resource_7118o"), SubResource("Resource_1c37v")])
+on_draw_card_effects = Array[ExtResource("2_n4svl")]([])
+on_discard_card_effects = Array[ExtResource("2_n4svl")]([])
+on_exhaust_card_effects = Array[ExtResource("2_n4svl")]([])
+monetary_value = 50
+rarity = 0
+pools = Array[StringName]([&"WeaponMaster"])
+tags = Array[StringName]([&"Attack", &"Axe", &"Sword"])
+playable = true

@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="CardResource" load_steps=9 format=3 uid="uid://d22n0wwikb38n"]
+
+[ext_resource type="Script" path="res://Scripts/Effects/Damage.gd" id="1_lle74"]
+[ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_m18jy"]
+[ext_resource type="Script" path="res://Scripts/Effects/LastPlayed.gd" id="3_lt4on"]
+[ext_resource type="Script" path="res://Scripts/Effects/draw.gd" id="4_lh58k"]
+[ext_resource type="Script" path="res://Scripts/CardResource.gd" id="5_6gvfu"]
+
+[sub_resource type="Resource" id="Resource_pohbe"]
+script = ExtResource("2_m18jy")
+effectValues = {
+"Amount": 4
+}
+effectScript = ExtResource("1_lle74")
+
+[sub_resource type="Resource" id="Resource_kafru"]
+script = ExtResource("2_m18jy")
+effectValues = {
+"Amount": 1
+}
+effectScript = ExtResource("4_lh58k")
+
+[sub_resource type="Resource" id="Resource_bptc8"]
+script = ExtResource("2_m18jy")
+effectValues = {
+"Effect": SubResource("Resource_kafru"),
+"Tag": "Sword"
+}
+effectScript = ExtResource("3_lt4on")
+
+[resource]
+script = ExtResource("5_6gvfu")
+card_name = "Follow Up"
+cost = 1
+mana_cost = 1
+on_play_card_effects = Array[ExtResource("2_m18jy")]([SubResource("Resource_pohbe"), SubResource("Resource_bptc8")])
+on_draw_card_effects = Array[ExtResource("2_m18jy")]([])
+on_discard_card_effects = Array[ExtResource("2_m18jy")]([])
+on_exhaust_card_effects = Array[ExtResource("2_m18jy")]([])
+monetary_value = 50
+rarity = 1
+pools = Array[StringName]([&"WeaponMaster"])
+tags = Array[StringName]([&"Attack", &"Sword"])
+playable = true

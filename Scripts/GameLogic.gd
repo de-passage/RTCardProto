@@ -33,6 +33,9 @@ const HAND_SIZE = 5
 func initialize(pl: Player, draw: Array[CardDeckInstance]):
 	_player = pl
 	_player._ctx = self
+	
+	card_played.connect(_player.card_played)
+	
 	source = pl
 	_draw_pile = []
 	for card in draw: 

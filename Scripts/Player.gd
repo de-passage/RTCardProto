@@ -35,3 +35,7 @@ func add_wound(value: int) -> void:
 		_ctx.trash(_new_wound(to_hand), Context.TRASH_HAND | Context.CURSE)
 	
 	_ctx.trash(_new_wound(value), Context.TRASH_DISCARD | Context.CURSE)
+
+func card_played(card: CardGameInstance): 
+	if card.has_tag(Tags.ATTACK):
+		self.steady = 0

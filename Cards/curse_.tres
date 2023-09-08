@@ -6,6 +6,7 @@
 script = ExtResource("1_xgbau")
 card_name = "Curse!"
 cost = 0
+mana_cost = 0
 on_play_card_effects = Array[Resource("res://Scripts/effect_resource.gd")]([])
 on_draw_card_effects = Array[Resource("res://Scripts/effect_resource.gd")]([])
 on_discard_card_effects = Array[Resource("res://Scripts/effect_resource.gd")]([])

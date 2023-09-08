@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="CardResource" load_steps=9 format=3 uid="uid://sr5intc7dcx4"]
+
+[ext_resource type="Script" path="res://Scripts/Effects/multiply_steady.gd" id="1_srseg"]
+[ext_resource type="Script" path="res://Scripts/effect_resource.gd" id="2_dx1l2"]
+[ext_resource type="Script" path="res://Scripts/Effects/LastPlayed.gd" id="3_tvm7l"]
+[ext_resource type="Script" path="res://Scripts/Effects/draw.gd" id="4_5g8uj"]
+[ext_resource type="Script" path="res://Scripts/CardResource.gd" id="5_wpky8"]
+
+[sub_resource type="Resource" id="Resource_d3s6q"]
+script = ExtResource("2_dx1l2")
+effectValues = {
+"Amount": 2
+}
+effectScript = ExtResource("1_srseg")
+
+[sub_resource type="Resource" id="Resource_ftyrn"]
+script = ExtResource("2_dx1l2")
+effectValues = {
+"Amount": 1
+}
+effectScript = ExtResource("4_5g8uj")
+
+[sub_resource type="Resource" id="Resource_bfxw0"]
+script = ExtResource("2_dx1l2")
+effectValues = {
+"Effect": SubResource("Resource_ftyrn"),
+"Tag": &"Sword"
+}
+effectScript = ExtResource("3_tvm7l")
+
+[resource]
+script = ExtResource("5_wpky8")
+card_name = "Prepare for the kill"
+cost = 0
+mana_cost = 1
+on_play_card_effects = Array[ExtResource("2_dx1l2")]([SubResource("Resource_d3s6q"), SubResource("Resource_bfxw0")])
+on_draw_card_effects = Array[ExtResource("2_dx1l2")]([])
+on_discard_card_effects = Array[ExtResource("2_dx1l2")]([])
+on_exhaust_card_effects = Array[ExtResource("2_dx1l2")]([])
+monetary_value = 50
+rarity = 2
+pools = Array[StringName]([&"WeaponMaster"])
+tags = Array[StringName]([&"Defense", &"Sword"])
+playable = true

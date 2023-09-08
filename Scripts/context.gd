@@ -6,6 +6,7 @@ var source: PlayableEntity
 var target: PlayableEntity
 var current_card: CardGameInstance
 var _card_effect: int = FORCE_DISCARD
+var _draw_cards: int = 0
 
 const NO_EFFECT = 0
 
@@ -54,6 +55,14 @@ func discard_required() -> bool:
 	
 func purge_required() -> bool:
 	return _effect_flag_set(DESTROY_CARD)
+
+func require_draw(count: int):
+	_draw_cards += count
+
+func required_draw() -> int: 
+	var r = _draw_cards
+	_draw_cards = 0
+	return r
 
 func trash(_what: CardGameInstance, _where: int = TRASH_DISCARD) -> void: 
 	pass

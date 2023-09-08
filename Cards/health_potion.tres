@@ -28,6 +28,6 @@ on_discard_card_effects = Array[ExtResource("2_te6pe")]([])
 on_exhaust_card_effects = Array[ExtResource("2_te6pe")]([])
 monetary_value = 100
 rarity = 100
-pools = Array[StringName]([&"OldHeal"])
+pools = Array[StringName]([&"Unused"])
 tags = Array[StringName]([&"Skill", &"Consumable"])
 playable = true

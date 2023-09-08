@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b21xx8fwnpvn6"]
+[gd_scene load_steps=16 format=3 uid="uid://b21xx8fwnpvn6"]
 
 [ext_resource type="Theme" uid="uid://dqejunx8h0xid" path="res://Theme/board_ui.tres" id="1_2nki2"]
 [ext_resource type="Script" path="res://Scenes/player_health.gd" id="2_gp0kt"]
@@ -6,6 +6,9 @@
 [ext_resource type="Shader" path="res://Shaders/metal.gdshader" id="4_6r0tv"]
 [ext_resource type="Texture2D" uid="uid://lw1chpa2p15w" path="res://art/equip armor white.png" id="5_2iaux"]
 [ext_resource type="PackedScene" uid="uid://kxospeshwxp3" path="res://Scenes/Icons/health_icon.tscn" id="6_tjt71"]
+[ext_resource type="PackedScene" uid="uid://brb4fmy4dr5vm" path="res://Scenes/Utility/value_display.tscn" id="7_8r418"]
+[ext_resource type="Texture2D" uid="uid://b5q3fby6x7a2b" path="res://art/coin_icon.svg" id="8_3lnmp"]
+[ext_resource type="Shader" path="res://Shaders/colorswap.gdshader" id="8_5jvbh"]
 
 [sub_resource type="Gradient" id="Gradient_hqns1"]
 offsets = PackedFloat32Array(0.0040568, 0.476673, 1)
@@ -26,6 +29,10 @@ noise = SubResource("FastNoiseLite_81kse")
 shader = ExtResource("4_6r0tv")
 shader_parameter/noise = SubResource("NoiseTexture2D_10q62")
 shader_parameter/colors = SubResource("GradientTexture1D_m1naj")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_367fh"]
+shader = ExtResource("8_5jvbh")
+shader_parameter/color = Color(0.572549, 0.137255, 0.0470588, 1)
 
 [node name="PlayerHealth" type="HBoxContainer"]
 layout_direction = 2
@@ -66,3 +73,8 @@ vertical_alignment = 1
 [node name="HealthSprite" parent="." instance=ExtResource("6_tjt71")]
 visible = true
 layout_mode = 2
+
+[node name="SteadyDisplay" parent="." instance=ExtResource("7_8r418")]
+layout_mode = 2
+icon_texture = ExtResource("8_3lnmp")
+icon_material = SubResource("ShaderMaterial_367fh")

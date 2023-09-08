@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://brb4fmy4dr5vm"]
+
+[ext_resource type="Script" path="res://Scenes/Utility/value_display.gd" id="1_44tm2"]
+[ext_resource type="Texture2D" uid="uid://dy7h4gwy1u5od" path="res://art/strength_icon.svg" id="1_x7jvs"]
+
+[node name="ValueDisplay" type="HBoxContainer"]
+scale = Vector2(1, 0.993568)
+script = ExtResource("1_44tm2")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "0"
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_x7jvs")
+expand_mode = 2

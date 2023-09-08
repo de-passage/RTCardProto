@@ -28,6 +28,6 @@ on_discard_card_effects = Array[ExtResource("2_nkt6n")]([])
 on_exhaust_card_effects = Array[ExtResource("2_nkt6n")]([])
 monetary_value = 50
 rarity = 50
-pools = Array[StringName]([])
+pools = Array[StringName]([&"Unused"])
 tags = Array[StringName]([&"Skill", &"OP"])
 playable = true
