@@ -8,5 +8,17 @@ func _init(v: Dictionary):
 func apply_effect(context: Context):
 	context.require_draw(_count)
 	
-func get_description(context: Context):
-	return "Draw %s"
+func get_description(_context: Context):
+	return "Draw %s" % _count
+
+static func get_metadata(): 
+	return {
+		"name": "Draw",
+		"parameters": [
+			{
+				"name": "Amount",
+				"type": "int",
+				"min": 1
+			}
+		]
+	}

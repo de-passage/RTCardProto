@@ -30,7 +30,7 @@ effectScript = ExtResource("3_2q3i2")
 [resource]
 script = ExtResource("1_6ol5b")
 card_name = "Thrust"
-cost = 0
+cost = 1
 mana_cost = 0
 on_play_card_effects = Array[ExtResource("2_sb450")]([SubResource("Resource_b7ahb"), SubResource("Resource_1euh4")])
 on_draw_card_effects = Array[ExtResource("2_sb450")]([])

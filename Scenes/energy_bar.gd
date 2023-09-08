@@ -86,7 +86,7 @@ func set_energy_no_signal(energy: float):
 
 func force_to_step(step: int): 
 	var current_step = min(floori(pb.ratio * step_count), step_count)
-	var step_value = _range / step_count
+	var step_value = floori(_range / float(step_count))
 	var fract = pb.value - (current_step * step_value)
 	var new_value = (step * step_value) + fract
 	pb.set_value_no_signal(new_value)

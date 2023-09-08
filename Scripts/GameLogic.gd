@@ -143,8 +143,10 @@ func _handle_played_card(played: CardGameInstance, effs: Array[BaseEffect]):
 	self.source = _player
 	for e in effs:
 		e.apply_effect(self)
-		
+	
+	var draw_required = required_draw()
 	_history.card_played(played)
+	
 	if purge_required():
 		Global.remove_from_deck(played.source_instance())
 	elif exhaust_required():
@@ -154,6 +156,9 @@ func _handle_played_card(played: CardGameInstance, effs: Array[BaseEffect]):
 	else:
 		_add_to_hand(played)
 	card_played.emit(played)
+	
+	for x in range(0, draw_required):
+		draw_one_card()
 
 func player() -> Player:
 	return _player

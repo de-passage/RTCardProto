@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b21xx8fwnpvn6"]
+[gd_scene load_steps=15 format=3 uid="uid://b21xx8fwnpvn6"]
 
 [ext_resource type="Theme" uid="uid://dqejunx8h0xid" path="res://Theme/board_ui.tres" id="1_2nki2"]
 [ext_resource type="Script" path="res://Scenes/player_health.gd" id="2_gp0kt"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://lw1chpa2p15w" path="res://art/equip armor white.png" id="5_2iaux"]
 [ext_resource type="PackedScene" uid="uid://kxospeshwxp3" path="res://Scenes/Icons/health_icon.tscn" id="6_tjt71"]
 [ext_resource type="PackedScene" uid="uid://brb4fmy4dr5vm" path="res://Scenes/Utility/value_display.tscn" id="7_8r418"]
-[ext_resource type="Texture2D" uid="uid://b5q3fby6x7a2b" path="res://art/coin_icon.svg" id="8_3lnmp"]
 [ext_resource type="Shader" path="res://Shaders/colorswap.gdshader" id="8_5jvbh"]
 
 [sub_resource type="Gradient" id="Gradient_hqns1"]
@@ -76,5 +75,5 @@ layout_mode = 2
 
 [node name="SteadyDisplay" parent="." instance=ExtResource("7_8r418")]
 layout_mode = 2
-icon_texture = ExtResource("8_3lnmp")
+icon_texture = ExtResource("3_p5175")
 icon_material = SubResource("ShaderMaterial_367fh")

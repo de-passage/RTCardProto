@@ -19,7 +19,7 @@ func _ready():
 	_display()
 
 func _display():
-	_label = str(value)
+	_label.text = str(value)
 	visible = value > 0
 
 func set_value(v: int):

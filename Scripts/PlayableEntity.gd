@@ -73,7 +73,7 @@ var steady: int = 0:
 
 var off_balance: int = 0:
 	set(value):
-		off_balance = 0
+		off_balance = value
 		off_balance_changed.emit(off_balance)
 
 func _init(max_health: int, current_health: int = -1):

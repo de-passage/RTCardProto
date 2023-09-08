@@ -1,6 +1,6 @@
 extends BaseEffect
 
-func _init(v: Dictionary): 
+func _init(_v: Dictionary): 
 	pass
 
 func apply_effect(context: Context):
