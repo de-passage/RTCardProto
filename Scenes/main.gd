@@ -15,6 +15,8 @@ extends Node2D
 @onready var _discard_wound_container = $DiscardPile/DiscardWoundContainer as HBoxContainer
 @onready var _discard_wound_label = $DiscardPile/DiscardWoundContainer/WoundsInDiscard as Label
 
+@onready var _energy_button = $UI/EnergyButton as Button
+
 @export var DRAW_COST = 1
 
 func _ready():
@@ -90,6 +92,12 @@ func _update_mana_label(mana: int):
 func _update_energy(energy: int): 
 	_energy_manager.force_to_step(energy)
 	_energy_label.text = str(energy)
+	_energy_button.disabled = player.energy == player.max_energy
 
 func _on_energy_button_pressed():
-	TimeManager.step()
+	var time_to_next = _energy_manager.time_to_next_step()
+	TimeManager.fast_forward(time_to_next)
+
+func _physics_process(_delta):
+	if Input.is_action_just_pressed("gain_energy"):
+		_on_energy_button_pressed()

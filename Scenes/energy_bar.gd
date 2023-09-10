@@ -2,6 +2,9 @@ extends Control
 
 class_name EnergyBar
 
+# To avoid really small numbers being rounded by the progress bar
+const PROGRESS_BAR_VALUE_MULTIPLIER = 1000
+
 # This signal is sent every time we exceed a step threshold
 signal step_reached(step: int)
 
@@ -17,50 +20,60 @@ signal filled
 	set(value):
 		step_count = min(steps.size(), value)
 		
-@onready var pb = $ProgressBar as ProgressBar
-var sb = StyleBoxFlat.new()
-
-var last_step:int= 0
+@onready var _pb = $ProgressBar as ProgressBar
+var _sb = StyleBoxFlat.new()
 
 func _ready():
-	pb.add_theme_stylebox_override("fill", sb)
-	sb.bg_color = steps[0]
-	sb.set_corner_radius_all(3)
+	_pb.add_theme_stylebox_override("fill", _sb)
+	_sb.bg_color = steps[0]
+	_sb.set_corner_radius_all(3)
+	
+	_pb.min_value = 0.0
+	_pb.max_value = step_count * 1000;
+	_pb.value = 0.0
+	_pb.rounded = false
 	
 	TimeManager.time_changed.connect(_on_time_change)
 
 var shouldprint = false
 
-var _range: int: 
-	get:
-		return pb.max_value - pb.min_value
+func _current_step() -> int: 
+	return floori(_get_value())
+	
+func time_to_next_step() -> float:
+	var already_filled = (_get_value() - _current_step()) * fill_time;
+	return fill_time - already_filled
+
+func _get_value():
+	return _pb.value / PROGRESS_BAR_VALUE_MULTIPLIER
+	
+func _set_value(value: float):
+	_pb.set_value_no_signal(value * PROGRESS_BAR_VALUE_MULTIPLIER)
+
+func _add_to_value(v: float):
+	_pb.set_value_no_signal(_pb.value + v * PROGRESS_BAR_VALUE_MULTIPLIER)
+
+func _max_value(): 
+	return _pb.max_value / PROGRESS_BAR_VALUE_MULTIPLIER
 
 # Every time it is called, increase the bar toward the maximum
 # if it exceeds a step, send a signal
 func _on_time_change(delta):
-	var value_range = (pb.max_value - pb.min_value)
-	var added_ratio = delta / (fill_time * step_count)
-	var ratio_so_far = (pb.value - pb.min_value) / value_range
-	var new_filled_ratio = ratio_so_far + added_ratio
-	var current_step_reached = clamp(floori(new_filled_ratio * step_count), 0, step_count)
 	
 	# We need to update everything before calling the signals, as these may in turn 
 	# update these values
-	var last_step_before_update = last_step
-	last_step = current_step_reached
-
-	# The framework takes care of overflow for us
-	var current_filled_value = max(new_filled_ratio * value_range + pb.min_value, 0) 
-	
-	pb.set_value_no_signal(current_filled_value)
+	var last_step_before_update = _current_step()
+	var diff = delta / fill_time
+	_add_to_value(diff)
+	var current_step = _current_step()
 	
 	# When crossing a new step, send the signal
-	if current_step_reached != last_step_before_update: 
-		step_reached.emit(current_step_reached)
-		_update_color(current_step_reached)
+	if current_step != last_step_before_update: 
+		step_reached.emit(current_step)
+		_update_color()
 	
 	# When completely filled, send the signal
-	if new_filled_ratio >= 1: 
+	if _get_value() >= _max_value(): 
 		if last_step_before_update != step_count:
 			filled.emit()
 	
@@ -69,33 +82,23 @@ func reset_energy():
 	set_energy_no_signal(0)
 	
 func deduct_energy(count: int): 
-	var value_range = pb.max_value - pb.min_value
-	var step_value = value_range / step_count
-	var current_step = last_step
-	set_energy_no_signal(pb.value - (count * step_value))
-	if last_step != current_step:
-		step_reached.emit(last_step)
+	var last_step = _current_step()
+	_set_value(_get_value() - count )
+	var new_step = _current_step()
+	if last_step != new_step:
+		step_reached.emit(new_step)
 		if last_step == step_count:
 			filled.emit()
 	
 func set_energy_no_signal(energy: float): 
-	var expected_value = max(pb.min_value, min(pb.max_value, energy))
-	var current_filled_ratio = expected_value / (pb.max_value - pb.min_value)
-	var inter = current_filled_ratio * step_count
-	var current_step_reached = min(int(round(inter)), step_count)
-	
-	pb.set_value_no_signal(expected_value)
-	last_step = current_step_reached
-	_update_color(current_step_reached)
+	_set_value(energy)
+	_update_color()
 
 func force_to_step(step: int): 
-	var current_step = min(floori(pb.ratio * step_count), step_count)
-	var step_value = floori(_range / float(step_count))
-	var fract = pb.value - (current_step * step_value)
-	var new_value = (step * step_value) + fract
-	pb.set_value_no_signal(new_value)
-	last_step = current_step
-	_update_color(current_step)
+	_set_value(float(step))
+	_update_color()
 
-func _update_color(step: int):
-	sb.bg_color = steps[min(step, steps.size() - 1)]
+func _update_color():
+	var step = _current_step()
+	if steps.size() > step:
+		_sb.bg_color = steps[step]

@@ -6,7 +6,7 @@ signal died(rewards: Dictionary)
 signal effects(effect: Callable)
 
 @onready var _sprite = $Sprite2D
-@onready var _energy_bar = $Control/EnergyBar
+@onready var _energy_bar = $Control/EnergyBar as EnergyBar
 @onready var _health_bar = $Control/Health
 @onready var _label = $Label
 @onready var _intent = $Control/Intent

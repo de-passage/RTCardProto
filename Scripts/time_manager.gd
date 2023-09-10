@@ -9,6 +9,9 @@ signal time_speed_changed(speed: float)
 ## Send on time change (with delta)
 signal time_changed(delta: float)
 
+## Sent on pause
+signal time_paused(p: bool)
+
 ## For some reason the mathdoesn't work with 0, look into it
 ## The result is that the energy bar doesn't fill correctly if the 
 ## default value is 0. There probably are more pb with this
@@ -47,9 +50,10 @@ var _time_since_start: float = START_VALUE:
 var paused: bool = false:
 	set(value):
 		paused = value
-		_actual_time_speed = time_speed if not paused else 0
+		_actual_time_speed = time_speed if not paused else 0.0
+		time_paused.emit(paused)
 
-func _process(delta):
+func _physics_process(delta):
 	var elapsed = delta * _actual_time_speed
 	_time_since_start += elapsed
 	
@@ -66,3 +70,7 @@ func step():
 
 func toggle_pause():
 	paused = not paused
+
+## Fast forward by the number given as input (in seconds)
+func fast_forward(v: float):
+	_time_since_start += v

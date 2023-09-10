@@ -66,6 +66,7 @@ theme = ExtResource("4_413qq")
 [node name="EnergyBar" parent="UI/EnergyContainer" instance=ExtResource("2_0wu1w")]
 layout_mode = 2
 size_flags_horizontal = 3
+fill_time = 3.0
 steps = Array[Color]([Color(1, 0, 0, 1), Color(1, 0.494118, 0, 1), Color(1, 1, 0, 1), Color(0, 1, 0, 1), Color(0, 1, 1, 1)])
 step_count = 3
 

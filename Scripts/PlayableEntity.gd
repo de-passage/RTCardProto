@@ -13,6 +13,7 @@ signal mana_changed(new_value: int)
 signal energy_changed(new_value: int)
 signal steady_changed(new_value: int)
 signal off_balance_changed(new_value: int)
+signal max_energy_changed(new_value: int)
 
 ## Maximum amount of HP an entity may have
 var max_hp: int = 1:
@@ -65,6 +66,13 @@ var energy: int = 0:
 	set(value):
 		energy = value
 		energy_changed.emit(value)
+
+var max_energy: int = 3: 
+	set(value):
+		max_energy = value
+		max_energy_changed.emit(value)
+		if max_energy < energy:
+			energy = max_energy
 
 var steady: int = 0:
 	set(value):

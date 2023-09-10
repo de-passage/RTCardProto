@@ -16,7 +16,7 @@ func _ready():
 	_time_slider.value = TimeManager.time_speed
 	_set_button_text()
 	TimeManager.time_changed.connect(_on_time_changed)
-	
+	TimeManager.time_paused.connect(func (_x): _set_button_text())
 
 func _on_win_button_pressed():
 	_enemy_scene._entity.current_hp = 0
@@ -39,9 +39,14 @@ func _on_time_box_value_changed(value):
 	_time_slider.value = value
 	TimeManager.time_speed = value
 
-func _on_time_changed(t: float):
+func _on_time_changed(_t: float):
 	_current_time.text = "%.4f" % TimeManager._time_since_start;
 
-func _process(delta):
-	_player_bar_label.text = "%s / %s" % [ _player_energy.pb.value, _player_energy.pb.max_value ]
-	_monster_bar_label.text = "%s / %s" % [ _monster_energy.pb.value, _monster_energy.pb.max_value ]
+func _process(_delta):
+	_player_bar_label.text = "Player energy %.2f / %.2f (fill time: %.2f)" % [ _player_energy._get_value(), _player_energy._max_value(), _player_energy.fill_time ]
+	_monster_bar_label.text = "Monster energy %.2f / %.2f (fill time: %.2f)" % [ _monster_energy._get_value(), _monster_energy._max_value(), _monster_energy.fill_time ]
+
+func _physics_process(_delta):
+	if Input.is_action_just_pressed("pause_game"):
+		TimeManager.toggle_pause()
+	
