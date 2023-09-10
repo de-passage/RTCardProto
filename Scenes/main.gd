@@ -18,6 +18,7 @@ extends Node2D
 @export var DRAW_COST = 1
 
 func _ready():
+	TimeManager.reset()
 	player.current_hp = Global.current_health
 	_health_manager.connect_playable_entity(player)
 
@@ -63,9 +64,6 @@ func _on_deck_refreshed():
 func _on_enemy_effects(effect):
 	effect.call(player)
 
-func _on_win_button_pressed():
-	_enemy_scene._entity.current_hp = 0
-
 func _on_hand_discard_changed(new_size):
 	_discard_label.text = str(new_size)
 	_show_wounds_in_discard()
@@ -92,4 +90,6 @@ func _update_mana_label(mana: int):
 func _update_energy(energy: int): 
 	_energy_manager.force_to_step(energy)
 	_energy_label.text = str(energy)
-	
+
+func _on_energy_button_pressed():
+	TimeManager.step()

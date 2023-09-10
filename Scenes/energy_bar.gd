@@ -8,7 +8,7 @@ signal step_reached(step: int)
 # This signal is sent when the bar is completely full (has reached max value)
 signal filled 
 
-# Time (in seconds) to fill the bar completely
+# Time (in seconds) to fill a single step
 @export var fill_time: float = 1
 # Number of steps in the bar
 @export var steps: Array[Color] = [Color.WHITE]
@@ -39,10 +39,10 @@ var _range: int:
 # if it exceeds a step, send a signal
 func _on_time_change(delta):
 	var value_range = (pb.max_value - pb.min_value)
-	var added_ratio = delta / fill_time
+	var added_ratio = delta / (fill_time * step_count)
 	var ratio_so_far = (pb.value - pb.min_value) / value_range
 	var new_filled_ratio = ratio_so_far + added_ratio
-	var current_step_reached = min(floori(new_filled_ratio * step_count), step_count)
+	var current_step_reached = clamp(floori(new_filled_ratio * step_count), 0, step_count)
 	
 	# We need to update everything before calling the signals, as these may in turn 
 	# update these values
@@ -50,7 +50,8 @@ func _on_time_change(delta):
 	last_step = current_step_reached
 
 	# The framework takes care of overflow for us
-	var current_filled_value = new_filled_ratio * value_range + pb.min_value 
+	var current_filled_value = max(new_filled_ratio * value_range + pb.min_value, 0) 
+	
 	pb.set_value_no_signal(current_filled_value)
 	
 	# When crossing a new step, send the signal
@@ -80,7 +81,8 @@ func deduct_energy(count: int):
 func set_energy_no_signal(energy: float): 
 	var expected_value = max(pb.min_value, min(pb.max_value, energy))
 	var current_filled_ratio = expected_value / (pb.max_value - pb.min_value)
-	var current_step_reached = min(floori(current_filled_ratio * step_count), step_count)
+	var inter = current_filled_ratio * step_count
+	var current_step_reached = min(int(round(inter)), step_count)
 	
 	pb.set_value_no_signal(expected_value)
 	last_step = current_step_reached

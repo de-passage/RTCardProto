@@ -9,13 +9,19 @@ signal time_speed_changed(speed: float)
 ## Send on time change (with delta)
 signal time_changed(delta: float)
 
+## For some reason the mathdoesn't work with 0, look into it
+## The result is that the energy bar doesn't fill correctly if the 
+## default value is 0. There probably are more pb with this
+const START_VALUE: float = 0.000001
+
 ## Desired time speed. 1 means the time flows at a normal rate
 ## 0 means it is stopped. The actual speed may be different if the game
 ## is paused
-@export var time_speed: float = 1.0:
+@export var time_speed: float = .001:
 	set(value):
 		time_speed = max(0, value)
-		_actual_time_speed = time_speed
+		if not paused: 
+			_actual_time_speed = time_speed
 		
 ## Desired time speed when slowed down. Keep 0 < this < 1 
 @export var slowed_down: float = 0.3
@@ -26,14 +32,22 @@ signal time_changed(delta: float)
 		_actual_time_speed = value
 		time_speed_changed.emit(_actual_time_speed)
 
-var _time_since_start: float = 0.0:
+var _time_since_start: float = START_VALUE:
 	set(value): 
 		var last = _time_since_start
 		_time_since_start = value
 	
-		time_changed.emit(value - last)		
+		var change = value - last
+		if change > 0:
+			time_changed.emit(change)
+
 		if floorf(last) < floorf(_time_since_start):
 			stepped.emit() 
+
+var paused: bool = false:
+	set(value):
+		paused = value
+		_actual_time_speed = time_speed if not paused else 0
 
 func _process(delta):
 	var elapsed = delta * _actual_time_speed
@@ -41,15 +55,7 @@ func _process(delta):
 	
 ## Sets internal conter to 0
 func reset(): 
-	_time_since_start = 0
-	
-## Pauses time 
-func pause():
-	_actual_time_speed = 0
-
-## Run time at the desired speed
-func run(): 
-	_actual_time_speed = time_speed
+	_time_since_start = START_VALUE
 
 ## Step to the next whole second. For example if 
 ## about 3.2341 seconds have elapsed, calling this 
@@ -57,3 +63,6 @@ func run():
 func step(): 
 	var next: float = floorf(_time_since_start + 1.)
 	_time_since_start = next
+
+func toggle_pause():
+	paused = not paused
