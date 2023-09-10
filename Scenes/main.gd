@@ -96,7 +96,17 @@ func _update_energy(energy: int):
 
 func _on_energy_button_pressed():
 	var time_to_next = _energy_manager.time_to_next_step()
-	TimeManager.fast_forward(time_to_next)
+	var time_to_enemy_next = _enemy_scene.time_to_next()
+	
+	# If the player gets energy first
+	if time_to_next <= time_to_enemy_next: 
+		TimeManager.fast_forward(time_to_next)
+	# Otherwise allow the monster to play and resume filling its bar
+	else:
+		# Let the monster play
+		TimeManager.fast_forward(time_to_enemy_next)
+		# Pretend that the button was pressed again
+		_on_energy_button_pressed()
 
 func _physics_process(_delta):
 	if Input.is_action_just_pressed("gain_energy"):

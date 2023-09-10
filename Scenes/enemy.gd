@@ -85,3 +85,6 @@ func _on_entity_died():
 		Global.REWARD_POTION: null
 	}
 	died.emit(rewards)
+
+func time_to_next() -> float: 
+	return _energy_bar.time_to_next_step()
