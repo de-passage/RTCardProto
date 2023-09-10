@@ -10,3 +10,15 @@ func apply_effect(context: Context):
 	
 func get_description(context: Context):
 	return "Steady x%s (%s)" % [_multiplier, context.source.steady * _multiplier]
+
+static func get_metadata():
+	return {
+		"name": "Multiply steady",
+		"parameters": [
+			{	
+				"type": "int",
+				"name": "Amount",
+				"min": 1
+			}
+		]
+	}

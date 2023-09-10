@@ -10,3 +10,15 @@ func apply_effect(context: Context):
 	
 func get_description(context: Context):
 	return "Armor x%s (%s)" % [_multiplier, context.source.armor * _multiplier]
+
+static func get_metadata():
+	return {
+		"name": "Multiply armor",
+		"parameters": [
+			{	
+				"type": "int",
+				"name": "Amount",
+				"min": 1
+			}
+		]
+	}

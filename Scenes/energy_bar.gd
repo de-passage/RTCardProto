@@ -26,6 +26,8 @@ func _ready():
 	pb.add_theme_stylebox_override("fill", sb)
 	sb.bg_color = steps[0]
 	sb.set_corner_radius_all(3)
+	
+	TimeManager.time_changed.connect(_on_time_change)
 
 var shouldprint = false
 
@@ -35,7 +37,7 @@ var _range: int:
 
 # Every time it is called, increase the bar toward the maximum
 # if it exceeds a step, send a signal
-func _process(delta):
+func _on_time_change(delta):
 	var value_range = (pb.max_value - pb.min_value)
 	var added_ratio = delta / fill_time
 	var ratio_so_far = (pb.value - pb.min_value) / value_range

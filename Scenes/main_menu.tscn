@@ -45,10 +45,15 @@ layout_mode = 2
 theme = ExtResource("1_fjfcd")
 text = "Start"
 
+[node name="OptionButton" type="Button" parent="TextureRect/Buttons"]
+layout_mode = 2
+text = "Options"
+
 [node name="QuitButton" type="Button" parent="TextureRect/Buttons"]
 layout_mode = 2
 text = "Quit
 "
 
 [connection signal="pressed" from="TextureRect/Buttons/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="TextureRect/Buttons/OptionButton" to="." method="_on_option_button_pressed"]
 [connection signal="pressed" from="TextureRect/Buttons/QuitButton" to="." method="_on_quit_button_pressed"]

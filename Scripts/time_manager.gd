@@ -6,11 +6,17 @@ signal stepped()
 ## Sent on change of actual time speed
 signal time_speed_changed(speed: float)
 
+## Send on time change (with delta)
+signal time_changed(delta: float)
+
 ## Desired time speed. 1 means the time flows at a normal rate
 ## 0 means it is stopped. The actual speed may be different if the game
 ## is paused
-@export var time_speed: float = 0
-
+@export var time_speed: float = 1.0:
+	set(value):
+		time_speed = max(0, value)
+		_actual_time_speed = time_speed
+		
 ## Desired time speed when slowed down. Keep 0 < this < 1 
 @export var slowed_down: float = 0.3
 
@@ -24,6 +30,8 @@ var _time_since_start: float = 0.0:
 	set(value): 
 		var last = _time_since_start
 		_time_since_start = value
+	
+		time_changed.emit(value - last)		
 		if floorf(last) < floorf(_time_since_start):
 			stepped.emit() 
 
