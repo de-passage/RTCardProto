@@ -21,6 +21,7 @@ Global="*res://Scripts/global.gd"
 Maze="*res://Scripts/maze.gd"
 Statuses="*res://Scripts/statuses.gd"
 Tags="*res://Scripts/tags.gd"
+TimeManager="*res://Scripts/time_manager.gd"
 
 [display]
 
