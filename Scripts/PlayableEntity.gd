@@ -64,12 +64,15 @@ var mana: int = 0:
 ## Available energy
 var energy: int = 0:
 	set(value):
-		energy = value
-		energy_changed.emit(value)
+		var last = energy
+		energy = clamp(value, 0, max_energy)
+		if last != energy: 
+			energy_changed.emit(value)
 
+## Maximum possible energy
 var max_energy: int = 3: 
 	set(value):
-		max_energy = value
+		max_energy = max(1, value)
 		max_energy_changed.emit(value)
 		if max_energy < energy:
 			energy = max_energy
@@ -101,3 +104,5 @@ func deal_damage(damage: int):
 		current_hp += after_armor
 		steady = 0
 
+func attack(pl: PlayableEntity, damage: int): 
+	pl.deal_damage(damage + steady)

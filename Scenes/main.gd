@@ -6,7 +6,7 @@ extends Node2D
 @onready var _health_manager = $UI/Health
 @onready var _energy_manager = $UI/EnergyContainer/EnergyBar as EnergyBar
 @onready var _energy_label = $UI/EnergyContainer/EnergyCount as Label
-@onready var _enemy_scene = $Enemy
+@onready var _enemy_scene = $Enemy as Enemy
 @onready var _discard_label = $DiscardPile/DiscardLabel
 @onready var _deck = $Deck
 @onready var _exhaust_pile = $ExhaustTexture

@@ -27,7 +27,7 @@ shader = ExtResource("3_rde1c")
 shader_parameter/noise = SubResource("NoiseTexture2D_10q62")
 shader_parameter/colors = SubResource("GradientTexture1D_m1naj")
 
-[node name="Health" type="HBoxContainer"]
+[node name="StatusSynopsis" type="HBoxContainer"]
 layout_direction = 2
 offset_right = 263.0
 offset_bottom = 58.0

@@ -38,7 +38,7 @@ offset_top = -89.0
 offset_right = 107.0
 offset_bottom = -79.0
 fill_time = 5.0
-steps = Array[Color]([Color(1, 0, 0, 1)])
+steps = Array[Color]([Color(1, 0, 0, 1), Color(1, 0.407843, 0, 1), Color(0.945098, 0.784314, 0, 1), Color(0.458824, 0.776471, 0, 1), Color(0, 0.788235, 0.698039, 1), Color(0, 0.843137, 1, 1), Color(0, 0.298039, 1, 1)])
 step_count = 1
 
 [node name="Intent" type="Label" parent="Control"]
@@ -50,6 +50,14 @@ offset_right = 107.0
 offset_bottom = -90.0
 text = "I'm scared!"
 horizontal_alignment = 1
+
+[node name="EnergyLabel" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 115.0
+offset_top = -97.0
+offset_right = 155.0
+offset_bottom = -71.0
+text = "0"
 
 [node name="Label" type="Label" parent="."]
 anchors_preset = 8

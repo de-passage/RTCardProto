@@ -19,6 +19,8 @@ signal filled
 @export var step_count: int:
 	set(value):
 		step_count = min(steps.size(), value)
+		if _pb != null: 
+			_pb.max_value = step_count * 1000
 		
 @onready var _pb = $ProgressBar as ProgressBar
 var _sb = StyleBoxFlat.new()

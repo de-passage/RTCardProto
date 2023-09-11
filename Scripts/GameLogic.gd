@@ -99,6 +99,7 @@ func discard(discarded_card: CardDeckInstance) -> bool:
 		_history.card_discarded(card_from_hand)
 		self._player.mana += 2
 		self.set_card_effect(Context.FORCE_DISCARD)
+		
 		_handle_played_card(card_from_hand, card_from_hand.on_discard())
 	else:
 		printerr("Invalid card discarded!")
@@ -146,9 +147,12 @@ func _handle_played_card(played: CardGameInstance, effs: Array[BaseEffect]):
 		e.apply_effect(self)
 	
 	var draw_required = required_draw()
-	_history.card_played(played)
+	
+	if effs.size() > 0: 
+		_history.card_played(played)
 	
 	if purge_required():
+		_history.card_purged(played)
 		Global.remove_from_deck(played.source_instance())
 	elif exhaust_required():
 		_add_to_exhaust(played)

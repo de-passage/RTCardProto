@@ -4,7 +4,7 @@ func _init(_v: Dictionary):
 	pass
 
 func apply_effect(context: Context):
-	context.target.deal_damage(_effect_value(context))
+	context.source.attack(context.target, _effect_value(context))
 
 func get_description(context: Context):
 	return "Deal as much damage as you have armor (%s)" % _effect_value(context)

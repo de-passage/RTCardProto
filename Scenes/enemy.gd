@@ -5,11 +5,12 @@ class_name Enemy
 signal died(rewards: Dictionary)
 signal effects(effect: Callable)
 
-@onready var _sprite = $Sprite2D
+@onready var _sprite = $Sprite2D as Sprite2D
 @onready var _energy_bar = $Control/EnergyBar as EnergyBar
-@onready var _health_bar = $Control/Health
-@onready var _label = $Label
-@onready var _intent = $Control/Intent
+@onready var _health_bar = $Control/Health as StatusSynopsis
+@onready var _label = $Label as Label
+@onready var _intent = $Control/Intent as Label
+@onready var _energy_label = $Control/EnergyLabel as Label
 
 var _resource: EnemyResource
 var _entity: PlayableEntity
@@ -22,15 +23,17 @@ func initialize(entityResource: EnemyResource, player: PlayableEntity, game: Con
 	_resource = entityResource
 	_game_logic = game
 	
-	_entity = PlayableEntity.new(_resource.health)
-	_entity.died.connect(_on_entity_died)
-	_entity.max_energy = 10
-	_entity.energy = 0
-	
 	_card_list.clear()
+	var max_card_cost = 1
 	for effect in _resource.effects:
 		if effect != null:
+			max_card_cost = max(max_card_cost, effect.cost)
 			_card_list.append(CardGameInstance.from_resource(effect))
+	
+	_entity = PlayableEntity.new(_resource.health)
+	_entity.died.connect(_on_entity_died)
+	_entity.max_energy = max_card_cost
+	_entity.energy = 0
 	
 	if _card_list.is_empty():
 		_card_list.append(CardGameInstance.from_resource(preload("res://Cards/Enemy/weakattack.tres")))
@@ -39,7 +42,9 @@ func initialize(entityResource: EnemyResource, player: PlayableEntity, game: Con
 	_sprite.material = _resource.shader
 	
 	_energy_bar.fill_time = _resource.attack_frequency
-	_energy_bar.step_count = max(_card_list[0].energy_cost(), 0)
+	_energy_bar.step_count = max_card_cost
+	
+	_energy_label.text = "%s / %s" % [ _entity.energy, _energy_bar._max_value() ]
 	
 	_health_bar.connect_playable_entity(_entity)
 	_label.text = _resource.name
@@ -58,7 +63,6 @@ func cast_effect():
 	effects.emit(func(player): 
 		_apply_card(player, card)
 		show_intent(player))
-	_energy_bar.step_count = max(0, card.energy_cost())
 
 func _apply_card(player: Player, card: CardGameInstance):
 	_game_logic.source = _entity
@@ -80,8 +84,9 @@ func show_intent(player: PlayableEntity):
 			_game_logic.current_card = card
 			_game_logic.target = player
 			text += effect.get_description(_game_logic)
-	
-	_intent.text = text 
+		text += " (%s)" % card.energy_cost()
+		
+	_intent.text = text
 
 func get_entity() -> PlayableEntity:
 	return _entity
@@ -101,6 +106,7 @@ func time_to_next() -> float:
 
 func _on_energy_bar_step_reached(step):
 	_entity.energy = step
+	_energy_label.text = "%s / %s" % [_entity.energy, _energy_bar._max_value()]
 	
 	var current_card = _card_list[_current_effect]
 	var card_cost = max(current_card.energy_cost(), 1) # TODO this is wrong, but the monster cards are wrong too

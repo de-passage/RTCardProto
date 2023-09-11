@@ -5,7 +5,7 @@ func _init(v: Dictionary):
 	description = "Deal %s damage"
 
 func apply_effect(context: Context):
-	context.target.deal_damage(_total_effect(context.source))
+	context.source.attack(context.target, _total_effect(context.source))
 
 static func get_metadata():
 	return {
