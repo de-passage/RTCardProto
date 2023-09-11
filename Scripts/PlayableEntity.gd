@@ -6,6 +6,7 @@ signal died
 signal max_hp_changed(new_value: int)
 signal current_hp_changed(new_value: int)
 signal armor_changed(new_value: int)
+signal defense_changed(new_value: int)
 signal strength_changed(new_value: int)
 signal heal_power_changed(new_value: int)
 signal resistance_changed(new_value: int)
@@ -87,22 +88,39 @@ var off_balance: int = 0:
 		off_balance = value
 		off_balance_changed.emit(off_balance)
 
+var defense: int = 0: 
+	set(value):
+		defense = max(0, value)
+		defense_changed.emit(defense)
+
 func _init(max_health: int, current_health: int = -1):
 	max_hp = max_health
 	current_hp = current_health if current_health > 0 else max_health
 
-
-## Deal damage to the entity, reducing armor then HP. 
-## Manipulate current_hp directly to ignore armor
+## Deal damage to the entity, reducing defensem then armor then HP. 
+## Use wound() to ignore armor and defense
 func deal_damage(damage: int): 
-	var after_armor = armor - damage;
-	# Armor absorbs all the damage
-	if after_armor >= 0: 
-		armor = after_armor
-	elif after_armor < 0:
-		armor = 0
-		current_hp += after_armor
-		steady = 0
+	var absorbed_by_defense = min(defense, damage)
+	defense -= absorbed_by_defense
+	damage -= absorbed_by_defense
+	
+	if damage <= 0: return
+	
+	var absorbed_by_armor = min(armor, damage)
+	armor -= absorbed_by_armor
+	damage -= absorbed_by_armor
+	
+	if damage <= 0: return 
+
+	steady = 0
+	wound(damage)
+
+func wound(hp_loss: int): 
+	current_hp -= hp_loss 
 
 func attack(pl: PlayableEntity, damage: int): 
 	pl.deal_damage(damage + steady)
+
+func card_played(card: CardGameInstance): 
+	if card.has_tag(Tags.ATTACK):
+		self.steady = 0
