@@ -68,4 +68,4 @@ theme_override_font_sizes/font_size = 20
 text = "Mob Name"
 horizontal_alignment = 1
 
-[connection signal="filled" from="Control/EnergyBar" to="." method="_on_energy_bar_filled"]
+[connection signal="step_reached" from="Control/EnergyBar" to="." method="_on_energy_bar_step_reached"]

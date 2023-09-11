@@ -76,6 +76,7 @@ func _fill_hand():
 ## Play the given card on the enemy. This should probably use
 ## the local _player variable directly.
 func play(played_card: CardGameInstance, enemy: PlayableEntity) -> bool:
+		
 	var idx = _hand.find(played_card)
 	if idx >= 0:
 		var card_from_hand = _hand.pop_at(idx)

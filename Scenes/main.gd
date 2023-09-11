@@ -95,6 +95,9 @@ func _update_energy(energy: int):
 	_energy_button.disabled = player.energy == player.max_energy
 
 func _on_energy_button_pressed():
+	if player.energy == player.max_energy: 
+		return
+
 	var time_to_next = _energy_manager.time_to_next_step()
 	var time_to_enemy_next = _enemy_scene.time_to_next()
 	
