@@ -1,0 +1,102 @@
+[gd_scene load_steps=17 format=3 uid="uid://ultc08hjwkt7"]
+
+[ext_resource type="Script" path="res://Scenes/common_values.gd" id="1_jy37r"]
+[ext_resource type="PackedScene" uid="uid://brb4fmy4dr5vm" path="res://Scenes/Utility/value_display.tscn" id="2_r13tq"]
+[ext_resource type="Script" path="res://Scenes/Icons/DefenseDisplay.gd" id="3_u8w1u"]
+[ext_resource type="Texture2D" uid="uid://lw1chpa2p15w" path="res://art/equip armor white.png" id="4_o773a"]
+[ext_resource type="Material" uid="uid://dafcnrpr6c7sa" path="res://Shaders/armor_icon.tres" id="5_cmvje"]
+[ext_resource type="Shader" path="res://Scenes/albedo.gdshader" id="6_5hawq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sh1x2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mji5"]
+bg_color = Color(0.952941, 0.415686, 0, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="Theme" id="Theme_odj6n"]
+ProgressBar/styles/background = SubResource("StyleBoxEmpty_sh1x2")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_7mji5")
+
+[sub_resource type="Shader" id="Shader_ldlrt"]
+code = "shader_type canvas_item;
+
+uniform sampler2D noise;
+uniform sampler2D colors;
+
+void fragment() {
+	vec4 p = texture(TEXTURE, UV);
+	vec4 n = texture(noise, UV);
+	vec4 c = texture(colors, vec2(n.r,n.r));
+
+	COLOR.rgba = p * c;
+}
+"
+
+[sub_resource type="Gradient" id="Gradient_oqcd3"]
+offsets = PackedFloat32Array(0, 0.457143, 1)
+colors = PackedColorArray(0.937255, 0.380392, 0.101961, 1, 0.67451, 0.188235, 0.00784314, 1, 0.290196, 0.12549, 0.156863, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_x5kvr"]
+gradient = SubResource("Gradient_oqcd3")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ffqkx"]
+seed = 2
+frequency = 0.0015
+fractal_lacunarity = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_m7igb"]
+noise = SubResource("FastNoiseLite_ffqkx")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lxu6e"]
+shader = SubResource("Shader_ldlrt")
+shader_parameter/noise = SubResource("NoiseTexture2D_m7igb")
+shader_parameter/colors = SubResource("GradientTexture1D_x5kvr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ft8f6"]
+shader = ExtResource("6_5hawq")
+shader_parameter/color = Color(0.607843, 0.470588, 0, 1)
+
+[node name="CommonValueDisplay" type="HBoxContainer"]
+script = ExtResource("1_jy37r")
+
+[node name="StrengthDisplay" parent="." instance=ExtResource("2_r13tq")]
+layout_mode = 2
+
+[node name="DefenseDisplay" type="HBoxContainer" parent="."]
+layout_mode = 2
+script = ExtResource("3_u8w1u")
+
+[node name="DefenseProgressBar" type="ProgressBar" parent="DefenseDisplay"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme = SubResource("Theme_odj6n")
+max_value = 1000.0
+value = 748.0
+fill_mode = 3
+show_percentage = false
+
+[node name="CurrentDefense" type="Label" parent="DefenseDisplay"]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="DefenseSprite" type="TextureRect" parent="DefenseDisplay"]
+material = SubResource("ShaderMaterial_lxu6e")
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("4_o773a")
+expand_mode = 2
+
+[node name="ArmorDisplay" parent="." instance=ExtResource("2_r13tq")]
+layout_mode = 2
+icon_texture = ExtResource("4_o773a")
+icon_material = ExtResource("5_cmvje")
+
+[node name="SteadyDisplay" parent="." instance=ExtResource("2_r13tq")]
+layout_mode = 2
+icon_material = SubResource("ShaderMaterial_ft8f6")

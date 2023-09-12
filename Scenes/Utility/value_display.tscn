@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dy7h4gwy1u5od" path="res://art/strength_icon.svg" id="1_x7jvs"]
 
 [node name="ValueDisplay" type="HBoxContainer"]
+visible = false
 scale = Vector2(1, 0.993568)
 script = ExtResource("1_44tm2")
 

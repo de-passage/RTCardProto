@@ -35,9 +35,12 @@ func _ready():
 	_display()
 
 func _display():
-	_label.text = str(value)
+	_set_text()
 	visible = always_visible or value > 0
 
 func set_value(v: int):
 	value = v
 	_display()
+
+func _set_text():
+	_label.text = str(value)

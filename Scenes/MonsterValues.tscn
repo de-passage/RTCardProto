@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://cldmdqaai3y06"]
+
+[ext_resource type="Theme" uid="uid://dqejunx8h0xid" path="res://Theme/board_ui.tres" id="1_or3bg"]
+[ext_resource type="Script" path="res://Scenes/MonsterValues.gd" id="2_wksbx"]
+[ext_resource type="PackedScene" uid="uid://c6jeyxjt84k0m" path="res://Scenes/Utility/value_display_with_max.tscn" id="3_a530d"]
+[ext_resource type="PackedScene" uid="uid://ultc08hjwkt7" path="res://Scenes/common_value_display.tscn" id="4_r5n25"]
+[ext_resource type="Texture2D" uid="uid://kpba32u4fw60" path="res://art/fantasy heart.png" id="4_urx5y"]
+
+[node name="MonsterStatus" type="HBoxContainer"]
+layout_direction = 2
+offset_right = 263.0
+offset_bottom = 58.0
+theme = ExtResource("1_or3bg")
+alignment = 1
+script = ExtResource("2_wksbx")
+
+[node name="HealthDisplay" parent="." instance=ExtResource("3_a530d")]
+visible = true
+layout_mode = 2
+always_visible = true
+icon_texture = ExtResource("4_urx5y")
+
+[node name="CommonValueDisplay" parent="." instance=ExtResource("4_r5n25")]
+layout_mode = 2
