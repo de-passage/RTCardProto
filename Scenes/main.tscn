@@ -9,15 +9,15 @@
 [ext_resource type="PackedScene" uid="uid://d2xo6yskfupnw" path="res://Scenes/enemy.tscn" id="6_bcqkl"]
 [ext_resource type="Theme" uid="uid://yty6gw6q8r7v" path="res://Theme/hud_theme.tres" id="6_hsa0e"]
 [ext_resource type="Script" path="res://Scenes/Hand.gd" id="6_pv0oh"]
-[ext_resource type="Shader" path="res://Scenes/discard_pile.gdshader" id="10_eyx3f"]
+[ext_resource type="Shader" path="res://Shaders/discard_pile.gdshader" id="10_2t28b"]
 [ext_resource type="PackedScene" uid="uid://kxospeshwxp3" path="res://Scenes/Icons/health_icon.tscn" id="11_12raq"]
 [ext_resource type="Texture2D" uid="uid://dcil7jaqaiw4g" path="res://art/card fantasy back.png" id="11_kd8rg"]
-[ext_resource type="Shader" path="res://Scenes/exhaust_pile.gdshader" id="12_7r6q2"]
+[ext_resource type="Shader" path="res://Shaders/exhaust_pile.gdshader" id="13_mtwfu"]
 [ext_resource type="FontFile" uid="uid://bsk6op0lpnbwx" path="res://font/NeverMindsemi-serif-Regular.ttf" id="13_xluq7"]
 [ext_resource type="Script" path="res://Scenes/DebugBox.gd" id="14_yduh5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pygco"]
-shader = ExtResource("10_eyx3f")
+shader = ExtResource("10_2t28b")
 
 [sub_resource type="LabelSettings" id="LabelSettings_fnlvg"]
 font_size = 420
@@ -26,7 +26,7 @@ font_size = 420
 font_size = 96
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6w4e5"]
-shader = ExtResource("12_7r6q2")
+shader = ExtResource("13_mtwfu")
 shader_parameter/color = Color(0.168627, 0, 0.172549, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_2kkvr"]

@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scenes/card.gd" id="1_r3t5n"]
 [ext_resource type="Texture2D" uid="uid://cqonhtyrxpgnw" path="res://art/card fantasy iron.png" id="2_g3okb"]
 [ext_resource type="FontFile" uid="uid://bsk6op0lpnbwx" path="res://font/NeverMindsemi-serif-Regular.ttf" id="3_noxvo"]
-[ext_resource type="Shader" path="res://Scenes/mana.gdshader" id="5_f7r6e"]
+[ext_resource type="Shader" path="res://Shaders/mana.gdshader" id="5_f7r6e"]
 
 [sub_resource type="Theme" id="Theme_0m0ib"]
 default_base_scale = 1.0

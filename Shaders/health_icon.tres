@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bubkdlqqkn3o6"]
 
-[ext_resource type="Shader" path="res://Scenes/wound_drop.gdshader" id="1_05npe"]
+[ext_resource type="Shader" path="res://Shaders/wound_drop.gdshader" id="1_05npe"]
 
 [resource]
 shader = ExtResource("1_05npe")

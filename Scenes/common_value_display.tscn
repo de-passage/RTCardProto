@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://Scenes/Icons/DefenseDisplay.gd" id="3_u8w1u"]
 [ext_resource type="Texture2D" uid="uid://lw1chpa2p15w" path="res://art/equip armor white.png" id="4_o773a"]
 [ext_resource type="Material" uid="uid://dafcnrpr6c7sa" path="res://Shaders/armor_icon.tres" id="5_cmvje"]
-[ext_resource type="Shader" path="res://Scenes/albedo.gdshader" id="6_5hawq"]
+[ext_resource type="Shader" path="res://Shaders/albedo.gdshader" id="6_5hawq"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sh1x2"]
 
