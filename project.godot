@@ -22,6 +22,7 @@ Maze="*res://Scripts/maze.gd"
 Statuses="*res://Scripts/statuses.gd"
 Tags="*res://Scripts/tags.gd"
 TimeManager="*res://Scripts/time_manager.gd"
+GameInternalValues="*res://Scripts/game_internal_values.gd"
 
 [display]
 

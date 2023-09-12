@@ -20,9 +20,13 @@ extends Node2D
 
 func _ready():
 	TimeManager.reset()
+	
 	player.current_hp = Global.current_health
 	_values_manager.connect_playable_entity(player)
 
+	_energy_manager.fill_time = GameInternalValues.get_fill_time()
+	GameInternalValues.fill_time_changed.connect(func(x): _energy_manager.fill_time = x)
+	
 	player.died.connect(_on_player_died)
 	player.mana_changed.connect(_update_mana_label)
 	player.energy_changed.connect(_update_energy)

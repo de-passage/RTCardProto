@@ -2,7 +2,6 @@ extends Sprite2D
 
 @onready var _refresh_pivot = $RefreshPivot
 @onready var _card_count_display = $Control/Label as Label
-@onready var _wound_count = $Control/WoundDisplay/Label as Label
 @onready var _wound_display = $Control/WoundDisplay as ValueDisplay
 
 signal refreshed

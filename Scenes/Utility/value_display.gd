@@ -4,8 +4,8 @@ extends HBoxContainer
 class_name ValueDisplay
 
 @export var always_visible: bool = false:
-	set(value):
-		always_visible = value
+	set(v):
+		always_visible = v
 		if always_visible: 
 			visible = true
 
