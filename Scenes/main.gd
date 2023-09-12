@@ -12,8 +12,7 @@ extends Node2D
 @onready var _exhaust_pile = $ExhaustTexture
 @onready var _exhaust_label = $ExhaustTexture/ExhaustLabel
 @onready var _mana_label = $ManaLabel
-@onready var _discard_wound_container = $DiscardPile/DiscardWoundContainer as HBoxContainer
-@onready var _discard_wound_label = $DiscardPile/DiscardWoundContainer/WoundsInDiscard as Label
+@onready var _discard_wound_container = $DiscardPile/DiscardWoundDisplay as ValueDisplay
 
 @onready var _energy_button = $UI/EnergyButton as Button
 
@@ -72,8 +71,7 @@ func _on_hand_discard_changed(new_size):
 	
 func _show_wounds_in_discard():
 	var wounds = _manager.wounds_in_discard()
-	_discard_wound_container.visible = wounds > 0
-	_discard_wound_label.text = str(wounds)
+	_discard_wound_container.set_value(wounds)
 
 func _on_hand_draw_pile_changed(new_size):
 	_deck.change_card_count(new_size)

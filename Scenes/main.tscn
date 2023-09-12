@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dn6si7yuphnq6"]
+[gd_scene load_steps=25 format=3 uid="uid://dn6si7yuphnq6"]
 
 [ext_resource type="Script" path="res://Scenes/main.gd" id="1_hbbjb"]
 [ext_resource type="PackedScene" uid="uid://tvjk1wf42fsi" path="res://Scenes/deck.tscn" id="1_rnv0a"]
@@ -10,11 +10,14 @@
 [ext_resource type="Theme" uid="uid://yty6gw6q8r7v" path="res://Theme/hud_theme.tres" id="6_hsa0e"]
 [ext_resource type="Script" path="res://Scenes/Hand.gd" id="6_pv0oh"]
 [ext_resource type="Shader" path="res://Shaders/discard_pile.gdshader" id="10_2t28b"]
-[ext_resource type="PackedScene" uid="uid://kxospeshwxp3" path="res://Scenes/Icons/health_icon.tscn" id="11_12raq"]
 [ext_resource type="Texture2D" uid="uid://dcil7jaqaiw4g" path="res://art/card fantasy back.png" id="11_kd8rg"]
 [ext_resource type="Shader" path="res://Shaders/exhaust_pile.gdshader" id="13_mtwfu"]
+[ext_resource type="PackedScene" uid="uid://brb4fmy4dr5vm" path="res://Scenes/Utility/value_display.tscn" id="13_smp33"]
 [ext_resource type="FontFile" uid="uid://bsk6op0lpnbwx" path="res://font/NeverMindsemi-serif-Regular.ttf" id="13_xluq7"]
+[ext_resource type="Texture2D" uid="uid://djqtqp88xfokm" path="res://art/drop_icon.svg" id="14_43em8"]
 [ext_resource type="Script" path="res://Scenes/DebugBox.gd" id="14_yduh5"]
+[ext_resource type="Shader" path="res://Shaders/wound_drop.gdshader" id="15_061uj"]
+[ext_resource type="LabelSettings" uid="uid://bua8e5t32uyc6" path="res://Theme/deck_font_style.tres" id="15_iy48b"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pygco"]
 shader = ExtResource("10_2t28b")
@@ -22,8 +25,8 @@ shader = ExtResource("10_2t28b")
 [sub_resource type="LabelSettings" id="LabelSettings_fnlvg"]
 font_size = 420
 
-[sub_resource type="LabelSettings" id="LabelSettings_1daeh"]
-font_size = 96
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yylbw"]
+shader = ExtResource("15_061uj")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6w4e5"]
 shader = ExtResource("13_mtwfu")
@@ -131,27 +134,21 @@ label_settings = SubResource("LabelSettings_fnlvg")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DiscardWoundContainer" type="HBoxContainer" parent="DiscardPile"]
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -372.0
-offset_top = -542.5
-offset_right = -372.0
-offset_bottom = -519.5
-grow_horizontal = 2
-grow_vertical = 0
-alignment = 1
+[node name="DiscardWoundDisplay" parent="DiscardPile" instance=ExtResource("13_smp33")]
+custom_minimum_size = Vector2(64, 64)
+offset_left = -96.0
+offset_top = 348.0
+offset_right = 85.0
+offset_bottom = 467.0
+icon_texture = ExtResource("14_43em8")
+icon_material = SubResource("ShaderMaterial_yylbw")
 
-[node name="WoundsInDiscard" type="Label" parent="DiscardPile/DiscardWoundContainer"]
-layout_mode = 2
-text = "0"
-label_settings = SubResource("LabelSettings_1daeh")
+[node name="Label" parent="DiscardPile/DiscardWoundDisplay" index="0"]
+label_settings = ExtResource("15_iy48b")
 
-[node name="HealthIcon" parent="DiscardPile/DiscardWoundContainer" instance=ExtResource("11_12raq")]
-visible = true
-layout_mode = 2
+[node name="Icon" parent="DiscardPile/DiscardWoundDisplay" index="1"]
+material = SubResource("ShaderMaterial_yylbw")
+texture = ExtResource("14_43em8")
 
 [node name="ExhaustTexture" type="ColorRect" parent="."]
 visible = false
@@ -244,3 +241,5 @@ layout_mode = 2
 [connection signal="pressed" from="DebugBox/PauseButton" to="DebugBox" method="_on_button_pressed"]
 [connection signal="value_changed" from="DebugBox/TimeControl/TimeSlider" to="DebugBox" method="_on_time_slider_value_changed"]
 [connection signal="value_changed" from="DebugBox/TimeControl/TimeBox" to="DebugBox" method="_on_time_box_value_changed"]
+
+[editable path="DiscardPile/DiscardWoundDisplay"]

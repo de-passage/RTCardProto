@@ -1,18 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://tvjk1wf42fsi"]
+[gd_scene load_steps=9 format=3 uid="uid://tvjk1wf42fsi"]
 
 [ext_resource type="Texture2D" uid="uid://dcil7jaqaiw4g" path="res://art/card fantasy back.png" id="1_o0frx"]
 [ext_resource type="Script" path="res://Scenes/deck.gd" id="2_oscgu"]
-[ext_resource type="FontFile" uid="uid://bsk6op0lpnbwx" path="res://font/NeverMindsemi-serif-Regular.ttf" id="3_dm4hu"]
-[ext_resource type="PackedScene" uid="uid://kxospeshwxp3" path="res://Scenes/Icons/health_icon.tscn" id="3_tal58"]
+[ext_resource type="PackedScene" uid="uid://brb4fmy4dr5vm" path="res://Scenes/Utility/value_display.tscn" id="3_e7cen"]
+[ext_resource type="Texture2D" uid="uid://djqtqp88xfokm" path="res://art/drop_icon.svg" id="4_nldvb"]
+[ext_resource type="Shader" path="res://Shaders/wound_drop.gdshader" id="5_5ols7"]
+[ext_resource type="LabelSettings" uid="uid://bua8e5t32uyc6" path="res://Theme/deck_font_style.tres" id="6_q7erb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xwhi2"]
 size = Vector2(20.7714, 28.943)
 
-[sub_resource type="LabelSettings" id="LabelSettings_1qq72"]
-font = ExtResource("3_dm4hu")
-font_size = 96
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_blg1s"]
+shader = ExtResource("5_5ols7")
 
-[node name="Sprite2D" type="Sprite2D"]
+[node name="Deck" type="Sprite2D"]
 position = Vector2(377, 524)
 texture = ExtResource("1_o0frx")
 script = ExtResource("2_oscgu")
@@ -55,24 +56,23 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 420
 text = "10"
 
-[node name="WoundDisplay" type="HBoxContainer" parent="Control"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -26.0
-grow_horizontal = 2
-grow_vertical = 0
-alignment = 1
-
-[node name="Label" type="Label" parent="Control/WoundDisplay"]
-layout_mode = 2
-text = "0"
-label_settings = SubResource("LabelSettings_1qq72")
-
-[node name="HealthIcon" parent="Control/WoundDisplay" instance=ExtResource("3_tal58")]
+[node name="WoundDisplay" parent="Control" instance=ExtResource("3_e7cen")]
 visible = true
-layout_mode = 2
+custom_minimum_size = Vector2(64, 64)
+offset_left = 290.0
+offset_top = 876.5
+offset_right = 471.0
+offset_bottom = 995.5
+icon_texture = ExtResource("4_nldvb")
+icon_material = SubResource("ShaderMaterial_blg1s")
+
+[node name="Label" parent="Control/WoundDisplay" index="0"]
+label_settings = ExtResource("6_q7erb")
+
+[node name="Icon" parent="Control/WoundDisplay" index="1"]
+material = SubResource("ShaderMaterial_blg1s")
+texture = ExtResource("4_nldvb")
 
 [connection signal="input_event" from="RefreshPivot/Area2D" to="." method="_on_area_2d_input_event"]
+
+[editable path="Control/WoundDisplay"]

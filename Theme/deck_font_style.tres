@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://bua8e5t32uyc6"]
+
+[ext_resource type="FontFile" uid="uid://bsk6op0lpnbwx" path="res://font/NeverMindsemi-serif-Regular.ttf" id="1_d0ksb"]
+
+[resource]
+line_spacing = 0.0
+font = ExtResource("1_d0ksb")
+font_size = 96
