@@ -1,4 +1,5 @@
 extends MarginContainer
+class_name DeckPanel
 
 signal deck_panel_closed
 signal card_selected(card: CardDeckInstance)

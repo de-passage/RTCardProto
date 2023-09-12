@@ -3,9 +3,9 @@
 [ext_resource type="Theme" uid="uid://yty6gw6q8r7v" path="res://Theme/hud_theme.tres" id="1_6ftgh"]
 [ext_resource type="Script" path="res://Scenes/hud.gd" id="2_bhj1u"]
 [ext_resource type="Material" uid="uid://b1hbwrmplmn0c" path="res://Shaders/coin_material.tres" id="3_2kx3j"]
-[ext_resource type="PackedScene" uid="uid://kxospeshwxp3" path="res://Scenes/Icons/health_icon.tscn" id="3_qgg4n"]
+[ext_resource type="PackedScene" uid="uid://ll4inm0uawj4" path="res://Scenes/Icons/health_display.tscn" id="3_rjtug"]
+[ext_resource type="PackedScene" uid="uid://brb4fmy4dr5vm" path="res://Scenes/Utility/value_display.tscn" id="4_a7umf"]
 [ext_resource type="Texture2D" uid="uid://b5q3fby6x7a2b" path="res://art/coin_icon.svg" id="4_lowam"]
-[ext_resource type="PackedScene" uid="uid://dckb3jxv0ug8l" path="res://Scenes/deck_panel.tscn" id="6_e3ckb"]
 
 [node name="MarginContainer" type="MarginContainer"]
 anchors_preset = 15
@@ -24,12 +24,7 @@ layout_mode = 2
 size_flags_vertical = 0
 theme = ExtResource("1_6ftgh")
 
-[node name="HealthLabel" type="Label" parent="HUD"]
-visible = false
-layout_mode = 2
-text = "0"
-
-[node name="HealthIcon" parent="HUD" instance=ExtResource("3_qgg4n")]
+[node name="HealthDisplay" parent="HUD" instance=ExtResource("3_rjtug")]
 layout_mode = 2
 
 [node name="VSeparator" type="VSeparator" parent="HUD"]
@@ -39,16 +34,11 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_stretch_ratio = 0.0
 
-[node name="CoinLabel" type="Label" parent="HUD"]
+[node name="MoneyDisplay" parent="HUD" instance=ExtResource("4_a7umf")]
 layout_mode = 2
-text = "0"
-
-[node name="CoinIcon" type="TextureRect" parent="HUD"]
-material = ExtResource("3_2kx3j")
-layout_mode = 2
-texture = ExtResource("4_lowam")
-expand_mode = 2
-stretch_mode = 4
+always_visible = true
+icon_texture = ExtResource("4_lowam")
+icon_material = ExtResource("3_2kx3j")
 
 [node name="VSeparator2" type="VSeparator" parent="HUD"]
 modulate = Color(1, 1, 1, 0)
@@ -77,9 +67,8 @@ size_flags_stretch_ratio = 0.0
 layout_mode = 2
 text = "Quit"
 
-[node name="DeckPanelContainer" parent="." instance=ExtResource("6_e3ckb")]
+[node name="DeckPanelContainer" parent="." instance_placeholder="res://Scenes/deck_panel.tscn"]
 layout_mode = 2
 
 [connection signal="pressed" from="HUD/HBoxContainer/DeckButton" to="." method="_on_deck_button_pressed"]
 [connection signal="pressed" from="HUD/HBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="deck_panel_closed" from="DeckPanelContainer" to="." method="_on_deck_panel_container_deck_panel_closed"]

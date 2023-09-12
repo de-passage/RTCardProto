@@ -1,0 +1,23 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://dafcnrpr6c7sa"]
+
+[ext_resource type="Shader" path="res://Shaders/metal.gdshader" id="1_nuq0o"]
+
+[sub_resource type="Gradient" id="Gradient_hqns1"]
+offsets = PackedFloat32Array(0.0040568, 0.476673, 1)
+colors = PackedColorArray(0.517647, 0.811765, 1, 1, 0.4756, 0.6191, 0.82, 1, 0.149546, 0.314137, 0.423106, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_m1naj"]
+gradient = SubResource("Gradient_hqns1")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_81kse"]
+seed = 2
+frequency = 0.0015
+fractal_lacunarity = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_10q62"]
+noise = SubResource("FastNoiseLite_81kse")
+
+[resource]
+shader = ExtResource("1_nuq0o")
+shader_parameter/noise = SubResource("NoiseTexture2D_10q62")
+shader_parameter/colors = SubResource("GradientTexture1D_m1naj")

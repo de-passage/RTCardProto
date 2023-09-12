@@ -74,7 +74,7 @@ step_count = 3
 layout_mode = 2
 text = "0"
 
-[node name="Health" parent="UI" instance=ExtResource("5_um1r1")]
+[node name="Values" parent="UI" instance=ExtResource("5_um1r1")]
 offset_left = 832.0
 offset_top = 518.0
 offset_right = 1095.0

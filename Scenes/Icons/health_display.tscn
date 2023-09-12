@@ -1,0 +1,13 @@
+[gd_scene load_steps=5 format=3 uid="uid://ll4inm0uawj4"]
+
+[ext_resource type="PackedScene" uid="uid://brb4fmy4dr5vm" path="res://Scenes/Utility/value_display.tscn" id="1_efcte"]
+[ext_resource type="Script" path="res://PlayerHealthDisplay.gd" id="2_5g2gd"]
+[ext_resource type="Material" uid="uid://bubkdlqqkn3o6" path="res://Shaders/health_icon.tres" id="3_kka62"]
+[ext_resource type="Texture2D" uid="uid://djqtqp88xfokm" path="res://art/drop_icon.svg" id="4_pikka"]
+
+[node name="HealthDisplay" instance=ExtResource("1_efcte")]
+script = ExtResource("2_5g2gd")
+
+[node name="Icon" parent="." index="1"]
+material = ExtResource("3_kka62")
+texture = ExtResource("4_pikka")

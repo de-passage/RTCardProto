@@ -3,7 +3,7 @@ extends Node2D
 @onready var player: Player = Global.get_player()
 
 @onready var _manager = $Hand as HandManager
-@onready var _health_manager = $UI/Health
+@onready var _values_manager = $UI/Values
 @onready var _energy_manager = $UI/EnergyContainer/EnergyBar as EnergyBar
 @onready var _energy_label = $UI/EnergyContainer/EnergyCount as Label
 @onready var _enemy_scene = $Enemy as Enemy
@@ -22,7 +22,7 @@ extends Node2D
 func _ready():
 	TimeManager.reset()
 	player.current_hp = Global.current_health
-	_health_manager.connect_playable_entity(player)
+	_values_manager.connect_playable_entity(player)
 
 	player.died.connect(_on_player_died)
 	player.mana_changed.connect(_update_mana_label)

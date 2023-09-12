@@ -1,14 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://kxospeshwxp3"]
+[gd_scene load_steps=3 format=3 uid="uid://kxospeshwxp3"]
 
-[ext_resource type="Shader" path="res://Scenes/wound_drop.gdshader" id="1_edkgd"]
+[ext_resource type="Material" uid="uid://bubkdlqqkn3o6" path="res://Shaders/health_icon.tres" id="1_8tfjv"]
 [ext_resource type="Texture2D" uid="uid://djqtqp88xfokm" path="res://art/drop_icon.svg" id="2_xbho1"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fynpl"]
-shader = ExtResource("1_edkgd")
 
 [node name="HealthIcon" type="TextureRect"]
 visible = false
-material = SubResource("ShaderMaterial_fynpl")
+material = ExtResource("1_8tfjv")
 size_flags_horizontal = 4
 texture = ExtResource("2_xbho1")
 expand_mode = 2

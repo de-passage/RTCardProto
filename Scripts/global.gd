@@ -30,7 +30,7 @@ var current_health: int = 50:
 var current_money: int = 50:
 	set(value):
 		current_money = value
-		money_changed.emit()
+		money_changed.emit(current_money)
 		
 var _current_enemy: EnemyResource
 var current_level: LevelPool = LevelPool.DEFAULT

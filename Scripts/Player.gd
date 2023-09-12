@@ -1,8 +1,15 @@
 class_name Player
 extends PlayableEntity
 
+class PlayerProxy extends Player:
+	var _source: Player
+	func _init(source: Player):
+		_source = source
+	
+	
+
 var _ctx: Context
-var _wound: CardResource = preload("res://Cards/wound.tres")
+static var _wound: CardResource = preload("res://Cards/wound.tres")
 
 func _init(current, max_val, ctx: Context):
 	super._init(max_val, current)
@@ -23,7 +30,7 @@ func wound(value: int):
 	_ctx.trash(_new_wound(value), Context.TRASH_DISCARD | Context.CURSE)
 
 func _new_wound(value) -> CardGameInstance: 
-	var wound = CardDeckInstance.new(_wound)
-	wound.add_status(Statuses.wound(value))
-	return CardGameInstance.new(wound)
+	var w = CardDeckInstance.new(_wound)
+	w.add_status(Statuses.wound(value))
+	return CardGameInstance.new(w)
 
