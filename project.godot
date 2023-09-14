@@ -17,12 +17,13 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Global="*res://Scripts/global.gd"
-Maze="*res://Scripts/maze.gd"
-Statuses="*res://Scripts/statuses.gd"
-Tags="*res://Scripts/tags.gd"
-TimeManager="*res://Scripts/time_manager.gd"
-GameInternalValues="*res://Scripts/game_internal_values.gd"
+Global="*res://Scripts/Autoloads/global.gd"
+Maze="*res://Scripts/Autoloads/maze.gd"
+Statuses="*res://Scripts/Autoloads/statuses.gd"
+Tags="*res://Scripts/Autoloads/tags.gd"
+TimeManager="*res://Scripts/Autoloads/time_manager.gd"
+GameInternalValues="*res://Scripts/Autoloads/game_internal_values.gd"
+SceneManager="*res://Scripts/Autoloads/scene_manager.gd"
 
 [display]
 

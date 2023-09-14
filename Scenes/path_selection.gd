@@ -153,13 +153,13 @@ func _on_sprite_button_pressed(f, n):
 			Maze.NodeType.TREASURE:
 				start_combat(Global.EnemyPool.NORMAL)
 			Maze.NodeType.REST:
-				get_tree().change_scene_to_file("res://Scenes/rest.tscn")
+				SceneManager.go_to_rest()
 
 func start_combat(enemy_type: Global.EnemyPool):
 	print("combat started")
 	Global.setup_random_enemy(Global.current_level, enemy_type)
-	get_tree().change_scene_to_file("res://Scenes/main.tscn")
+	SceneManager.go_to_combat()
 
 
 func _on_hud_please_exit():
-	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
+	SceneManager.go_to_main_menu()

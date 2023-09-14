@@ -61,7 +61,7 @@ func _on_enemy_died(rewards: Dictionary):
 
 func _goto_recap_screen():
 	Global.update_player(player)
-	get_tree().call_deferred("change_scene_to_file", "res://Scenes/recap_screen.tscn")
+	SceneManager.swap_in_recap_screen()
 
 func _on_deck_refreshed():
 	_manager.draw_one_card() 

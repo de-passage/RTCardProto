@@ -35,7 +35,7 @@ func _on_time_speed_slider_value_changed(value):
 
 func _on_close_button_pressed():
 	GameInternalValues.save()
-	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
+	SceneManager.exit_scene()
 
 func _reset_energy_bar(): 
 	_time_demo_bar.reset_energy()

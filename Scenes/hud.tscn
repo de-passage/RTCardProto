@@ -36,6 +36,7 @@ size_flags_horizontal = 4
 size_flags_stretch_ratio = 0.0
 
 [node name="MoneyDisplay" parent="HUD" instance=ExtResource("4_a7umf")]
+visible = true
 layout_mode = 2
 always_visible = true
 icon_texture = ExtResource("4_lowam")

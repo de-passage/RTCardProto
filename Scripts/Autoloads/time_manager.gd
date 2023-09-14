@@ -12,7 +12,7 @@ signal time_changed(delta: float)
 ## Sent on pause
 signal time_paused(p: bool)
 
-## For some reason the mathdoesn't work with 0, look into it
+## For some reason the math doesn't work with 0, look into it
 ## The result is that the energy bar doesn't fill correctly if the 
 ## default value is 0. There probably are more pb with this
 const START_VALUE: float = 0.000001

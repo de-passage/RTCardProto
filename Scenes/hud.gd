@@ -9,7 +9,7 @@ func _ready():
 	Global.money_changed.connect(_money.set_value)
 	
 func _on_quit_button_pressed():
-	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
+	SceneManager.go_to_main_menu()
 
 func _on_deck_button_pressed():
 	_toggle_modal(true)
