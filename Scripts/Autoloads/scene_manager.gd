@@ -43,6 +43,11 @@ func swap_in_recap_screen():
 		_scene_stack.pop_back()
 		_new_scene(_recap_screen)
 
+func go_to_deck_editor():
+	if _rest_scene == null:
+		_rest_scene = load("res://Scenes/deck_builder.tscn")
+	_new_scene(_rest_scene)
+
 func exit_scene():
 	if _scene_stack.size() > 1: 
 		_scene_stack.pop_back()

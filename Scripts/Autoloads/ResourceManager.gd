@@ -3,7 +3,6 @@ extends Node
 
 class_name CGResourceManager
 
-
 static func load_resources(path: String, process: Callable):	
 	var files = DirAccess.get_files_at(path)
 	for file_name in files:

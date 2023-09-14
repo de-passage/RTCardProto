@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=8 format=3 uid="uid://ce00dygj64r3p"]
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://ce00dygj64r3p"]
 
 [ext_resource type="StyleBox" uid="uid://d3nmr7b5maq5y" path="res://Theme/card_selection_style_box_flat.tres" id="1_boaeb"]
 [ext_resource type="FontFile" uid="uid://bsk6op0lpnbwx" path="res://font/NeverMindsemi-serif-Regular.ttf" id="1_picm3"]
@@ -76,6 +76,28 @@ shadow_color = Color(0.460938, 0.261719, 0.261719, 1)
 shadow_size = 10
 shadow_offset = Vector2(10, 10)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6u24f"]
+bg_color = Color(0.539063, 0.3125, 0.3125, 1)
+border_color = Color(0.875, 0.6875, 0.363281, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l8k2c"]
+bg_color = Color(0.460938, 0.261719, 0.261719, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_snjwh"]
+bg_color = Color(0.511719, 0.292969, 0.292969, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.460938, 0.261719, 0.261719, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_n2vhe"]
+color = Color(0.875, 0.679688, 0.347656, 1)
+
 [resource]
 default_font = ExtResource("1_picm3")
 default_font_size = 32
@@ -109,4 +131,8 @@ MarginContainer/constants/margin_left = 250
 MarginContainer/constants/margin_right = 250
 Panel/styles/panel = SubResource("StyleBoxFlat_adu7l")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_r5qs6")
+PopupDialog/styles/panel = SubResource("StyleBoxFlat_6u24f")
+PopupMenu/styles/hover = SubResource("StyleBoxFlat_l8k2c")
+PopupMenu/styles/panel = SubResource("StyleBoxFlat_snjwh")
+PopupMenu/styles/separator = SubResource("StyleBoxLine_n2vhe")
 VBoxContainer/constants/separation = 27

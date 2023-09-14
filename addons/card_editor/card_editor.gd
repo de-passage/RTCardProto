@@ -90,7 +90,6 @@ func _ready():
 	_discard_effect_list.add_item("<add effect>")
 	for effect in _effects:
 		var name = effect.get("name")
-		print("Added effect '%s' " % name)
 		_play_effect_list.add_item(name)
 		_draw_effect_list.add_item(name)
 		_discard_effect_list.add_item(name)

@@ -95,3 +95,5 @@ func add_icon(_something):
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	label.anchors_preset = PRESET_FULL_RECT
 	
+func get_resource() -> CardDeckInstance:
+	return _resource

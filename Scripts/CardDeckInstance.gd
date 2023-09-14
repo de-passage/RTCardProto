@@ -77,3 +77,9 @@ func has_tag(s: StringName) -> bool:
 			return true
 			
 	return false
+
+func in_pool(s: StringName) -> bool: 
+	for pool in get_resource().pools:
+		if s == pool: 
+			return true
+	return false

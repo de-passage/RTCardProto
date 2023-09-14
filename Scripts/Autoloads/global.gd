@@ -9,6 +9,13 @@ var recapMessage: String = ""
 enum EnemyPool { NORMAL, ELITE, BOSS }
 enum LevelPool { DEFAULT } # extend for multiple levels
 
+class Deck:
+	var name: String
+	var resource: StarterDeck
+	func _init(n: String, r: StarterDeck):
+		name = n
+		resource = r
+		
 
 var _cards # Array[CardResource] | null
 var _enemies # Expect this to be an array of arrays of enemies. First layer is the level, second is the pool
@@ -42,6 +49,16 @@ const REWARD_RELIC = "relic"
 var rewards: Dictionary = {}
 var _possible_card_pool: Array[CardDeckInstance] = []
 var _default_context: Context = Context.new()
+var _starter_deck: Deck
+
+func set_starter_deck(deck: Deck):
+	_current_deck = []
+	_starter_deck = deck
+
+func current_starter_name() -> String:
+	if _starter_deck == null: 
+		return ""
+	return _starter_deck.name
 
 func get_player() -> Player: 
 	return Player.new(current_health, current_max_health, _default_context)
@@ -80,8 +97,7 @@ func get_card_sample(sample_size: int = 3) -> Array[CardDeckInstance]:
 	
 func _load_card_pool():
 	if _possible_card_pool.size() == 0:
-		_load_cards()
-		for card in _cards:
+		for card in get_all_cards():
 			var is_in_pool: bool = true
 			for label in card.pools:
 				if label == &'Starter' or label == &'Curses' \
@@ -126,4 +142,10 @@ func _load_cards():
 		_cards = CGResourceManager.load_cards() as Array[CardResource]
 
 func _get_starter() -> StarterDeck :
+	if _starter_deck != null and _starter_deck.resource != null:
+		return _starter_deck.resource
 	return preload("res://Characters/Starter/DefaultStarter.tres")
+
+func get_all_cards() -> Array[CardResource]: 
+	_load_cards()
+	return _cards

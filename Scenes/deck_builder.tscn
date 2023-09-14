@@ -1,0 +1,82 @@
+[gd_scene load_steps=5 format=3 uid="uid://ctto36w7t22dj"]
+
+[ext_resource type="Texture2D" uid="uid://3g18axpijiuu" path="res://art/fantasy empty playboard.png" id="1_2uol5"]
+[ext_resource type="Theme" uid="uid://ce00dygj64r3p" path="res://Theme/reward_theme.tres" id="2_udywc"]
+[ext_resource type="Script" path="res://Scenes/DeckBuilder.gd" id="3_36ulu"]
+[ext_resource type="PackedScene" uid="uid://bxnux2yembvh3" path="res://Scenes/Utility/editor_panel.tscn" id="3_eon5f"]
+
+[node name="DeckBuilder" type="TextureRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_2uol5")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_udywc")
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 50
+script = ExtResource("3_36ulu")
+
+[node name="ToolBar" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="ToolBox" type="HBoxContainer" parent="MarginContainer/ToolBar"]
+layout_mode = 2
+
+[node name="EditorPanel" parent="MarginContainer/ToolBar/ToolBox" instance=ExtResource("3_eon5f")]
+layout_mode = 2
+root_subfolder = &"Decks"
+access = 1
+
+[node name="RightSide" type="HBoxContainer" parent="MarginContainer/ToolBar/ToolBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="DeckName" type="Label" parent="MarginContainer/ToolBar/ToolBox/RightSide"]
+layout_mode = 2
+text = "Default"
+
+[node name="QuitButton" type="Button" parent="MarginContainer/ToolBar/ToolBox/RightSide"]
+layout_mode = 2
+text = "Quit"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/ToolBar"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="AllCards" type="ScrollContainer" parent="MarginContainer/ToolBar/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FlowContainer" type="HFlowContainer" parent="MarginContainer/ToolBar/HBoxContainer/AllCards"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/ToolBar/HBoxContainer"]
+layout_mode = 2
+
+[node name="DeckView" type="ScrollContainer" parent="MarginContainer/ToolBar/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FlowContainer" type="HFlowContainer" parent="MarginContainer/ToolBar/HBoxContainer/DeckView"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[connection signal="load_required" from="MarginContainer/ToolBar/ToolBox/EditorPanel" to="MarginContainer" method="_on_editor_panel_load_required"]
+[connection signal="new_required" from="MarginContainer/ToolBar/ToolBox/EditorPanel" to="MarginContainer" method="_on_editor_panel_new_required"]
+[connection signal="save_required" from="MarginContainer/ToolBar/ToolBox/EditorPanel" to="MarginContainer" method="_on_editor_panel_save_required"]
+[connection signal="pressed" from="MarginContainer/ToolBar/ToolBox/RightSide/QuitButton" to="MarginContainer" method="_on_quit_button_pressed"]

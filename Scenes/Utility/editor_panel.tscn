@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxnux2yembvh3"]
+
+[ext_resource type="Script" path="res://Scenes/Utility/EditorPanel.gd" id="1_uobd1"]
+
+[node name="EditorPanel" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uobd1")
+
+[node name="MenuBar" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="NewButton" type="Button" parent="MenuBar"]
+layout_mode = 2
+text = "New"
+
+[node name="SaveButton" type="Button" parent="MenuBar"]
+layout_mode = 2
+text = "Save"
+
+[node name="LoadButton" type="Button" parent="MenuBar"]
+layout_mode = 2
+text = "Load"
+
+[node name="FileDialog" type="FileDialog" parent="MenuBar"]
+filters = PackedStringArray("*.tres")
+
+[node name="Body" type="Control" parent="."]
+layout_mode = 2
+
+[connection signal="pressed" from="MenuBar/NewButton" to="." method="_on_new_button_pressed"]
+[connection signal="pressed" from="MenuBar/SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="MenuBar/LoadButton" to="." method="_on_load_button_pressed"]
+[connection signal="file_selected" from="MenuBar/FileDialog" to="." method="_on_file_dialog_file_selected"]

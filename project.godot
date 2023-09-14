@@ -24,6 +24,7 @@ Tags="*res://Scripts/Autoloads/tags.gd"
 TimeManager="*res://Scripts/Autoloads/time_manager.gd"
 GameInternalValues="*res://Scripts/Autoloads/game_internal_values.gd"
 SceneManager="*res://Scripts/Autoloads/scene_manager.gd"
+Pools="*res://Scripts/Autoloads/pools.gd"
 
 [display]
 
