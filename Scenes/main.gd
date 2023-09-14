@@ -18,6 +18,10 @@ extends Node2D
 
 @export var DRAW_COST = 1
 
+const DEBOUND_ENERGY_PRESS_DELAY: float = 0.5
+var _energy_button_pressed_timing: float = 0
+
+
 func _ready():
 	TimeManager.reset()
 	
@@ -51,6 +55,8 @@ func _play_card(card: CardDeckInstance):
 
 func _on_energy_bar_step_reached(step):
 	player.energy = step
+	if GameInternalValues.autopause(): 
+		TimeManager.pause()
 
 func _on_player_died():
 	_goto_recap_screen()
@@ -97,9 +103,15 @@ func _update_energy(energy: int):
 	_energy_button.disabled = player.energy == player.max_energy
 
 func _on_energy_button_pressed():
-	if player.energy == player.max_energy: 
+	var last_energy_press = _energy_button_pressed_timing
+	_energy_button_pressed_timing = Time.get_unix_time_from_system()
+	if player.energy == player.max_energy or\
+		_energy_button_pressed_timing < DEBOUND_ENERGY_PRESS_DELAY + last_energy_press:
 		return
-
+	
+	_run_to_next_energy()
+		
+func _run_to_next_energy():
 	var time_to_next = _energy_manager.time_to_next_step()
 	var time_to_enemy_next = _enemy_scene.time_to_next()
 	
@@ -111,7 +123,7 @@ func _on_energy_button_pressed():
 		# Let the monster play
 		TimeManager.fast_forward(time_to_enemy_next)
 		# Pretend that the button was pressed again
-		_on_energy_button_pressed()
+		_run_to_next_energy()
 
 func _physics_process(_delta):
 	if Input.is_action_just_pressed("gain_energy"):

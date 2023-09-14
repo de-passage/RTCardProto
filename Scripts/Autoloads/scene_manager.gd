@@ -2,7 +2,7 @@ extends Node
 
 var _scene_stack: Array[PackedScene] = []
 
-var _main_scene
+var _main_scene = preload("res://Scenes/main_menu.tscn")
 var _world_scene
 var _combat_scene
 var _option_scene
@@ -13,8 +13,6 @@ func _ready():
 	_scene_stack.append(_main_scene)
 
 func go_to_main_menu():
-	if _main_scene == null:
-		_main_scene = load("res://Scenes/main_menu.tscn")
 	_new_scene(_main_scene)
 
 func go_to_path_selection():

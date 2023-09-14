@@ -3,6 +3,7 @@ extends Node
 const RESOURCE_PATH: StringName = "user://values.tres"
 
 signal fill_time_changed(new_value: float)
+signal autopause_changed(new_value: bool)
 
 var _resource: GameValueResource
 
@@ -24,3 +25,10 @@ func get_fill_time():
 func set_fill_time(v: float):
 	_resource.fill_time = v
 	fill_time_changed.emit(v)
+
+func autopause() -> bool:
+	return _resource.autopause
+
+func set_autopause(b: bool):
+	_resource.autopause = b
+	autopause_changed.emit(b)

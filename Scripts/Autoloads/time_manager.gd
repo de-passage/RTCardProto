@@ -71,6 +71,9 @@ func step():
 func toggle_pause():
 	paused = not paused
 
+func pause():
+	paused = true
+
 ## Fast forward by the number given as input (in seconds)
 func fast_forward(v: float):
 	_time_since_start += v

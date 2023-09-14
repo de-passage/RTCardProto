@@ -5,11 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://dylwuxmaea2pd" path="res://Scenes/energy_bar.tscn" id="3_mt5pv"]
 [ext_resource type="Theme" uid="uid://ce00dygj64r3p" path="res://Theme/reward_theme.tres" id="4_wp45y"]
 
-[node name="Node2D" type="Sprite2D"]
+[node name="OptionScreen" type="Sprite2D"]
 texture = ExtResource("1_5oy5t")
 centered = false
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="OptionContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -17,19 +17,27 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_6tnvb")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="TimeSpeedBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="AutopauseBox" type="HBoxContainer" parent="OptionContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="TimeSpeedLabel" type="Label" parent="MarginContainer/VBoxContainer/TimeSpeedBox"]
+[node name="CheckBox" type="CheckBox" parent="OptionContainer/VBoxContainer/AutopauseBox"]
+layout_mode = 2
+text = "Autopause"
+
+[node name="TimeSpeedBox" type="HBoxContainer" parent="OptionContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="TimeSpeedLabel" type="Label" parent="OptionContainer/VBoxContainer/TimeSpeedBox"]
 layout_mode = 2
 text = "Time speed"
 
-[node name="TimeSpeedSlider" type="HSlider" parent="MarginContainer/VBoxContainer/TimeSpeedBox"]
+[node name="TimeSpeedSlider" type="HSlider" parent="OptionContainer/VBoxContainer/TimeSpeedBox"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 min_value = 0.001
@@ -37,22 +45,22 @@ max_value = 10.0
 step = 0.001
 value = 0.001
 
-[node name="TimeSpeedValue" type="SpinBox" parent="MarginContainer/VBoxContainer/TimeSpeedBox"]
+[node name="TimeSpeedValue" type="SpinBox" parent="OptionContainer/VBoxContainer/TimeSpeedBox"]
 layout_mode = 2
 min_value = 0.001
 max_value = 10.0
 step = 0.001
 value = 0.001
 
-[node name="FillTimeBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="FillTimeBox" type="HBoxContainer" parent="OptionContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="FillTimeLabel" type="Label" parent="MarginContainer/VBoxContainer/FillTimeBox"]
+[node name="FillTimeLabel" type="Label" parent="OptionContainer/VBoxContainer/FillTimeBox"]
 layout_mode = 2
 text = "AP Gain Time (s)"
 
-[node name="FillTimeSlider" type="HSlider" parent="MarginContainer/VBoxContainer/FillTimeBox"]
+[node name="FillTimeSlider" type="HSlider" parent="OptionContainer/VBoxContainer/FillTimeBox"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 min_value = 0.001
@@ -60,41 +68,42 @@ max_value = 10.0
 step = 0.001
 value = 1.0
 
-[node name="FillTimeValue" type="SpinBox" parent="MarginContainer/VBoxContainer/FillTimeBox"]
+[node name="FillTimeValue" type="SpinBox" parent="OptionContainer/VBoxContainer/FillTimeBox"]
 layout_mode = 2
 min_value = 0.001
 max_value = 10.0
 step = 0.001
 value = 1.0
 
-[node name="DemoBarContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="DemoBarContainer" type="HBoxContainer" parent="OptionContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="DemoEnergyBar" parent="MarginContainer/VBoxContainer/DemoBarContainer" instance=ExtResource("3_mt5pv")]
+[node name="DemoEnergyBar" parent="OptionContainer/VBoxContainer/DemoBarContainer" instance=ExtResource("3_mt5pv")]
 custom_minimum_size = Vector2(400, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 steps = Array[Color]([Color(0.239216, 0.486275, 1, 1), Color(0.760784, 0, 0.380392, 1), Color(1, 0.431373, 0.360784, 1)])
 step_count = 3
 
-[node name="DemoEnergyLabel" type="Label" parent="MarginContainer/VBoxContainer/DemoBarContainer"]
+[node name="DemoEnergyLabel" type="Label" parent="OptionContainer/VBoxContainer/DemoBarContainer"]
 layout_mode = 2
 text = "0"
 
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="OptionContainer/VBoxContainer"]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="CloseButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="CloseButton" type="Button" parent="OptionContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("4_wp45y")
 text = "Close"
 
-[connection signal="value_changed" from="MarginContainer/VBoxContainer/TimeSpeedBox/TimeSpeedSlider" to="MarginContainer" method="_on_time_speed_slider_value_changed"]
-[connection signal="value_changed" from="MarginContainer/VBoxContainer/TimeSpeedBox/TimeSpeedValue" to="MarginContainer" method="_on_time_speed_value_value_changed"]
-[connection signal="value_changed" from="MarginContainer/VBoxContainer/FillTimeBox/FillTimeSlider" to="MarginContainer" method="_on_fill_time_slider_value_changed"]
-[connection signal="value_changed" from="MarginContainer/VBoxContainer/FillTimeBox/FillTimeValue" to="MarginContainer" method="_on_fill_time_value_value_changed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/CloseButton" to="MarginContainer" method="_on_close_button_pressed"]
+[connection signal="toggled" from="OptionContainer/VBoxContainer/AutopauseBox/CheckBox" to="OptionContainer" method="_on_check_box_toggled"]
+[connection signal="value_changed" from="OptionContainer/VBoxContainer/TimeSpeedBox/TimeSpeedSlider" to="OptionContainer" method="_on_time_speed_slider_value_changed"]
+[connection signal="value_changed" from="OptionContainer/VBoxContainer/TimeSpeedBox/TimeSpeedValue" to="OptionContainer" method="_on_time_speed_value_value_changed"]
+[connection signal="value_changed" from="OptionContainer/VBoxContainer/FillTimeBox/FillTimeSlider" to="OptionContainer" method="_on_fill_time_slider_value_changed"]
+[connection signal="value_changed" from="OptionContainer/VBoxContainer/FillTimeBox/FillTimeValue" to="OptionContainer" method="_on_fill_time_value_value_changed"]
+[connection signal="pressed" from="OptionContainer/VBoxContainer/CloseButton" to="OptionContainer" method="_on_close_button_pressed"]

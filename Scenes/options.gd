@@ -49,3 +49,7 @@ func _on_fill_time_slider_value_changed(value):
 func _on_fill_time_value_value_changed(value):
 	_fill_time_slider.value = value
 	GameInternalValues.set_fill_time(value)
+
+
+func _on_check_box_toggled(button_pressed):
+	GameInternalValues.set_autopause(button_pressed)
