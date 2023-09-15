@@ -21,6 +21,16 @@ script = ExtResource("2_6tnvb")
 layout_mode = 2
 alignment = 1
 
+[node name="WindowModeOptions" type="OptionButton" parent="OptionContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+item_count = 2
+selected = 1
+popup/item_0/text = "Full Screen"
+popup/item_0/id = 0
+popup/item_1/text = "Windowed"
+popup/item_1/id = 1
+
 [node name="AutopauseBox" type="HBoxContainer" parent="OptionContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
@@ -101,6 +111,7 @@ size_flags_horizontal = 4
 theme = ExtResource("4_wp45y")
 text = "Close"
 
+[connection signal="item_selected" from="OptionContainer/VBoxContainer/WindowModeOptions" to="OptionContainer" method="_on_window_mode_options_item_selected"]
 [connection signal="toggled" from="OptionContainer/VBoxContainer/AutopauseBox/CheckBox" to="OptionContainer" method="_on_check_box_toggled"]
 [connection signal="value_changed" from="OptionContainer/VBoxContainer/TimeSpeedBox/TimeSpeedSlider" to="OptionContainer" method="_on_time_speed_slider_value_changed"]
 [connection signal="value_changed" from="OptionContainer/VBoxContainer/TimeSpeedBox/TimeSpeedValue" to="OptionContainer" method="_on_time_speed_value_value_changed"]

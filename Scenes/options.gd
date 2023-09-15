@@ -9,6 +9,8 @@ extends Control
 @onready var _time_demo_bar = $VBoxContainer/DemoBarContainer/DemoEnergyBar as EnergyBar
 @onready var _time_demo_label = $VBoxContainer/DemoBarContainer/DemoEnergyLabel as Label
 
+@onready var _window_mode = $VBoxContainer/WindowModeOptions as OptionButton
+
 func _ready():
 	_time_speed_slider.value = TimeManager.time_speed
 	_time_speed_value.value = TimeManager.time_speed
@@ -20,6 +22,10 @@ func _ready():
 	_time_demo_bar.filled.connect(_reset_energy_bar)
 	GameInternalValues.fill_time_changed.connect(func(x): _time_demo_bar.fill_time = x)
 	_time_demo_bar.step_reached.connect(func(x): _time_demo_label.text = str(x))
+	
+	match GameInternalValues.get_window_mode():
+		DisplayServer.WINDOW_MODE_FULLSCREEN: _window_mode.select(0)
+		_: _window_mode.select(1)
 
 func _on_time_speed_value_value_changed(value):
 	_time_speed_slider.value = value
@@ -53,3 +59,10 @@ func _on_fill_time_value_value_changed(value):
 
 func _on_check_box_toggled(button_pressed):
 	GameInternalValues.set_autopause(button_pressed)
+
+
+func _on_window_mode_options_item_selected(index):
+	if index == 0:
+		GameInternalValues.set_window_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	else:
+		GameInternalValues.set_window_mode(DisplayServer.WINDOW_MODE_WINDOWED)

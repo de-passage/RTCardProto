@@ -18,6 +18,10 @@ func _ready():
 	else: 
 		_resource = GameValueResource.new()
 	TimeManager.time_speed_changed.connect(func(x): _resource.time_speed = x )
+	if _resource.window_mode == DisplayServer.WINDOW_MODE_FULLSCREEN:
+		set_window_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	else:
+		set_window_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 
 func save(): 
 	ResourceSaver.save(_resource, RESOURCE_PATH)
@@ -35,3 +39,12 @@ func autopause() -> bool:
 func set_autopause(b: bool):
 	_resource.autopause = b
 	autopause_changed.emit(b)
+
+func get_window_mode() -> DisplayServer.WindowMode:
+	return DisplayServer.window_get_mode()
+
+func set_window_mode(m: DisplayServer.WindowMode):
+	DisplayServer.window_set_mode(m)
+	_resource.window_mode = m
+	if m == DisplayServer.WINDOW_MODE_WINDOWED:
+		DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
