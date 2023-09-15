@@ -8,6 +8,9 @@ signal autopause_changed(new_value: bool)
 var _resource: GameValueResource
 
 func _ready():
+	if not FileAccess.file_exists(RESOURCE_PATH):
+		ResourceSaver.save(GameValueResource.new(), RESOURCE_PATH)
+		
 	var loaded = load(RESOURCE_PATH)
 	if loaded != null and loaded is GameValueResource:
 		_resource = loaded

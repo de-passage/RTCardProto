@@ -6,8 +6,11 @@ extends Control
 var _additional_decks: Array[Global.Deck] = []
 
 func _ready():
-	_additional_decks.append(Global.Deck.new("Default", null))
+	if not DirAccess.dir_exists_absolute(DeckBuilder.DECK_FOLDER):
+		DirAccess.make_dir_absolute(DeckBuilder.DECK_FOLDER)
 	
+	_additional_decks.append(Global.Deck.new("Default", null))
+		
 	var idx: int = 1
 	
 	for file in DirAccess.get_files_at(DeckBuilder.DECK_FOLDER):

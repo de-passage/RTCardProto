@@ -49,7 +49,7 @@ const REWARD_RELIC = "relic"
 var rewards: Dictionary = {}
 var _possible_card_pool: Array[CardDeckInstance] = []
 var _default_context: Context = Context.new()
-var _starter_deck: Deck
+var _starter_deck: Deck = Deck.new("Default", null)
 
 func set_starter_deck(deck: Deck):
 	_current_deck = []
