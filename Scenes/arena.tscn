@@ -1,0 +1,65 @@
+[gd_scene load_steps=4 format=3 uid="uid://db7ax4cbafpwb"]
+
+[ext_resource type="Texture2D" uid="uid://3g18axpijiuu" path="res://art/fantasy empty playboard.png" id="1_kmicm"]
+[ext_resource type="Theme" uid="uid://ce00dygj64r3p" path="res://Theme/reward_theme.tres" id="2_0kbnm"]
+[ext_resource type="Script" path="res://Scenes/arena.gd" id="2_17mr0"]
+
+[node name="Arena" type="TextureRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_kmicm")
+script = ExtResource("2_17mr0")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_0kbnm")
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 50
+
+[node name="MainContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Buttons" type="HBoxContainer" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="StartButton" type="Button" parent="MarginContainer/MainContainer/Buttons"]
+layout_mode = 2
+text = "Start"
+
+[node name="MonsterSelector" type="HBoxContainer" parent="MarginContainer/MainContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MonsterDisplay" type="ScrollContainer" parent="MarginContainer/MainContainer/MonsterSelector"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="FlowContainer" type="HFlowContainer" parent="MarginContainer/MainContainer/MonsterSelector/MonsterDisplay"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/MainContainer/MonsterSelector"]
+layout_mode = 2
+
+[node name="MonsterList" type="ScrollContainer" parent="MarginContainer/MainContainer/MonsterSelector"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FlowContainer" type="HFlowContainer" parent="MarginContainer/MainContainer/MonsterSelector/MonsterList"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbpm248lvmh8d"]
+
+[ext_resource type="Script" path="res://Scenes/monster_presentation.gd" id="1_j1a8e"]
+[ext_resource type="Texture2D" uid="uid://cngirsy3rcmjw" path="res://art/Enemies/ballBlue_10.png" id="1_ngik3"]
+[ext_resource type="FontFile" uid="uid://bsk6op0lpnbwx" path="res://font/NeverMindsemi-serif-Regular.ttf" id="2_g1bxr"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wdwvb"]
+line_spacing = 0.0
+font = ExtResource("2_g1bxr")
+font_size = 32
+
+[node name="MonsterPresentation" type="VBoxContainer"]
+alignment = 1
+script = ExtResource("1_j1a8e")
+
+[node name="MonsterTexture" type="TextureButton" parent="."]
+layout_mode = 2
+texture_normal = ExtResource("1_ngik3")
+
+[node name="MonsterName" type="Label" parent="."]
+layout_mode = 2
+text = "Blue ball
+"
+label_settings = SubResource("LabelSettings_wdwvb")
+horizontal_alignment = 1
+
+[connection signal="pressed" from="MonsterTexture" to="." method="_on_monster_texture_pressed"]

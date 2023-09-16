@@ -1,10 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://bkcbih88r8rv"]
+[gd_scene load_steps=14 format=3 uid="uid://bkcbih88r8rv"]
 
+[ext_resource type="Shader" path="res://Shaders/card_back.gdshader" id="1_21fvi"]
 [ext_resource type="Texture2D" uid="uid://86eqvhxcips" path="res://art/fantasy empty card section.png" id="1_ie30h"]
 [ext_resource type="Script" path="res://Scenes/card.gd" id="1_r3t5n"]
 [ext_resource type="Texture2D" uid="uid://cqonhtyrxpgnw" path="res://art/card fantasy iron.png" id="2_g3okb"]
 [ext_resource type="FontFile" uid="uid://bsk6op0lpnbwx" path="res://font/NeverMindsemi-serif-Regular.ttf" id="3_noxvo"]
 [ext_resource type="Shader" path="res://Shaders/mana.gdshader" id="5_f7r6e"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1vmkd"]
+shader = ExtResource("1_21fvi")
 
 [sub_resource type="Theme" id="Theme_0m0ib"]
 default_base_scale = 1.0
@@ -30,6 +34,7 @@ font = ExtResource("3_noxvo")
 font_size = 24
 
 [node name="Card" type="TextureButton"]
+material = SubResource("ShaderMaterial_1vmkd")
 offset_right = 254.0
 offset_bottom = 354.0
 scale = Vector2(10, 9.93822)
