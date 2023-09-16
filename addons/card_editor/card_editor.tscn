@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://4b3q7kq84kuh"]
+[gd_scene load_steps=7 format=3 uid="uid://4b3q7kq84kuh"]
 
 [ext_resource type="Script" path="res://addons/card_editor/card_editor.gd" id="1_m4cus"]
 [ext_resource type="Shader" path="res://Shaders/make_white.gdshader" id="2_3xmtf"]
 [ext_resource type="Texture2D" uid="uid://cda5gd7uu0kka" path="res://art/add_icon.svg" id="3_re3uu"]
+[ext_resource type="PackedScene" uid="uid://d241it0v4sl7g" path="res://addons/card_editor/effect_list.tscn" id="4_r2trk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qto8b"]
 shader = ExtResource("2_3xmtf")
@@ -108,16 +109,19 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="OnPlayCheckBox" type="CheckBox" parent="VBoxContainer/GridContainer/EffectsBoxList"]
+unique_name_in_owner = true
 layout_mode = 2
 button_pressed = true
 text = "On Play"
 
 [node name="OnDrawCheckBox" type="CheckBox" parent="VBoxContainer/GridContainer/EffectsBoxList"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "On Draw
 "
 
 [node name="OnDiscardCheckBox" type="CheckBox" parent="VBoxContainer/GridContainer/EffectsBoxList"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "On Discard"
 
@@ -126,169 +130,32 @@ layout_mode = 2
 button_pressed = true
 text = "Playable"
 
-[node name="PlayCardEffects" type="Label" parent="VBoxContainer/GridContainer" groups=["on_play"]]
-layout_mode = 2
-text = "On play"
-
-[node name="PlayOptionButton" type="OptionButton" parent="VBoxContainer/GridContainer" groups=["on_play"]]
-layout_mode = 2
-item_count = 17
-selected = 0
-popup/item_0/text = "<add effect>"
-popup/item_0/id = 0
-popup/item_1/text = "Add Armor"
-popup/item_1/id = 1
-popup/item_2/text = "Add Strength"
-popup/item_2/id = 2
-popup/item_3/text = "Add Defense"
-popup/item_3/id = 3
-popup/item_4/text = "Add Steady"
-popup/item_4/id = 4
-popup/item_5/text = "Deal damage"
-popup/item_5/id = 5
-popup/item_6/text = "Exhaust"
-popup/item_6/id = 6
-popup/item_7/text = "Heal"
-popup/item_7/id = 7
-popup/item_8/text = "Last Played"
-popup/item_8/id = 8
-popup/item_9/text = "Off Balance"
-popup/item_9/id = 9
-popup/item_10/text = "Deal damage equal to block"
-popup/item_10/id = 10
-popup/item_11/text = "Trash"
-popup/item_11/id = 11
-popup/item_12/text = "Cursed Strike"
-popup/item_12/id = 12
-popup/item_13/text = "Draw"
-popup/item_13/id = 13
-popup/item_14/text = "Multiply armor"
-popup/item_14/id = 14
-popup/item_15/text = "Multiply steady"
-popup/item_15/id = 15
-popup/item_16/text = "Purge"
-popup/item_16/id = 16
-
-[node name="PlayControl" type="Control" parent="VBoxContainer/GridContainer" groups=["on_play"]]
+[node name="PlayEffectList" parent="VBoxContainer" instance=ExtResource("4_r2trk")]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="PlayEffectVBox" type="VBoxContainer" parent="VBoxContainer/GridContainer" groups=["on_play"]]
-layout_mode = 2
-
-[node name="DiscardCardEffects" type="Label" parent="VBoxContainer/GridContainer" groups=["on_discard"]]
-visible = false
-layout_mode = 2
-text = "On Discard"
-
-[node name="DiscardOptionButton" type="OptionButton" parent="VBoxContainer/GridContainer" groups=["on_discard"]]
-visible = false
-layout_mode = 2
-item_count = 17
-selected = 0
-popup/item_0/text = "<add effect>"
-popup/item_0/id = 0
-popup/item_1/text = "Add Armor"
-popup/item_1/id = 1
-popup/item_2/text = "Add Strength"
-popup/item_2/id = 2
-popup/item_3/text = "Add Defense"
-popup/item_3/id = 3
-popup/item_4/text = "Add Steady"
-popup/item_4/id = 4
-popup/item_5/text = "Deal damage"
-popup/item_5/id = 5
-popup/item_6/text = "Exhaust"
-popup/item_6/id = 6
-popup/item_7/text = "Heal"
-popup/item_7/id = 7
-popup/item_8/text = "Last Played"
-popup/item_8/id = 8
-popup/item_9/text = "Off Balance"
-popup/item_9/id = 9
-popup/item_10/text = "Deal damage equal to block"
-popup/item_10/id = 10
-popup/item_11/text = "Trash"
-popup/item_11/id = 11
-popup/item_12/text = "Cursed Strike"
-popup/item_12/id = 12
-popup/item_13/text = "Draw"
-popup/item_13/id = 13
-popup/item_14/text = "Multiply armor"
-popup/item_14/id = 14
-popup/item_15/text = "Multiply steady"
-popup/item_15/id = 15
-popup/item_16/text = "Purge"
-popup/item_16/id = 16
-
-[node name="DiscardControl" type="Control" parent="VBoxContainer/GridContainer" groups=["on_discard"]]
+[node name="DrawEffectList" parent="VBoxContainer" instance=ExtResource("4_r2trk")]
+unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
-[node name="DiscardEffectVBox" type="VBoxContainer" parent="VBoxContainer/GridContainer" groups=["on_discard"]]
+[node name="DiscardEffectList" parent="VBoxContainer" instance=ExtResource("4_r2trk")]
+unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
-[node name="DrawCardEffects" type="Label" parent="VBoxContainer/GridContainer" groups=["on_draw"]]
-visible = false
+[node name="TagsGrid" type="GridContainer" parent="VBoxContainer"]
 layout_mode = 2
-text = "On Draw"
+columns = 2
 
-[node name="DrawOptionButton" type="OptionButton" parent="VBoxContainer/GridContainer" groups=["on_draw"]]
-visible = false
-layout_mode = 2
-item_count = 17
-selected = 0
-popup/item_0/text = "<add effect>"
-popup/item_0/id = 0
-popup/item_1/text = "Add Armor"
-popup/item_1/id = 1
-popup/item_2/text = "Add Strength"
-popup/item_2/id = 2
-popup/item_3/text = "Add Defense"
-popup/item_3/id = 3
-popup/item_4/text = "Add Steady"
-popup/item_4/id = 4
-popup/item_5/text = "Deal damage"
-popup/item_5/id = 5
-popup/item_6/text = "Exhaust"
-popup/item_6/id = 6
-popup/item_7/text = "Heal"
-popup/item_7/id = 7
-popup/item_8/text = "Last Played"
-popup/item_8/id = 8
-popup/item_9/text = "Off Balance"
-popup/item_9/id = 9
-popup/item_10/text = "Deal damage equal to block"
-popup/item_10/id = 10
-popup/item_11/text = "Trash"
-popup/item_11/id = 11
-popup/item_12/text = "Cursed Strike"
-popup/item_12/id = 12
-popup/item_13/text = "Draw"
-popup/item_13/id = 13
-popup/item_14/text = "Multiply armor"
-popup/item_14/id = 14
-popup/item_15/text = "Multiply steady"
-popup/item_15/id = 15
-popup/item_16/text = "Purge"
-popup/item_16/id = 16
-
-[node name="DrawControl" type="Control" parent="VBoxContainer/GridContainer" groups=["on_draw"]]
-visible = false
-layout_mode = 2
-
-[node name="DrawEffectVBox" type="VBoxContainer" parent="VBoxContainer/GridContainer" groups=["on_draw"]]
-visible = false
-layout_mode = 2
-
-[node name="TagLabel" type="Label" parent="VBoxContainer/GridContainer"]
+[node name="TagLabel" type="Label" parent="VBoxContainer/TagsGrid"]
 layout_mode = 2
 text = "Tags"
 
-[node name="TagAddContainer" type="HBoxContainer" parent="VBoxContainer/GridContainer"]
+[node name="TagAddContainer" type="HBoxContainer" parent="VBoxContainer/TagsGrid"]
 layout_mode = 2
 
-[node name="AddTagButton" type="TextureButton" parent="VBoxContainer/GridContainer/TagAddContainer"]
+[node name="AddTagButton" type="TextureButton" parent="VBoxContainer/TagsGrid/TagAddContainer"]
 material = SubResource("ShaderMaterial_qto8b")
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
@@ -296,24 +163,24 @@ texture_normal = ExtResource("3_re3uu")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="TagEdit" type="LineEdit" parent="VBoxContainer/GridContainer/TagAddContainer"]
+[node name="TagEdit" type="LineEdit" parent="VBoxContainer/TagsGrid/TagAddContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Spacer" type="Control" parent="VBoxContainer/GridContainer"]
+[node name="Spacer" type="Control" parent="VBoxContainer/TagsGrid"]
 layout_mode = 2
 
-[node name="TagList" type="HBoxContainer" parent="VBoxContainer/GridContainer"]
+[node name="TagList" type="HBoxContainer" parent="VBoxContainer/TagsGrid"]
 layout_mode = 2
 
-[node name="PoolsLabel" type="Label" parent="VBoxContainer/GridContainer"]
+[node name="PoolsLabel" type="Label" parent="VBoxContainer/TagsGrid"]
 layout_mode = 2
 text = "Pools"
 
-[node name="PoolsAddContainer" type="HBoxContainer" parent="VBoxContainer/GridContainer"]
+[node name="PoolsAddContainer" type="HBoxContainer" parent="VBoxContainer/TagsGrid"]
 layout_mode = 2
 
-[node name="AddPoolButton" type="TextureButton" parent="VBoxContainer/GridContainer/PoolsAddContainer"]
+[node name="AddPoolButton" type="TextureButton" parent="VBoxContainer/TagsGrid/PoolsAddContainer"]
 material = SubResource("ShaderMaterial_qto8b")
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
@@ -321,14 +188,14 @@ texture_normal = ExtResource("3_re3uu")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="PoolEdit" type="LineEdit" parent="VBoxContainer/GridContainer/PoolsAddContainer"]
+[node name="PoolEdit" type="LineEdit" parent="VBoxContainer/TagsGrid/PoolsAddContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PoolSpacer" type="Control" parent="VBoxContainer/GridContainer"]
+[node name="PoolSpacer" type="Control" parent="VBoxContainer/TagsGrid"]
 layout_mode = 2
 
-[node name="PoolList" type="HBoxContainer" parent="VBoxContainer/GridContainer"]
+[node name="PoolList" type="HBoxContainer" parent="VBoxContainer/TagsGrid"]
 layout_mode = 2
 
 [node name="Errors" type="Label" parent="VBoxContainer"]
@@ -352,11 +219,8 @@ layout_mode = 2
 [connection signal="toggled" from="VBoxContainer/GridContainer/EffectsBoxList/OnPlayCheckBox" to="." method="_on_on_play_check_box_toggled"]
 [connection signal="toggled" from="VBoxContainer/GridContainer/EffectsBoxList/OnDrawCheckBox" to="." method="_on_on_draw_check_box_toggled"]
 [connection signal="toggled" from="VBoxContainer/GridContainer/EffectsBoxList/OnDiscardCheckBox" to="." method="_on_on_discard_check_box_toggled"]
-[connection signal="item_selected" from="VBoxContainer/GridContainer/PlayOptionButton" to="." method="_on_option_button_item_selected"]
-[connection signal="item_selected" from="VBoxContainer/GridContainer/DiscardOptionButton" to="." method="_on_discard_option_button_item_selected"]
-[connection signal="item_selected" from="VBoxContainer/GridContainer/DrawOptionButton" to="." method="_on_draw_option_button_item_selected"]
-[connection signal="pressed" from="VBoxContainer/GridContainer/TagAddContainer/AddTagButton" to="." method="_on_add_tag_button_pressed"]
-[connection signal="text_submitted" from="VBoxContainer/GridContainer/TagAddContainer/TagEdit" to="." method="_on_tag_edit_text_submitted"]
-[connection signal="pressed" from="VBoxContainer/GridContainer/PoolsAddContainer/AddPoolButton" to="." method="_on_add_pool_button_pressed"]
-[connection signal="text_submitted" from="VBoxContainer/GridContainer/PoolsAddContainer/PoolEdit" to="." method="_on_pool_edit_text_submitted"]
+[connection signal="pressed" from="VBoxContainer/TagsGrid/TagAddContainer/AddTagButton" to="." method="_on_add_tag_button_pressed"]
+[connection signal="text_submitted" from="VBoxContainer/TagsGrid/TagAddContainer/TagEdit" to="." method="_on_tag_edit_text_submitted"]
+[connection signal="pressed" from="VBoxContainer/TagsGrid/PoolsAddContainer/AddPoolButton" to="." method="_on_add_pool_button_pressed"]
+[connection signal="text_submitted" from="VBoxContainer/TagsGrid/PoolsAddContainer/PoolEdit" to="." method="_on_pool_edit_text_submitted"]
 [connection signal="pressed" from="VBoxContainer/SaveButton" to="." method="_on_button_pressed"]

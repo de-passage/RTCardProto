@@ -1,15 +1,34 @@
 extends BaseEffect
 
-var _other_effects: Array[BaseEffect]
+var _other_effects: Array[BaseEffect] # When combo triggers
+var _normal_effects: Array[BaseEffect] # No combo case
 var _last_subtype: String
+
+const IF_TRUE = &"If true"
+const OTHERWISE = &"Otherwise"
 
 func _init(v: Dictionary): 
 	description = "Trigger another effect"
-	var ef = v.get("Effect", null) as EffectResource
-	if ef != null: 
-		_other_effects = [ ef.load_effect() ]
+		
+	var other_effects = v.get(IF_TRUE, null) as Array[EffectResource]
+	if other_effects != null:
+		_other_effects = []
+		for e in other_effects:
+			_other_effects.append(e.load_effect())
 	else:
-		_other_effects = [ BaseEffect.new() ]
+		# Backward compatibility with my own stupidity
+		var ef = v.get("Effect", null) as EffectResource
+		if ef != null: 
+			_other_effects = [ ef.load_effect() ]
+		else:
+			_other_effects = [ BaseEffect.new() ]
+	
+	var normal_effects = v.get(OTHERWISE) as Array[EffectResource]
+	_normal_effects = []
+	if normal_effects != null:
+		for e in normal_effects:
+			_normal_effects.append(e.load_effect())
+
 	_last_subtype = v.get("Tag", "")
 
 func apply_effect(context: Context):
@@ -39,7 +58,11 @@ static func get_metadata():
 			},
 			{
 				"type": "effect",
-				"name": "Effect"
+				"name": IF_TRUE
+			}, 
+			{
+				"type": "effect",
+				"name": OTHERWISE
 			}
 		]
 	}

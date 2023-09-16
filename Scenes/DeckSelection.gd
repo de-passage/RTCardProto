@@ -14,11 +14,11 @@ func _ready():
 		var r = load(DeckBuilder.DECK_FOLDER + file)
 
 		if r != null: 
-			var name = DeckBuilder.deck_name_from_path(file)
-			_additional_decks.append(Global.Deck.new(name, r))
-			add_item(name)
+			var deck_name = DeckBuilder.deck_name_from_path(file)
+			_additional_decks.append(Global.Deck.new(deck_name, r))
+			add_item(deck_name)
 			
-			if Global.current_starter_name() == name:
+			if Global.current_starter_name() == deck_name:
 				select(idx)
 			idx += 1
 

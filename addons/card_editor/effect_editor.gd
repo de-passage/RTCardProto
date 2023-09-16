@@ -52,7 +52,14 @@ func initialize(name: String, parameters: Array, script: GDScript):
 			value_input.item_selected.connect(func(idx):
 				_values[id].value = CGResourceManager.cards[idx].resource_path
 			)
-		
+		elif type == "effect":
+			var value_input = load("res://addons/card_editor/effect_editor.tscn") as PackedScene
+			_grid.add_child(value_input.instantiate())
+			
+		else:
+			var value_input = Label.new()
+			value_input.text = "<implement me>"
+			_grid.add_child(value_input)
 		id += 1
 			
 func get_parameters() -> EffectResource:

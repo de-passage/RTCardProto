@@ -29,7 +29,7 @@ func _show_all_cards():
 		
 		_all_cards.add_child(scene)
 		scene.initialize(CardDeckInstance.new(card), Player.new(1, 1, Context.new()))
-		scene.selected.connect(func(c): _add_to_deck(scene));
+		scene.selected.connect(func(_c): _add_to_deck(scene));
 
 func _show_deck(deck: Array[CardResource]):
 	for card in _deck_view.get_children(): 
@@ -39,7 +39,7 @@ func _show_deck(deck: Array[CardResource]):
 		var scene = _card_scene.instantiate() as Card
 		_deck_view.add_child(scene)
 		scene.initialize(CardDeckInstance.new(card), Player.new(1, 1, Context.new()))
-		scene.selected.connect(func(c): _remove_from_deck(scene))
+		scene.selected.connect(func(_c): _remove_from_deck(scene))
 
 func _add_to_deck(card: Card):
 	var dup: Card = card.duplicate()
@@ -63,7 +63,7 @@ func _on_editor_panel_load_required(path):
 		return
 	
 	_show_deck(resource.cards)
-	_deck_name.text = deck_name_from_path(path)
+	_deck_name.text = DeckBuilder.deck_name_from_path(path)
 
 
 func _on_editor_panel_save_required(path):
@@ -75,7 +75,7 @@ func _on_editor_panel_save_required(path):
 			deck.cards.append(r)
 	
 	if ResourceSaver.save(deck, path) == OK: 
-		_deck_name.text = deck_name_from_path(path)
+		_deck_name.text = DeckBuilder.deck_name_from_path(path)
 
 static func deck_name_from_path(path) -> String:
 	if path is String:

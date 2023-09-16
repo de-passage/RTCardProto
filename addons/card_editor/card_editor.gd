@@ -1,7 +1,6 @@
 @tool
 extends ScrollContainer
 
-const EFFECT_GROUP = ".EFFECT_GROUP"
 @onready var _name = $VBoxContainer/GridContainer/CardNameEdit as LineEdit
 @onready var _cost = $VBoxContainer/GridContainer/CardCostEdit as SpinBox
 @onready var _mana_cost_edit = $VBoxContainer/GridContainer/CardManaCostEdit as SpinBox
@@ -15,42 +14,28 @@ const EFFECT_GROUP = ".EFFECT_GROUP"
 @onready var _playable_checkbox = $VBoxContainer/GridContainer/EffectsBoxList/PlayableCheckbox as CheckBox
 
 # Tags
-@onready var _tag_edit = $VBoxContainer/GridContainer/TagAddContainer/TagEdit
-@onready var _tag_list = $VBoxContainer/GridContainer/TagList as HBoxContainer
+@onready var _tag_edit = $VBoxContainer/TagsGrid/TagAddContainer/TagEdit
+@onready var _tag_list = $VBoxContainer/TagsGrid/TagList as HBoxContainer
 
 # Pools
-@onready var _pool_edit = $VBoxContainer/GridContainer/PoolsAddContainer/PoolEdit
-@onready var _pool_list = $VBoxContainer/GridContainer/PoolList as HBoxContainer
+@onready var _pool_edit = $VBoxContainer/TagsGrid/PoolsAddContainer/PoolEdit
+@onready var _pool_list = $VBoxContainer/TagsGrid/PoolList as HBoxContainer
 
+@onready var _draw_effects = %DrawEffectList as EditorEffectList
+@onready var _discard_effects = %DiscardEffectList as EditorEffectList
+@onready var _play_effects = %PlayEffectList as EditorEffectList
+@onready var _on_play_checkbox = %OnPlayCheckBox as CheckBox
+@onready var _on_draw_checkbox = %OnDrawCheckBox as CheckBox
+@onready var _on_discard_checkbox = %OnDiscardCheckBox as CheckBox
 
-# On play effects 
-@onready var _play_effect_list = $VBoxContainer/GridContainer/PlayOptionButton as OptionButton
-@onready var _play_effect_vbox = $VBoxContainer/GridContainer/PlayEffectVBox as VBoxContainer
-@onready var _play_checkbox = $VBoxContainer/GridContainer/EffectsBoxList/OnPlayCheckBox as CheckBox
-
-# On draw effects
-@onready var _draw_effect_list = $VBoxContainer/GridContainer/DrawOptionButton as OptionButton
-@onready var _draw_effect_vbox = $VBoxContainer/GridContainer/DrawEffectVBox as VBoxContainer
-@onready var _draw_checkbox = $VBoxContainer/GridContainer/EffectsBoxList/OnDrawCheckBox as CheckBox
-
-# On discard effects
-@onready var _discard_effect_list = $VBoxContainer/GridContainer/DiscardOptionButton as OptionButton
-@onready var _discard_effect_vbox = $VBoxContainer/GridContainer/DiscardEffectVBox as VBoxContainer
-@onready var _discard_checkbox = $VBoxContainer/GridContainer/EffectsBoxList/OnDiscardCheckBox as CheckBox
-
-static var _effect_editor_scene = preload("res://addons/card_editor/effect_editor.tscn")
+const BUTTONS_GROUP = ".CardEditorButton"
 
 var _resources: Array
-static var _effects: Array[Dictionary]
 var _save_path: String: 
 	set(value):
 		_save_path = value.strip_edges().to_lower()
 		_save_path = _file_name_sanitizer.sub(_save_path, "_", true)
 		_save_path_edit.text = _save_path
-#		if FileAccess.file_exists(_get_file_path(_save_path)): 
-#			_overwrite = true
-#		else: 
-#			_overwrite = false
 		
 var _overwrite: bool = false:
 	set(v):
@@ -60,39 +45,15 @@ var _overwrite: bool = false:
 var _file_name_regex = RegEx.create_from_string("res://Cards/(.*)\\.tres$")
 var _file_name_sanitizer =  RegEx.create_from_string("[^a-zA-Z0-9_/-]")
 
-func _get_metadata(e):
-	if e is GDScript:
-		var x = e.get_metadata()
-		if x != null:
-			x["script"] = e
-			_effects.append(x)
-		else: 
-			printerr("no metadata in %s" % e.get_class()) 
-
 func _get_file_path(s):
 	return "res://Cards/%s.tres" % s
 
-func _load_effects():
-	_effects = []
-	CGResourceManager.load_resources("res://Scripts/Effects", _get_metadata)
 
 func _ready():
-	if Engine.is_editor_hint():
-		_effect_editor_scene = load("res://addons/card_editor/effect_editor.tscn")
 	_errors.visible = false
-	_load_effects()
-	_play_effect_list.clear()
-	_draw_effect_list.clear()
-	_discard_effect_list.clear()
-	
-	_play_effect_list.add_item("<add effect>") # This is to enable no selection
-	_draw_effect_list.add_item("<add effect>")
-	_discard_effect_list.add_item("<add effect>")
-	for effect in _effects:
-		var name = effect.get("name")
-		_play_effect_list.add_item(name)
-		_draw_effect_list.add_item(name)
-		_discard_effect_list.add_item(name)
+	_draw_effects.set_label("On draw")
+	_discard_effects.set_label("On discard")
+	_play_effects.set_label("On play")
 
 func _on_reset_button_pressed():
 	_name.text = ""
@@ -100,11 +61,11 @@ func _on_reset_button_pressed():
 	_mcost.value = 50
 	_rarity.value = 0
 	_save_path_edit.text = ""
-	get_tree().call_group(EFFECT_GROUP, "queue_free")
+	get_tree().call_group(EditorEffectList.EFFECT_GROUP, "queue_free")
 	_overwrite = false
-	get_tree().call_group("on_play", "set_visible", true)
-	get_tree().call_group("on_draw", "set_visible", false)
-	get_tree().call_group("on_discard", "set_visible", false)
+	_discard_effects.visible = false
+	_draw_effects.visible = false
+	_play_effects.visible = true
 	
 ##################################
 #   SAVE LOGIC 
@@ -139,20 +100,9 @@ func _on_button_pressed():
 	resource.on_play_card_effects.clear()
 	resource.playable = _playable_checkbox.button_pressed
 	
-	if _play_checkbox.button_pressed: 
-		for child in _play_effect_vbox.get_children(): 
-			if child is EffectEditor: 
-				resource.on_play_card_effects.append(child.get_parameters())
-	
-	if _discard_checkbox.button_pressed:
-		for child in _discard_effect_vbox.get_children(): 
-			if child is EffectEditor: 
-				resource.on_discard_card_effects.append(child.get_parameters())
-	
-	if _draw_checkbox.button_pressed:
-		for child in _draw_effect_vbox.get_children(): 
-			if child is EffectEditor: 
-				resource.on_draw_card_effects.append(child.get_parameters())
+	resource.on_draw_card_effects = _draw_effects.get_effect_parameters()
+	resource.on_play_card_effects = _play_effects.get_effect_parameters()
+	resource.on_discard_card_effects = _discard_effects.get_effect_parameters()
 				
 	for tag in _tag_list.get_children():
 		if tag is Button:
@@ -179,21 +129,6 @@ func _on_button_pressed():
 			t.start(3)
 		else:
 			_errors.text = "Save failed!"
-	
-	
-
-static func _add_effect_to_effect_list(selected_effect: Dictionary, effect_box: VBoxContainer):
-	# Extract name and effect parameters
-	var effect_name = selected_effect.get("name", "<Unnamed effect>");
-	var expected_parameters: Array = selected_effect.get("parameters", [])
-	
-	# Create a new effect editor, initialize it and connect its signal
-	var effect_value_editor = _effect_editor_scene.instantiate()
-	effect_value_editor.add_to_group(EFFECT_GROUP)
-	effect_box.add_child(effect_value_editor)
-	effect_value_editor.initialize(effect_name, expected_parameters, selected_effect["script"])
-	effect_value_editor.deleted.connect(func(): effect_box.remove_child(effect_value_editor))
-	effect_box.add_spacer(false)
 
 
 ####################
@@ -220,38 +155,19 @@ func _on_file_dialog_file_selected(path: String):
 		_playable_checkbox.button_pressed = card_resource.playable
 		_mana_cost_edit.value = card_resource.mana_cost
 		
-		get_tree().call_group(EFFECT_GROUP, "queue_free")
+		get_tree().call_group(EditorEffectList.EFFECT_GROUP, "queue_free")
 
-		_build_effect_editor_from_resources(card_resource.on_play_card_effects, _play_effect_vbox, _play_checkbox, "on_play")
-		_build_effect_editor_from_resources(card_resource.on_draw_card_effects, _draw_effect_vbox, _draw_checkbox, "on_draw")
-		_build_effect_editor_from_resources(card_resource.on_discard_card_effects, _discard_effect_vbox, _discard_checkbox, "on_discard")
+		_on_play_checkbox.button_pressed = \
+			_play_effects.build_effect_editor_from_resources(card_resource.on_play_card_effects)
+		_on_discard_checkbox.button_pressed = \
+			_discard_effects.build_effect_editor_from_resources(card_resource.on_discard_card_effects)
+		_on_draw_checkbox.button_pressed = \
+			_draw_effects.build_effect_editor_from_resources(card_resource.on_draw_card_effects)
 		
 		for tag in card_resource.tags:
 			_add_tag_delete_button(tag)
 		for pool in card_resource.pools: 
 			_add_pool_delete_button(pool)
-
-func _build_effect_editor_from_resources(array: Array[EffectResource], box: VBoxContainer, checkbox: CheckBox, group: StringName):		
-	if array == null: 
-		return 
-	
-	var visible = (array.size() > 0)
-	get_tree().call_group(group, "set_visible", visible)
-	checkbox.button_pressed = visible
-	
-	for effect in array: 
-		var script = effect.effectScript
-		var values = effect.effectValues
-		
-		var effect_metadata = script.get_metadata()
-		effect_metadata["script"] = script
-		
-		for eff in effect_metadata["parameters"]:
-			var name = eff.get("name")
-			if name != null and values.has(name): 
-				eff.default = values.get(name)
-
-		_add_effect_to_effect_list(effect_metadata, box)
 	
 
 func _add_tag_delete_button(value: StringName):
@@ -263,7 +179,7 @@ func _add_button_to_list(value: StringName, list: BoxContainer):
 	list.add_child(button)
 	button.pressed.connect(func(): button.queue_free())
 	button.text = value
-	button.add_to_group(EFFECT_GROUP)
+	button.add_to_group(BUTTONS_GROUP)
 
 func _add_pool_delete_button(value: StringName):
 	_add_button_to_list(value, _pool_list)
@@ -290,33 +206,16 @@ func _on_tag_edit_text_submitted(new_text):
 
 
 func _on_on_play_check_box_toggled(button_pressed):
-	get_tree().call_group("on_play", "set_visible", button_pressed)
+	_play_effects.visible = button_pressed
 
 
 func _on_on_draw_check_box_toggled(button_pressed):
-	get_tree().call_group("on_draw", "set_visible", button_pressed)
+	_draw_effects.visible = button_pressed
 
 
 func _on_on_discard_check_box_toggled(button_pressed):
-	get_tree().call_group("on_discard", "set_visible", button_pressed)
+	_discard_effects.visible = button_pressed
 
-## An item was selected in the effect option box
-func _on_option_button_item_selected(index):
-	_add_selected_button_item_to_box(index, _play_effect_list, _play_effect_vbox)
-
-func _on_draw_option_button_item_selected(index):
-	_add_selected_button_item_to_box(index, _draw_effect_list, _draw_effect_vbox)
-
-func _on_discard_option_button_item_selected(index):
-	_add_selected_button_item_to_box(index, _discard_effect_list, _discard_effect_vbox)
-
-static func _add_selected_button_item_to_box(index: int, list: OptionButton, box: VBoxContainer):
-	if index == 0: # Selection cancelled 
-		return
-	
-	var selected_effect = _effects[index-1];
-	_add_effect_to_effect_list(selected_effect, box)
-	list.selected = 0
 	
 
 func _on_add_pool_button_pressed():
