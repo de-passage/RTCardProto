@@ -5,7 +5,8 @@ extends TextureRect
 
 var _monster_presentation_scene = preload("res://Scenes/monster_presentation.tscn")
 var _effect_label_settings = preload("res://Theme/arena_effect_label_settings.tres")
-# Called when the node enters the scene tree for the first time.
+var _resource 
+
 func _ready():
 	for monster in CGResourceManager.load_enemies():
 		_add_monster_presenter(monster, _monster_list) \
@@ -22,6 +23,7 @@ func _enemy_resource_selected(res: EnemyResource):
 		child.queue_free()
 	
 	_add_monster_presenter(res, _monster_presentation)
+	_resource = res
 	
 	var effect_presentation = VBoxContainer.new()
 	_monster_presentation.add_child(effect_presentation) 
@@ -35,3 +37,14 @@ func _enemy_resource_selected(res: EnemyResource):
 				label.label_settings = _effect_label_settings
 				label.text = ef.get_description(Context.new())
 				effect_list.add_child(label)
+
+func _on_start_button_pressed():
+	if _resource == null: return 
+	
+	Global.set_current_enemy(_resource)
+	Global.reset_current_deck()
+	SceneManager.go_to_combat()
+
+
+func _on_quit_button_pressed():
+	SceneManager.exit_scene()

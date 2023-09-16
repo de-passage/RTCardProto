@@ -156,7 +156,6 @@ func _on_sprite_button_pressed(f, n):
 				SceneManager.go_to_rest()
 
 func start_combat(enemy_type: Global.EnemyPool):
-	print("combat started")
 	Global.setup_random_enemy(Global.current_level, enemy_type)
 	SceneManager.go_to_combat()
 

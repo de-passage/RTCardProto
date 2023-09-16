@@ -50,3 +50,7 @@ func _physics_process(_delta):
 	if Input.is_action_just_pressed("pause_game"):
 		TimeManager.toggle_pause()
 	
+
+
+func _on_auto_pause_toggled(button_pressed):
+	GameInternalValues.set_autopause(button_pressed)

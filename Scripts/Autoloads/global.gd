@@ -89,6 +89,9 @@ func current_enemy() -> EnemyResource:
 func setup_random_enemy(level: LevelPool, pool: EnemyPool):
 	_current_enemy = _random_enemy(level, pool)
 
+func set_current_enemy(r: EnemyResource):
+	_current_enemy = r
+
 func get_card_sample(sample_size: int = 3) -> Array[CardDeckInstance]: 
 	_load_card_pool()
 	var max_reward = _possible_card_pool.size()
@@ -113,6 +116,9 @@ func get_current_deck() -> Array[CardDeckInstance]:
 		for card_resource in _get_starter().cards:
 			_current_deck.append(CardDeckInstance.new(card_resource))
 	return _current_deck
+
+func reset_current_deck():
+	_current_deck.clear()
 
 func remove_from_deck(card: CardDeckInstance):
 	var idx = _current_deck.find(card)

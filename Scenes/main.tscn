@@ -206,6 +206,10 @@ text = "Pause"
 [node name="TimeControl" type="VBoxContainer" parent="DebugBox"]
 layout_mode = 2
 
+[node name="AutoPause" type="CheckBox" parent="DebugBox/TimeControl"]
+layout_mode = 2
+text = "Autopause"
+
 [node name="TimeSlider" type="HSlider" parent="DebugBox/TimeControl"]
 layout_mode = 2
 min_value = 0.001
@@ -239,6 +243,7 @@ layout_mode = 2
 [connection signal="exhaust_changed" from="Hand" to="." method="_on_hand_exhaust_changed"]
 [connection signal="pressed" from="DebugBox/WinButton" to="DebugBox" method="_on_win_button_pressed"]
 [connection signal="pressed" from="DebugBox/PauseButton" to="DebugBox" method="_on_button_pressed"]
+[connection signal="toggled" from="DebugBox/TimeControl/AutoPause" to="DebugBox" method="_on_auto_pause_toggled"]
 [connection signal="value_changed" from="DebugBox/TimeControl/TimeSlider" to="DebugBox" method="_on_time_slider_value_changed"]
 [connection signal="value_changed" from="DebugBox/TimeControl/TimeBox" to="DebugBox" method="_on_time_box_value_changed"]
 

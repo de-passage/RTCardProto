@@ -53,10 +53,10 @@ func _ready():
 
 func _on_restart_button_pressed():
 	Global.rewards = {}
-	get_tree().change_scene_to_file("res://Scenes/path_selection.tscn")
+	SceneManager.exit_scene()
 
 func _on_main_menu_button_pressed():
-	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
+	SceneManager.exit_to_main_menu()
 
 func _on_coin_button_pressed():
 	Global.current_money += Global.rewards.get("coins", 0)

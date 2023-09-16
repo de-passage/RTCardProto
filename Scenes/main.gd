@@ -67,6 +67,7 @@ func _on_enemy_died(rewards: Dictionary):
 
 func _goto_recap_screen():
 	Global.update_player(player)
+	TimeManager.paused = false
 	SceneManager.swap_in_recap_screen()
 
 func _on_deck_refreshed():

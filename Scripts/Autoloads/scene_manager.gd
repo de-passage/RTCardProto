@@ -8,9 +8,20 @@ var _combat_scene
 var _option_scene
 var _recap_screen
 var _rest_scene
+var _arena_scene
+var _deck_editor_scene
 
 func _ready():
 	_scene_stack.append(_main_scene)
+
+func exit_to_main_menu(): 
+	if _scene_stack.size() <= 1:
+		return
+	
+	while _scene_stack.size() != 1:
+		_scene_stack.pop_back()
+	
+	_l(_scene_stack[0])
 
 func go_to_main_menu():
 	_new_scene(_main_scene)
@@ -29,6 +40,11 @@ func go_to_options():
 	if _option_scene == null:
 		_option_scene = load("res://Scenes/option_screen.tscn")
 	_new_scene(_option_scene)
+	
+func go_to_arena():
+	if _arena_scene == null:
+		_arena_scene = load("res://Scenes/arena.tscn")
+	_new_scene(_arena_scene)
 
 func go_to_rest():
 	if _rest_scene == null:
@@ -44,12 +60,12 @@ func swap_in_recap_screen():
 		_new_scene(_recap_screen)
 
 func go_to_deck_editor():
-	if _rest_scene == null:
-		_rest_scene = load("res://Scenes/deck_builder.tscn")
-	_new_scene(_rest_scene)
+	if _deck_editor_scene == null:
+		_deck_editor_scene = load("res://Scenes/deck_builder.tscn")
+	_new_scene(_deck_editor_scene)
 
 func exit_scene():
-	if _scene_stack.size() > 1: 
+	if _scene_stack.size() > 1:
 		_scene_stack.pop_back()
 		_l(_scene_stack.back())
 

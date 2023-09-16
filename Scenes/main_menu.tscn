@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://dyvwxjvv83bn4"]
+[gd_scene load_steps=9 format=3 uid="uid://dyvwxjvv83bn4"]
 
 [ext_resource type="Texture2D" uid="uid://3g18axpijiuu" path="res://art/fantasy empty playboard.png" id="1_1ghns"]
 [ext_resource type="Theme" uid="uid://dko7c3ogpxpix" path="res://Theme/theme.tres" id="1_fjfcd"]
 [ext_resource type="Script" path="res://Scenes/main_menu.gd" id="2_jdxeu"]
 [ext_resource type="Theme" uid="uid://ce00dygj64r3p" path="res://Theme/reward_theme.tres" id="4_10gql"]
 [ext_resource type="FontFile" uid="uid://bsk6op0lpnbwx" path="res://font/NeverMindsemi-serif-Regular.ttf" id="5_e4ncw"]
+[ext_resource type="PackedScene" uid="uid://3dk1ddpp0t6w" path="res://Scenes/DeckSelection.tscn" id="6_bo4dr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_palod"]
 
@@ -53,6 +54,10 @@ layout_mode = 2
 theme = ExtResource("1_fjfcd")
 text = "Start"
 
+[node name="ArenaButton" type="Button" parent="TextureRect/Buttons"]
+layout_mode = 2
+text = "Arena"
+
 [node name="OptionButton" type="Button" parent="TextureRect/Buttons"]
 layout_mode = 2
 text = "Options"
@@ -90,15 +95,11 @@ layout_mode = 2
 text = "Deck"
 label_settings = SubResource("LabelSettings_xuket")
 
-[node name="DeckSelection" type="OptionButton" parent="TextureRect/AdditionalMargin/AdditionalButtons/VBoxContainer"]
+[node name="DeckSelection" parent="TextureRect/AdditionalMargin/AdditionalButtons/VBoxContainer" instance=ExtResource("6_bo4dr")]
 layout_mode = 2
-item_count = 1
-selected = 0
-popup/item_0/text = "Default"
-popup/item_0/id = 0
 
 [connection signal="pressed" from="TextureRect/Buttons/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="TextureRect/Buttons/ArenaButton" to="." method="_on_arena_button_pressed"]
 [connection signal="pressed" from="TextureRect/Buttons/OptionButton" to="." method="_on_option_button_pressed"]
 [connection signal="pressed" from="TextureRect/Buttons/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="TextureRect/AdditionalMargin/AdditionalButtons/DeckEditor" to="." method="_on_deck_editor_pressed"]
-[connection signal="item_selected" from="TextureRect/AdditionalMargin/AdditionalButtons/VBoxContainer/DeckSelection" to="." method="_on_deck_selection_item_selected"]

@@ -14,7 +14,7 @@ func _on_rest_button_pressed():
 	var worst_wound = _worst_wound()
 	if worst_wound != null: 
 		Global.remove_from_deck(worst_wound)	
-	get_tree().change_scene_to_file("res://Scenes/path_selection.tscn")
+	SceneManager.exit_scene()
 
 func _on_remove_button_pressed():
 	_card_removal.visible = true
@@ -22,7 +22,7 @@ func _on_remove_button_pressed():
 func _on_deck_panel_card_removed(card: CardDeckInstance):
 	Global.remove_from_deck(card)
 	_card_removal.visible = false 
-	get_tree().change_scene_to_file("res://Scenes/path_selection.tscn")
+	SceneManager.exit_scene()
 
 func _on_deck_panel_closed():
 	_card_removal.visible = false
@@ -42,4 +42,4 @@ func _worst_wound():
 
 
 func _on_ignore_button_pressed():
-	get_tree().change_scene_to_file("res://Scenes/path_selection.tscn")
+	SceneManager.exit_scene()
