@@ -1,13 +1,17 @@
 extends BaseEffect
 
+const DAMAGE = &"Damage"
+const TRASH_AMOUNT = &"Trash Amount"
+const TRASH = &"Trash"
+
 var _damage: int = 5
 var _trash_card: CardResource
 var _trash_amount: int = 1
 
 func _init(v: Dictionary):
-	_damage = v.get("Damage", 0)
-	_trash_amount = v.get("Trash Amount", 1)
-	_trash_card = load(v.get("Trash"))
+	_damage = v.get(DAMAGE, 0)
+	_trash_amount = v.get(TRASH_AMOUNT, 1)
+	_trash_card = load(v.get(TRASH))
 
 	description = "Attack for %s, if health would be lost, curse for the value"
 
@@ -47,6 +51,9 @@ static func get_metadata():
 			"min": 1
 		}]
 	}
+
+static func build_editor_input(p: EffectEditor.Proxy, params: Dictionary):
+	p.add_int_input(DAMAGE, params.get(DAMAGE, 1))
 
 static func editor_name():
 	return "Cursed Strike"

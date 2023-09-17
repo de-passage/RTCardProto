@@ -6,11 +6,12 @@ var _last_subtype: String
 
 const IF_TRUE = &"If true"
 const OTHERWISE = &"Otherwise"
+const TAG = &"Tag"
 
 func _init(v: Dictionary):
 	description = "Trigger another effect"
 
-	var other_effects = v.get(IF_TRUE, null) as Array[EffectResource]
+	var other_effects = v.get(IF_TRUE, null)
 	if other_effects != null:
 		_other_effects = []
 		for e in other_effects:
@@ -23,13 +24,13 @@ func _init(v: Dictionary):
 		else:
 			_other_effects = [ BaseEffect.new() ]
 
-	var normal_effects = v.get(OTHERWISE) as Array[EffectResource]
+	var normal_effects = v.get(OTHERWISE)
 	_normal_effects = []
 	if normal_effects != null:
 		for e in normal_effects:
 			_normal_effects.append(e.load_effect())
 
-	_last_subtype = v.get("Tag", "")
+	_last_subtype = v.get(TAG, "")
 
 func apply_effect(context: Context):
 	var c = context.history().last_card_played()
@@ -54,7 +55,7 @@ static func get_metadata():
 		"parameters": [
 			{
 				"type": "string",
-				"name": "Tag"
+				"name": TAG
 			},
 			{
 				"type": "effect",
