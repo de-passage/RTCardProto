@@ -1,17 +1,16 @@
 @tool
 extends Control
 
-@onready var _name_edit = $Attr/GridContainer/NameEdit as LineEdit
-@onready var _health_edit = $Attr/GridContainer/HealthEdit as SpinBox
-@onready var _coin_edit = $Attr/GridContainer/CoinEdit as SpinBox
-@onready var _attack_frequency_edit = $Attr/GridContainer/AttackFrequencyEdit as SpinBox
-@onready var _card_reward_edit = $Attr/GridContainer/CardRewardEdit as CheckBox
-@onready var _type_edit = $Attr/GridContainer/TypeEdit as OptionButton
-@onready var _level_edit = $Attr/GridContainer/LevelEdit as OptionButton
-@onready var _card_list_edit = $Attr/GridContainer/CardListEdit as OptionButton
-@onready var _file_dialog = $Attr/GridContainer/LoadButton/LoadFileDialog as FileDialog
-@onready var _save_file_dialog = $Attr/GridContainer/ControlBox/Save/SaveFileDialog as FileDialog
-@onready var _card_box = $Attr/GridContainer/CardVBox as VBoxContainer
+@onready var _name_edit = $EditorPanel/Attr/GridContainer/NameEdit as LineEdit
+@onready var _health_edit = $EditorPanel/Attr/GridContainer/HealthEdit as SpinBox
+@onready var _coin_edit = $EditorPanel/Attr/GridContainer/CoinEdit as SpinBox
+@onready var _attack_frequency_edit = $EditorPanel/Attr/GridContainer/AttackFrequencyEdit as SpinBox
+@onready var _card_reward_edit = $EditorPanel/Attr/GridContainer/CardRewardEdit as CheckBox
+@onready var _type_edit = $EditorPanel/Attr/GridContainer/TypeEdit as OptionButton
+@onready var _level_edit = $EditorPanel/Attr/GridContainer/LevelEdit as OptionButton
+@onready var _card_list_edit = $EditorPanel/Attr/GridContainer/CardListEdit as OptionButton
+@onready var _card_box = $EditorPanel/Attr/GridContainer/CardVBox as VBoxContainer
+@onready var _control_panel = $EditorPanel as EditorControlPanel
 
 var _displayed_cards = []
 var _available_cards: Array[CardResource] = []
@@ -62,9 +61,6 @@ func _update_ui_with_resource(monster: EnemyResource):
 			# editor.initialize_from_card(card)
 			editor.initialize_anonymous(card.duplicate())
 
-func _on_load_button_pressed():
-	_file_dialog.popup_centered_ratio()
-
 
 func _on_file_dialog_file_selected(path):
 	_load_monster(path)
@@ -91,9 +87,6 @@ func _on_card_list_edit_item_selected(index):
 	_displayed_cards.append(card)
 	_card_list_edit.select(0)
 
-func _on_save_pressed():
-	_save_file_dialog.popup_centered_ratio()
-
 
 func _on_save_file_dialog_file_selected(path):
 	_current_enemy_resource.resource_path = path
@@ -116,7 +109,7 @@ func _on_save_file_dialog_file_selected(path):
 		printerr("Save failed")
 
 func _on_name_edit_text_submitted(new_text):
-	_save_file_dialog.get_line_edit().text = "%s.tres" % new_text
+	_control_panel.set_default_text("%s.tres" % new_text)
 
 
 func _on_reset_button_pressed():

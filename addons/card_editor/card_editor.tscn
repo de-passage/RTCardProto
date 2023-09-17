@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://4b3q7kq84kuh"]
+[gd_scene load_steps=8 format=3 uid="uid://4b3q7kq84kuh"]
 
 [ext_resource type="Script" path="res://addons/card_editor/card_editor.gd" id="1_m4cus"]
+[ext_resource type="PackedScene" uid="uid://bxnux2yembvh3" path="res://Scenes/Utility/editor_panel.tscn" id="2_1paog"]
 [ext_resource type="Shader" path="res://Shaders/make_white.gdshader" id="2_3xmtf"]
 [ext_resource type="Texture2D" uid="uid://cda5gd7uu0kka" path="res://art/add_icon.svg" id="3_re3uu"]
 [ext_resource type="PackedScene" uid="uid://d241it0v4sl7g" path="res://addons/card_editor/effect_list.tscn" id="4_r2trk"]
@@ -19,145 +20,124 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_m4cus")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="EditorPanel" parent="." instance=ExtResource("2_1paog")]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="EditorPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GridContainer" type="GridContainer" parent="EditorPanel/VBoxContainer"]
 layout_mode = 2
 columns = 2
 
-[node name="ResetButton" type="Button" parent="VBoxContainer/GridContainer"]
-layout_mode = 2
-text = "Reset all fields"
-
-[node name="Control2" type="Control" parent="VBoxContainer/GridContainer"]
-layout_mode = 2
-
-[node name="LoadCardButton" type="MenuButton" parent="VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 3
-text = "Load"
-flat = false
-
-[node name="FileDialog" type="FileDialog" parent="VBoxContainer/GridContainer/LoadCardButton"]
-title = "Open a File"
-ok_button_text = "Open"
-file_mode = 0
-root_subfolder = "Cards"
-filters = PackedStringArray("*.tres")
-
-[node name="SavePath" type="TextEdit" parent="VBoxContainer/GridContainer"]
-layout_mode = 2
-placeholder_text = "File name"
-
-[node name="CardNameLabel" type="Label" parent="VBoxContainer/GridContainer"]
+[node name="CardNameLabel" type="Label" parent="EditorPanel/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "Card name"
 
-[node name="CardNameEdit" type="LineEdit" parent="VBoxContainer/GridContainer"]
+[node name="CardNameEdit" type="LineEdit" parent="EditorPanel/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Card name required!"
 
-[node name="CardCostLabel" type="Label" parent="VBoxContainer/GridContainer"]
+[node name="CardCostLabel" type="Label" parent="EditorPanel/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "Card Energy Cost"
 
-[node name="CardCostEdit" type="SpinBox" parent="VBoxContainer/GridContainer"]
+[node name="CardCostEdit" type="SpinBox" parent="EditorPanel/VBoxContainer/GridContainer"]
 layout_mode = 2
 value = 1.0
 rounded = true
 custom_arrow_step = 1.0
 
-[node name="CardManaCostLabel" type="Label" parent="VBoxContainer/GridContainer"]
+[node name="CardManaCostLabel" type="Label" parent="EditorPanel/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "Card Mana Cost"
 
-[node name="CardManaCostEdit" type="SpinBox" parent="VBoxContainer/GridContainer"]
+[node name="CardManaCostEdit" type="SpinBox" parent="EditorPanel/VBoxContainer/GridContainer"]
 layout_mode = 2
 rounded = true
 custom_arrow_step = 1.0
 
-[node name="CardCostLabel2" type="Label" parent="VBoxContainer/GridContainer"]
+[node name="CardCostLabel2" type="Label" parent="EditorPanel/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "Card Money Cost"
 
-[node name="CardCostEdit2" type="SpinBox" parent="VBoxContainer/GridContainer"]
+[node name="CardCostEdit2" type="SpinBox" parent="EditorPanel/VBoxContainer/GridContainer"]
 layout_mode = 2
 max_value = 9.22337e+18
 value = 50.0
 rounded = true
 custom_arrow_step = 1.0
 
-[node name="CardRarityLabel" type="Label" parent="VBoxContainer/GridContainer"]
+[node name="CardRarityLabel" type="Label" parent="EditorPanel/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "Card rarity"
 
-[node name="CardRarityEdit" type="SpinBox" parent="VBoxContainer/GridContainer"]
+[node name="CardRarityEdit" type="SpinBox" parent="EditorPanel/VBoxContainer/GridContainer"]
 layout_mode = 2
 max_value = 9.22337e+18
 rounded = true
 custom_arrow_step = 1.0
 
-[node name="EffectsLabel" type="Label" parent="VBoxContainer/GridContainer"]
+[node name="EffectsLabel" type="Label" parent="EditorPanel/VBoxContainer/GridContainer"]
 layout_mode = 2
 
-[node name="EffectsBoxList" type="HBoxContainer" parent="VBoxContainer/GridContainer"]
+[node name="EffectsBoxList" type="HBoxContainer" parent="EditorPanel/VBoxContainer/GridContainer"]
 layout_mode = 2
 
-[node name="OnPlayCheckBox" type="CheckBox" parent="VBoxContainer/GridContainer/EffectsBoxList"]
+[node name="OnPlayCheckBox" type="CheckBox" parent="EditorPanel/VBoxContainer/GridContainer/EffectsBoxList"]
 unique_name_in_owner = true
 layout_mode = 2
 button_pressed = true
 text = "On Play"
 
-[node name="OnDrawCheckBox" type="CheckBox" parent="VBoxContainer/GridContainer/EffectsBoxList"]
+[node name="OnDrawCheckBox" type="CheckBox" parent="EditorPanel/VBoxContainer/GridContainer/EffectsBoxList"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "On Draw
 "
 
-[node name="OnDiscardCheckBox" type="CheckBox" parent="VBoxContainer/GridContainer/EffectsBoxList"]
+[node name="OnDiscardCheckBox" type="CheckBox" parent="EditorPanel/VBoxContainer/GridContainer/EffectsBoxList"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "On Discard"
 
-[node name="PlayableCheckbox" type="CheckBox" parent="VBoxContainer/GridContainer/EffectsBoxList"]
+[node name="PlayableCheckbox" type="CheckBox" parent="EditorPanel/VBoxContainer/GridContainer/EffectsBoxList"]
 layout_mode = 2
 button_pressed = true
 text = "Playable"
 
-[node name="PlayEffectList" parent="VBoxContainer" instance=ExtResource("4_r2trk")]
+[node name="PlayEffectList" parent="EditorPanel/VBoxContainer" instance=ExtResource("4_r2trk")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="DrawEffectList" parent="VBoxContainer" instance=ExtResource("4_r2trk")]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-
-[node name="DiscardEffectList" parent="VBoxContainer" instance=ExtResource("4_r2trk")]
+[node name="DrawEffectList" parent="EditorPanel/VBoxContainer" instance=ExtResource("4_r2trk")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
-[node name="TagsGrid" type="GridContainer" parent="VBoxContainer"]
+[node name="DiscardEffectList" parent="EditorPanel/VBoxContainer" instance=ExtResource("4_r2trk")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="TagsGrid" type="GridContainer" parent="EditorPanel/VBoxContainer"]
 layout_mode = 2
 columns = 2
 
-[node name="TagLabel" type="Label" parent="VBoxContainer/TagsGrid"]
+[node name="TagLabel" type="Label" parent="EditorPanel/VBoxContainer/TagsGrid"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "Tags"
 
-[node name="TagAddContainer" type="HBoxContainer" parent="VBoxContainer/TagsGrid"]
+[node name="TagAddContainer" type="HBoxContainer" parent="EditorPanel/VBoxContainer/TagsGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="AddTagButton" type="TextureButton" parent="VBoxContainer/TagsGrid/TagAddContainer"]
+[node name="AddTagButton" type="TextureButton" parent="EditorPanel/VBoxContainer/TagsGrid/TagAddContainer"]
 material = SubResource("ShaderMaterial_qto8b")
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
@@ -165,24 +145,24 @@ texture_normal = ExtResource("3_re3uu")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="TagEdit" type="LineEdit" parent="VBoxContainer/TagsGrid/TagAddContainer"]
+[node name="TagEdit" type="LineEdit" parent="EditorPanel/VBoxContainer/TagsGrid/TagAddContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Spacer" type="Control" parent="VBoxContainer/TagsGrid"]
+[node name="Spacer" type="Control" parent="EditorPanel/VBoxContainer/TagsGrid"]
 layout_mode = 2
 
-[node name="TagList" type="HBoxContainer" parent="VBoxContainer/TagsGrid"]
+[node name="TagList" type="HBoxContainer" parent="EditorPanel/VBoxContainer/TagsGrid"]
 layout_mode = 2
 
-[node name="PoolsLabel" type="Label" parent="VBoxContainer/TagsGrid"]
+[node name="PoolsLabel" type="Label" parent="EditorPanel/VBoxContainer/TagsGrid"]
 layout_mode = 2
 text = "Pools"
 
-[node name="PoolsAddContainer" type="HBoxContainer" parent="VBoxContainer/TagsGrid"]
+[node name="PoolsAddContainer" type="HBoxContainer" parent="EditorPanel/VBoxContainer/TagsGrid"]
 layout_mode = 2
 
-[node name="AddPoolButton" type="TextureButton" parent="VBoxContainer/TagsGrid/PoolsAddContainer"]
+[node name="AddPoolButton" type="TextureButton" parent="EditorPanel/VBoxContainer/TagsGrid/PoolsAddContainer"]
 material = SubResource("ShaderMaterial_qto8b")
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
@@ -190,39 +170,33 @@ texture_normal = ExtResource("3_re3uu")
 ignore_texture_size = true
 stretch_mode = 4
 
-[node name="PoolEdit" type="LineEdit" parent="VBoxContainer/TagsGrid/PoolsAddContainer"]
+[node name="PoolEdit" type="LineEdit" parent="EditorPanel/VBoxContainer/TagsGrid/PoolsAddContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PoolSpacer" type="Control" parent="VBoxContainer/TagsGrid"]
+[node name="PoolSpacer" type="Control" parent="EditorPanel/VBoxContainer/TagsGrid"]
 layout_mode = 2
 
-[node name="PoolList" type="HBoxContainer" parent="VBoxContainer/TagsGrid"]
+[node name="PoolList" type="HBoxContainer" parent="EditorPanel/VBoxContainer/TagsGrid"]
 layout_mode = 2
 
-[node name="Errors" type="Label" parent="VBoxContainer"]
+[node name="Errors" type="Label" parent="EditorPanel/VBoxContainer"]
 visible = false
 layout_mode = 2
 label_settings = SubResource("LabelSettings_4ep76")
 
-[node name="SaveButton" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-text = "Create"
-
-[node name="Feedback" type="Label" parent="VBoxContainer"]
+[node name="Feedback" type="Label" parent="EditorPanel/VBoxContainer"]
 layout_mode = 2
 
-[connection signal="pressed" from="VBoxContainer/GridContainer/ResetButton" to="." method="_on_reset_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/GridContainer/LoadCardButton" to="." method="_on_load_card_button_pressed"]
-[connection signal="file_selected" from="VBoxContainer/GridContainer/LoadCardButton/FileDialog" to="." method="_on_file_dialog_file_selected"]
-[connection signal="text_changed" from="VBoxContainer/GridContainer/CardNameEdit" to="." method="_on_card_name_edit_text_submitted"]
-[connection signal="text_submitted" from="VBoxContainer/GridContainer/CardNameEdit" to="." method="_on_card_name_edit_text_submitted"]
-[connection signal="toggled" from="VBoxContainer/GridContainer/EffectsBoxList/OnPlayCheckBox" to="." method="_on_on_play_check_box_toggled"]
-[connection signal="toggled" from="VBoxContainer/GridContainer/EffectsBoxList/OnDrawCheckBox" to="." method="_on_on_draw_check_box_toggled"]
-[connection signal="toggled" from="VBoxContainer/GridContainer/EffectsBoxList/OnDiscardCheckBox" to="." method="_on_on_discard_check_box_toggled"]
-[connection signal="pressed" from="VBoxContainer/TagsGrid/TagAddContainer/AddTagButton" to="." method="_on_add_tag_button_pressed"]
-[connection signal="text_submitted" from="VBoxContainer/TagsGrid/TagAddContainer/TagEdit" to="." method="_on_tag_edit_text_submitted"]
-[connection signal="pressed" from="VBoxContainer/TagsGrid/PoolsAddContainer/AddPoolButton" to="." method="_on_add_pool_button_pressed"]
-[connection signal="text_submitted" from="VBoxContainer/TagsGrid/PoolsAddContainer/PoolEdit" to="." method="_on_pool_edit_text_submitted"]
-[connection signal="pressed" from="VBoxContainer/SaveButton" to="." method="_on_button_pressed"]
+[connection signal="load_required" from="EditorPanel" to="." method="_on_file_dialog_file_selected"]
+[connection signal="new_required" from="EditorPanel" to="." method="_on_reset_button_pressed"]
+[connection signal="save_required" from="EditorPanel" to="." method="_on_editor_panel_save_required"]
+[connection signal="text_changed" from="EditorPanel/VBoxContainer/GridContainer/CardNameEdit" to="." method="_on_card_name_edit_text_submitted"]
+[connection signal="text_submitted" from="EditorPanel/VBoxContainer/GridContainer/CardNameEdit" to="." method="_on_card_name_edit_text_submitted"]
+[connection signal="toggled" from="EditorPanel/VBoxContainer/GridContainer/EffectsBoxList/OnPlayCheckBox" to="." method="_on_on_play_check_box_toggled"]
+[connection signal="toggled" from="EditorPanel/VBoxContainer/GridContainer/EffectsBoxList/OnDrawCheckBox" to="." method="_on_on_draw_check_box_toggled"]
+[connection signal="toggled" from="EditorPanel/VBoxContainer/GridContainer/EffectsBoxList/OnDiscardCheckBox" to="." method="_on_on_discard_check_box_toggled"]
+[connection signal="pressed" from="EditorPanel/VBoxContainer/TagsGrid/TagAddContainer/AddTagButton" to="." method="_on_add_tag_button_pressed"]
+[connection signal="text_submitted" from="EditorPanel/VBoxContainer/TagsGrid/TagAddContainer/TagEdit" to="." method="_on_tag_edit_text_submitted"]
+[connection signal="pressed" from="EditorPanel/VBoxContainer/TagsGrid/PoolsAddContainer/AddPoolButton" to="." method="_on_add_pool_button_pressed"]
+[connection signal="text_submitted" from="EditorPanel/VBoxContainer/TagsGrid/PoolsAddContainer/PoolEdit" to="." method="_on_pool_edit_text_submitted"]

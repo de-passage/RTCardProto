@@ -9,5 +9,5 @@ func apply_effect(context: Context):
 static func editor_name():
 	return "Purge"
 
-static func build_editor_input(proxy: EffectEditor.Proxy, params: Dictionary): 
+static func build_editor_input(_proxy: EffectEditor.Proxy, _params: Dictionary): 
 	pass

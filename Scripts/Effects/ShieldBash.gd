@@ -12,7 +12,7 @@ func get_description(context: Context):
 func _effect_value(context: Context):
 	return context.source.armor + context.source.strength
 
-static func build_editor_input(proxy: EffectEditor.Proxy, params: Dictionary): 
+static func build_editor_input(_proxy: EffectEditor.Proxy, _params: Dictionary): 
 	pass
 	
 static func editor_name():

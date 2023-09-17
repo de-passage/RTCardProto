@@ -1,25 +1,22 @@
 @tool
 extends ScrollContainer
 
-@onready var _name = $VBoxContainer/GridContainer/CardNameEdit as LineEdit
-@onready var _cost = $VBoxContainer/GridContainer/CardCostEdit as SpinBox
-@onready var _mana_cost_edit = $VBoxContainer/GridContainer/CardManaCostEdit as SpinBox
-@onready var _mcost = $VBoxContainer/GridContainer/CardCostEdit2 as SpinBox
-@onready var _rarity = $VBoxContainer/GridContainer/CardRarityEdit as SpinBox
-@onready var _errors = $VBoxContainer/Errors as Label
-@onready var _file_explorer = $VBoxContainer/GridContainer/LoadCardButton/FileDialog as FileDialog
-@onready var _save_button = $VBoxContainer/SaveButton as Button
-@onready var _save_path_edit = $VBoxContainer/GridContainer/SavePath
-@onready var _feedback = $VBoxContainer/Feedback
-@onready var _playable_checkbox = $VBoxContainer/GridContainer/EffectsBoxList/PlayableCheckbox as CheckBox
+@onready var _name = $EditorPanel/VBoxContainer/GridContainer/CardNameEdit as LineEdit
+@onready var _cost = $EditorPanel/VBoxContainer/GridContainer/CardCostEdit as SpinBox
+@onready var _mana_cost_edit = $EditorPanel/VBoxContainer/GridContainer/CardManaCostEdit as SpinBox
+@onready var _mcost = $EditorPanel/VBoxContainer/GridContainer/CardCostEdit2 as SpinBox
+@onready var _rarity = $EditorPanel/VBoxContainer/GridContainer/CardRarityEdit as SpinBox
+@onready var _errors = $EditorPanel/VBoxContainer/Errors as Label
+@onready var _feedback = $EditorPanel/VBoxContainer/Feedback
+@onready var _playable_checkbox = $EditorPanel/VBoxContainer/GridContainer/EffectsBoxList/PlayableCheckbox as CheckBox
 
 # Tags
-@onready var _tag_edit = $VBoxContainer/TagsGrid/TagAddContainer/TagEdit
-@onready var _tag_list = $VBoxContainer/TagsGrid/TagList as HBoxContainer
+@onready var _tag_edit = $EditorPanel/VBoxContainer/TagsGrid/TagAddContainer/TagEdit
+@onready var _tag_list = $EditorPanel/VBoxContainer/TagsGrid/TagList as HBoxContainer
 
 # Pools
-@onready var _pool_edit = $VBoxContainer/TagsGrid/PoolsAddContainer/PoolEdit
-@onready var _pool_list = $VBoxContainer/TagsGrid/PoolList as HBoxContainer
+@onready var _pool_edit = $EditorPanel/VBoxContainer/TagsGrid/PoolsAddContainer/PoolEdit
+@onready var _pool_list = $EditorPanel/VBoxContainer/TagsGrid/PoolList as HBoxContainer
 
 @onready var _draw_effects = %DrawEffectList as EditorEffectList
 @onready var _discard_effects = %DiscardEffectList as EditorEffectList
@@ -35,12 +32,8 @@ var _save_path: String:
 	set(value):
 		_save_path = value.strip_edges().to_lower()
 		_save_path = _file_name_sanitizer.sub(_save_path, "_", true)
-		_save_path_edit.text = _save_path
 		
-var _overwrite: bool = false:
-	set(v):
-		_overwrite = v
-		_save_button.text = "Create" if not _overwrite else "Save"
+var _overwrite: bool = false
 		
 var _file_name_regex = RegEx.create_from_string("res://Cards/(.*)\\.tres$")
 var _file_name_sanitizer =  RegEx.create_from_string("[^a-zA-Z0-9_/-]")
@@ -60,7 +53,6 @@ func _on_reset_button_pressed():
 	_cost.value = 1
 	_mcost.value = 50
 	_rarity.value = 0
-	_save_path_edit.text = ""
 	get_tree().call_group(EditorEffectList.EFFECT_GROUP, "queue_free")
 	_overwrite = false
 	_discard_effects.visible = false
@@ -70,7 +62,7 @@ func _on_reset_button_pressed():
 ##################################
 #   SAVE LOGIC 
 ##################################
-func _on_button_pressed():
+func _on_editor_panel_save_required(path):
 	var name = _name.text
 	var cost = _cost.value
 	var mcost = _mcost.value
@@ -110,16 +102,12 @@ func _on_button_pressed():
 	for pool in _pool_list.get_children():
 		if pool is Button:
 			resource.pools.append(pool.text)
-	
-	var final_save_path = _get_file_path(_save_path_edit.text)
-	if not _overwrite and FileAccess.file_exists(final_save_path):
-		errors.append("File %s already exist!" % final_save_path)
 			
 	if errors.size() > 0: 
 		_errors.text = "\n".join(errors)
 		_errors.visible = true
 	else:
-		var r = ResourceSaver.save(resource, final_save_path)
+		var r = ResourceSaver.save(resource, path)
 		if r == OK: 
 			_feedback.text = "'%s' saved successfully!" % name
 			var t = Timer.new()
@@ -192,9 +180,6 @@ func _add_pool_delete_button(value: StringName):
 func _on_card_name_edit_text_submitted(new_text):
 	_save_path = new_text
 
-func _on_load_card_button_pressed():
-	_file_explorer.popup_centered_ratio()
-
 
 func _on_add_tag_button_pressed():
 	var value = _tag_edit.text
@@ -225,3 +210,4 @@ func _on_add_pool_button_pressed():
 
 func _on_pool_edit_text_submitted(new_text):
 	_add_pool_delete_button(new_text)
+

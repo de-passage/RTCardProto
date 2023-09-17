@@ -1,5 +1,7 @@
 extends VBoxContainer
 
+class_name EditorControlPanel
+
 signal save_required(path: String)
 signal load_required(path: String)
 signal new_required()
@@ -33,3 +35,6 @@ func _on_file_dialog_file_selected(path):
 func _on_new_button_pressed():
 	new_required.emit()
 	_file_dialog.get_line_edit().clear()
+
+func set_default_text(text: String):
+	_file_dialog.get_line_edit().text = text

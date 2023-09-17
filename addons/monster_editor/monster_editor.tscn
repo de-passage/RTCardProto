@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dnvw6xyexq6rq"]
+[gd_scene load_steps=3 format=3 uid="uid://dnvw6xyexq6rq"]
 
 [ext_resource type="Script" path="res://addons/monster_editor/monster_editor.gd" id="1_u0m87"]
+[ext_resource type="PackedScene" uid="uid://bxnux2yembvh3" path="res://Scenes/Utility/editor_panel.tscn" id="2_cqwds"]
 
 [node name="MonsterEditor" type="ScrollContainer"]
 anchors_preset = 15
@@ -10,62 +11,37 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_u0m87")
 
-[node name="Attr" type="VBoxContainer" parent="."]
+[node name="EditorPanel" parent="." instance=ExtResource("2_cqwds")]
+layout_mode = 2
+size_flags_horizontal = 3
+root_subfolder = &"res://Characters/Enemies"
+
+[node name="Attr" type="VBoxContainer" parent="EditorPanel"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="GridContainer" type="GridContainer" parent="Attr"]
+[node name="GridContainer" type="GridContainer" parent="EditorPanel/Attr"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 2
 
-[node name="LoadButton" type="Button" parent="Attr/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Load"
-
-[node name="LoadFileDialog" type="FileDialog" parent="Attr/GridContainer/LoadButton"]
-title = "Open a File"
-initial_position = 2
-ok_button_text = "Open"
-file_mode = 0
-root_subfolder = "Characters/Enemies"
-filters = PackedStringArray("*.tres")
-
-[node name="ControlBox" type="HBoxContainer" parent="Attr/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Save" type="Button" parent="Attr/GridContainer/ControlBox"]
-layout_mode = 2
-text = "Save"
-
-[node name="SaveFileDialog" type="FileDialog" parent="Attr/GridContainer/ControlBox/Save"]
-size = Vector2i(392, 162)
-root_subfolder = "Characters/Enemies"
-filters = PackedStringArray("*.tres")
-
-[node name="ResetButton" type="Button" parent="Attr/GridContainer/ControlBox"]
-layout_mode = 2
-text = "Reset"
-
-[node name="NameLabel" type="Label" parent="Attr/GridContainer"]
+[node name="NameLabel" type="Label" parent="EditorPanel/Attr/GridContainer"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 text = "Monster name"
 
-[node name="NameEdit" type="LineEdit" parent="Attr/GridContainer"]
+[node name="NameEdit" type="LineEdit" parent="EditorPanel/Attr/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "<Name Required>"
 
-[node name="HealhLabel" type="Label" parent="Attr/GridContainer"]
+[node name="HealhLabel" type="Label" parent="EditorPanel/Attr/GridContainer"]
 layout_mode = 2
 text = "Max Health"
 
-[node name="HealthEdit" type="SpinBox" parent="Attr/GridContainer"]
+[node name="HealthEdit" type="SpinBox" parent="EditorPanel/Attr/GridContainer"]
 layout_mode = 2
 min_value = 1.0
 max_value = 9.22337e+18
@@ -73,40 +49,40 @@ value = 10.0
 rounded = true
 allow_greater = true
 
-[node name="CoinLabel" type="Label" parent="Attr/GridContainer"]
+[node name="CoinLabel" type="Label" parent="EditorPanel/Attr/GridContainer"]
 layout_mode = 2
 text = "Money Reward"
 
-[node name="CoinEdit" type="SpinBox" parent="Attr/GridContainer"]
+[node name="CoinEdit" type="SpinBox" parent="EditorPanel/Attr/GridContainer"]
 layout_mode = 2
 max_value = 9.22337e+18
 value = 10.0
 rounded = true
 allow_greater = true
 
-[node name="AttackFrequencyLabel" type="Label" parent="Attr/GridContainer"]
+[node name="AttackFrequencyLabel" type="Label" parent="EditorPanel/Attr/GridContainer"]
 layout_mode = 2
 text = "Attack Frequency"
 
-[node name="AttackFrequencyEdit" type="SpinBox" parent="Attr/GridContainer"]
+[node name="AttackFrequencyEdit" type="SpinBox" parent="EditorPanel/Attr/GridContainer"]
 layout_mode = 2
 min_value = 0.01
 step = 0.1
 value = 1.01
 
-[node name="CardRewardLabel" type="Label" parent="Attr/GridContainer"]
+[node name="CardRewardLabel" type="Label" parent="EditorPanel/Attr/GridContainer"]
 layout_mode = 2
 text = "Card Reward"
 
-[node name="CardRewardEdit" type="CheckBox" parent="Attr/GridContainer"]
+[node name="CardRewardEdit" type="CheckBox" parent="EditorPanel/Attr/GridContainer"]
 layout_mode = 2
 button_pressed = true
 
-[node name="TypeLabel" type="Label" parent="Attr/GridContainer"]
+[node name="TypeLabel" type="Label" parent="EditorPanel/Attr/GridContainer"]
 layout_mode = 2
 text = "Type"
 
-[node name="TypeEdit" type="OptionButton" parent="Attr/GridContainer"]
+[node name="TypeEdit" type="OptionButton" parent="EditorPanel/Attr/GridContainer"]
 layout_mode = 2
 item_count = 3
 selected = 0
@@ -117,24 +93,24 @@ popup/item_1/id = 1
 popup/item_2/text = "Boss"
 popup/item_2/id = 2
 
-[node name="LevelLabel" type="Label" parent="Attr/GridContainer"]
+[node name="LevelLabel" type="Label" parent="EditorPanel/Attr/GridContainer"]
 layout_mode = 2
 text = "Levels"
 
-[node name="LevelEdit" type="OptionButton" parent="Attr/GridContainer"]
+[node name="LevelEdit" type="OptionButton" parent="EditorPanel/Attr/GridContainer"]
 layout_mode = 2
 item_count = 1
 selected = 0
 popup/item_0/text = "Default"
 popup/item_0/id = 0
 
-[node name="CardLabel" type="Label" parent="Attr/GridContainer"]
+[node name="CardLabel" type="Label" parent="EditorPanel/Attr/GridContainer"]
 layout_mode = 2
 text = "Cards"
 
-[node name="CardListEdit" type="OptionButton" parent="Attr/GridContainer"]
+[node name="CardListEdit" type="OptionButton" parent="EditorPanel/Attr/GridContainer"]
 layout_mode = 2
-item_count = 13
+item_count = 29
 selected = 0
 allow_reselect = true
 popup/item_0/text = "<Add card>"
@@ -145,35 +121,65 @@ popup/item_2/text = "Attack"
 popup/item_2/id = 2
 popup/item_3/text = "Attack Harder!"
 popup/item_3/id = 3
-popup/item_4/text = "Curse!"
+popup/item_4/text = "Cleaving Halberd"
 popup/item_4/id = 4
-popup/item_5/text = "Defend"
+popup/item_5/text = "Curse!"
 popup/item_5/id = 5
-popup/item_6/text = "Double Strike"
+popup/item_6/text = "Defend"
 popup/item_6/id = 6
-popup/item_7/text = "Free Strength"
+popup/item_7/text = "Double Strike"
 popup/item_7/id = 7
-popup/item_8/text = "Heal"
+popup/item_8/text = "Draw!!!"
 popup/item_8/id = 8
-popup/item_9/text = "Heal but good"
+popup/item_9/text = "Flash Strikes"
 popup/item_9/id = 9
-popup/item_10/text = "Health Potion"
+popup/item_10/text = "Follow Up"
 popup/item_10/id = 10
-popup/item_11/text = "Strengthen"
+popup/item_11/text = "Fool's Guard"
 popup/item_11/id = 11
-popup/item_12/text = "Strike and exhaust"
+popup/item_12/text = "Free Strength"
 popup/item_12/id = 12
+popup/item_13/text = "Heal"
+popup/item_13/id = 13
+popup/item_14/text = "Heal but good"
+popup/item_14/id = 14
+popup/item_15/text = "Health Potion"
+popup/item_15/id = 15
+popup/item_16/text = "Hold the line!"
+popup/item_16/id = 16
+popup/item_17/text = "Impale"
+popup/item_17/id = 17
+popup/item_18/text = "Looking for openings"
+popup/item_18/id = 18
+popup/item_19/text = "Prepare for the kill"
+popup/item_19/id = 19
+popup/item_20/text = "Thrust"
+popup/item_20/id = 20
+popup/item_21/text = "Rebuf"
+popup/item_21/id = 21
+popup/item_22/text = "Swift Strikes"
+popup/item_22/id = 22
+popup/item_23/text = "Strengthen"
+popup/item_23/id = 23
+popup/item_24/text = "Strike and exhaust"
+popup/item_24/id = 24
+popup/item_25/text = "Swift Strikes"
+popup/item_25/id = 25
+popup/item_26/text = "Unshakable"
+popup/item_26/id = 26
+popup/item_27/text = "Vanguard Charge"
+popup/item_27/id = 27
+popup/item_28/text = "Wound"
+popup/item_28/id = 28
 
-[node name="Control" type="Control" parent="Attr/GridContainer"]
+[node name="Control" type="Control" parent="EditorPanel/Attr/GridContainer"]
 layout_mode = 2
 
-[node name="CardVBox" type="VBoxContainer" parent="Attr/GridContainer"]
+[node name="CardVBox" type="VBoxContainer" parent="EditorPanel/Attr/GridContainer"]
 layout_mode = 2
 
-[connection signal="pressed" from="Attr/GridContainer/LoadButton" to="." method="_on_load_button_pressed"]
-[connection signal="file_selected" from="Attr/GridContainer/LoadButton/LoadFileDialog" to="." method="_on_file_dialog_file_selected"]
-[connection signal="pressed" from="Attr/GridContainer/ControlBox/Save" to="." method="_on_save_pressed"]
-[connection signal="file_selected" from="Attr/GridContainer/ControlBox/Save/SaveFileDialog" to="." method="_on_save_file_dialog_file_selected"]
-[connection signal="pressed" from="Attr/GridContainer/ControlBox/ResetButton" to="." method="_on_reset_button_pressed"]
-[connection signal="text_submitted" from="Attr/GridContainer/NameEdit" to="." method="_on_name_edit_text_submitted"]
-[connection signal="item_selected" from="Attr/GridContainer/CardListEdit" to="." method="_on_card_list_edit_item_selected"]
+[connection signal="load_required" from="EditorPanel" to="." method="_on_file_dialog_file_selected"]
+[connection signal="new_required" from="EditorPanel" to="." method="_on_reset_button_pressed"]
+[connection signal="save_required" from="EditorPanel" to="." method="_on_save_file_dialog_file_selected"]
+[connection signal="text_submitted" from="EditorPanel/Attr/GridContainer/NameEdit" to="." method="_on_name_edit_text_submitted"]
+[connection signal="item_selected" from="EditorPanel/Attr/GridContainer/CardListEdit" to="." method="_on_card_list_edit_item_selected"]
