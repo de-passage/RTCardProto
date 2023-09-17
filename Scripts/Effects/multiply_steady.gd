@@ -14,14 +14,6 @@ func get_description(context: Context):
 static func editor_name():
 	return "Multiply steady"
 
-static func get_metadata():
-	return {
-		"name": "Multiply steady",
-		"parameters": [
-			{
-				"type": "int",
-				"name": "Amount",
-				"min": 1
-			}
-		]
-	}
+static func build_editor_input(proxy: EffectEditor.Proxy, params: Dictionary):
+	var amount = proxy.add_int_input(SimpleEffect.AMOUNT, params.get(SimpleEffect.AMOUNT, 1))
+	amount.min_value = 1

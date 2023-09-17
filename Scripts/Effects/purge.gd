@@ -9,8 +9,5 @@ func apply_effect(context: Context):
 static func editor_name():
 	return "Purge"
 
-static func get_metadata():
-	return {
-		"name": "Purge",
-		"parameters": []
-	}
+static func build_editor_input(proxy: EffectEditor.Proxy, params: Dictionary): 
+	pass

@@ -14,14 +14,5 @@ func get_description(_context: Context):
 static func editor_name():
 	return "Draw"
 
-static func get_metadata():
-	return {
-		"name": "Draw",
-		"parameters": [
-			{
-				"name": "Amount",
-				"type": "int",
-				"min": 1
-			}
-		]
-	}
+static func build_editor_input(proxy: EffectEditor.Proxy, params: Dictionary):
+	proxy.add_int_input(SimpleEffect.AMOUNT, params.get(SimpleEffect.AMOUNT, 1))

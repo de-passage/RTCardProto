@@ -8,3 +8,6 @@ func apply_effect(context: Context):
 
 static func editor_name():
 	return "Exhaust"
+
+static func build_editor_input(_p: EffectEditor.Proxy, _d: Dictionary):
+	pass

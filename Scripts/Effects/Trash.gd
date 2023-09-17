@@ -1,5 +1,8 @@
 extends BaseEffect
 
+const TRASH = &"Trash"
+const TRASH_AMOUNT = &"Trash Amount"
+
 var _trash_card: CardResource
 var _trash_amount: int = 1
 
@@ -16,18 +19,11 @@ func apply_effect(context: Context):
 func get_description(_context: Context):
 	return description
 
-static func get_metadata():
-	return {
-		"name": "Trash",
-		"parameters": [{
-			"name": "Trash",
-			"type": "card"
-		}, {
-			"name": "Trash Amount",
-			"type": "int",
-			"min": 1
-		}]
-	}
-
+static func build_editor_input(p: EffectEditor.Proxy, params: Dictionary):
+	var amount = p.add_int_input(TRASH_AMOUNT, params.get(TRASH_AMOUNT, 1))
+	p.add_card_input(TRASH, params.get(TRASH))
+	
+	amount.min_value = 1
+	
 static func editor_name():
 	return "Trash"

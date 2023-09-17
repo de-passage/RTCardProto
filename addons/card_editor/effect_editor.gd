@@ -7,7 +7,7 @@ signal deleted
 @onready var _effect_name = $BoxContainer/Margin/Control/EffectName
 @onready var _delete_button = $BoxContainer/Margin/Control/DeleteButton
 @onready var _grid = $GridContainer as GridContainer
-		
+
 class Proxy:
 	var name: String
 	var parameter_inputs: Dictionary
@@ -25,18 +25,36 @@ class Proxy:
 	
 	func add_card_input(name: String, value: String) -> OptionButton:
 		var value_input = OptionButton.new()
+		var current = 0
 		for card in CGResourceManager.cards:
 			value_input.add_item(card.card_name)
+			if value != null and value == card.resource_path:
+				value_input.select(current)
+			current += 1
 		var setter = add_control(name, value_input)
-		value_input.item_selected.connect(func(idx): setter.call(CGResourceManager.cards[idx]))
+		value_input.item_selected\
+			.connect(func(idx): 
+				setter.call(CGResourceManager.cards[idx].resource_path))
 		return value_input
 	
 	func add_tag_input(name: String, value: StringName) -> OptionButton:
 		var value_input = OptionButton.new()
+		var current = 0
+		for tag in Tags.known_tags:
+			value_input.add_item(tag)
+			if value != null and value == tag:
+				value_input.select(current)
+			current += 1
+		var setter = add_control(name, value_input)
+		value_input.item_selected.connect(
+			func(idx):
+				setter.call(Tags.known_tags[idx])
+		)
 		return value_input
 	
 	func add_effect_input(name: String, value: EffectResource) -> EditorEffectList:
 		var value_input = EditorEffectList.new()
+		var setter = add_control(name, value_input)
 		return value_input
 
 	func add_control(name: String, node: Control) -> Callable:
@@ -73,7 +91,7 @@ func initialize(name: String, parameters: Dictionary, script: GDScript):
 func get_parameters() -> EffectResource:
 	var resource = EffectResource.new()
 	resource.effectScript = _script
-	resource.effectValues = {}
+	resource.effectValues = _proxy.parameter_values
 	return resource
 
 

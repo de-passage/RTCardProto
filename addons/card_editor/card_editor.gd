@@ -51,9 +51,9 @@ func _get_file_path(s):
 
 func _ready():
 	_errors.visible = false
-	_draw_effects.set_label("On draw")
-	_discard_effects.set_label("On discard")
 	_play_effects.set_label("On play")
+	_discard_effects.set_label("On discard")
+	_draw_effects.set_label("On draw")
 
 func _on_reset_button_pressed():
 	_name.text = ""

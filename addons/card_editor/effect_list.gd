@@ -1,3 +1,4 @@
+@tool
 extends GridContainer
 
 class_name EditorEffectList

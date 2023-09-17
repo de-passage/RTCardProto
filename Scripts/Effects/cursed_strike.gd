@@ -34,26 +34,14 @@ func _total_effect(p: PlayableEntity):
 
 func get_description(context: Context):
 	return description % _total_effect(context.source)
-
-static func get_metadata():
-	return {
-		"name": "Cursed Strike",
-		"parameters": [{
-			"name": "Damage",
-			"type": "int",
-			"min": 0
-		}, {
-			"name": "Trash",
-			"type": "card"
-		}, {
-			"name": "Trash Amount",
-			"type": "int",
-			"min": 1
-		}]
-	}
-
+	
 static func build_editor_input(p: EffectEditor.Proxy, params: Dictionary):
-	p.add_int_input(DAMAGE, params.get(DAMAGE, 1))
+	var damage = p.add_int_input(DAMAGE, params.get(DAMAGE, 1))
+	var amount = p.add_int_input(TRASH_AMOUNT, params.get(TRASH_AMOUNT, 1))
+	p.add_card_input(TRASH, params.get(TRASH))
+	
+	damage.min_value = 0
+	amount.min_value = 1
 
 static func editor_name():
 	return "Cursed Strike"
