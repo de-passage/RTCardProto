@@ -149,11 +149,13 @@ layout_mode = 2
 columns = 2
 
 [node name="TagLabel" type="Label" parent="VBoxContainer/TagsGrid"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "Tags"
 
 [node name="TagAddContainer" type="HBoxContainer" parent="VBoxContainer/TagsGrid"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="AddTagButton" type="TextureButton" parent="VBoxContainer/TagsGrid/TagAddContainer"]
 material = SubResource("ShaderMaterial_qto8b")

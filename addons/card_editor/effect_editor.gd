@@ -7,6 +7,41 @@ signal deleted
 @onready var _effect_name = $BoxContainer/Margin/Control/EffectName
 @onready var _delete_button = $BoxContainer/Margin/Control/DeleteButton
 @onready var _grid = $GridContainer as GridContainer
+		
+class Proxy:
+	var name: String
+	var parameter_inputs: Dictionary
+	var parameter_values: Dictionary
+	
+	func _init(name: String):
+		self.name = name
+	
+	func add_int_input(name: String, value: int) -> SpinBox:
+		var value_input = SpinBox.new()
+		var setter = add_control(name, value_input)
+		value_input.value = value
+		value_input.value_changed.connect(setter)
+		return value_input
+	
+	func add_card_input(name: String, value: String) -> OptionButton:
+		var value_input = OptionButton.new()
+		for card in CGResourceManager.cards:
+			value_input.add_item(card.card_name)
+		var setter = add_control(name, value_input)
+		value_input.item_selected.connect(func(idx): setter.call(CGResourceManager.cards[idx]))
+		return value_input
+	
+	func add_tag_input(name: String, value: StringName) -> OptionButton:
+		var value_input = OptionButton.new()
+		return value_input
+	
+	func add_effect_input(name: String, value: EffectResource) -> EditorEffectList:
+		var value_input = EditorEffectList.new()
+		return value_input
+
+	func add_control(name: String, node: Control) -> Callable:
+		parameter_inputs[name] = node
+		return func(v): parameter_values[name] = v
 
 var modifiable: bool = true:
 	set(value):
@@ -15,59 +50,30 @@ var modifiable: bool = true:
 	get:
 		return modifiable
 
-var _values = []
+var _proxy: Proxy
+
 var _delete_icon = preload("res://art/trash_icon.svg")
 var _script
 
-func initialize(name: String, parameters: Array, script: GDScript):
-	_effect_name.text = name 
+func initialize(name: String, parameters: Dictionary, script: GDScript):
 	_script = script
-	var id: int = 0
-	for param in parameters: 
-		var label = Label.new()
-		var value_name = param.get("name", "<unnamed value>")
-		label.text = value_name
-		label.custom_minimum_size = Vector2(200, 0)
-		_grid.add_child(label)
-		
-		var type = param.get("type", "int")
-		if type == "int":
-			var value_input = SpinBox.new()
-			value_input.editable = modifiable
-			_grid.add_child(value_input)
-			value_input.min_value = param.get("min", 0)
-			value_input.max_value = param.get("max", int(pow(2, 61)))
-			var default = param.get("default", 1)
-			value_input.value = default
-			_values.append({ "value": default, "name": value_name})
-			value_input.value_changed.connect(func(value):
-				_values[id].value = value
-			)
-		elif type == "card":
-			var value_input = OptionButton.new()
-			_grid.add_child(value_input)
-			for card in CGResourceManager.cards:
-				value_input.add_item(card.card_name)
-			_values.append({ "value": null, "name": value_name })
-			value_input.item_selected.connect(func(idx):
-				_values[id].value = CGResourceManager.cards[idx].resource_path
-			)
-		elif type == "effect":
-			var value_input = load("res://addons/card_editor/effect_editor.tscn") as PackedScene
-			_grid.add_child(value_input.instantiate())
-			
-		else:
-			var value_input = Label.new()
-			value_input.text = "<implement me>"
-			_grid.add_child(value_input)
-		id += 1
+	
+	var proxy: Proxy = Proxy.new(name)
+	_script.build_editor_input(proxy, parameters)
+	_effect_name.text = proxy.name
+	for param in proxy.parameter_inputs:
+		var name_label = Label.new()
+		name_label.text = param 
+		name_label.custom_minimum_size = Vector2(200, 0)
+		_grid.add_child(name_label)
+		_grid.add_child(proxy.parameter_inputs[param])
+	_proxy = proxy
+	return
 			
 func get_parameters() -> EffectResource:
 	var resource = EffectResource.new()
 	resource.effectScript = _script
 	resource.effectValues = {}
-	for v in _values:
-		resource.effectValues[v.name] = v.value
 	return resource
 
 

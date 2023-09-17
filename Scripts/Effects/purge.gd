@@ -6,6 +6,9 @@ func _init(_parameters: Dictionary):
 func apply_effect(context: Context):
 	context.add_card_effect(Context.DESTROY_CARD)
 
+static func editor_name():
+	return "Purge"
+
 static func get_metadata():
 	return {
 		"name": "Purge",

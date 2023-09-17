@@ -7,9 +7,9 @@ var _last_subtype: String
 const IF_TRUE = &"If true"
 const OTHERWISE = &"Otherwise"
 
-func _init(v: Dictionary): 
+func _init(v: Dictionary):
 	description = "Trigger another effect"
-		
+
 	var other_effects = v.get(IF_TRUE, null) as Array[EffectResource]
 	if other_effects != null:
 		_other_effects = []
@@ -18,11 +18,11 @@ func _init(v: Dictionary):
 	else:
 		# Backward compatibility with my own stupidity
 		var ef = v.get("Effect", null) as EffectResource
-		if ef != null: 
+		if ef != null:
 			_other_effects = [ ef.load_effect() ]
 		else:
 			_other_effects = [ BaseEffect.new() ]
-	
+
 	var normal_effects = v.get(OTHERWISE) as Array[EffectResource]
 	_normal_effects = []
 	if normal_effects != null:
@@ -36,33 +36,36 @@ func apply_effect(context: Context):
 	if c != null and c.has_tag(_last_subtype):
 		for eff in _other_effects:
 			eff.apply_effect(context)
-	
+
 func get_description(context: Context):
 	var desc = "If last card was a %s: " % _last_subtype
 	var n = _other_effects.size()
-	if n > 0: 
+	if n > 0:
 		desc += _other_effects[0].get_description(context)
 	n-=1
 	for i in range(1, n):
 		desc+=", " + _other_effects[i].get_description(context)
-	
+
 	return desc
 
 static func get_metadata():
 	return {
 		"name": "Last Played",
 		"parameters": [
-			{	
+			{
 				"type": "string",
 				"name": "Tag"
 			},
 			{
 				"type": "effect",
 				"name": IF_TRUE
-			}, 
+			},
 			{
 				"type": "effect",
 				"name": OTHERWISE
 			}
 		]
 	}
+
+static func editor_name():
+	return "Combo"

@@ -8,33 +8,32 @@ const EFFECT_GROUP = ".EFFECT_GROUP"
 @onready var _effect_list = $EffectListButton as OptionButton
 @onready var _effect_vbox = $EffectVBox as VBoxContainer
 
+class EffectDescription:
+	var name: String
+	var parameters: Dictionary
+	var effect_script: GDScript
+	
+	func _init(n: String, script: GDScript, params = {}):
+		name = n
+		effect_script = script
+		parameters = params
 
-static var _effects: Array[Dictionary]
+static var _effects: Array[EffectDescription]
 static var _effect_editor_scene = preload("res://addons/card_editor/effect_editor.tscn")
 
 func _ready():
-	if Engine.is_editor_hint():
+	if Engine.is_editor_hint() and _effect_editor_scene == null:
 		_effect_editor_scene = load("res://addons/card_editor/effect_editor.tscn")
 	_effect_list.clear()
 	_effect_list.add_item("<add effect>")
-	_load_effects()
+	var known_effects = CGResourceManager.effects
 	
-	for effect in _effects:
-		var name = effect.get("name")
+	for effect in known_effects:
+		var name = effect.editor_name()
+		if name == null:
+			printerr("editor_name() is undefined for " % effect.resource_path)
 		_effect_list.add_item(name)
-
-func _get_metadata(e):
-	if e is GDScript:
-		var x = e.get_metadata()
-		if x != null:
-			x["script"] = e
-			_effects.append(x)
-		else: 
-			printerr("no metadata in %s" % e.get_class()) 
-
-func _load_effects():
-	_effects = []
-	CGResourceManager.load_resources("res://Scripts/Effects", _get_metadata)
+		_effects.append(EffectDescription.new(name, effect))
 
 func set_label(s: String):
 	_label.text = s
@@ -54,15 +53,12 @@ func build_effect_editor_from_resources(array: Array[EffectResource]) -> bool:
 		var script = effect.effectScript
 		var values = effect.effectValues
 		
-		var effect_metadata = script.get_metadata()
-		effect_metadata["script"] = script
-		
-		for eff in effect_metadata["parameters"]:
-			var name = eff.get("name")
-			if name != null and values.has(name): 
-				eff.default = values.get(name)
+		var name = script.editor_name()
+		if name == null: 
+			printerr("editor_name() is undefined for %s" % script.resource_path)
+			continue
 
-		_add_effect_to_effect_list(effect_metadata)
+		_add_effect_to_effect_list(EffectDescription.new(name, script, values))
 	
 	visible = (array.size() > 0)
 	return visible
@@ -78,15 +74,15 @@ func _add_selected_button_item_to_box(index: int):
 	_add_effect_to_effect_list(selected_effect)
 	_effect_list.selected = 0
 	
-func _add_effect_to_effect_list(selected_effect: Dictionary):
-	# Extract name and effect parameters
-	var effect_name = selected_effect.get("name", "<Unnamed effect>");
-	var expected_parameters: Array = selected_effect.get("parameters", [])
+func _add_effect_to_effect_list(selected_effect: EffectDescription):
 	
 	# Create a new effect editor, initialize it and connect its signal
-	var effect_value_editor = _effect_editor_scene.instantiate()
+	var effect_value_editor = _effect_editor_scene.instantiate() as EffectEditor
 	effect_value_editor.add_to_group(EFFECT_GROUP)
 	_effect_vbox.add_child(effect_value_editor)
-	effect_value_editor.initialize(effect_name, expected_parameters, selected_effect["script"])
+	effect_value_editor.initialize(
+		selected_effect.name,
+		selected_effect.parameters,
+		selected_effect.effect_script)
 	effect_value_editor.deleted.connect(func(): _effect_vbox.remove_child(effect_value_editor))
 	_effect_vbox.add_spacer(false)

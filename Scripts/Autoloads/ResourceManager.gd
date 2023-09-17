@@ -33,3 +33,13 @@ static var cards: Array[CardResource]:
 			cards = load_cards()
 		return cards
 	
+static var effects: Array[GDScript]:
+	get: 
+		if effects == null or effects.size() == 0:
+			effects = _load_effects()
+		return effects
+
+static func _load_effects() -> Array[GDScript]:
+	var effs: Array[GDScript] = []
+	CGResourceManager.load_resources("res://Scripts/Effects", func(r): if r is GDScript: effs.append(r))
+	return effs

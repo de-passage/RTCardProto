@@ -4,11 +4,11 @@ var _damage: int = 5
 var _trash_card: CardResource
 var _trash_amount: int = 1
 
-func _init(v: Dictionary): 
+func _init(v: Dictionary):
 	_damage = v.get("Damage", 0)
 	_trash_amount = v.get("Trash Amount", 1)
 	_trash_card = load(v.get("Trash"))
-	
+
 	description = "Attack for %s, if health would be lost, curse for the value"
 
 func apply_effect(context: Context):
@@ -22,13 +22,13 @@ func apply_effect(context: Context):
 		else:
 			printerr("null trash card in effect!")
 
-func _total_effect(p: PlayableEntity): 
+func _total_effect(p: PlayableEntity):
 	var total = _damage
 	if p != null:
 		total += p.strength
 	return total
-	
-func get_description(context: Context): 
+
+func get_description(context: Context):
 	return description % _total_effect(context.source)
 
 static func get_metadata():
@@ -47,3 +47,6 @@ static func get_metadata():
 			"min": 1
 		}]
 	}
+
+static func editor_name():
+	return "Cursed Strike"

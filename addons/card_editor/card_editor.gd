@@ -40,7 +40,7 @@ var _save_path: String:
 var _overwrite: bool = false:
 	set(v):
 		_overwrite = v
-		$VBoxContainer/SaveButton.text = "Create" if not _overwrite else "Save"
+		_save_button.text = "Create" if not _overwrite else "Save"
 		
 var _file_name_regex = RegEx.create_from_string("res://Cards/(.*)\\.tres$")
 var _file_name_sanitizer =  RegEx.create_from_string("[^a-zA-Z0-9_/-]")

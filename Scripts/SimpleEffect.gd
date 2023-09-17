@@ -6,7 +6,9 @@ class_name SimpleEffect
 
 var effect_strength = 5
 var modifier = null 
-var targetProp = null 
+var targetProp = null
+
+const AMOUNT = &"Amount" 
 
 ## The two input properties should be the name of the characteristic that is 
 ## modified by the effect, followed by the name of the modifying characteristic
@@ -15,7 +17,7 @@ var targetProp = null
 ## and in second "heal_power"
 func _init(v: Dictionary, property: StringName, modif: Variant = null):
 	if v.size() > 0: 
-		effect_strength = v.get("Amount")
+		effect_strength = v.get(AMOUNT)
 	targetProp = property
 	modifier = modif
 
@@ -30,3 +32,7 @@ func apply_effect(context: Context):
 	
 func get_description(context: Context): 
 	return description % _total_effect(context.source)
+
+static func build_editor_input(proxy: EffectEditor.Proxy, parameters: Dictionary):
+	var spinbox = proxy.add_int_input(AMOUNT, parameters.get(AMOUNT,1))
+	spinbox.min_value = 0

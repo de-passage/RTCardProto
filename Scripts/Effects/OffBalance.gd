@@ -7,16 +7,12 @@ func _init(v: Dictionary):
 
 func get_description(_context: Context):
 	return "%s Off Balance" % _value
-	
-func apply_effect(context: Context): 
+
+func apply_effect(context: Context):
 	context.target.energy -= _value
 
-static func get_metadata():
-	return {
-	"name": "Off Balance",
-	"parameters": [{
-		"type": "int",
-		"name": "Amount",
-		"min": 1
-		}]
-	}
+static func editor_name():
+	return "Off Balance"
+
+static func build_editor_input(proxy: EffectEditor.Proxy, parameters: Dictionary):
+	pass

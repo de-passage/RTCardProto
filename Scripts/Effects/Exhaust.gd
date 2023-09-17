@@ -6,8 +6,5 @@ func _init(_parameters: Dictionary):
 func apply_effect(context: Context):
 	context.add_card_effect(Context.EXHAUST_CARD)
 
-static func get_metadata():
-	return {
-		"name": "Exhaust",
-		"parameters": []
-	}
+static func editor_name():
+	return "Exhaust"
