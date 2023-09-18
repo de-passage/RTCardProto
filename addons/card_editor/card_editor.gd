@@ -54,7 +54,8 @@ func _ready():
 		if not DirAccess.dir_exists_absolute(USER_CARD_PATH):
 			DirAccess.make_dir_absolute(USER_CARD_PATH)
 		var editor = $EditorPanel as EditorControlPanel
-		editor.root_subfolder = USER_CARD_PATH
+		editor.access = FileDialog.Access
+		editor.root_subfolder = "user://Cards"
 		
 
 func _on_reset_button_pressed():

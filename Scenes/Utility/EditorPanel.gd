@@ -12,8 +12,12 @@ signal new_required()
 		root_subfolder = value
 		if _file_dialog != null: 
 			_file_dialog.root_subfolder = root_subfolder
-			
-@export var access: FileDialog.Access
+
+@export var access: FileDialog.Access:
+	set(value):
+		access = value
+		if _file_dialog != null:
+			_file_dialog.access = access
 
 @onready var _file_dialog = $MenuBar/FileDialog as FileDialog
 

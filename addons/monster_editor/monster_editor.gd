@@ -26,13 +26,11 @@ func _ready():
 	if not Engine.is_editor_hint():
 		if not DirAccess.dir_exists_absolute(USER_MONSTER_PATH):
 			DirAccess.make_dir_absolute(USER_MONSTER_PATH)
-		call_deferred("_set_root_subfolder")
+		_control_panel.access = FileDialog.ACCESS_USERDATA
+		_control_panel.root_subfolder = USER_MONSTER_PATH
 		
 func attach_to_editor(editor: EditorInterface):
 	_control_panel.attach_to_editor(editor)
-
-func _set_root_subfolder():
-	_control_panel.root_subfolder = USER_MONSTER_PATH
 
 func _load_available_cards():
 	_available_cards.clear()
