@@ -19,9 +19,20 @@ var _current_enemy_resource: EnemyResource = EnemyResource.new()
 
 const MONSTER_PATH = CGResourceManager.ENEMIES_PATH
 const CARD_GROUP = ".CARD_GROUP"
+const USER_MONSTER_PATH= "user://Monsters"
 
 func _ready():
 	_load_available_cards()
+	if not Engine.is_editor_hint():
+		if not DirAccess.dir_exists_absolute(USER_MONSTER_PATH):
+			DirAccess.make_dir_absolute(USER_MONSTER_PATH)
+		call_deferred("_set_root_subfolder")
+		
+func attach_to_editor(editor: EditorInterface):
+	_control_panel.attach_to_editor(editor)
+
+func _set_root_subfolder():
+	_control_panel.root_subfolder = USER_MONSTER_PATH
 
 func _load_available_cards():
 	_available_cards.clear()

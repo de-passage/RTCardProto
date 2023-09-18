@@ -69,8 +69,9 @@ static func get_metadata():
 	}
 
 static func build_editor_input(proxy: EffectEditor.Proxy, params: Dictionary):
-	proxy.add_tag_input(TAG, params.get(TAG))
-	# Add effects
+	proxy.add_tag_input(TAG, params.get(TAG, ""))
+	proxy.add_effect_input(IF_TRUE, params.get(IF_TRUE, [] as Array[EffectResource]))
+	proxy.add_effect_input(OTHERWISE, params.get(OTHERWISE, [] as Array[EffectResource]))
 
 static func editor_name():
 	return "Combo"

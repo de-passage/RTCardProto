@@ -1,3 +1,4 @@
+@tool
 extends VBoxContainer
 
 class_name EditorControlPanel
@@ -6,7 +7,12 @@ signal save_required(path: String)
 signal load_required(path: String)
 signal new_required()
 
-@export var root_subfolder: StringName
+@export var root_subfolder: StringName:
+	set(value):
+		root_subfolder = value
+		if _file_dialog != null: 
+			_file_dialog.root_subfolder = root_subfolder
+			
 @export var access: FileDialog.Access
 
 @onready var _file_dialog = $MenuBar/FileDialog as FileDialog
@@ -17,6 +23,9 @@ func _ready():
 		
 	if root_subfolder != null: 
 		_file_dialog.root_subfolder = root_subfolder
+
+func attach_to_editor(editor: EditorInterface):
+	editor.get_base_control().add_child(_file_dialog.duplicate())
 
 func _on_save_button_pressed():
 	_file_dialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE

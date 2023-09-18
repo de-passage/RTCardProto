@@ -25,6 +25,7 @@ func reload_scene():
 func load_scene():
 	card_editor = preload("res://addons/monster_editor/monster_editor.tscn").instantiate()
 	add_control_to_bottom_panel(card_editor, "Monster Editor")
+	card_editor.attach_to_editor(get_editor_interface())
 
 func unload_scene():
 	if card_editor:

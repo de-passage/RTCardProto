@@ -15,5 +15,6 @@ static func editor_name():
 	return "Multiply steady"
 
 static func build_editor_input(proxy: EffectEditor.Proxy, params: Dictionary):
-	var amount = proxy.add_int_input(SimpleEffect.AMOUNT, params.get(SimpleEffect.AMOUNT, 1))
-	amount.min_value = 1
+	var amount = proxy.add_int_input(SimpleEffect.AMOUNT, params.get(SimpleEffect.AMOUNT, 2))
+	amount.value = 2 
+	amount.min_value = 2

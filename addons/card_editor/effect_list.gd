@@ -9,6 +9,8 @@ const EFFECT_GROUP = ".EFFECT_GROUP"
 @onready var _effect_list = $EffectListButton as OptionButton
 @onready var _effect_vbox = $EffectVBox as VBoxContainer
 
+var _label_text
+
 class EffectDescription:
 	var name: String
 	var parameters: Dictionary
@@ -35,9 +37,14 @@ func _ready():
 			printerr("editor_name() is undefined for " % effect.resource_path)
 		_effect_list.add_item(name)
 		_effects.append(EffectDescription.new(name, effect))
+	
+	if _label_text != null:
+		_label.text = _label_text
 
 func set_label(s: String):
-	_label.text = s
+	_label_text = s
+	if _label != null:
+		_label.text = _label_text
 
 func get_effect_parameters() -> Array[EffectResource]:
 	var result = []
@@ -60,9 +67,7 @@ func build_effect_editor_from_resources(array: Array[EffectResource]) -> bool:
 			continue
 
 		_add_effect_to_effect_list(EffectDescription.new(name, script, values))
-	
-	visible = (array.size() > 0)
-	return visible
+	return array.size() > 0
 
 func _on_draw_option_button_item_selected(index):
 	_add_selected_button_item_to_box(index)

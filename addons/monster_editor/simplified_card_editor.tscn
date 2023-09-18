@@ -55,7 +55,7 @@ layout_mode = 2
 min_value = 1.0
 value = 1.0
 
-[node name="EffectList" parent="Attr" instance=ExtResource("3_urla5")]
+[node name="EffectList" parent="." instance=ExtResource("3_urla5")]
 layout_mode = 2
 
 [connection signal="pressed" from="Attr/HBoxContainer/DeleteButton" to="." method="_on_delete_button_pressed"]

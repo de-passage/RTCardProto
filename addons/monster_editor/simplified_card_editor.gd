@@ -7,7 +7,7 @@ signal deleted
 
 @onready var _name_edit = $Attr/NameEdit as LineEdit
 @onready var _cost_edit = $Attr/CostEdit as SpinBox
-@onready var _effects = $Attr/EffectList as EditorEffectList
+@onready var _effects = $EffectList as EditorEffectList
 
 ## The resource that this object was instantiated with
 var _card_resource : CardResource
@@ -41,6 +41,10 @@ func _initialize(card: CardResource):
 	_card_resource = card
 	
 	_effects.build_effect_editor_from_resources(_card_resource.on_play_card_effects)
+	_effects.show()
+
+func _ready():
+	_effects.set_label("Effects")
 
 func initialize_anonymous(card: CardResource): 
 	anonymous = true

@@ -25,7 +25,10 @@ extends ScrollContainer
 @onready var _on_draw_checkbox = %OnDrawCheckBox as CheckBox
 @onready var _on_discard_checkbox = %OnDiscardCheckBox as CheckBox
 
+@onready var _editor_panel = $EditorPanel as EditorControlPanel
+
 const BUTTONS_GROUP = ".CardEditorButton"
+const USER_CARD_PATH = "user://Cards"
 
 var _resources: Array
 var _save_path: String: 
@@ -47,6 +50,12 @@ func _ready():
 	_play_effects.set_label("On play")
 	_discard_effects.set_label("On discard")
 	_draw_effects.set_label("On draw")
+	if not Engine.is_editor_hint():
+		if not DirAccess.dir_exists_absolute(USER_CARD_PATH):
+			DirAccess.make_dir_absolute(USER_CARD_PATH)
+		var editor = $EditorPanel as EditorControlPanel
+		editor.root_subfolder = USER_CARD_PATH
+		
 
 func _on_reset_button_pressed():
 	_name.text = ""
@@ -58,6 +67,10 @@ func _on_reset_button_pressed():
 	_discard_effects.visible = false
 	_draw_effects.visible = false
 	_play_effects.visible = true
+
+func attach_to_editor(editor: EditorInterface):
+	_editor_panel.attach_to_editor(editor)
+	
 	
 ##################################
 #   SAVE LOGIC 

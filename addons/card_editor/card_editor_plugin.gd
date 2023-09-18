@@ -25,6 +25,8 @@ func reload_scene():
 func load_scene():
 	card_editor = preload("res://addons/card_editor/card_editor.tscn").instantiate()
 	add_control_to_bottom_panel(card_editor, "Card Editor")
+	var r = get_editor_interface()
+	card_editor.attach_to_editor(r)
 
 func unload_scene():
 	if card_editor:
