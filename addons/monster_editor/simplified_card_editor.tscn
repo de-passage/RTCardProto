@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c7l00x0i37qjh"]
+[gd_scene load_steps=4 format=3 uid="uid://c7l00x0i37qjh"]
 
 [ext_resource type="Script" path="res://addons/monster_editor/simplified_card_editor.gd" id="1_j4efe"]
 [ext_resource type="Texture2D" uid="uid://d0rsvvtyovv44" path="res://art/trash_icon.svg" id="2_183vh"]
+[ext_resource type="PackedScene" uid="uid://d241it0v4sl7g" path="res://addons/card_editor/effect_list.tscn" id="3_urla5"]
 
 [node name="SimplifiedCardEditor" type="VBoxContainer"]
 anchors_preset = 15
@@ -54,18 +55,7 @@ layout_mode = 2
 min_value = 1.0
 value = 1.0
 
-[node name="Label" type="Label" parent="Attr"]
-layout_mode = 2
-text = "Effects"
-
-[node name="EffectEdit" type="OptionButton" parent="Attr"]
-layout_mode = 2
-
-[node name="Control" type="Control" parent="Attr"]
-layout_mode = 2
-
-[node name="EffectVBox" type="VBoxContainer" parent="Attr"]
+[node name="EffectList" parent="Attr" instance=ExtResource("3_urla5")]
 layout_mode = 2
 
 [connection signal="pressed" from="Attr/HBoxContainer/DeleteButton" to="." method="_on_delete_button_pressed"]
-[connection signal="item_selected" from="Attr/EffectEdit" to="." method="_on_effect_edit_item_selected"]
