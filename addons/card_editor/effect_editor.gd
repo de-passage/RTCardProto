@@ -56,6 +56,7 @@ class Proxy:
 	func add_effect_input(name: String, value: Array[EffectResource]) -> EditorEffectList:
 		var value_input = preload("res://addons/card_editor/effect_list.tscn").instantiate() as EditorEffectList
 		value_input.set_label("")
+		value_input.min_size = 0
 		value_input.build_effect_editor_from_resources(value)
 		value_input.visible = true
 		var setter = add_control(name, value_input)

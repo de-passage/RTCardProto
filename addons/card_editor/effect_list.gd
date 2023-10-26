@@ -9,6 +9,12 @@ const EFFECT_GROUP = ".EFFECT_GROUP"
 @onready var _effect_list = $EffectListButton as OptionButton
 @onready var _effect_vbox = $EffectVBox as VBoxContainer
 
+var min_size: int = 200:
+	set(value):
+		min_size = value
+		if _label != null:
+			_label.custom_minimum_size = Vector2(value, 0)
+
 var _label_text
 
 class EffectDescription:
@@ -40,6 +46,8 @@ func _ready():
 	
 	if _label_text != null:
 		_label.text = _label_text
+	
+	_label.custom_minimum_size = Vector2(min_size, 0)
 
 func set_label(s: String):
 	_label_text = s
