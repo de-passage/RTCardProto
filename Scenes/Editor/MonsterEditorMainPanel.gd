@@ -21,14 +21,17 @@ static var _simplified_card_editor_scene = preload("res://addons/monster_editor/
 
 const CARD_GROUP = ".CARD_GROUP"
 
+func _ready():
+	load_available_cards()
+
 func load_available_cards():
 	_available_cards.clear()
 	_card_list_edit.clear()
 	_card_list_edit.add_item("<Add card>");
 	_card_list_edit.add_item("[New anonymous card]");
 	for card in CGResourceManager.load_cards():
-		var name = card.card_name
-		_card_list_edit.add_item(name)
+		var card_name = card.card_name
+		_card_list_edit.add_item(card_name)
 		_available_cards.append(card)
 
 

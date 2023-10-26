@@ -110,4 +110,6 @@ layout_mode = 2
 [connection signal="pressed" from="TextureRect/Buttons/ArenaButton" to="." method="_on_arena_button_pressed"]
 [connection signal="pressed" from="TextureRect/Buttons/OptionButton" to="." method="_on_option_button_pressed"]
 [connection signal="pressed" from="TextureRect/Buttons/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="TextureRect/AdditionalMargin/AdditionalButtons/CardEditor" to="." method="_on_card_editor_pressed"]
+[connection signal="pressed" from="TextureRect/AdditionalMargin/AdditionalButtons/MonsterEditor" to="." method="_on_monster_editor_pressed"]
 [connection signal="pressed" from="TextureRect/AdditionalMargin/AdditionalButtons/DeckEditor" to="." method="_on_deck_editor_pressed"]

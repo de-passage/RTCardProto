@@ -1,0 +1,71 @@
+[gd_scene load_steps=6 format=3 uid="uid://re4hwbpm4viw"]
+
+[ext_resource type="Script" path="res://Scenes/Editor/CardEditor.gd" id="1_c8nb3"]
+[ext_resource type="PackedScene" uid="uid://b6hrnhqdbgo1s" path="res://Scenes/Utility/Background.tscn" id="1_y1i6b"]
+[ext_resource type="PackedScene" uid="uid://bxnux2yembvh3" path="res://Scenes/Utility/editor_panel.tscn" id="2_u7von"]
+[ext_resource type="PackedScene" uid="uid://cihrrbcsclkbs" path="res://Scenes/Editor/card_editor_main_panel.tscn" id="3_rtxri"]
+[ext_resource type="Theme" uid="uid://i2kjgjpc4pvy" path="res://Theme/editor_theme.tres" id="3_v2rm2"]
+
+[node name="CardEditor" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_c8nb3")
+
+[node name="Background" parent="." instance=ExtResource("1_y1i6b")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 60
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="EditorPanel" parent="Background/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_u7von")]
+unique_name_in_owner = true
+layout_mode = 2
+root_subfolder = &"Cards"
+access = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="ExitButton" type="Button" parent="Background/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Exit"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Background/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("3_v2rm2")
+
+[node name="CardEditorMainPanel" parent="Background/MarginContainer/VBoxContainer/ScrollContainer" instance=ExtResource("3_rtxri")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[connection signal="load_required" from="Background/MarginContainer/VBoxContainer/HBoxContainer/EditorPanel" to="." method="_on_editor_panel_load_required"]
+[connection signal="new_required" from="Background/MarginContainer/VBoxContainer/HBoxContainer/EditorPanel" to="." method="_on_editor_panel_new_required"]
+[connection signal="save_required" from="Background/MarginContainer/VBoxContainer/HBoxContainer/EditorPanel" to="." method="_on_editor_panel_save_required"]
+[connection signal="pressed" from="Background/MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]

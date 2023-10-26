@@ -10,6 +10,8 @@ var _recap_screen
 var _rest_scene
 var _arena_scene
 var _deck_editor_scene
+var _monster_editor_scene
+var _card_editor_scene
 
 func _ready():
 	_scene_stack.append(_main_scene)
@@ -63,6 +65,16 @@ func go_to_deck_editor():
 	if _deck_editor_scene == null:
 		_deck_editor_scene = load("res://Scenes/deck_builder.tscn")
 	_new_scene(_deck_editor_scene)
+	
+func go_to_monster_editor():
+	if _monster_editor_scene == null: 
+		_monster_editor_scene = load("res://Scenes/Editor/MonsterEditor.tscn")
+	_new_scene(_monster_editor_scene)
+	
+func go_to_card_editor():
+	if _card_editor_scene == null: 
+		_card_editor_scene = load("res://Scenes/Editor/CardEditor.tscn")
+	_new_scene(_card_editor_scene)
 
 func exit_scene():
 	if _scene_stack.size() > 1:

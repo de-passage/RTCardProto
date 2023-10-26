@@ -1,0 +1,59 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://i2kjgjpc4pvy"]
+
+[ext_resource type="FontFile" uid="uid://bsk6op0lpnbwx" path="res://font/NeverMindsemi-serif-Regular.ttf" id="1_2gg5f"]
+[ext_resource type="StyleBox" uid="uid://bskobq2su2km8" path="res://Theme/general_editor_button_disables.tres" id="1_qbs80"]
+[ext_resource type="StyleBox" uid="uid://hvpimhhfgiv3" path="res://Theme/general_editor_button_default_style_box.tres" id="2_edasb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n2etu"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.539063, 0.3125, 0.3125, 1)
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.890625, 0.6875, 0.363281, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 5
+expand_margin_left = 20.0
+expand_margin_top = 10.0
+expand_margin_right = 20.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ius34"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.513726, 0.294118, 0.294118, 1)
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.886719, 0.683594, 0.371094, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 5
+expand_margin_left = 20.0
+expand_margin_top = 10.0
+expand_margin_right = 20.0
+expand_margin_bottom = 10.0
+
+[resource]
+default_font = ExtResource("1_2gg5f")
+default_font_size = 20
+Button/styles/disabled = ExtResource("1_qbs80")
+Button/styles/focus = ExtResource("2_edasb")
+Button/styles/hover = SubResource("StyleBoxFlat_n2etu")
+Button/styles/normal = ExtResource("2_edasb")
+CheckBox/constants/h_separation = 10
+CheckBox/constants/outline_size = 0
+CheckBox/styles/focus = ExtResource("2_edasb")
+CheckBox/styles/hover = ExtResource("2_edasb")
+CheckBox/styles/normal = ExtResource("2_edasb")
+CheckBox/styles/pressed = ExtResource("2_edasb")
+CheckButton/styles/focus = SubResource("StyleBoxFlat_ius34")
+OptionButton/styles/hover = ExtResource("2_edasb")

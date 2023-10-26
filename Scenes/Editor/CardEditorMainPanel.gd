@@ -35,7 +35,6 @@ var _save_path: String:
 		_save_path = _file_name_sanitizer.sub(_save_path, "_", true)
 
 var _file_name_sanitizer =  RegEx.create_from_string("[^a-zA-Z0-9_/-]")
-var _file_name_regex = RegEx.create_from_string("res://Cards/(.*)\\.tres$")
 
 func _ready():
 	_errors.visible = false
@@ -60,6 +59,10 @@ func _add_tag_delete_button(value: StringName):
 	_add_button_to_list(value, _tag_list)
 	_tag_edit.text = ''
 
+func _add_pool_delete_button(value: StringName):
+	_add_button_to_list(value, _pool_list)
+	_pool_edit.text = ''
+
 func _clear_tags():
 	for child in _tag_list.get_children():
 		child.queue_free()
@@ -68,38 +71,38 @@ func _clear_pools():
 	for child in _pool_list.get_children():
 		child.queue_free()
 
-func _add_button_to_list(value: StringName, list: BoxContainer):
+func _add_button_to_list(value: String, list: BoxContainer):
+	var real_value = value.strip_edges()
+	if real_value.is_empty(): 
+		return
+		
 	var button = Button.new()
 	list.add_child(button)
 	button.pressed.connect(func(): button.queue_free())
-	button.text = value
+	button.text = real_value
 	button.add_to_group(BUTTONS_GROUP)
-
-func _add_pool_delete_button(value: StringName):
-	_add_button_to_list(value, _pool_list)
-	_pool_edit.text = ''
 
 ##################################
 #   SAVE LOGIC
 ##################################
 func save_resource(path):
-	var name = _name.text
-	var cost = _cost.value
+	var card_name = _name.text
+	var ecost = _cost.value
 	var mcost = _mcost.value
 	var rarity = _rarity.value
 	var errors = []
 	_errors.visible = false
 
 	var resource = CardResource.new()
-	if name.strip_edges() == "":
+	if card_name.strip_edges() == "":
 		errors.append("Name must not be empty")
 
-	resource.card_name = name
+	resource.card_name = card_name
 
-	if cost < 0:
+	if ecost < 0:
 		errors.append("Energy cost must not be negative")
 
-	resource.cost = cost
+	resource.cost = ecost
 	resource.mana_cost = _mana_cost_edit.value
 
 	if mcost < 0:
@@ -129,7 +132,7 @@ func save_resource(path):
 	else:
 		var r = ResourceSaver.save(resource, path)
 		if r == OK:
-			_feedback.text = "'%s' saved successfully!" % name
+			_feedback.text = "'%s' saved successfully!" % card_name
 			var t = Timer.new()
 			t.timeout.connect(func(): _feedback.text = "")
 			t.one_shot = true

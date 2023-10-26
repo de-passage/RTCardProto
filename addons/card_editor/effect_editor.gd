@@ -23,7 +23,8 @@ class Proxy:
 		value_input.value_changed.connect(setter)
 		return value_input
 	
-	func add_card_input(name: String, value: String) -> OptionButton:
+	## value parameter expects a string or null
+	func add_card_input(name: String, value: Variant) -> OptionButton:
 		var value_input = OptionButton.new()
 		var current = 0
 		for card in CGResourceManager.cards:

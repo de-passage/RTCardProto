@@ -20,3 +20,11 @@ func _on_deck_editor_pressed():
 
 func _on_arena_button_pressed():
 	SceneManager.go_to_arena()
+
+
+func _on_card_editor_pressed():
+	SceneManager.go_to_card_editor()
+
+
+func _on_monster_editor_pressed():
+	SceneManager.go_to_monster_editor()
