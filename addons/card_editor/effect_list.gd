@@ -47,7 +47,7 @@ func set_label(s: String):
 		_label.text = _label_text
 
 func get_effect_parameters() -> Array[EffectResource]:
-	var result = []
+	var result: Array[EffectResource] = []
 	for child in _effect_vbox.get_children(): 
 		if child is EffectEditor: 
 			result.append(child.get_parameters())

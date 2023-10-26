@@ -83,6 +83,14 @@ theme_override_constants/margin_bottom = 60
 [node name="AdditionalButtons" type="VBoxContainer" parent="TextureRect/AdditionalMargin"]
 layout_mode = 2
 
+[node name="CardEditor" type="Button" parent="TextureRect/AdditionalMargin/AdditionalButtons"]
+layout_mode = 2
+text = "Card Editor"
+
+[node name="MonsterEditor" type="Button" parent="TextureRect/AdditionalMargin/AdditionalButtons"]
+layout_mode = 2
+text = "Monster Editor"
+
 [node name="DeckEditor" type="Button" parent="TextureRect/AdditionalMargin/AdditionalButtons"]
 layout_mode = 2
 text = "Deck Editor"
