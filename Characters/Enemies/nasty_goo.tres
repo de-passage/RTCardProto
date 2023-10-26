@@ -20,9 +20,16 @@ effectScript = ExtResource("1_bi6yt")
 script = ExtResource("2_4vlvj")
 card_name = ""
 cost = 0
+mana_cost = 0
 on_play_card_effects = Array[ExtResource("3_qolkw")]([SubResource("Resource_tjjns")])
+on_draw_card_effects = Array[ExtResource("3_qolkw")]([])
+on_discard_card_effects = Array[ExtResource("3_qolkw")]([])
+on_exhaust_card_effects = Array[ExtResource("3_qolkw")]([])
 monetary_value = 50
 rarity = 0
+pools = Array[StringName]([])
+tags = Array[StringName]([])
+playable = true
 
 [sub_resource type="Resource" id="Resource_hvg4x"]
 script = ExtResource("3_qolkw")
@@ -35,9 +42,16 @@ effectScript = ExtResource("4_dlssr")
 script = ExtResource("2_4vlvj")
 card_name = "Defend"
 cost = 1
+mana_cost = 0
 on_play_card_effects = Array[ExtResource("3_qolkw")]([SubResource("Resource_hvg4x")])
+on_draw_card_effects = Array[ExtResource("3_qolkw")]([])
+on_discard_card_effects = Array[ExtResource("3_qolkw")]([])
+on_exhaust_card_effects = Array[ExtResource("3_qolkw")]([])
 monetary_value = 0
 rarity = 0
+pools = Array[StringName]([])
+tags = Array[StringName]([])
+playable = true
 
 [sub_resource type="Resource" id="Resource_qua2e"]
 script = ExtResource("3_qolkw")
@@ -57,9 +71,16 @@ effectScript = ExtResource("5_pa6tb")
 script = ExtResource("2_4vlvj")
 card_name = "Attack Harder!"
 cost = 2
+mana_cost = 0
 on_play_card_effects = Array[ExtResource("3_qolkw")]([SubResource("Resource_qua2e"), SubResource("Resource_2obsq")])
+on_draw_card_effects = Array[ExtResource("3_qolkw")]([])
+on_discard_card_effects = Array[ExtResource("3_qolkw")]([])
+on_exhaust_card_effects = Array[ExtResource("3_qolkw")]([])
 monetary_value = 69
 rarity = 69
+pools = Array[StringName]([])
+tags = Array[StringName]([])
+playable = true
 
 [resource]
 script = ExtResource("1_fery1")

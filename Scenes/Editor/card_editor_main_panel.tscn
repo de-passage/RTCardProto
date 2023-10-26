@@ -1,0 +1,186 @@
+[gd_scene load_steps=7 format=3 uid="uid://cihrrbcsclkbs"]
+
+[ext_resource type="Script" path="res://Scenes/Editor/CardEditorMainPanel.gd" id="1_a45kw"]
+[ext_resource type="PackedScene" uid="uid://d241it0v4sl7g" path="res://addons/card_editor/effect_list.tscn" id="2_15uyu"]
+[ext_resource type="Shader" path="res://Shaders/make_white.gdshader" id="3_lh3f2"]
+[ext_resource type="Texture2D" uid="uid://cda5gd7uu0kka" path="res://art/add_icon.svg" id="4_l837v"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qto8b"]
+shader = ExtResource("3_lh3f2")
+
+[sub_resource type="LabelSettings" id="LabelSettings_4ep76"]
+font_color = Color(0.976471, 0, 0, 1)
+
+[node name="CardEditorMainPanel" type="VBoxContainer"]
+size_flags_horizontal = 3
+script = ExtResource("1_a45kw")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 2
+columns = 2
+
+[node name="CardNameLabel" type="Label" parent="GridContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Card name"
+
+[node name="CardNameEdit" type="LineEdit" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Card name required!"
+
+[node name="CardCostLabel" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Card Energy Cost"
+
+[node name="CardCostEdit" type="SpinBox" parent="GridContainer"]
+layout_mode = 2
+value = 1.0
+rounded = true
+custom_arrow_step = 1.0
+
+[node name="CardManaCostLabel" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Card Mana Cost"
+
+[node name="CardManaCostEdit" type="SpinBox" parent="GridContainer"]
+layout_mode = 2
+rounded = true
+custom_arrow_step = 1.0
+
+[node name="CardCostLabel2" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Card Money Cost"
+
+[node name="CardCostEdit2" type="SpinBox" parent="GridContainer"]
+layout_mode = 2
+max_value = 9.22337e+18
+value = 50.0
+rounded = true
+custom_arrow_step = 1.0
+
+[node name="CardRarityLabel" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Card rarity"
+
+[node name="CardRarityEdit" type="SpinBox" parent="GridContainer"]
+layout_mode = 2
+max_value = 9.22337e+18
+rounded = true
+custom_arrow_step = 1.0
+
+[node name="EffectsLabel" type="Label" parent="GridContainer"]
+layout_mode = 2
+
+[node name="EffectsBoxList" type="HBoxContainer" parent="GridContainer"]
+layout_mode = 2
+
+[node name="OnPlayCheckBox" type="CheckBox" parent="GridContainer/EffectsBoxList"]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+text = "On Play"
+
+[node name="OnDrawCheckBox" type="CheckBox" parent="GridContainer/EffectsBoxList"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "On Draw
+"
+
+[node name="OnDiscardCheckBox" type="CheckBox" parent="GridContainer/EffectsBoxList"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "On Discard"
+
+[node name="PlayableCheckbox" type="CheckBox" parent="GridContainer/EffectsBoxList"]
+layout_mode = 2
+button_pressed = true
+text = "Playable"
+
+[node name="PlayEffectList" parent="." instance=ExtResource("2_15uyu")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="DrawEffectList" parent="." instance=ExtResource("2_15uyu")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="DiscardEffectList" parent="." instance=ExtResource("2_15uyu")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="TagsGrid" type="GridContainer" parent="."]
+layout_mode = 2
+columns = 2
+
+[node name="TagLabel" type="Label" parent="TagsGrid"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Tags"
+
+[node name="TagAddContainer" type="HBoxContainer" parent="TagsGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AddTagButton" type="TextureButton" parent="TagsGrid/TagAddContainer"]
+material = SubResource("ShaderMaterial_qto8b")
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+texture_normal = ExtResource("4_l837v")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="TagEdit" type="LineEdit" parent="TagsGrid/TagAddContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Spacer" type="Control" parent="TagsGrid"]
+layout_mode = 2
+
+[node name="TagList" type="HBoxContainer" parent="TagsGrid"]
+layout_mode = 2
+
+[node name="PoolsLabel" type="Label" parent="TagsGrid"]
+layout_mode = 2
+text = "Pools"
+
+[node name="PoolsAddContainer" type="HBoxContainer" parent="TagsGrid"]
+layout_mode = 2
+
+[node name="AddPoolButton" type="TextureButton" parent="TagsGrid/PoolsAddContainer"]
+material = SubResource("ShaderMaterial_qto8b")
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+texture_normal = ExtResource("4_l837v")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="PoolEdit" type="LineEdit" parent="TagsGrid/PoolsAddContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PoolSpacer" type="Control" parent="TagsGrid"]
+layout_mode = 2
+
+[node name="PoolList" type="HBoxContainer" parent="TagsGrid"]
+layout_mode = 2
+
+[node name="Errors" type="Label" parent="."]
+visible = false
+layout_mode = 2
+label_settings = SubResource("LabelSettings_4ep76")
+
+[node name="Feedback" type="Label" parent="."]
+layout_mode = 2
+
+[connection signal="text_changed" from="GridContainer/CardNameEdit" to="." method="_on_card_name_edit_text_submitted"]
+[connection signal="text_submitted" from="GridContainer/CardNameEdit" to="." method="_on_card_name_edit_text_submitted"]
+[connection signal="toggled" from="GridContainer/EffectsBoxList/OnPlayCheckBox" to="." method="_on_on_play_check_box_toggled"]
+[connection signal="toggled" from="GridContainer/EffectsBoxList/OnDrawCheckBox" to="." method="_on_on_draw_check_box_toggled"]
+[connection signal="toggled" from="GridContainer/EffectsBoxList/OnDiscardCheckBox" to="." method="_on_on_discard_check_box_toggled"]
+[connection signal="pressed" from="TagsGrid/TagAddContainer/AddTagButton" to="." method="_on_add_tag_button_pressed"]
+[connection signal="text_submitted" from="TagsGrid/TagAddContainer/TagEdit" to="." method="_on_tag_edit_text_submitted"]
+[connection signal="pressed" from="TagsGrid/PoolsAddContainer/AddPoolButton" to="." method="_on_add_pool_button_pressed"]
+[connection signal="text_submitted" from="TagsGrid/PoolsAddContainer/PoolEdit" to="." method="_on_pool_edit_text_submitted"]
