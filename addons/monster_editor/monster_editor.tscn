@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dnvw6xyexq6rq"]
+[gd_scene load_steps=4 format=3 uid="uid://dnvw6xyexq6rq"]
 
 [ext_resource type="Script" path="res://addons/monster_editor/monster_editor.gd" id="1_u0m87"]
 [ext_resource type="PackedScene" uid="uid://bxnux2yembvh3" path="res://Scenes/Utility/editor_panel.tscn" id="2_cqwds"]
+[ext_resource type="Script" path="res://addons/monster_editor/MonsterEditorMainPanel.gd" id="3_twqx6"]
 
 [node name="MonsterEditor" type="ScrollContainer"]
 anchors_preset = 15
@@ -16,32 +17,33 @@ layout_mode = 2
 size_flags_horizontal = 3
 root_subfolder = &"res://Characters/Enemies"
 
-[node name="Attr" type="VBoxContainer" parent="EditorPanel"]
+[node name="MonsterEditorMainPanel" type="VBoxContainer" parent="EditorPanel"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("3_twqx6")
 
-[node name="GridContainer" type="GridContainer" parent="EditorPanel/Attr"]
+[node name="GridContainer" type="GridContainer" parent="EditorPanel/MonsterEditorMainPanel"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 2
 
-[node name="NameLabel" type="Label" parent="EditorPanel/Attr/GridContainer"]
+[node name="NameLabel" type="Label" parent="EditorPanel/MonsterEditorMainPanel/GridContainer"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 text = "Monster name"
 
-[node name="NameEdit" type="LineEdit" parent="EditorPanel/Attr/GridContainer"]
+[node name="NameEdit" type="LineEdit" parent="EditorPanel/MonsterEditorMainPanel/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "<Name Required>"
 
-[node name="HealhLabel" type="Label" parent="EditorPanel/Attr/GridContainer"]
+[node name="HealhLabel" type="Label" parent="EditorPanel/MonsterEditorMainPanel/GridContainer"]
 layout_mode = 2
 text = "Max Health"
 
-[node name="HealthEdit" type="SpinBox" parent="EditorPanel/Attr/GridContainer"]
+[node name="HealthEdit" type="SpinBox" parent="EditorPanel/MonsterEditorMainPanel/GridContainer"]
 layout_mode = 2
 min_value = 1.0
 max_value = 9.22337e+18
@@ -49,40 +51,40 @@ value = 10.0
 rounded = true
 allow_greater = true
 
-[node name="CoinLabel" type="Label" parent="EditorPanel/Attr/GridContainer"]
+[node name="CoinLabel" type="Label" parent="EditorPanel/MonsterEditorMainPanel/GridContainer"]
 layout_mode = 2
 text = "Money Reward"
 
-[node name="CoinEdit" type="SpinBox" parent="EditorPanel/Attr/GridContainer"]
+[node name="CoinEdit" type="SpinBox" parent="EditorPanel/MonsterEditorMainPanel/GridContainer"]
 layout_mode = 2
 max_value = 9.22337e+18
 value = 10.0
 rounded = true
 allow_greater = true
 
-[node name="AttackFrequencyLabel" type="Label" parent="EditorPanel/Attr/GridContainer"]
+[node name="AttackFrequencyLabel" type="Label" parent="EditorPanel/MonsterEditorMainPanel/GridContainer"]
 layout_mode = 2
 text = "Attack Frequency"
 
-[node name="AttackFrequencyEdit" type="SpinBox" parent="EditorPanel/Attr/GridContainer"]
+[node name="AttackFrequencyEdit" type="SpinBox" parent="EditorPanel/MonsterEditorMainPanel/GridContainer"]
 layout_mode = 2
 min_value = 0.01
 step = 0.1
 value = 1.01
 
-[node name="CardRewardLabel" type="Label" parent="EditorPanel/Attr/GridContainer"]
+[node name="CardRewardLabel" type="Label" parent="EditorPanel/MonsterEditorMainPanel/GridContainer"]
 layout_mode = 2
 text = "Card Reward"
 
-[node name="CardRewardEdit" type="CheckBox" parent="EditorPanel/Attr/GridContainer"]
+[node name="CardRewardEdit" type="CheckBox" parent="EditorPanel/MonsterEditorMainPanel/GridContainer"]
 layout_mode = 2
 button_pressed = true
 
-[node name="TypeLabel" type="Label" parent="EditorPanel/Attr/GridContainer"]
+[node name="TypeLabel" type="Label" parent="EditorPanel/MonsterEditorMainPanel/GridContainer"]
 layout_mode = 2
 text = "Type"
 
-[node name="TypeEdit" type="OptionButton" parent="EditorPanel/Attr/GridContainer"]
+[node name="TypeEdit" type="OptionButton" parent="EditorPanel/MonsterEditorMainPanel/GridContainer"]
 layout_mode = 2
 item_count = 3
 selected = 0
@@ -93,22 +95,22 @@ popup/item_1/id = 1
 popup/item_2/text = "Boss"
 popup/item_2/id = 2
 
-[node name="LevelLabel" type="Label" parent="EditorPanel/Attr/GridContainer"]
+[node name="LevelLabel" type="Label" parent="EditorPanel/MonsterEditorMainPanel/GridContainer"]
 layout_mode = 2
 text = "Levels"
 
-[node name="LevelEdit" type="OptionButton" parent="EditorPanel/Attr/GridContainer"]
+[node name="LevelEdit" type="OptionButton" parent="EditorPanel/MonsterEditorMainPanel/GridContainer"]
 layout_mode = 2
 item_count = 1
 selected = 0
 popup/item_0/text = "Default"
 popup/item_0/id = 0
 
-[node name="CardLabel" type="Label" parent="EditorPanel/Attr/GridContainer"]
+[node name="CardLabel" type="Label" parent="EditorPanel/MonsterEditorMainPanel/GridContainer"]
 layout_mode = 2
 text = "Cards"
 
-[node name="CardListEdit" type="OptionButton" parent="EditorPanel/Attr/GridContainer"]
+[node name="CardListEdit" type="OptionButton" parent="EditorPanel/MonsterEditorMainPanel/GridContainer"]
 layout_mode = 2
 item_count = 29
 selected = 0
@@ -172,14 +174,15 @@ popup/item_27/id = 27
 popup/item_28/text = "Wound"
 popup/item_28/id = 28
 
-[node name="Control" type="Control" parent="EditorPanel/Attr/GridContainer"]
+[node name="Control" type="Control" parent="EditorPanel/MonsterEditorMainPanel/GridContainer"]
 layout_mode = 2
 
-[node name="CardVBox" type="VBoxContainer" parent="EditorPanel/Attr/GridContainer"]
+[node name="CardVBox" type="VBoxContainer" parent="EditorPanel/MonsterEditorMainPanel/GridContainer"]
 layout_mode = 2
 
 [connection signal="load_required" from="EditorPanel" to="." method="_on_file_dialog_file_selected"]
 [connection signal="new_required" from="EditorPanel" to="." method="_on_reset_button_pressed"]
 [connection signal="save_required" from="EditorPanel" to="." method="_on_save_file_dialog_file_selected"]
-[connection signal="text_submitted" from="EditorPanel/Attr/GridContainer/NameEdit" to="." method="_on_name_edit_text_submitted"]
-[connection signal="item_selected" from="EditorPanel/Attr/GridContainer/CardListEdit" to="." method="_on_card_list_edit_item_selected"]
+[connection signal="monster_name_changed" from="EditorPanel/MonsterEditorMainPanel" to="." method="_on_monster_name_changed"]
+[connection signal="text_submitted" from="EditorPanel/MonsterEditorMainPanel/GridContainer/NameEdit" to="EditorPanel/MonsterEditorMainPanel" method="_on_name_edit_text_submitted"]
+[connection signal="item_selected" from="EditorPanel/MonsterEditorMainPanel/GridContainer/CardListEdit" to="EditorPanel/MonsterEditorMainPanel" method="_on_card_list_edit_item_selected"]
