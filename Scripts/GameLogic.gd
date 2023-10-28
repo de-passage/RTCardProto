@@ -83,6 +83,8 @@ func play(played_card: CardGameInstance, enemy: PlayableEntity) -> bool:
 		self.target = enemy
 		self.set_card_effect(Context.FORCE_DISCARD)
 		_handle_played_card(card_from_hand, card_from_hand.on_play())
+
+		draw_one_card()
 		return true
 	else:
 		printerr("Invalid card played!")
