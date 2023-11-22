@@ -56,6 +56,16 @@ min_value = 0.01
 step = 0.1
 value = 1.01
 
+[node name="PostureLabel" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Posture"
+
+[node name="PostureEdit" type="SpinBox" parent="GridContainer"]
+layout_mode = 2
+min_value = 1.0
+max_value = 9.22337e+18
+value = 1.0
+
 [node name="CardRewardLabel" type="Label" parent="GridContainer"]
 layout_mode = 2
 text = "Card Reward"

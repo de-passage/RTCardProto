@@ -13,13 +13,13 @@ signal effects(effect: Callable)
 @onready var _energy_label = $Control/EnergyLabel as Label
 
 var _resource: EnemyResource
-var _entity: PlayableEntity
+var _entity: EnemyEntity
 
 var _current_effect = 0
 var _card_list: Array[CardGameInstance] = []
 var _game_logic: Context
 
-func initialize(entityResource: EnemyResource, player: PlayableEntity, game: Context):
+func initialize(entityResource: EnemyResource, player: Player, game: Context):
 	_resource = entityResource
 	_game_logic = game
 	
@@ -30,7 +30,7 @@ func initialize(entityResource: EnemyResource, player: PlayableEntity, game: Con
 			max_card_cost = max(max_card_cost, effect.cost)
 			_card_list.append(CardGameInstance.from_resource(effect))
 	
-	_entity = PlayableEntity.new(_resource.health)
+	_entity = EnemyEntity.new(_resource.health)
 	_entity.died.connect(_on_entity_died)
 	_entity.max_energy = max_card_cost
 	_entity.energy = 0
@@ -71,7 +71,7 @@ func _apply_card(player: Player, card: CardGameInstance):
 	for effect in card.on_play():
 		effect.apply_effect(_game_logic)
 
-func show_intent(player: PlayableEntity):
+func show_intent(player: Player):
 	var text = ""
 	
 	if _current_effect >= _card_list.size() or \
@@ -88,7 +88,7 @@ func show_intent(player: PlayableEntity):
 		
 	_intent.text = text
 
-func get_entity() -> PlayableEntity:
+func get_entity() -> EnemyEntity:
 	return _entity
 
 func _on_entity_died():

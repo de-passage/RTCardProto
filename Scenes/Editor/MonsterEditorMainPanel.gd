@@ -13,6 +13,7 @@ signal monster_name_changed(name: String)
 @onready var _level_edit = $GridContainer/LevelEdit as OptionButton
 @onready var _card_list_edit = $GridContainer/CardListEdit as OptionButton
 @onready var _card_box = $GridContainer/CardVBox as VBoxContainer
+@onready var _posture_edit = $GridContainer/PostureEdit as SpinBox
 
 var _available_cards: Array[CardResource] = []
 var _current_enemy_resource: EnemyResource = EnemyResource.new()
@@ -90,6 +91,7 @@ func save_monster(path):
 	_current_enemy_resource.health = _health_edit.value
 	_current_enemy_resource.coin_value = _coin_edit.value
 	_current_enemy_resource.card_reward = _card_reward_edit.button_pressed
+	_current_enemy_resource.posture = _posture_edit.value
 
 	_current_enemy_resource.effects.clear()
 	for item in _card_box.get_children():
